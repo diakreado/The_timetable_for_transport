@@ -12,7 +12,7 @@
 https://en.wikipedia.org/wiki/Minimum_viable_product
 
 ## Диаграмма прецедентов использования
-![alt tag](Untitled)
+![alt tag](report/Untitled.mdj)
 
 ## Диаграмма последовательностей
 
