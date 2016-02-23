@@ -12,7 +12,7 @@
 https://en.wikipedia.org/wiki/Minimum_viable_product
 
 ## Диаграмма прецедентов использования
-![alt tag](report/2000px-Use_case_restaurant_model.svg.png)
+![alt tag](Untitled)
 
 ## Диаграмма последовательностей
 
