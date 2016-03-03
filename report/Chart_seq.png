@@ -395,7 +395,7 @@
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "App of timetable",
+													"text": "Console or GUI for timetable",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5
 												},
@@ -1847,7 +1847,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTGiylmHXgva8="
 							},
-							"name": "App of timetable",
+							"name": "Console or GUI for timetable",
 							"visibility": "public",
 							"represent": {
 								"$ref": "AAAAAAFTGjZ/7XdGVtU="
@@ -1905,6 +1905,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
