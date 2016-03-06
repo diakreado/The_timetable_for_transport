@@ -1,9 +1,10 @@
 #include <iostream>
+#include <console_for_timetable.h>
 
 using namespace std;
 
-int main(int argc, char *argv[])
+int main()
 {
-    cout << "Hello World!" << endl;
+    Console_for_timetable start;
     return 0;
 }
