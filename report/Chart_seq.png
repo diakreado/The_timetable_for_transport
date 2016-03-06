@@ -890,9 +890,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 318,
+											"left": 295,
 											"top": 196,
-											"width": 164.7216796875,
+											"width": 210.60888671875,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -902,7 +902,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "3 : Посмотреть расписание",
+											"text": "3 : Посмотреть расписание поезда",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -1747,7 +1747,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTGiylmHXgva8="
 							},
-							"name": "Посмотреть расписание",
+							"name": "Посмотреть расписание поезда",
 							"source": {
 								"$ref": "AAAAAAFTGjZ/7XdHBgY="
 							},
@@ -1923,6 +1923,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
