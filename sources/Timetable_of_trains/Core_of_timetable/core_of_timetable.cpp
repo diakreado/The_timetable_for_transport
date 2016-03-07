@@ -8,12 +8,14 @@ using namespace std;
 Core_of_timetable::Core_of_timetable()
 {
     right = usual_user;
-    cout << "123" << endl;
-
 }
 
 void Core_of_timetable::issuanceOfTheRights()
 {
     right = administrator;
-    cout << "321" << endl;
+}
+
+int Core_of_timetable::informationOnTheRights()
+{
+    return right;
 }
