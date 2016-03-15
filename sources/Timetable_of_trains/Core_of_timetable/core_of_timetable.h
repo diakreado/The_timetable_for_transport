@@ -3,6 +3,10 @@
 
 enum what_rights{usual_user = 0, administrator=1};
 
+
+/**
+* Класс в котором содержится бизнес-логика приложения
+*/
 class Core_of_timetable
 {
 

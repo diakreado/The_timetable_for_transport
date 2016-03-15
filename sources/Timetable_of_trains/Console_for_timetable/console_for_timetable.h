@@ -7,16 +7,23 @@
 
 using namespace std;
 
+/**
+* Класс служащий для работы с "Core_of_timetable" через консоль
+*/
 class Console_for_timetable
 {
 public:
     Console_for_timetable();
 
 private:
-    void theDefinitionOfAdministrator(); /*Выдача прав на редактирование расписания*/
-    vector<string>* seeTheTimetable(int number_of_the_train);  /*Выведет расписание поезда в консоль*/
-    vector<string>* findTheRoute(string departure,string arrival,int time); /*Поможет подобрать необходимый маршрут*/
-    vector<string>* toEditTheTimetable(); /*Редактирование расписание(необходимы права администратора)*/
+    void theDefinitionOfAdministrator();
+
+    vector<string>* seeTheTimetable(int number_of_the_train);
+
+    vector<string>* findTheRoute(string departure,string arrival,int time);
+
+    vector<string>* toEditTheTimetable();
+
     void menu();
 
     Core_of_timetable Core;
