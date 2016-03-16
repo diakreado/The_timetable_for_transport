@@ -10,7 +10,7 @@ Core_of_timetable::Core_of_timetable()
     right = usual_user;
 }
 
-void Core_of_timetable::issuanceOfTheRights()
+void Core_of_timetable::issuanceOfAdministratorRights()
 {
     right = administrator;
 }
@@ -18,4 +18,9 @@ void Core_of_timetable::issuanceOfTheRights()
 int Core_of_timetable::informationOnTheRights()
 {
     return right;
+}
+
+vector<string>* Core_of_timetable::routOfTheTrain(int number_of_the_train)
+{
+
 }

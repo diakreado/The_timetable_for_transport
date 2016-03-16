@@ -17,27 +17,24 @@ void Console_for_timetable::theDefinitionOfAdministrator()
     cin >> answer;
     if (answer == 'Y' or answer == 'y')
     {
-        Core.issuanceOfTheRights();
+        Core.issuanceOfAdministratorRights();
         cout << "Obtained administrator privileges on the schedule" << endl;
     }
 }
 
-vector<string>* Console_for_timetable::seeTheTimetable(int number_of_the_train)
+void Console_for_timetable::seeTheTimetable(int number_of_the_train)
 {
-
-    return 0;
+    Core.routOfTheTrain(number_of_the_train);
 }
 
-vector<string>* Console_for_timetable::findTheRoute(string departure,string arrival,int time)
+void Console_for_timetable::findTheRoute(string departure,string arrival,int time)
 {
 
-    return 0;
 }
 
-vector<string>* Console_for_timetable::toEditTheTimetable()
+void Console_for_timetable::toEditTheTimetable()
 {
 
-    return 0;
 }
 
 void Console_for_timetable::menu()

@@ -16,15 +16,15 @@ public:
     Console_for_timetable();
 
 private:
-    void theDefinitionOfAdministrator();
+    void theDefinitionOfAdministrator(); /*Выдача прав администратору*/
 
-    vector<string>* seeTheTimetable(int number_of_the_train);
+    void  seeTheTimetable(int number_of_the_train); /*Посмотерть расписание*/
 
-    vector<string>* findTheRoute(string departure,string arrival,int time);
+    void findTheRoute(string departure,string arrival,int time); /*Найти нужный маршрут*/
 
-    vector<string>* toEditTheTimetable();
+    void toEditTheTimetable(); /*Добавить расписание*/
 
-    void menu();
+    void menu(); /*Вызов меню*/
 
     Core_of_timetable Core;
 };
