@@ -20,9 +20,9 @@ public:
 
     void issuanceOfAdministratorRights();  /*Выдача прав администатору*/
 
-    int informationOnTheRights(); /*Получение информации о правах пользователя(обычный или администратор)*/
+    int informationOfTheRights(); /*Получение информации о правах пользователя(обычный или администратор)*/
 
-    vector<string>* routOfTheTrain(int number_of_the_train);
+    vector<string>* timetableForTrain(int number_of_the_train); /*Возвращяет расписание, для дальнеёшего распечатывания*/
 
 
 private:

@@ -3,24 +3,26 @@
 
 #include <core_of_timetable.h>
 #include <string>
+#include <exception>
 #include <vector>
 
 using namespace std;
 
 /**
-* Класс служащий для работы с "Core_of_timetable" через консоль
+* Класс служащий для работы с ядром через консоль
 */
-class Console_for_timetable
+class ConsoleForTimetable
 {
 public:
-    Console_for_timetable();
+    ConsoleForTimetable();
 
 private:
     void theDefinitionOfAdministrator(); /*Выдача прав администратору*/
 
-    void  seeTheTimetable(int number_of_the_train); /*Посмотерть расписание*/
+    void seeTheTimetable(int number_of_the_train); /*Посмотерть расписание*/
 
-    void findTheRoute(string departure,string arrival,int time); /*Найти нужный маршрут*/
+    void findTheRoute(string departure,string arrival,int time); /*Найти нужный маршрут(будет реализована последней
+в связи с сложностью)*/
 
     void toEditTheTimetable(); /*Добавить расписание*/
 
@@ -30,3 +32,6 @@ private:
 };
 
 #endif // CONSOLE_FOR_TIMETABLE_H
+
+class InsufficientRights : public exception {}; /*Недостаточно прав*/
+

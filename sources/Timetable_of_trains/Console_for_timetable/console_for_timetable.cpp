@@ -4,13 +4,13 @@
 
 using namespace std;
 
-Console_for_timetable::Console_for_timetable()
+ConsoleForTimetable::ConsoleForTimetable()
 {
     theDefinitionOfAdministrator();
     menu();
 }
 
-void Console_for_timetable::theDefinitionOfAdministrator()
+void ConsoleForTimetable::theDefinitionOfAdministrator()
 {
     char answer;
     cout << "Are you the administrator? Y/N" << endl;
@@ -22,25 +22,29 @@ void Console_for_timetable::theDefinitionOfAdministrator()
     }
 }
 
-void Console_for_timetable::seeTheTimetable(int number_of_the_train)
+void ConsoleForTimetable::seeTheTimetable(int number_of_the_train)
 {
-    Core.routOfTheTrain(number_of_the_train);
+    cout << Core.timetableForTrain(number_of_the_train) << endl;
 }
 
-void Console_for_timetable::findTheRoute(string departure,string arrival,int time)
+void ConsoleForTimetable::findTheRoute(string departure,string arrival,int time)
 {
+//    Реализация будет позже
+}
+
+void ConsoleForTimetable::toEditTheTimetable()
+{
+    if (Core.informationOfTheRights() == usual_user)
+    {
+        throw InsufficientRights();
+    }
 
 }
 
-void Console_for_timetable::toEditTheTimetable()
-{
-
-}
-
-void Console_for_timetable::menu()
+void ConsoleForTimetable::menu()
 {
     cout << "1. To see the timetable" << endl;
-    if (Core.informationOnTheRights() == administrator)
+    if (Core.informationOfTheRights() == administrator)
     {
         cout << "2. To edit the timetable" << endl;
     }

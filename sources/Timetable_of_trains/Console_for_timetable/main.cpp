@@ -5,6 +5,6 @@ using namespace std;
 
 int main()
 {
-    Console_for_timetable start;
+    ConsoleForTimetable start;
     return 0;
 }

@@ -15,12 +15,13 @@ void Core_of_timetable::issuanceOfAdministratorRights()
     right = administrator;
 }
 
-int Core_of_timetable::informationOnTheRights()
+int Core_of_timetable::informationOfTheRights()
 {
     return right;
 }
 
-vector<string>* Core_of_timetable::routOfTheTrain(int number_of_the_train)
+vector<string>* Core_of_timetable::timetableForTrain(int number_of_the_train)
 {
-
+//    Скорее всего будет файл, из которого эта инфомрация будет добываться
+    return 0;
 }
