@@ -24,7 +24,7 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
 
 void ConsoleForTimetable::seeTheTimetable()
 {
-    char choice_of_the_train;
+    int choice_of_the_train;
     cout << " What train are you interested?" << endl << endl << "-->";
     cin >> choice_of_the_train;
     cout << endl << ' ';
@@ -36,6 +36,15 @@ void ConsoleForTimetable::seeTheTimetable()
     {
         cout << " Error when opening file" << endl;
     }
+    catch(BeyondTheArray)
+    {
+        cout << " Error output abroad" << endl;
+    }
+    catch(...)
+    {
+        cout << " Undefined error" << endl;
+    }
+
     cout << endl << ' ';
     system("pause");
     menu();

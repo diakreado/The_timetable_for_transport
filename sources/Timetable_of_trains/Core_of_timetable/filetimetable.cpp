@@ -1,7 +1,5 @@
 #include "filetimetable.h"
 
-#include <iostream>
-
 FileTimetable::FileTimetable()
 {
     ifstream inputFile("Timetable.txt");
@@ -11,18 +9,25 @@ FileTimetable::FileTimetable()
         throw FailedToOpen();
     }
 
-    string buffer;
+    fileData.resize(30);
+
+    int the_number_of_passes = 0;  /*Количество проходов*/
 
     while (inputFile.peek()!=EOF) /*Считывание до окончания файла*/
     {
-        inputFile >> buffer;
-        fileData+=buffer;
+        inputFile >> fileData[the_number_of_passes];
+        the_number_of_passes++;
     }
 
     inputFile.close();
 }
 
-string FileTimetable::getFileData()
+string FileTimetable::getFileData(int number_of_the_train)
 {
-    return fileData;
+    if (number_of_the_train < 0 || number_of_the_train > 29)
+    {
+        throw BeyondTheArray();
+    }
+
+    return fileData[number_of_the_train];
 }

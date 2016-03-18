@@ -20,6 +20,5 @@ int CoreOfTimetable::informationOfTheRights()
 
 string CoreOfTimetable::timetableForTrain(int number_of_the_train)
 {
-
-    return data_set.getFileData();
+    return data_set.getFileData(number_of_the_train);
 }
