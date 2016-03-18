@@ -6,30 +6,44 @@ using namespace std;
 
 ConsoleForTimetable::ConsoleForTimetable()
 {
-    theDefinitionOfAdministrator();
     menu();
 }
 
 void ConsoleForTimetable::theDefinitionOfAdministrator()
 {
     char answer;
-    cout << "Are you the administrator? Y/N" << endl;
+    cout << " Are you the administrator? Y/N" << endl << endl << "-->";
     cin >> answer;
     if (answer == 'Y' or answer == 'y')
     {
         Core.issuanceOfAdministratorRights();
-        cout << "Obtained administrator privileges on the schedule" << endl;
+        cout << " Obtained administrator privileges on the schedule" << endl;
     }
+    menu();
 }
 
-void ConsoleForTimetable::seeTheTimetable(int number_of_the_train)
+void ConsoleForTimetable::seeTheTimetable()
 {
-    cout << Core.timetableForTrain(number_of_the_train) << endl;
+    char choice_of_the_train;
+    cout << " What train are you interested?" << endl << endl << "-->";
+    cin >> choice_of_the_train;
+    cout << endl << ' ';
+    try
+    {
+        cout << Core.timetableForTrain(choice_of_the_train) << endl;
+    }
+    catch(FailedToOpen)
+    {
+        cout << " Error when opening file" << endl;
+    }
+    cout << endl << ' ';
+    system("pause");
+    menu();
 }
 
 void ConsoleForTimetable::findTheRoute(string departure,string arrival,int time)
 {
-//    Реализация будет позже
+    //    Реализация будет позже
 }
 
 void ConsoleForTimetable::toEditTheTimetable()
@@ -38,27 +52,38 @@ void ConsoleForTimetable::toEditTheTimetable()
     {
         throw InsufficientRights();
     }
-
 }
 
 void ConsoleForTimetable::menu()
 {
-    cout << "1. To see the timetable" << endl;
+    system("cls");
+
+    cout << " 1. To see the timetable" << endl
+         << " 2. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
-        cout << "2. To edit the timetable" << endl;
+        cout << " 3. To edit the timetable" << endl;
     }
+    cout << " 0. Exit" << endl << endl;
     char choice_in_menu;
+    cout << "-->";
     cin >> choice_in_menu;
+    cout << endl;
     switch(choice_in_menu)
     {
     case '1':
     {
-        char choice_of_the_train;
-        cout << "What train are you interested?" << endl;
-        cin >> choice_of_the_train;
-        seeTheTimetable(choice_of_the_train);
+        seeTheTimetable();
         break;
+    }
+    case '2':
+    {
+        theDefinitionOfAdministrator();
+        break;
+    }
+    case '0':
+    {
+        return;
     }
     default:
         break;

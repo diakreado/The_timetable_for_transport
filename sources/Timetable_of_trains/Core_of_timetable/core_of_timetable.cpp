@@ -3,25 +3,23 @@
 
 using namespace std;
 
-
-
-Core_of_timetable::Core_of_timetable()
+CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
 }
 
-void Core_of_timetable::issuanceOfAdministratorRights()
+void CoreOfTimetable::issuanceOfAdministratorRights()
 {
     right = administrator;
 }
 
-int Core_of_timetable::informationOfTheRights()
+int CoreOfTimetable::informationOfTheRights()
 {
     return right;
 }
 
-vector<string>* Core_of_timetable::timetableForTrain(int number_of_the_train)
+string CoreOfTimetable::timetableForTrain(int number_of_the_train)
 {
-//    Скорее всего будет файл, из которого эта инфомрация будет добываться
-    return 0;
+
+    return data_set.getFileData();
 }

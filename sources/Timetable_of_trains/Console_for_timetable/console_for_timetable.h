@@ -19,16 +19,15 @@ public:
 private:
     void theDefinitionOfAdministrator(); /*Выдача прав администратору*/
 
-    void seeTheTimetable(int number_of_the_train); /*Посмотерть расписание*/
+    void seeTheTimetable(); /*Посмотерть расписание*/
 
-    void findTheRoute(string departure,string arrival,int time); /*Найти нужный маршрут(будет реализована последней
-в связи с сложностью)*/
+    void findTheRoute(string departure,string arrival,int time); /*Найти нужный маршрут*/
 
     void toEditTheTimetable(); /*Добавить расписание*/
 
     void menu(); /*Вызов меню*/
 
-    Core_of_timetable Core;
+    CoreOfTimetable Core;
 };
 
 #endif // CONSOLE_FOR_TIMETABLE_H
