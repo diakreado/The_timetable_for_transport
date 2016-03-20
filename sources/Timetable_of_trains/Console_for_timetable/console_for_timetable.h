@@ -17,6 +17,8 @@ public:
     ConsoleForTimetable();
 
 private:
+    void menu(); /*Вызов меню*/
+
     void theDefinitionOfAdministrator(); /*Выдача прав администратору*/
 
     void seeTheTimetable(); /*Посмотерть расписание*/
@@ -25,12 +27,7 @@ private:
 
     void toEditTheTimetable(); /*Добавить расписание*/
 
-    void menu(); /*Вызов меню*/
-
     CoreOfTimetable Core;
 };
 
 #endif // CONSOLE_FOR_TIMETABLE_H
-
-class InsufficientRights : public exception {}; /*Недостаточно прав*/
-

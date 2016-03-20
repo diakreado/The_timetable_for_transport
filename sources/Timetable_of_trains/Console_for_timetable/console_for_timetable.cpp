@@ -16,8 +16,13 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
     cin >> answer;
     if (answer == 'Y' or answer == 'y')
     {
-        Core.issuanceOfAdministratorRights();
-        cout << " Obtained administrator privileges on the schedule" << endl;
+        Core.issuanceOfRights(administrator);
+        cout << " Granted administrator privileges" << endl;
+    }
+    else
+    {
+        Core.issuanceOfRights(usual_user);
+        cout << " Granted privileges a usual user" << endl;
     }
     menu();
 }
@@ -40,11 +45,6 @@ void ConsoleForTimetable::seeTheTimetable()
     {
         cout << " Error output abroad" << endl;
     }
-    catch(...)
-    {
-        cout << " Undefined error" << endl;
-    }
-
     cout << endl << ' ';
     system("pause");
     menu();
@@ -59,8 +59,12 @@ void ConsoleForTimetable::toEditTheTimetable()
 {
     if (Core.informationOfTheRights() == usual_user)
     {
-        throw InsufficientRights();
+       cout << " Insufficient rights" << endl << endl << ' '; /*Недостаточно прав*/
+       system("pause");
     }
+
+
+    menu();
 }
 
 void ConsoleForTimetable::menu()
@@ -90,11 +94,17 @@ void ConsoleForTimetable::menu()
         theDefinitionOfAdministrator();
         break;
     }
+    case '3':
+    {
+        toEditTheTimetable();
+        break;
+    }
     case '0':
     {
         return;
     }
     default:
+        menu();
         break;
     }
 }

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum what_rights{usual_user = 0, administrator=1};
+enum what_rights{usual_user = 0, administrator = 1};
 
 
 /**
@@ -19,7 +19,7 @@ class CoreOfTimetable
 public:
     CoreOfTimetable();
 
-    void issuanceOfAdministratorRights();  /*Выдача прав администатору*/
+    void issuanceOfRights(int what_rights);  /*Выдача прав администатора*/
 
     int informationOfTheRights(); /*Получение информации о правах пользователя(обычный или администратор)*/
 

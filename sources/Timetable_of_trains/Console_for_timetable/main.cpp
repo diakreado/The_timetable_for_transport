@@ -4,8 +4,15 @@
 using namespace std;
 
 int main()
-{
-    ConsoleForTimetable start;
+{   
+    try
+    {
+        ConsoleForTimetable start;
+    }
+    catch(...)
+    {
+        cout << "  !!!Undefined error!!!" << endl << endl;
+    }
 
     cout << "  Come back soon!" << endl;
 

@@ -8,9 +8,16 @@ CoreOfTimetable::CoreOfTimetable()
     right = usual_user;
 }
 
-void CoreOfTimetable::issuanceOfAdministratorRights()
+void CoreOfTimetable::issuanceOfRights(int what_rights)
 {
-    right = administrator;
+    if (what_rights == 1)
+    {
+        right = administrator;
+    }
+    else
+    {
+        right = usual_user;
+    }
 }
 
 int CoreOfTimetable::informationOfTheRights()
