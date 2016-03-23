@@ -9,9 +9,9 @@ int main()
     {
         ConsoleForTimetable start;
     }
-    catch(...)
+    catch(exception Error)
     {
-        cout << "  !!!Undefined error!!!" << endl << endl;
+        cout << Error.what() << endl << endl;
     }
 
     cout << "  Come back soon!" << endl;

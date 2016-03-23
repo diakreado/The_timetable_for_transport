@@ -7,9 +7,8 @@ namespace Ui {
 class MainWindow;
 }
 
-/**
-* Класс служащий для работы с "Core_of_timetable" через графическую оболочку(будет реализован не скоро)
-*/
+
+/// Класс служащий для работы с "Core_of_timetable" через графическую оболочку(будет реализован не скоро)
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

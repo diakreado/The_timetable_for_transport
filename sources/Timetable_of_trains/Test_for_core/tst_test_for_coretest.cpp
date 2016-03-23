@@ -2,7 +2,7 @@
 #include <QtTest>
 #include <core_of_timetable.h>
 
-
+/// Тесты для ядра
 class Test_for_coreTest : public QObject
 {
     Q_OBJECT
@@ -20,14 +20,16 @@ Test_for_coreTest::Test_for_coreTest()
 {
 }
 
-void Test_for_coreTest::theTestForTheGrantOfRights() /*Проверка выдачи прав*/
+/// Проверка выдачи прав
+void Test_for_coreTest::theTestForTheGrantOfRights()
 {
     QCOMPARE(start_test.informationOfTheRights(),0);
     start_test.issuanceOfRights(administrator);
     QCOMPARE(start_test.informationOfTheRights(),1);
 }
 
-void Test_for_coreTest::fileProcessingChecks() /*Проверка обработки файла*/
+/// Проверка обработки файла(считывание полей и попытка вызвать исключение)
+void Test_for_coreTest::fileProcessingChecks()
 {
     QVERIFY2(start_test.timetableForTrain(0) == "Timetable","Error to get first string from file");
     QVERIFY2(start_test.timetableForTrain(1) == "Elbatemit","Error to get second string from file");

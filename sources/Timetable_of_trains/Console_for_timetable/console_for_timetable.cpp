@@ -27,7 +27,7 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
     menu();
 }
 
-void ConsoleForTimetable::seeTheTimetable()
+void ConsoleForTimetable::getTrainTravelInformation()
 {
     int choice_of_the_train;
     cout << " What train are you interested?" << endl << endl << "-->";
@@ -86,7 +86,7 @@ void ConsoleForTimetable::menu()
     {
     case '1':
     {
-        seeTheTimetable();
+        getTrainTravelInformation();
         break;
     }
     case '2':

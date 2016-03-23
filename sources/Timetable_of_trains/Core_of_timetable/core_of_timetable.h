@@ -10,20 +10,22 @@ using namespace std;
 enum what_rights{usual_user = 0, administrator = 1};
 
 
-/**
-* Класс в котором содержится бизнес-логика приложения
-*/
+
+/// Класс в котором содержится бизнес-логика приложения
 class CoreOfTimetable
 {
 
 public:
     CoreOfTimetable();
 
-    void issuanceOfRights(int what_rights);  /*Выдача прав администатора*/
+    /// Выдача прав администатора
+    void issuanceOfRights(int const what_rights);
 
-    int informationOfTheRights(); /*Получение информации о правах пользователя(обычный или администратор)*/
+    /// Получение информации о правах пользователя(обычный или администратор)
+    int informationOfTheRights() const;
 
-    string timetableForTrain(int number_of_the_train); /*Возвращяет расписание, для дальнеёшего распечатывания*/
+    /// Возвращяет расписание, для дальнеёшего распечатывания
+    string timetableForTrain(int number_of_the_train) const;
 
 private:
     int right;

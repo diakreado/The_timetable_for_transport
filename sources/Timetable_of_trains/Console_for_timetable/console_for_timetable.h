@@ -8,24 +8,27 @@
 
 using namespace std;
 
-/**
-* Класс служащий для работы с ядром через консоль
-*/
+
+/// Класс служащий для работы с ядром через консоль
 class ConsoleForTimetable
 {
 public:
     ConsoleForTimetable();
 
 private:
-    void menu(); /*Вызов меню*/
+    void menu();
 
-    void theDefinitionOfAdministrator(); /*Выдача прав администратору*/
+    /// Определяет пользователя, как администратора
+    void theDefinitionOfAdministrator();
 
-    void seeTheTimetable(); /*Посмотерть расписание*/
+    /// Получить информацию о поезде
+    void getTrainTravelInformation();
 
-    void findTheRoute(string departure,string arrival,int time); /*Найти нужный маршрут*/
+    /// Найти нужный маршрут по времени и месту отправки и прибывания
+    void findTheRoute(string departure,string arrival,int time);
 
-    void toEditTheTimetable(); /*Добавить расписание*/
+    /// Режим редактирования расписания
+    void toEditTheTimetable();
 
     CoreOfTimetable Core;
 };

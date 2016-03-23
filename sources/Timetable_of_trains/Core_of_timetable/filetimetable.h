@@ -8,19 +8,25 @@
 
 using namespace std;
 
+
+/// Смысл класса в обмене информации между ядром и файлом
 class FileTimetable
 {
 public:
     FileTimetable();
 
-    string getFileData(int number_of_the_train);
+    ///  Получить строчку из файла по её номеру
+    string getFileData(int  number_of_the_train) const;
 
 private:
+    /// Сюда записываются данные извлечённые из файла
     vector<string> fileData;
 };
 
-class FailedToOpen : public exception {}; /* не удалось открыть файл*/
+/// Не удалось открыть файл
+class FailedToOpen : public exception {};
 
-class BeyondTheArray : public exception {}; /*Выход за пределы массива*/
+/// Выход за пределы массива
+class BeyondTheArray : public exception {};
 
 #endif // FILETIMETABLE_H
