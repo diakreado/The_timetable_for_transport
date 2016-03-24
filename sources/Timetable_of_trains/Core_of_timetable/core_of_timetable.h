@@ -22,7 +22,7 @@ public:
     void issuanceOfRights(int const what_rights);
 
     /// Получение информации о правах пользователя(обычный или администратор)
-    int informationOfTheRights() const;
+    bool informationOfTheRights() const;
 
     /// Возвращяет расписание, для дальнеёшего распечатывания
     string timetableForTrain(int number_of_the_train) const;

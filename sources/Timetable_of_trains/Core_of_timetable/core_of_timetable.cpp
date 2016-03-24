@@ -20,7 +20,7 @@ void CoreOfTimetable::issuanceOfRights(int const what_rights)
     }
 }
 
-int CoreOfTimetable::informationOfTheRights() const
+bool CoreOfTimetable::informationOfTheRights() const
 {
     return right;
 }
