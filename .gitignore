@@ -7,3 +7,9 @@ build*
 *.toc
 *.tex
 *.mdj
+class_*
+*.sty
+*.bat
+*.idx
+*.out
+Makefile
