@@ -1,2 +1,3 @@
-Prospekt Veteranov --> Leninsky Prospekt --> Avtovo --> Kirovsky Zavod --> Narvskaya --> Baltiyskaya --> Tekhnologichesky Institut --> Pushkinskaya --> Vladimirskaya --> Ploshchad Vosstaniya --> Chernyshevskaya --> Ploshchad Lenina --> Vyborgskaya --> Lesnaya --> Ploschad Muzhestva --> Politekhnicheskaya --> Akademicheskaya --> Grazhdansky Prospekt --> Devyatkin
+Devyatkino Grazhdansky_Prospekt Akademicheskaya Politekhnicheskaya Ploschad_Muzhestva Lesnaya Vyborgskaya Ploshchad_Lenina Chernyshevskaya Ploshchad_Vosstaniya Vladimirskaya Pushkinskaya Tekhnologichesky_Institut Baltiyskaya Narvskaya Kirovsky_Zavod Avtovo Leninsky_Prospekt Prospekt_Veteranov
+Parnas Prospekt_Prosvescheniya Ozerki Udelnaya Pionerskaya Chornaya_Rechka Petrogradskaya Gorkovskaya Nevsky_Prospekt Sennaya_Ploshchad Tekhnologichesky_Institut Frunzenskaya Moskovskiye_Vorota Elektrosila Park_Pobedy Moskovskaya Zvyozdnaya Kupchino
 Elbatemit

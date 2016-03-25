@@ -27,6 +27,9 @@ public:
     /// Возвращяет расписание, для дальнеёшего распечатывания
     string timetableForTrain(int number_of_the_train) const;
 
+    /// Относительно настоящего времени определяет через сколько секунд прибудет поезд
+    string whenWillTheTrainsArrive(string station, int time);
+
 private:
     int right;
 

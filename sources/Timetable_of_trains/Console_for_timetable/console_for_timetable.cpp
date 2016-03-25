@@ -1,6 +1,7 @@
 #include "console_for_timetable.h"
 #include <iostream>
 #include <core_of_timetable.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -35,17 +36,27 @@ void ConsoleForTimetable::getTrainTravelInformation()
     cout << endl << ' ';
     try
     {
-        cout << Core.timetableForTrain(choice_of_the_train) << endl;
+        string string_for_the_output=Core.timetableForTrain(choice_of_the_train);
+        for_each(string_for_the_output.begin(), string_for_the_output.end(),
+                 [](char symbol_for_the_output)   /// Здесь описанно то, что должно выполниться для каждого элемента
+        {
+            cout << symbol_for_the_output;      /// Переводится строка если обнаружен пробел
+            if (symbol_for_the_output == ' ')  /// Это делается для того, чтобы облегчить читаемость маршрута
+            {
+                cout << endl << ' ';
+            }
+        });                                /// Конец for_each
+
     }
     catch(FailedToOpen)
     {
-        cout << " Error when opening file" << endl;
+        cout << " Error when opening file";
     }
     catch(BeyondTheArray)
     {
-        cout << " Error output abroad" << endl;
+        cout << " Error output abroad";
     }
-    cout << endl << ' ';
+    cout << endl <<endl << ' ';
     system("pause");
     menu();
 }
@@ -53,6 +64,13 @@ void ConsoleForTimetable::getTrainTravelInformation()
 void ConsoleForTimetable::findTheRoute(string departure,string arrival,int time)
 {
     //    Реализация будет позже
+    return;
+}
+
+void ConsoleForTimetable::theNextTrainArrives(string station, int time)
+{
+    //    Реализация будет позже
+    return;
 }
 
 void ConsoleForTimetable::toEditTheTimetable()

@@ -27,6 +27,9 @@ private:
     /// Найти нужный маршрут по времени и месту отправки и прибывания
     void findTheRoute(string departure,string arrival,int time);
 
+    /// Время прибытия ближайшего поезда на станцию
+    void theNextTrainArrives(string station, int time);
+
     /// Режим редактирования расписания
     void toEditTheTimetable();
 

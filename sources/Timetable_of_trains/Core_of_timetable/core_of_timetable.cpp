@@ -27,5 +27,12 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 string CoreOfTimetable::timetableForTrain(int number_of_the_train) const
 {
+    number_of_the_train--; /// Уменьшение, для того чтобы при вызове 1 поезда выводился 0 элемент
     return data_set.getFileData(number_of_the_train);
+}
+
+string CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
+{
+
+    return 0;
 }
