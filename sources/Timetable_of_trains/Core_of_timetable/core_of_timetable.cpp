@@ -27,7 +27,6 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 string CoreOfTimetable::timetableForTrain(int number_of_the_train) const
 {
-    number_of_the_train--; /// Уменьшение, для того чтобы при вызове 1 поезда выводился 0 элемент
     return data_set.getFileData(number_of_the_train);
 }
 
@@ -36,3 +35,21 @@ string CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
 
     return 0;
 }
+
+//void CoreOfTimetable::setMaxNumberOfStringInTheFile(int const new_max_number)
+//{
+//    if (right == administrator)
+//    {
+//        max_number = new_max_number;
+//    }
+//    else
+//    {
+//        throw InsufficientRights();   /// По факту исключение никогда не броситься, но по моему ядро не должно
+//    }                                /// давать изменять этот параметр без прав администратора
+//}
+
+
+
+
+
+

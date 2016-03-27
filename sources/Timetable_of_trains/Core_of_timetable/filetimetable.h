@@ -21,6 +21,8 @@ public:
 private:
     /// Сюда записываются данные извлечённые из файла
     vector<string> fileData;
+
+    int max_number_of_the_string;
 };
 
 /// Не удалось открыть файл

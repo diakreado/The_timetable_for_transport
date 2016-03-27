@@ -36,7 +36,7 @@ void ConsoleForTimetable::getTrainTravelInformation()
     cout << endl << ' ';
     try
     {
-        string string_for_the_output=Core.timetableForTrain(choice_of_the_train);
+        string string_for_the_output = Core.timetableForTrain(choice_of_the_train);
         for_each(string_for_the_output.begin(), string_for_the_output.end(),
                  [](char symbol_for_the_output)   /// Здесь описанно то, что должно выполниться для каждого элемента
         {
@@ -77,11 +77,32 @@ void ConsoleForTimetable::toEditTheTimetable()
 {
     if (Core.informationOfTheRights() == usual_user)
     {
-       cout << " Insufficient rights" << endl << endl << ' '; /*Недостаточно прав*/
-       system("pause");
+       menu();
     }
 
 
+    menu();
+}
+
+void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
+{
+    if (Core.informationOfTheRights() == usual_user)
+    {
+        menu();
+    }
+    int new_max_number;
+/*    cout << " The maximum number of lines in the file is " << CoreOfTimetable::max_number << endl; */ ///  Переделать
+    cout << " What value to set the maximum?" << endl << endl << "-->";
+    cin >> new_max_number;
+    cout << endl << ' ';
+    try
+    {
+/*        Core.setMaxNumberOfStringInTheFile(new_max_number);*/ ///  Переделать
+    }
+    catch(InsufficientRights)
+    {
+        cout << " Insufficient rights to perform the action" << endl << endl;
+    }
     menu();
 }
 
@@ -93,7 +114,8 @@ void ConsoleForTimetable::menu()
          << " 2. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
-        cout << " 3. To edit the timetable" << endl;
+        cout << " 3. To edit the timetable" << endl
+        << " 4. To change the maximum number of lines in the file" << endl;
     }
     cout << " 0. Exit" << endl << endl;
     char choice_in_menu;
@@ -115,6 +137,11 @@ void ConsoleForTimetable::menu()
     case '3':
     {
         toEditTheTimetable();
+        break;
+    }
+    case '4':
+    {
+        changeMaxValueOfStringInTheFile();
         break;
     }
     case '0':
