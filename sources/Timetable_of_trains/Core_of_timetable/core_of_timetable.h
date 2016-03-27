@@ -9,8 +9,6 @@ using namespace std;
 
 enum what_rights{usual_user = 0, administrator = 1};
 
-
-
 /// Класс в котором содержится бизнес-логика приложения
 class CoreOfTimetable
 {
@@ -30,10 +28,15 @@ public:
     /// Относительно настоящего времени определяет через сколько секунд прибудет поезд
     string whenWillTheTrainsArrive(string station, int time);
 
+    /// Выставить максимально возможное количество строк в файле
+//    void setMaxNumberOfStringInTheFile(int const new_max_number);
+
 private:
     int right;
 
     FileTimetable data_set;
 };
+
+class InsufficientRights : public exception {};  /// Недостаточно прав
 
 #endif // CORE_OF_TIMETABLE_H

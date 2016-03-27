@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 /// Класс служащий для работы с ядром через консоль
 class ConsoleForTimetable
 {
@@ -30,8 +29,13 @@ private:
     /// Время прибытия ближайшего поезда на станцию
     void theNextTrainArrives(string station, int time);
 
+    /// Методы для администратора:
+
     /// Режим редактирования расписания
     void toEditTheTimetable();
+
+    /// Изменить максимально возможное количество строк в файле
+    void changeMaxValueOfStringInTheFile();
 
     CoreOfTimetable Core;
 };
