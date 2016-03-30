@@ -28,7 +28,7 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 string CoreOfTimetable::timetableForTrain(int number_of_the_route) const
 {
-    return data_set.getFileData(number_of_the_route);
+    return data_set.getFileData(number_of_the_route); // Сделать так, чтобы консоль не думала о том после какого символа переводить строчку
 }
 
 int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
@@ -51,7 +51,7 @@ void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
     }
     else
     {
-        throw InsufficientRights();   /// По факту исключение никогда не броситься, но по моему ядро не должно
+        throw InsufficientRights();   /// По факту исключение никогда не броситься, но по моему ядро всё равно не должно
     }                                /// давать изменять этот параметр без прав администратора
 }
 

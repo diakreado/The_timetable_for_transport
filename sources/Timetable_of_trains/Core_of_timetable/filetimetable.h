@@ -36,8 +36,6 @@ public:
      */
     void setMaxQuantityStringInFile(int new_max_quantity);
 
-
-
 private:
     /**
      *  @brief Сюда записываются данные извлечённые из файла

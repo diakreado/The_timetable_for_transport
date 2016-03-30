@@ -25,33 +25,25 @@ private:
     void theDefinitionOfAdministrator();
 
     /**
-     * @brief Получить информацию о поезде
+     * @brief Получить информацию о маршруте
      */
-    void getTrainTravelInformation();
+    void getRoutelInformation();
 
     /**
-     * @brief Печатает в консоль нужный маршрут
-     *
-     * @param departure - станция отправления
-     * @param arrival  - станция назначения
-     * @param time - время (возможно я уберу этот параметр во время реализации функции)
+     * @brief Печатает в консоль проложеный маршрут от одной станции до другой
      */
-    void findTheRoute(string departure,string arrival,int time);
+    void findTheRoute();
 
     /**
      * @brief Печатает в консоль время прибытия ближайшего поезда на станцию
-     *
-     * @param station - интересующая станция
-     * @param time - интересующее время
      */
-    void theNextTrainArrives(string station, int time);
+    void theNextTrainArrives();
 
     /// Методы для администратора:
 
-    /// Режим редактирования расписания
-    void toEditTheTimetable();
-
-    /// Изменить максимально возможное количество строк в файле
+    /**
+     * @brief Изменить максимально возможное количество строк в файле(реализовал метод и теперь сомневаюсь в его надобности)
+     */
     void changeMaxValueOfStringInTheFile();
 
     CoreOfTimetable Core;

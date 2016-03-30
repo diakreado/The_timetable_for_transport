@@ -51,6 +51,15 @@ public:
     /// Узнать максимально возможное количество строк в файле
     int getMaxNumberStringInFile();
 
+    /**
+     * @param departure - станция отправления
+     * @param arrival  - станция назначения
+     * @param time - время (возможно я уберу этот параметр во время реализации функции)
+     *
+     * @return Возвращяет подходящий маршрут
+     */
+    string findSuitableRoute(string departure,string arrival,int time);
+
 private:
     int right;
 

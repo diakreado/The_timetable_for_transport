@@ -29,15 +29,15 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
     menu();
 }
 
-void ConsoleForTimetable::getTrainTravelInformation()
+void ConsoleForTimetable::getRoutelInformation()
 {
-    int choice_of_the_train;
-    cout << " What train are you interested?" << endl << endl << "-->";
-    cin >> choice_of_the_train;
+    int choice_of_the_route;
+    cout << " What route are you interested?" << endl << endl << "-->";
+    cin >> choice_of_the_route;
     cout << endl << ' ';
     try
     {
-        string string_for_the_output = Core.timetableForTrain(choice_of_the_train);
+        string string_for_the_output = Core.timetableForTrain(choice_of_the_route);
         for_each(string_for_the_output.begin(), string_for_the_output.end(),
                  [](char symbol_for_the_output)   /// Здесь описанно то, что должно выполниться для каждого элемента
         {
@@ -62,30 +62,14 @@ void ConsoleForTimetable::getTrainTravelInformation()
     menu();
 }
 
-void ConsoleForTimetable::findTheRoute(string departure,string arrival,int time)
+void ConsoleForTimetable::findTheRoute()
 {
-    departure = 1;
-    arrival = 1;
-    time += 2;
     return;
 }
 
-void ConsoleForTimetable::theNextTrainArrives(string station, int time)
+void ConsoleForTimetable::theNextTrainArrives()
 {
-    station = 1;
-    time += 1;
     return;
-}
-
-void ConsoleForTimetable::toEditTheTimetable()
-{
-    if (Core.informationOfTheRights() == usual_user)
-    {
-        menu();
-    }
-
-
-    menu();
 }
 
 void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
@@ -123,8 +107,7 @@ void ConsoleForTimetable::menu()
          << " 2. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
-        cout << " 3. To edit the timetable" << endl
-        << " 4. To change the maximum number of lines in the file" << endl;
+        cout << " 3. To change the maximum number of lines in the file" << endl;
     }
     cout << " 0. Exit" << endl << endl;
     char choice_in_menu;
@@ -135,7 +118,7 @@ void ConsoleForTimetable::menu()
     {
     case '1':
     {
-        getTrainTravelInformation();
+        getRoutelInformation();
         break;
     }
     case '2':
@@ -144,11 +127,6 @@ void ConsoleForTimetable::menu()
         break;
     }
     case '3':
-    {
-        toEditTheTimetable();
-        break;
-    }
-    case '4':
     {
         changeMaxValueOfStringInTheFile();
         break;
