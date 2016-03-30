@@ -42,7 +42,12 @@ void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
 {
     if (right == administrator)
     {
+        if (new_max_quantity < 10)
+        {
+            throw RecommendedSettings();
+        }
         data_set.setMaxQuantityStringInFile(new_max_quantity);
+        data_set.ReadingFromFile();
     }
     else
     {

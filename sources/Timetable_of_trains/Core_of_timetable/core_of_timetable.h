@@ -62,4 +62,9 @@ private:
  */
 class InsufficientRights : public exception {};
 
+/**
+ * @brief Рекомендованые параметры функции
+ */
+class RecommendedSettings : public exception {};
+
 #endif // CORE_OF_TIMETABLE_H

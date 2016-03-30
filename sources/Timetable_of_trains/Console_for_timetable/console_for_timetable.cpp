@@ -98,7 +98,7 @@ void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
     cout << " The maximum number of lines in the file is:      " << Core.getMaxNumberStringInFile() << endl << endl;
     cout << " What value to set the maximum?" << endl << endl << "-->";
     cin >> new_max_number;
-    cout << endl << ' ';
+    cout << endl;
     try
     {
         Core.setMaxNumberStringInFile(new_max_number);
@@ -106,6 +106,10 @@ void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
     catch(InsufficientRights)
     {
         cout << " Insufficient rights to perform the action" << endl << endl;
+    }
+    catch(RecommendedSettings)
+    {
+        cout << " Put the number more" << endl << endl;
     }
     system("pause");
     menu();
@@ -158,3 +162,4 @@ void ConsoleForTimetable::menu()
         break;
     }
 }
+
