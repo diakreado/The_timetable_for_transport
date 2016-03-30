@@ -99,10 +99,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0c417279d4fe0ad9299347cb1c421b4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#a0c417279d4fe0ad9299347cb1c421b4b">FileTimetable</a> ()</td></tr>
 <tr class="separator:a0c417279d4fe0ad9299347cb1c421b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab94915ccd15fc87e74e83200c5091ac3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab94915ccd15fc87e74e83200c5091ac3"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#ab94915ccd15fc87e74e83200c5091ac3">getFileData</a> (int number_of_the_train) const </td></tr>
-<tr class="memdesc:ab94915ccd15fc87e74e83200c5091ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить строчку из файла по её номеру <br /></td></tr>
-<tr class="separator:ab94915ccd15fc87e74e83200c5091ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cde6be4cf6228c5f8bc6a400af7071b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#a2cde6be4cf6228c5f8bc6a400af7071b">getFileData</a> (int number_of_the_route) const </td></tr>
+<tr class="separator:a2cde6be4cf6228c5f8bc6a400af7071b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1911b2e8fab1f7f4657573de455db9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#ac1911b2e8fab1f7f4657573de455db9c">getMaxQuantityStringInFile</a> () const </td></tr>
+<tr class="separator:ac1911b2e8fab1f7f4657573de455db9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Смысл класса в обмене информации между ядром и файлом </p>
@@ -120,10 +120,51 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
       </table>
 </div><div class="memdoc">
 <p>Исключение бросается при неудачном открытие файла</p>
-<p>Стоит 30 временно, этот параметр будет изменять администратор спец методом</p>
 <p>Количество проходов</p>
 <p>Считывание до окончания файла</p>
 <p>Получить строчку(на вход принимает поток откуда и место куда) </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a2cde6be4cf6228c5f8bc6a400af7071b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string FileTimetable::getFileData </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_of_the_route</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Номер</td><td>маршрута </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Строчка с необходимым маршрутом </dd></dl>
+<p>На самом деле поле с номером 0 существует, но там содержится</p>
+<p>информация для дальнейшей обработки файла </p>
+
+</div>
+</div>
+<a class="anchor" id="ac1911b2e8fab1f7f4657573de455db9c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FileTimetable::getMaxQuantityStringInFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Максимальное читаемое количество строчек в файле </dd></dl>
 
 </div>
 </div>

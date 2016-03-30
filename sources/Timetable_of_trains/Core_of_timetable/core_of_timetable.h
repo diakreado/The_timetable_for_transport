@@ -9,24 +9,41 @@ using namespace std;
 
 enum what_rights{usual_user = 0, administrator = 1};
 
-/// Класс в котором содержится бизнес-логика приложения
+/**
+ * @brief Класс в котором содержится бизнес-логика приложения
+ */
 class CoreOfTimetable
 {
 
 public:
     CoreOfTimetable();
 
-    /// Выдача прав администатора
+    /**
+     * @brief Выдача прав
+     *
+     * @param Какие права нужно выдать
+     */
     void issuanceOfRights(int const what_rights);
 
-    /// Получение информации о правах пользователя(обычный или администратор)
+    /**
+     * @return Информация о правах
+     */
     bool informationOfTheRights() const;
 
-    /// Возвращяет расписание, для дальнеёшего распечатывания
-    string timetableForTrain(int number_of_the_train) const;
+    /**
+     * @param Номер маршрута
+     *
+     * @return Маршрут поезда в формате string
+     */
+    string timetableForTrain(int number_of_the_route) const;
 
-    /// Относительно настоящего времени определяет через сколько секунд прибудет поезд
-    string whenWillTheTrainsArrive(string station, int time);
+    /**
+     * @param station - станция
+     * @param time - время относительно которого делается вывод
+     *
+     * @return время до прибытия следующего поезда
+     */
+    int whenWillTheTrainsArrive(string station, int time);
 
     /// Выставить максимально возможное количество строк в файле
 //    void setMaxNumberOfStringInTheFile(int const new_max_number);
@@ -37,6 +54,9 @@ private:
     FileTimetable data_set;
 };
 
-class InsufficientRights : public exception {};  /// Недостаточно прав
+/**
+ * @brief Недостаточно прав
+ */
+class InsufficientRights : public exception {};
 
 #endif // CORE_OF_TIMETABLE_H

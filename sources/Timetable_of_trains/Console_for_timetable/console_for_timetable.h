@@ -8,7 +8,9 @@
 
 using namespace std;
 
-/// Класс служащий для работы с ядром через консоль
+/**
+ * @brief Класс служащий для работы с ядром через консоль
+ */
 class ConsoleForTimetable
 {
 public:
@@ -17,16 +19,31 @@ public:
 private:
     void menu();
 
-    /// Определяет пользователя, как администратора
+    /**
+     * @brief Определяет пользователя, как администратора
+     */
     void theDefinitionOfAdministrator();
 
-    /// Получить информацию о поезде
+    /**
+     * @brief Получить информацию о поезде
+     */
     void getTrainTravelInformation();
 
-    /// Найти нужный маршрут по времени и месту отправки и прибывания
+    /**
+     * @brief Печатает в консоль нужный маршрут
+     *
+     * @param departure - станция отправления
+     * @param arrival  - станция назначения
+     * @param time - время (возможно я уберу этот параметр во время реализации функции)
+     */
     void findTheRoute(string departure,string arrival,int time);
 
-    /// Время прибытия ближайшего поезда на станцию
+    /**
+     * @brief Печатает в консоль время прибытия ближайшего поезда на станцию
+     *
+     * @param station - интересующая станция
+     * @param time - интересующее время
+     */
     void theNextTrainArrives(string station, int time);
 
     /// Методы для администратора:

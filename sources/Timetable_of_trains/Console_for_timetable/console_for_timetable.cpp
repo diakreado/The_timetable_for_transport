@@ -18,13 +18,14 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
     if (answer == 'Y' or answer == 'y')
     {
         Core.issuanceOfRights(administrator);
-        cout << " Granted administrator privileges" << endl;
+        cout << endl << " Granted administrator privileges" << endl << endl;
     }
     else
     {
         Core.issuanceOfRights(usual_user);
-        cout << " Granted privileges a usual user" << endl;
+        cout << endl << " Granted privileges a usual user" << endl << endl;
     }
+    system("pause");
     menu();
 }
 
@@ -63,13 +64,16 @@ void ConsoleForTimetable::getTrainTravelInformation()
 
 void ConsoleForTimetable::findTheRoute(string departure,string arrival,int time)
 {
-    //    Реализация будет позже
+    departure = 1;
+    arrival = 1;
+    time += 2;
     return;
 }
 
 void ConsoleForTimetable::theNextTrainArrives(string station, int time)
 {
-    //    Реализация будет позже
+    station = 1;
+    time += 1;
     return;
 }
 

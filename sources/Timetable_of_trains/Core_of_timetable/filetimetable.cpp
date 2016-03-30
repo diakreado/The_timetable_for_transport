@@ -25,12 +25,20 @@ FileTimetable::FileTimetable()
     inputFile.close();
 }
 
-string FileTimetable::getFileData(int number_of_the_train) const
+string FileTimetable::getFileData(int number_of_the_route) const
 {
-    if (number_of_the_train < 1 || number_of_the_train > 29) /// На самом деле поле с номером 0 существует, но там содержится
+    if (number_of_the_route < 1 || number_of_the_route > 29) /// На самом деле поле с номером 0 существует, но там содержится
     {                                                       /// информация для дальнейшей обработки файла
         throw BeyondTheArray();
     }
 
-    return fileData[number_of_the_train];
+    return fileData[number_of_the_route];
 }
+
+int FileTimetable::getMaxQuantityStringInFile()const
+{
+    return max_number_of_the_string;
+}
+
+
+

@@ -25,14 +25,15 @@ bool CoreOfTimetable::informationOfTheRights() const
     return right;
 }
 
-string CoreOfTimetable::timetableForTrain(int number_of_the_train) const
+string CoreOfTimetable::timetableForTrain(int number_of_the_route) const
 {
-    return data_set.getFileData(number_of_the_train);
+    return data_set.getFileData(number_of_the_route);
 }
 
-string CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
+int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
 {
-
+    station = 1;
+    time += 2;
     return 0;
 }
 
