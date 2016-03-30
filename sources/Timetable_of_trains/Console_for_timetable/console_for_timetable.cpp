@@ -81,7 +81,7 @@ void ConsoleForTimetable::toEditTheTimetable()
 {
     if (Core.informationOfTheRights() == usual_user)
     {
-       menu();
+        menu();
     }
 
 
@@ -95,18 +95,19 @@ void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
         menu();
     }
     int new_max_number;
-/*    cout << " The maximum number of lines in the file is " << CoreOfTimetable::max_number << endl; */ ///  Переделать
+    cout << " The maximum number of lines in the file is:      " << Core.getMaxNumberStringInFile() << endl << endl;
     cout << " What value to set the maximum?" << endl << endl << "-->";
     cin >> new_max_number;
     cout << endl << ' ';
     try
     {
-/*        Core.setMaxNumberOfStringInTheFile(new_max_number);*/ ///  Переделать
+        Core.setMaxNumberStringInFile(new_max_number);
     }
     catch(InsufficientRights)
     {
         cout << " Insufficient rights to perform the action" << endl << endl;
     }
+    system("pause");
     menu();
 }
 

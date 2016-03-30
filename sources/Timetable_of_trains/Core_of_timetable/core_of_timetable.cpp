@@ -6,6 +6,7 @@ using namespace std;
 CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
+    data_set.ReadingFromFile();
 }
 
 void CoreOfTimetable::issuanceOfRights(int const what_rights)
@@ -37,17 +38,24 @@ int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
     return 0;
 }
 
-//void CoreOfTimetable::setMaxNumberOfStringInTheFile(int const new_max_number)
-//{
-//    if (right == administrator)
-//    {
-//        max_number = new_max_number;
-//    }
-//    else
-//    {
-//        throw InsufficientRights();   /// По факту исключение никогда не броситься, но по моему ядро не должно
-//    }                                /// давать изменять этот параметр без прав администратора
-//}
+void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
+{
+    if (right == administrator)
+    {
+        data_set.setMaxQuantityStringInFile(new_max_quantity);
+    }
+    else
+    {
+        throw InsufficientRights();   /// По факту исключение никогда не броситься, но по моему ядро не должно
+    }                                /// давать изменять этот параметр без прав администратора
+}
+
+int CoreOfTimetable::getMaxNumberStringInFile()
+{
+    return data_set.getMaxQuantityStringInFile();
+}
+
+
 
 
 

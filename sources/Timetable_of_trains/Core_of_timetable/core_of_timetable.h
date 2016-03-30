@@ -46,7 +46,10 @@ public:
     int whenWillTheTrainsArrive(string station, int time);
 
     /// Выставить максимально возможное количество строк в файле
-//    void setMaxNumberOfStringInTheFile(int const new_max_number);
+    void setMaxNumberStringInFile(int const new_max_quantity);
+
+    /// Узнать максимально возможное количество строк в файле
+    int getMaxNumberStringInFile();
 
 private:
     int right;

@@ -97,36 +97,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0c417279d4fe0ad9299347cb1c421b4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#a0c417279d4fe0ad9299347cb1c421b4b">FileTimetable</a> ()</td></tr>
-<tr class="separator:a0c417279d4fe0ad9299347cb1c421b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af26c6453f2d206b513a73689bf98f239"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#af26c6453f2d206b513a73689bf98f239">ReadingFromFile</a> ()</td></tr>
+<tr class="separator:af26c6453f2d206b513a73689bf98f239"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cde6be4cf6228c5f8bc6a400af7071b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#a2cde6be4cf6228c5f8bc6a400af7071b">getFileData</a> (int number_of_the_route) const </td></tr>
 <tr class="separator:a2cde6be4cf6228c5f8bc6a400af7071b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1911b2e8fab1f7f4657573de455db9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#ac1911b2e8fab1f7f4657573de455db9c">getMaxQuantityStringInFile</a> () const </td></tr>
 <tr class="separator:ac1911b2e8fab1f7f4657573de455db9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a09c6b4fe1c2731f9fb109943e3329d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_timetable.html#a6a09c6b4fe1c2731f9fb109943e3329d">setMaxQuantityStringInFile</a> (int new_max_quantity)</td></tr>
+<tr class="memdesc:a6a09c6b4fe1c2731f9fb109943e3329d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает максимальное количество читаемых строчек в файле  <a href="#a6a09c6b4fe1c2731f9fb109943e3329d">More...</a><br /></td></tr>
+<tr class="separator:a6a09c6b4fe1c2731f9fb109943e3329d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Смысл класса в обмене информации между ядром и файлом </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a0c417279d4fe0ad9299347cb1c421b4b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FileTimetable::FileTimetable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Исключение бросается при неудачном открытие файла</p>
-<p>Количество проходов</p>
-<p>Считывание до окончания файла</p>
-<p>Получить строчку(на вход принимает поток откуда и место куда) </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a2cde6be4cf6228c5f8bc6a400af7071b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -165,6 +148,52 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Максимальное читаемое количество строчек в файле </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af26c6453f2d206b513a73689bf98f239"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FileTimetable::ReadingFromFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Исключение бросается при неудачном открытие файла</p>
+<p>Количество проходов</p>
+<p>Считывание до окончания файла</p>
+<p>Получить строчку(на вход принимает поток откуда и место куда)</p>
+<p>Получается, что у fileData существует</p>
+<p>нулевой элемент, он пусой, так как первую строчку уже читали </p>
+
+</div>
+</div>
+<a class="anchor" id="a6a09c6b4fe1c2731f9fb109943e3329d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FileTimetable::setMaxQuantityStringInFile </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>new_max_quantity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Устанавливает максимальное количество читаемых строчек в файле </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Новое</td><td>значение </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Исключение бросается при неудачном открытие файла </p>
 
 </div>
 </div>

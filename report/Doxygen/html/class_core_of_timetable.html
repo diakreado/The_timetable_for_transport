@@ -106,6 +106,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6c86d85c561d8c38528fcdf475d27d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6148d8f09c18ab170e027baba1c28399"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_of_timetable.html#a6148d8f09c18ab170e027baba1c28399">whenWillTheTrainsArrive</a> (string station, int time)</td></tr>
 <tr class="separator:a6148d8f09c18ab170e027baba1c28399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5acef33d57608a6b4f544b9825f888e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_of_timetable.html#ac5acef33d57608a6b4f544b9825f888e">setMaxNumberStringInFile</a> (int const new_max_quantity)</td></tr>
+<tr class="memdesc:ac5acef33d57608a6b4f544b9825f888e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выставить максимально возможное количество строк в файле  <a href="#ac5acef33d57608a6b4f544b9825f888e">More...</a><br /></td></tr>
+<tr class="separator:ac5acef33d57608a6b4f544b9825f888e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9fa4f197f18d61d13318a0aa3039ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f9fa4f197f18d61d13318a0aa3039ec"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_of_timetable.html#a5f9fa4f197f18d61d13318a0aa3039ec">getMaxNumberStringInFile</a> ()</td></tr>
+<tr class="memdesc:a5f9fa4f197f18d61d13318a0aa3039ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Узнать максимально возможное количество строк в файле <br /></td></tr>
+<tr class="separator:a5f9fa4f197f18d61d13318a0aa3039ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Класс в котором содержится бизнес-логика приложения </p>
@@ -147,6 +154,26 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ac5acef33d57608a6b4f544b9825f888e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CoreOfTimetable::setMaxNumberStringInFile </td>
+          <td>(</td>
+          <td class="paramtype">int const&#160;</td>
+          <td class="paramname"><em>new_max_quantity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Выставить максимально возможное количество строк в файле </p>
+<p>По факту исключение никогда не броситься, но по моему ядро не должно</p>
+<p>давать изменять этот параметр без прав администратора </p>
 
 </div>
 </div>

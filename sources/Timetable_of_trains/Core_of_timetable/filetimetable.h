@@ -15,7 +15,7 @@ using namespace std;
 class FileTimetable
 {
 public:
-    FileTimetable();
+    void ReadingFromFile();
 
     /**
      *  @param Номер маршрута
@@ -28,6 +28,13 @@ public:
      * @return Максимальное читаемое количество строчек в файле
      */
     int getMaxQuantityStringInFile() const;
+
+    /**
+     * @brief Устанавливает максимальное количество читаемых строчек в файле
+     *
+     * @param Новое значение
+     */
+    void setMaxQuantityStringInFile(int new_max_quantity);
 
 private:
     /**
