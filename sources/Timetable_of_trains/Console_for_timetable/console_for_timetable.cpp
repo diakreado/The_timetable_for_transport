@@ -1,7 +1,6 @@
 #include "console_for_timetable.h"
 #include <iostream>
 #include <core_of_timetable.h>
-#include <algorithm>
 
 using namespace std;
 
@@ -18,7 +17,7 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
     if (answer == 'Y' or answer == 'y')
     {
         Core.issuanceOfRights(administrator);
-        cout << endl << " Granted administrator privileges" << endl << endl;
+        cout << endl << " Obtained administrator privileges" << endl << endl;
     }
     else
     {
@@ -34,20 +33,14 @@ void ConsoleForTimetable::getRoutelInformation()
     int choice_of_the_route;
     cout << " What route are you interested?" << endl << endl << "-->";
     cin >> choice_of_the_route;
-    cout << endl << ' ';
+    cout << endl;
     try
     {
-        string string_for_the_output = Core.timetableForTrain(choice_of_the_route);
-        for_each(string_for_the_output.begin(), string_for_the_output.end(),
-                 [](char symbol_for_the_output)   /// Здесь описанно то, что должно выполниться для каждого элемента
+        vector<string> output_for_console = Core.timetableForTrain(choice_of_the_route);
+        for(unsigned int i = 0; i < output_for_console.size(); i++)
         {
-            cout << symbol_for_the_output;      /// Переводится строка если обнаружен пробел
-            if (symbol_for_the_output == ' ')  /// Это делается для того, чтобы облегчить читаемость маршрута
-            {
-                cout << endl << ' ';
-            }
-        });                                /// Конец for_each
-
+            cout << ' ' << output_for_console[i] << endl;
+        }
     }
     catch(FailedToOpen)
     {

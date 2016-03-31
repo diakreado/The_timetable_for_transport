@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "filetimetable.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -35,7 +36,7 @@ public:
      *
      * @return Маршрут поезда в формате string
      */
-    string timetableForTrain(int number_of_the_route) const;
+    vector<string> timetableForTrain(int const number_of_the_route);
 
     /**
      * @param station - станция

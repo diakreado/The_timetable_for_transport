@@ -37,10 +37,10 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
  */
 void Test_for_coreTest::fileProcessingChecks()
 {
-    QVERIFY2(start_test.timetableForTrain(3) == "Elbatemit","Error to get second string from file");
+//    QVERIFY2(start_test.timetableForTrain(3) == "Elbatemit","Error to get second string from file");
 
-    QVERIFY_EXCEPTION_THROWN(start_test.timetableForTrain(-1), BeyondTheArray);
-    QVERIFY_EXCEPTION_THROWN(start_test.timetableForTrain(30), BeyondTheArray);
+//    QVERIFY_EXCEPTION_THROWN(start_test.timetableForTrain(-1), BeyondTheArray);
+//    QVERIFY_EXCEPTION_THROWN(start_test.timetableForTrain(30), BeyondTheArray);
 }
 
 QTEST_APPLESS_MAIN(Test_for_coreTest)

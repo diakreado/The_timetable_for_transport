@@ -26,10 +26,45 @@ bool CoreOfTimetable::informationOfTheRights() const
     return right;
 }
 
-string CoreOfTimetable::timetableForTrain(int number_of_the_route) const
+vector<string> CoreOfTimetable::timetableForTrain(int const number_of_the_route)
 {
-    return data_set.getFileData(number_of_the_route); // Сделать так, чтобы консоль не думала о том после какого символа переводить строчку
+    string input_string = data_set.getFileData(number_of_the_route);
+
+    vector<string> output_vector_string;
+
+    output_vector_string.resize(50);
+
+    int number_newlines = 0;
+
+    char symbol_int_string;
+
+    for (unsigned int character_number = 0; character_number < input_string.length(); character_number++)
+    {
+        symbol_int_string = input_string[character_number];
+        output_vector_string[number_newlines] += symbol_int_string;
+        if (symbol_int_string == ' ')
+        {
+            number_newlines++;
+        }
+    }
+
+
+    int empty_string = 0;
+
+    for(unsigned int i = 0; i < output_vector_string.size(); i++)
+    {
+        if (output_vector_string[i] == "")
+        {
+            empty_string++;
+        }
+    }
+
+    output_vector_string.resize(50 - empty_string);
+
+    return output_vector_string;
 }
+
+
 
 int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
 {
