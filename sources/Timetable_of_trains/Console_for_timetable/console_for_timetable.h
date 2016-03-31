@@ -46,6 +46,11 @@ private:
      */
     void changeMaxValueOfStringInTheFile();
 
+    /**
+     * @brief Изменить маршруты поездов
+     */
+    void changeRouteTable();
+
     CoreOfTimetable Core;
 };
 

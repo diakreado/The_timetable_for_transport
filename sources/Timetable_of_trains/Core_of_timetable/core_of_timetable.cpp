@@ -96,6 +96,16 @@ int CoreOfTimetable::getMaxNumberStringInFile()
 }
 
 
+void CoreOfTimetable::changeRouteTable(int choice_route)
+{
+
+}
+
+
+
+
+
+
 
 
 

@@ -65,6 +65,20 @@ void ConsoleForTimetable::theNextTrainArrives()
     return;
 }
 
+void ConsoleForTimetable::changeRouteTable()
+{
+    if (Core.informationOfTheRights() == usual_user)
+    {
+        menu();
+    }
+    cout << " Which route you want to change?" << endl << endl << "-->";
+    int choice_route;
+    cin >> choice_route;
+    Core.changeRouteTable(choice_route);
+    system("pause");
+    menu();
+}
+
 void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
 {
     if (Core.informationOfTheRights() == usual_user)
@@ -100,7 +114,8 @@ void ConsoleForTimetable::menu()
          << " 2. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
-        cout << " 3. To change the maximum number of lines in the file" << endl;
+        cout << " 3. To change the maximum number of lines in the file" << endl
+             << " 4. Change route table for the train" << endl;
     }
     cout << " 0. Exit" << endl << endl;
     char choice_in_menu;
@@ -122,6 +137,11 @@ void ConsoleForTimetable::menu()
     case '3':
     {
         changeMaxValueOfStringInTheFile();
+        break;
+    }
+    case '4':
+    {
+        changeRouteTable();
         break;
     }
     case '0':

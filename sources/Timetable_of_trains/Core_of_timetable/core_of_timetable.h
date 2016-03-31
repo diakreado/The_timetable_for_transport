@@ -46,11 +46,22 @@ public:
      */
     int whenWillTheTrainsArrive(string station, int time);
 
-    /// Выставить максимально возможное количество строк в файле
+    /**
+     * @brief Выставить максимально возможное количество строк в файле
+     */
     void setMaxNumberStringInFile(int const new_max_quantity);
 
-    /// Узнать максимально возможное количество строк в файле
+    /**
+     * @brief Узнать максимально возможное количество строк в файле
+     */
     int getMaxNumberStringInFile();
+
+    /**
+     * @brief Изменить маршрут поезда
+     *
+     * @param номер маршрута, который нужно изменить
+     */
+    void changeRouteTable(int choice_route);
 
     /**
      * @param departure - станция отправления
