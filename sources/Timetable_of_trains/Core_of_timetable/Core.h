@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "filetimetable.h"
+#include "file_route.h"
 #include <algorithm>
 
 using namespace std;
@@ -21,7 +21,6 @@ public:
 
     /**
      * @brief Выдача прав
-     *
      * @param Какие права нужно выдать
      */
     void issuanceOfRights(int const what_rights);
@@ -32,16 +31,15 @@ public:
     bool informationOfTheRights() const;
 
     /**
+     * @brief Используется для более удобного вывода в консоль
      * @param Номер маршрута
-     *
-     * @return Маршрут поезда в формате string
+     * @return Маршрут поезда в формате vector<string>
      */
-    vector<string> timetableForTrain(int const number_of_the_route);
+    vector<string> getRouteOfTrain(int const number_of_the_route);
 
     /**
      * @param station - станция
      * @param time - время относительно которого делается вывод
-     *
      * @return время до прибытия следующего поезда
      */
     int whenWillTheTrainsArrive(string station, int time);
@@ -58,16 +56,14 @@ public:
 
     /**
      * @brief Изменить маршрут поезда
-     *
      * @param номер маршрута, который нужно изменить
      */
-    void changeRouteTable(int choice_route);
+    void changeRouteTable(int const  choice_route,int choice_station, string what_to_replace);
 
     /**
      * @param departure - станция отправления
      * @param arrival  - станция назначения
      * @param time - время (возможно я уберу этот параметр во время реализации функции)
-     *
      * @return Возвращяет подходящий маршрут
      */
     string findSuitableRoute(string departure,string arrival,int time);
@@ -75,7 +71,7 @@ public:
 private:
     int right;
 
-    FileTimetable data_set;
+    FileTimetable DataSet;
 };
 
 /**

@@ -1,5 +1,5 @@
-#include "filetimetable.h"
-#include "core_of_timetable.h"
+#include "file_route.h"
+#include "core.h"
 
 void FileTimetable::ReadingFromFile()
 {
@@ -61,6 +61,7 @@ void FileTimetable::setMaxQuantityStringInFile(int new_max_quantity)
 
     inputFile_for_rewrite.close();
 }
+
 
 
 

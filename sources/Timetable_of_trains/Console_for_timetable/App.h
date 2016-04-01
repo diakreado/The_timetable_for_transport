@@ -1,7 +1,7 @@
 #ifndef CONSOLE_FOR_TIMETABLE_H
 #define CONSOLE_FOR_TIMETABLE_H
 
-#include <core_of_timetable.h>
+#include <core.h>
 #include <string>
 #include <exception>
 #include <vector>
@@ -28,6 +28,12 @@ private:
      * @brief Получить информацию о маршруте
      */
     void getRoutelInformation();
+
+    /**
+     * @brief Удобный вывод в консоль
+     * @param Номер маршрута
+     */
+    void convenientOutputInTheConsole(int const choice_of_the_route);
 
     /**
      * @brief Печатает в консоль проложеный маршрут от одной станции до другой

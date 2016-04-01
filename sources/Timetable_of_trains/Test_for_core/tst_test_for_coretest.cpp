@@ -1,6 +1,6 @@
 #include <QString>
 #include <QtTest>
-#include <core_of_timetable.h>
+#include <core.h>
 
 /**
  * @brief Тесты для функциональностей продоставляемых ядром

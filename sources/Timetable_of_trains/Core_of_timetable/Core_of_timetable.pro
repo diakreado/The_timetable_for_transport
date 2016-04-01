@@ -10,11 +10,13 @@ TARGET = Core_of_timetable
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES += core_of_timetable.cpp \
-    filetimetable.cpp
+SOURCES += \
+    file_route.cpp \
+    core.cpp
 
-HEADERS += core_of_timetable.h \
-    filetimetable.h
+HEADERS += \
+    core.h \
+    file_route.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -1,6 +1,6 @@
-#include "console_for_timetable.h"
+#include "app.h"
 #include <iostream>
-#include <core_of_timetable.h>
+#include <core.h>
 
 using namespace std;
 
@@ -28,18 +28,15 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
     menu();
 }
 
-void ConsoleForTimetable::getRoutelInformation()
+void ConsoleForTimetable::convenientOutputInTheConsole(int const choice_of_the_route)
 {
-    int choice_of_the_route;
-    cout << " What route are you interested?" << endl << endl << "-->";
-    cin >> choice_of_the_route;
     cout << endl;
     try
     {
-        vector<string> output_for_console = Core.timetableForTrain(choice_of_the_route);
+        vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
         for(unsigned int i = 0; i < output_for_console.size(); i++)
         {
-            cout << ' ' << output_for_console[i] << endl;
+            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;
         }
     }
     catch(FailedToOpen)
@@ -50,7 +47,15 @@ void ConsoleForTimetable::getRoutelInformation()
     {
         cout << " Error output abroad";
     }
-    cout << endl <<endl << ' ';
+    cout << endl << endl;
+}
+
+void ConsoleForTimetable::getRoutelInformation()
+{
+    int choice_of_the_route;
+    cout << " What route are you interested?" << endl << endl << "-->";
+    cin >> choice_of_the_route;
+    convenientOutputInTheConsole(choice_of_the_route);
     system("pause");
     menu();
 }
@@ -74,7 +79,17 @@ void ConsoleForTimetable::changeRouteTable()
     cout << " Which route you want to change?" << endl << endl << "-->";
     int choice_route;
     cin >> choice_route;
-    Core.changeRouteTable(choice_route);
+    convenientOutputInTheConsole(choice_route);
+    cout << " What station to change?" << endl << endl << "-->";
+    int choice_station;
+    cin >> choice_station;
+    cout << endl;
+    cout << " What to put in replacements?" << endl << endl << "-->";
+    string what_to_replace;
+    cin.get();
+    getline(cin,what_to_replace);
+    cout << endl << endl;
+    Core.changeRouteTable(choice_route,choice_station,what_to_replace);
     system("pause");
     menu();
 }

@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    console_for_timetable.cpp
+    app.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/release/ -lCore_of_timetable
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/debug/ -lCore_of_timetable
@@ -20,4 +20,4 @@ else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../Core_of_timetable/libCore_of_timetable.a
 
 HEADERS += \
-    console_for_timetable.h
+    app.h

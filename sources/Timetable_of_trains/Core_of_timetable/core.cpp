@@ -1,4 +1,4 @@
-#include "core_of_timetable.h"
+#include "core.h"
 #include <iostream>
 
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
-    data_set.ReadingFromFile();
+    DataSet.ReadingFromFile();
 }
 
 void CoreOfTimetable::issuanceOfRights(int const what_rights)
@@ -26,31 +26,30 @@ bool CoreOfTimetable::informationOfTheRights() const
     return right;
 }
 
-vector<string> CoreOfTimetable::timetableForTrain(int const number_of_the_route)
+vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 {
-    string input_string = data_set.getFileData(number_of_the_route);
-
+    string input_string = DataSet.getFileData(number_of_the_route);
     vector<string> output_vector_string;
-
     output_vector_string.resize(50);
-
     int number_newlines = 0;
-
     char symbol_int_string;
-
     for (unsigned int character_number = 0; character_number < input_string.length(); character_number++)
     {
         symbol_int_string = input_string[character_number];
-        output_vector_string[number_newlines] += symbol_int_string;
         if (symbol_int_string == ' ')
         {
             number_newlines++;
         }
+        else
+        {
+        if (symbol_int_string == '_')
+        {
+            symbol_int_string = ' ';
+        }
+        output_vector_string[number_newlines] += symbol_int_string;
+        }
     }
-
-
     int empty_string = 0;
-
     for(unsigned int i = 0; i < output_vector_string.size(); i++)
     {
         if (output_vector_string[i] == "")
@@ -58,17 +57,46 @@ vector<string> CoreOfTimetable::timetableForTrain(int const number_of_the_route)
             empty_string++;
         }
     }
-
     output_vector_string.resize(50 - empty_string);
-
     return output_vector_string;
 }
 
-
+void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)
+{
+    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
+    choice_station--;                                                        /// потому что с отсчёт с нуля
+    string buffer;
+    for (unsigned int i = 0; i < NewVariantOfString.size(); i++)
+    {
+        buffer = NewVariantOfString[i];
+        for (unsigned int j = 0; j < buffer.size(); j++)
+        {
+            if (buffer[j] == ' ')
+            {
+                buffer[j] = '_';
+            }
+        }
+        NewVariantOfString[i] = buffer;
+    }
+    for (unsigned int i = 0; i < what_to_replace.size(); i++)
+    {
+        if (what_to_replace[i] == ' ')
+        {
+            what_to_replace[i] = '_';
+        }
+    }
+    NewVariantOfString[choice_station] = what_to_replace;
+    string to_print_to_a_file;
+    for (unsigned int i = 0; i < NewVariantOfString.size(); i++)
+    {
+        to_print_to_a_file += NewVariantOfString[i] + ' ';
+    }
+    cout << to_print_to_a_file << endl;
+}
 
 int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
 {
-    station = 1;
+    station = 1;  /// Будет попозже реализация
     time += 2;
     return 0;
 }
@@ -81,8 +109,8 @@ void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
         {
             throw RecommendedSettings();
         }
-        data_set.setMaxQuantityStringInFile(new_max_quantity);
-        data_set.ReadingFromFile();
+        DataSet.setMaxQuantityStringInFile(new_max_quantity);
+        DataSet.ReadingFromFile();
     }
     else
     {
@@ -92,22 +120,8 @@ void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
 
 int CoreOfTimetable::getMaxNumberStringInFile()
 {
-    return data_set.getMaxQuantityStringInFile();
+    return DataSet.getMaxQuantityStringInFile();
 }
-
-
-void CoreOfTimetable::changeRouteTable(int choice_route)
-{
-
-}
-
-
-
-
-
-
-
-
 
 
 
