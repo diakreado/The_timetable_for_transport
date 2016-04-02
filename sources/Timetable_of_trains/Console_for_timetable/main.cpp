@@ -1,5 +1,5 @@
 #include <iostream>
-#include <console_for_timetable.h>
+#include <app.h>
 
 using namespace std;
 
@@ -9,9 +9,13 @@ int main()
     {
         ConsoleForTimetable start;
     }
-    catch(exception Error)
+    catch(exception &Error)
     {
         cout << Error.what() << endl << endl;
+    }
+    catch(...)
+    {
+        cout << " Unspecified error" << endl << endl;
     }
 
     cout << "  Come back soon!" << endl;

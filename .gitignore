@@ -5,3 +5,11 @@ build*
 *.synctex.gz
 *.tdo
 *.toc
+*.tex
+*.mdj
+class_*
+*.sty
+*.bat
+*.idx
+*.out
+Makefile

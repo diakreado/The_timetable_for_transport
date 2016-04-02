@@ -15,12 +15,12 @@
 Программа, которая позволяет создать, изменить и просмотреть расписание, оформленное в любом понятном для пользователя виде.
 
 ## Диаграмма прецедентов использования
-![UseCaseDiagram is not displayed](report/UseCaseDiagram.png)
+![UseCaseDiagram is not displayed](report/Diagrams/UseCaseDiagram.png)
 
 ## Диаграмма последовательностей
 
-![Chart sequences is not displayed](report/Chart_sequences.png)
+![Chart sequences is not displayed](report/Diagrams/Chart_sequences.png)
 
 ## Диаграмма компонентов
 
-![Chart components is not displayed](report/Chart_components.png)
+![Chart components is not displayed](report/Diagrams/Chart_components.png)
