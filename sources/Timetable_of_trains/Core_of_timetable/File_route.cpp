@@ -12,7 +12,7 @@ void FileTimetable::ReadingFromFile()
 
     inputFile_for_reading >> max_number_of_the_string;
 
-    fileData.resize(max_number_of_the_string);
+    fileData.resize(max_number_of_the_string + 1);
 
     int the_number_of_passes = 0;    /// Количество проходов
 
@@ -40,28 +40,53 @@ int FileTimetable::getMaxQuantityStringInFile()const
     return max_number_of_the_string;
 }
 
-void FileTimetable::setMaxQuantityStringInFile(int new_max_quantity)
+void FileTimetable::setMaxQuantityStringInFile(int const new_max_quantity)
 {
-    ofstream inputFile_for_rewrite("../../Timetable.txt");
+    ofstream inputFileForRewriteMaxQuantity("../../Timetable.txt");
 
-    if (!inputFile_for_rewrite.is_open())
+    if (!inputFileForRewriteMaxQuantity.is_open())
     {
         throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
     }
 
-    inputFile_for_rewrite << new_max_quantity;
+    inputFileForRewriteMaxQuantity << new_max_quantity;
 
     for (int step = 0; step < max_number_of_the_string; step++)
     {
         if (fileData[step] != "")
         {
-             inputFile_for_rewrite << endl << fileData[step];
+             inputFileForRewriteMaxQuantity << endl << fileData[step];
         }
     }
 
-    inputFile_for_rewrite.close();
+    inputFileForRewriteMaxQuantity.close();
 }
 
+void FileTimetable::changeRouteTable(const int choice_route, string ToPrintToFile)
+{
+    ofstream inputFileForChangeRoute("../../Timetable.txt");
+
+    if (!inputFileForChangeRoute.is_open())
+    {
+        throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
+    }
+
+    inputFileForChangeRoute << max_number_of_the_string;
+
+    fileData[choice_route] = ToPrintToFile;
+
+    for(unsigned int i = 0; i < fileData.size(); i++)
+    {
+        if (fileData[i] != "")
+        {
+            inputFileForChangeRoute << endl << fileData[i] ;
+        }
+    }
+
+
+
+    inputFileForChangeRoute.close();
+}
 
 
 

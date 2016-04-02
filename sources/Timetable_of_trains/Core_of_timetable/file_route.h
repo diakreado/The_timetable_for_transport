@@ -23,7 +23,6 @@ public:
      */
     string getFileData(int number_of_the_route) const;
 
-
     /**
      * @return Максимальное читаемое количество строчек в файле
      */
@@ -34,7 +33,10 @@ public:
      *
      * @param Новое значение
      */
-    void setMaxQuantityStringInFile(int new_max_quantity);
+    void setMaxQuantityStringInFile(int const  new_max_quantity);
+
+
+    void changeRouteTable(int const choice_route, string ToPrintToFile);
 
 private:
     /**

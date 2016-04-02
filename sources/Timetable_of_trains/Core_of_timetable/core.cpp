@@ -86,12 +86,12 @@ void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_statio
         }
     }
     NewVariantOfString[choice_station] = what_to_replace;
-    string to_print_to_a_file;
+    string ToPrintToFile;
     for (unsigned int i = 0; i < NewVariantOfString.size(); i++)
     {
-        to_print_to_a_file += NewVariantOfString[i] + ' ';
+        ToPrintToFile += NewVariantOfString[i] + ' ';
     }
-    cout << to_print_to_a_file << endl;
+    DataSet.changeRouteTable(choice_route,ToPrintToFile);
 }
 
 int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
