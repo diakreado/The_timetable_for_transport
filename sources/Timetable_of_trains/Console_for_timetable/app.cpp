@@ -127,8 +127,6 @@ void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
 
 void ConsoleForTimetable::menu()
 {
-    system("cls");
-
     cout << " 1. To see the timetable" << endl
          << " 2. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
