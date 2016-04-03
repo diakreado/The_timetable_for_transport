@@ -12,4 +12,6 @@ class_*
 *.bat
 *.idx
 *.out
+latex
+html
 Makefile
