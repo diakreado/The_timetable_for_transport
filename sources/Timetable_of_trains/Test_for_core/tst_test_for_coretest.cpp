@@ -16,6 +16,7 @@ private:
 private Q_SLOTS:
     void theTestForTheGrantOfRights();
     void fileProcessingChecks();
+    void setMaxNumberTest();
 };
 
 Test_for_coreTest::Test_for_coreTest()
@@ -23,7 +24,7 @@ Test_for_coreTest::Test_for_coreTest()
 }
 
 /**
- * @brief Проверка выдачи прав
+ * @brief Проверка правильности работы функиональности, отвечающей за выдачу прав
  */
 void Test_for_coreTest::theTestForTheGrantOfRights()
 {
@@ -33,16 +34,39 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
 }
 
 /**
- * @brief Проверка обработки файла(считывание полей и попытка вызвать исключение)
+ * @brief Проверка правильности обработки файла(считывание полей и попытка вызвать исключение)
  */
 void Test_for_coreTest::fileProcessingChecks()
 {
-//    QVERIFY2(start_test.timetableForTrain(3) == "Elbatemit","Error to get second string from file");
+    vector<string> buffer = start_test.getRouteOfTrain(3);
 
-//    QVERIFY_EXCEPTION_THROWN(start_test.timetableForTrain(-1), BeyondTheArray);
-//    QVERIFY_EXCEPTION_THROWN(start_test.timetableForTrain(30), BeyondTheArray);
+    QVERIFY2(buffer[0] == "Elbatemit","Error to get second string from file");
+
+    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(-1), BeyondTheArray);
+    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(50), BeyondTheArray);
+}
+
+/**
+ * @brief Проверка правильности работы функциональности, выставления количества читаемых строк из файла
+ */
+void Test_for_coreTest::setMaxNumberTest()
+{
+    start_test.issuanceOfRights(administrator);
+
+    int max_num = start_test.getMaxNumberStringInFile();
+
+    start_test.setMaxNumberStringInFile(14);
+
+    QCOMPARE(start_test.getMaxNumberStringInFile(),14);
+
+    start_test.setMaxNumberStringInFile(max_num);
+
+    start_test.issuanceOfRights(usual_user);
+
+    QVERIFY_EXCEPTION_THROWN(start_test.setMaxNumberStringInFile(max_num), InsufficientRights);
 }
 
 QTEST_APPLESS_MAIN(Test_for_coreTest)
 
 #include "tst_test_for_coretest.moc"
+
