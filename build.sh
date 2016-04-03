@@ -33,7 +33,7 @@ build_debug_version() {
 		gcovr -r . --xml --exclude='tst*' -o gcovr_result
 		
 		valgrind --version
-		valgrind --leak-check=full --xml=yes --xml-file=/opt/tomcat/.jenkins/jobs/The_timetable_for_transport/workspace/tst_test_for_coretest.%p.result /opt/tomcat/.jenkins/jobs/The_timetable_for_transport/workspace/sources/Timetable_of_trains/Test_for_core/tst_test_for_coretest || true
+		valgrind --leak-check=full --xml=yes --xml-file=/opt/tomcat/.jenkins/jobs/Timetable_for_train/workspace/tst_test_for_coretest.%p.result /opt/tomcat/.jenkins/jobs/Timetable_for_train/workspace/sources/Timetable_of_trains/Test_for_core/tst_test_for_coretest || true
 		
 
 		cd ../..
