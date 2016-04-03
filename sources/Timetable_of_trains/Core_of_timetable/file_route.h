@@ -58,6 +58,6 @@ class FailedToOpen : public exception {};
 /**
  * @brief Исключение "Выход за пределы массива"
  */
-class BeyondTheArray : public exception {};
+class RouteDoesNotExist : public exception {};
 
 #endif // FILETIMETABLE_H

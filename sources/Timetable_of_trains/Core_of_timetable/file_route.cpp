@@ -1,9 +1,9 @@
 #include "file_route.h"
-#include "core.h"
+#include <core.h>
 
 void FileTimetable::ReadingFromFile()
 {
-    ifstream inputFile_for_reading("../../Timetable.txt");
+    ifstream inputFile_for_reading("../../Routetable.txt");
 
     if (!inputFile_for_reading.is_open())
     {
@@ -27,11 +27,6 @@ void FileTimetable::ReadingFromFile()
 
 string FileTimetable::getFileData(int number_of_the_route) const
 {
-    if (number_of_the_route < 1 || number_of_the_route > max_number_of_the_string)
-    {
-        throw BeyondTheArray();
-    }
-
     return fileData[number_of_the_route];
 }
 
@@ -42,7 +37,7 @@ int FileTimetable::getMaxQuantityStringInFile()const
 
 void FileTimetable::setMaxQuantityStringInFile(int const new_max_quantity)
 {
-    ofstream inputFileForRewriteMaxQuantity("../../Timetable.txt");
+    ofstream inputFileForRewriteMaxQuantity("../../Routetable.txt");
 
     if (!inputFileForRewriteMaxQuantity.is_open())
     {
@@ -64,7 +59,7 @@ void FileTimetable::setMaxQuantityStringInFile(int const new_max_quantity)
 
 void FileTimetable::changeRouteTable(const int choice_route, string ToPrintToFile)
 {
-    ofstream inputFileForChangeRoute("../../Timetable.txt");
+    ofstream inputFileForChangeRoute("../../Routetable.txt");
 
     if (!inputFileForChangeRoute.is_open())
     {
@@ -82,8 +77,6 @@ void FileTimetable::changeRouteTable(const int choice_route, string ToPrintToFil
             inputFileForChangeRoute << endl << fileData[i] ;
         }
     }
-
-
 
     inputFileForChangeRoute.close();
 }

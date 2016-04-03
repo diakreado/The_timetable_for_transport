@@ -28,6 +28,10 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 {
+    if (number_of_the_route < 1 || number_of_the_route > DataSet.getMaxQuantityStringInFile())
+    {
+        throw RouteDoesNotExist();
+    }
     string input_string = DataSet.getFileData(number_of_the_route);
     vector<string> output_vector_string;
     output_vector_string.resize(50);
@@ -63,7 +67,9 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 
 void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)
 {
+
     vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
+    NewVariantOfString.resize(50);
     choice_station--;                                                        /// потому что с отсчёт с нуля
     string buffer;
     for (unsigned int i = 0; i < NewVariantOfString.size(); i++)
@@ -90,6 +96,20 @@ void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_statio
     for (unsigned int i = 0; i < NewVariantOfString.size(); i++)
     {
         ToPrintToFile += NewVariantOfString[i] + ' ';
+    }
+    bool flag = 0;
+    unsigned int size_of_string;
+    while(flag == 0)
+    {
+        size_of_string = ToPrintToFile.size()-1;
+        if (ToPrintToFile[size_of_string] == ' ' || ToPrintToFile[size_of_string] == '_')
+        {
+            ToPrintToFile.erase(ToPrintToFile.end()-1);
+        }
+        else
+        {
+            flag = 1;
+        }
     }
     DataSet.changeRouteTable(choice_route,ToPrintToFile);
 }

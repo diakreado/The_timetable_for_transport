@@ -1,4 +1,4 @@
-build*
+build-*
 *.pro.user*
 *.aux
 *.log
@@ -12,4 +12,6 @@ class_*
 *.bat
 *.idx
 *.out
+latex
+html
 Makefile
