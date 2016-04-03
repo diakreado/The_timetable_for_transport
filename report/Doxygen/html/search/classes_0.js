@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['beyondthearray',['BeyondTheArray',['../class_beyond_the_array.html',1,'']]]
+  ['consolefortimetable',['ConsoleForTimetable',['../class_console_for_timetable.html',1,'']]],
+  ['coreoftimetable',['CoreOfTimetable',['../class_core_of_timetable.html',1,'']]]
 ];

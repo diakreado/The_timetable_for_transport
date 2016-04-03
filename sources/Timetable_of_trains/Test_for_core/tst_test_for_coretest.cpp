@@ -42,8 +42,8 @@ void Test_for_coreTest::fileProcessingChecks()
 
     QVERIFY2(buffer[0] == "Elbatemit","Error to get second string from file");
 
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(-1), BeyondTheArray);
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(50), BeyondTheArray);
+    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(-1), RouteDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(50), RouteDoesNotExist);
 }
 
 /**

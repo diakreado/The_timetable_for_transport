@@ -43,9 +43,9 @@ void ConsoleForTimetable::convenientOutputInTheConsole(int const choice_of_the_r
     {
         cout << " Error when opening file";
     }
-    catch(BeyondTheArray)
+    catch(RouteDoesNotExist)
     {
-        cout << " Error output abroad";
+        cout << " The route does not exist";
     }
     cout << endl << endl;
 }

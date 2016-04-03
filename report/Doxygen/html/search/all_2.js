@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['failedtoopen',['FailedToOpen',['../class_failed_to_open.html',1,'']]],
-  ['filetimetable',['FileTimetable',['../class_file_timetable.html',1,'']]]
+  ['getfiledata',['getFileData',['../class_file_timetable.html#a2cde6be4cf6228c5f8bc6a400af7071b',1,'FileTimetable']]],
+  ['getmaxnumberstringinfile',['getMaxNumberStringInFile',['../class_core_of_timetable.html#a5f9fa4f197f18d61d13318a0aa3039ec',1,'CoreOfTimetable']]],
+  ['getmaxquantitystringinfile',['getMaxQuantityStringInFile',['../class_file_timetable.html#ac1911b2e8fab1f7f4657573de455db9c',1,'FileTimetable']]],
+  ['getrouteoftrain',['getRouteOfTrain',['../class_core_of_timetable.html#a5678544923247dcc713f2e7f3c0d44bf',1,'CoreOfTimetable']]]
 ];

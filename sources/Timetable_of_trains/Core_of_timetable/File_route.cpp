@@ -27,11 +27,6 @@ void FileTimetable::ReadingFromFile()
 
 string FileTimetable::getFileData(int number_of_the_route) const
 {
-    if (number_of_the_route < 1 || number_of_the_route > max_number_of_the_string)
-    {
-        throw BeyondTheArray();
-    }
-
     return fileData[number_of_the_route];
 }
 

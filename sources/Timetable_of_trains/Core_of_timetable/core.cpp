@@ -28,6 +28,10 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 {
+    if (number_of_the_route < 1 || number_of_the_route > DataSet.getMaxQuantityStringInFile())
+    {
+        throw RouteDoesNotExist();
+    }
     string input_string = DataSet.getFileData(number_of_the_route);
     vector<string> output_vector_string;
     output_vector_string.resize(50);
@@ -63,6 +67,7 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 
 void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)
 {
+
     vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
     NewVariantOfString.resize(50);
     choice_station--;                                                        /// потому что с отсчёт с нуля

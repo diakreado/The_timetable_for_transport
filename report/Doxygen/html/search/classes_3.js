@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['insufficientrights',['InsufficientRights',['../class_insufficient_rights.html',1,'']]]
+  ['mainwindow',['MainWindow',['../class_main_window.html',1,'']]]
 ];
