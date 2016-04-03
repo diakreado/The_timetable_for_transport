@@ -3,7 +3,7 @@
 export PATH=$PATH:/opt/Qt5.5.0/5.5/gcc_64/bin/
 
 build_release_version() {
-	cd sources/The_timetable_for_transport
+	cd sources/Timetable_of_trains
 	qmake --version
 	qmake
 	if [ -e "Makefile" ]; then
@@ -18,7 +18,7 @@ build_release_version() {
 }
 
 build_debug_version() {
-	cd sources/The_timetable_for_transport
+	cd sources/Timetable_of_trains
 	cloc --version
 	cloc --by-file --xml --out=./cloc_result *
 	qmake --version
@@ -33,7 +33,7 @@ build_debug_version() {
 		gcovr -r . --xml --exclude='tst*' -o gcovr_result
 		
 		valgrind --version
-		valgrind --leak-check=full --xml=yes --xml-file=/opt/tomcat/.jenkins/jobs/The_timetable_for_transport/workspace/tst_test_for_coretest.%p.result /opt/tomcat/.jenkins/jobs/The_timetable_for_transport/workspace/sources/The_timetable_for_transport/Test_for_core/tst_test_for_coretest || true
+		valgrind --leak-check=full --xml=yes --xml-file=/opt/tomcat/.jenkins/jobs/Timetable_of_trains/workspace/tst_test_for_coretest.%p.result /opt/tomcat/.jenkins/jobs/Timetable_of_trains/workspace/sources/Timetable_of_trains/Test_for_core/tst_test_for_coretest || true
 		
 
 		cd ../..
@@ -78,11 +78,11 @@ zip_files() {
 
 #	if [ -e "sources/FootballEditor16/ConsoleApp/ConsoleApp" ]; then
 #		cp sources/FootballEditor16/ConsoleApp/ConsoleApp $TITLE/FootballEditor16${BUILD_NUMBER}
-		if [ -e "report/The_timetable_for_transport.pdf" ]; then
-			cp report/The_timetable_for_transport.pdf $TITLE/The_timetable_for_transport${BUILD_NUMBER}.pdf
+		if [ -e "report/Timetable_of_trains.pdf" ]; then
+			cp report/Timetable_of_trains.pdf $TITLE/Timetable_of_trains${BUILD_NUMBER}.pdf
 		fi
 		if [ -e "report/latex/refman.pdf" ]; then
-			cp report/latex/refman.pdf $TITLE/The_timetable_for_transportDoxygen${BUILD_NUMBER}.pdf
+			cp report/latex/refman.pdf $TITLE/Timetable_of_trainsDoxygen${BUILD_NUMBER}.pdf
 		fi
 		zip --version
 		zip $TITLE.zip $TITLE/*
