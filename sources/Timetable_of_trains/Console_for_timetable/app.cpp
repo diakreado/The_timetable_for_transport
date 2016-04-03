@@ -24,8 +24,7 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
         Core.issuanceOfRights(usual_user);
         cout << endl << " Granted privileges a usual user" << endl << endl;
     }
-    cin.get();
-    cin.get();
+    system("pause");
     menu();
 }
 
@@ -57,8 +56,7 @@ void ConsoleForTimetable::getRoutelInformation()
     cout << " What route are you interested?" << endl << endl << "-->";
     cin >> choice_of_the_route;
     convenientOutputInTheConsole(choice_of_the_route);
-    cin.get();
-    cin.get();
+    system("pause");
     menu();
 }
 
@@ -92,8 +90,7 @@ void ConsoleForTimetable::changeRouteTable()
     getline(cin,what_to_replace);
     cout << endl << endl;
     Core.changeRouteTable(choice_route,choice_station,what_to_replace);
-    cin.get();
-    cin.get();
+    system("pause");
     menu();
 }
 
@@ -120,13 +117,13 @@ void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
     {
         cout << " Put the number more" << endl << endl;
     }
-    cin.get();
-    cin.get();
+    system("pause");
     menu();
 }
 
 void ConsoleForTimetable::menu()
 {
+    system("cls");
     cout << " 1. To see the timetable" << endl
          << " 2. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
