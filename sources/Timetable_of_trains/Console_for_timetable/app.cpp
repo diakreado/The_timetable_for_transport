@@ -57,6 +57,7 @@ void ConsoleForTimetable::getRoutelInformation()
     cout << " What route are you interested?" << endl << endl << "-->";
     cin >> choice_of_the_route;
     convenientOutputInTheConsole(choice_of_the_route);
+    cout << endl << " Press any key..." << endl;
     cin.get();
     cin.get();
     menu();
@@ -127,6 +128,7 @@ void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
 
 void ConsoleForTimetable::menu()
 {
+//    system("cls"); // Очень удобная команда, но работает только под Windows
     cout << " 1. To see the timetable" << endl
          << " 2. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)

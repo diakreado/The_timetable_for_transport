@@ -12,11 +12,15 @@ CONFIG += staticlib
 
 SOURCES += \
     file_route.cpp \
-    core.cpp
+    core.cpp \
+    file.cpp \
+    file_timetable.cpp
 
 HEADERS += \
     core.h \
-    file_route.h
+    file_route.h \
+    file.h \
+    file_timetable.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

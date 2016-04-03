@@ -1,5 +1,4 @@
 #include "file_route.h"
-#include <core.h>
 
 void FileTimetable::ReadingFromFile()
 {
@@ -25,16 +24,6 @@ void FileTimetable::ReadingFromFile()
     inputFile_for_reading.close();
 }
 
-string FileTimetable::getFileData(int number_of_the_route) const
-{
-    return fileData[number_of_the_route];
-}
-
-int FileTimetable::getMaxQuantityStringInFile()const
-{
-    return max_number_of_the_string;
-}
-
 void FileTimetable::setMaxQuantityStringInFile(int const new_max_quantity)
 {
     ofstream inputFileForRewriteMaxQuantity("../../Routetable.txt");
@@ -57,7 +46,7 @@ void FileTimetable::setMaxQuantityStringInFile(int const new_max_quantity)
     inputFileForRewriteMaxQuantity.close();
 }
 
-void FileTimetable::changeRouteTable(const int choice_route, string ToPrintToFile)
+void FileTimetable::changeTable(const int number_of_line, string ToPrintToFile)
 {
     ofstream inputFileForChangeRoute("../../Routetable.txt");
 
@@ -68,7 +57,7 @@ void FileTimetable::changeRouteTable(const int choice_route, string ToPrintToFil
 
     inputFileForChangeRoute << max_number_of_the_string;
 
-    fileData[choice_route] = ToPrintToFile;
+    fileData[number_of_line] = ToPrintToFile;
 
     for(unsigned int i = 0; i < fileData.size(); i++)
     {

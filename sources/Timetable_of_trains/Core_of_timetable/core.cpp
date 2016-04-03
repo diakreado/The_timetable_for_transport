@@ -1,7 +1,4 @@
 #include "core.h"
-#include <iostream>
-
-using namespace std;
 
 CoreOfTimetable::CoreOfTimetable()
 {
@@ -111,7 +108,7 @@ void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_statio
             flag = 1;
         }
     }
-    DataSet.changeRouteTable(choice_route,ToPrintToFile);
+    DataSet.changeTable(choice_route,ToPrintToFile);
 }
 
 int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
