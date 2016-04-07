@@ -65,8 +65,7 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 
 string CoreOfTimetable::getWhenStartMovementOnTheStation(string const name_of_the_station)
 {
-    int i = 3;
-    return DataSetOfTimetable.getFileData(i);
+    return DataSetOfTimetable.getFileData(name_of_the_station);
 }
 
 void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)

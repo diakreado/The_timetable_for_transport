@@ -16,12 +16,6 @@ class File
 public:
 
     /**
-     *  @param Номер строчки из файла
-     *  @return Строчка с необходимыми данными
-     */
-    virtual string getFileData(int number_of_the_line) const = 0;
-
-    /**
      * @brief Прочитывает файл и помещает информацию из него в удобный для вывода контейрнер
      */
     virtual void ReadingFromFile() = 0;

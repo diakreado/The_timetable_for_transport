@@ -4,6 +4,11 @@
 #include "file.h"
 #include <map>
 
+enum what_part_of_buffer{name = 0, value = 1};
+
+/**
+ *  @brief Наследник класса File, который нужен, чтобы работать с файлом "Schedule.txt"
+ */
 class FileTimetable : public File
 {
 public:
@@ -30,7 +35,7 @@ public:
      *  @param Номер строчки из файла "Schedule.txt"
      *  @return Строчка с необходимым временем
      */
-    string getFileData(int number_of_the_line) const;
+    string getFileData(const string name_of_station);
 
 private:
 
