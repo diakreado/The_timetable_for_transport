@@ -76,8 +76,8 @@ zip_files() {
 	TITLE="${JOB_NAME}${BUILD_NUMBER}"
 	mkdir "$TITLE"
 
-	if [ -e "sources/FootballEditor16/ConsoleApp/ConsoleApp" ]; then
-		cp sources/FootballEditor16/ConsoleApp/ConsoleApp $TITLE/FootballEditor16${BUILD_NUMBER}
+	if [ -e "sources/Timetable_of_trains/Console_for_timetable/Console_for_timetable" ]; then
+		cp sources/Timetable_of_trains/Console_for_timetable/Console_for_timetable $TITLE/The_timetable_for_transport${BUILD_NUMBER}
 		if [ -e "report/Timetable_of_trains.pdf" ]; then
 			cp report/Timetable_of_trains.pdf $TITLE/Timetable_of_trains${BUILD_NUMBER}.pdf
 		fi
