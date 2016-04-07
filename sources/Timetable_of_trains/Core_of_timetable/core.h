@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 #include <file_route.h>
-#include <file.h>
+#include <file_timetable.h>
 #include <algorithm>
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -40,6 +41,13 @@ public:
     vector<string> getRouteOfTrain(int const number_of_the_route);
 
     /**
+     * @brief Используется для более удобного вывода в консоль
+     * @param Название станции
+     * @return Время начала движения в формате vector<string>
+     */
+    string getWhenStartMovementOnTheStation(string const name_of_the_station);
+
+    /**
      * @param station - станция
      * @param time - время относительно которого делается вывод
      * @return время до прибытия следующего поезда
@@ -71,9 +79,12 @@ public:
     string findSuitableRoute(string departure,string arrival,int time);
 
 private:
+
     int right;
 
-    FileTimetable DataSet;
+    FileRoute DataSetOfTheRoute;
+
+    FileTimetable DataSetOfTimetable;
 };
 
 /**

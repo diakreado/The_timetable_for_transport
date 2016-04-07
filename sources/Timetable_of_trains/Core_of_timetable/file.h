@@ -2,29 +2,29 @@
 #define FILE_H
 
 #include <string>
-#include <vector>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 /**
- *  @brief Смысл класса в обмене информации между ядром и файлом
+ *  @brief Абстрактный класс объединяющий взаимодействие с файлами
  */
 class File
 {
 public:
+
     /**
      *  @param Номер строчки из файла
-     *  @return Строчка с необходимым маршрутом
+     *  @return Строчка с необходимыми данными
      */
-    string getFileData(int number_of_the_line) const;
-
+    virtual string getFileData(int number_of_the_line) const = 0;
 
     /**
      * @brief Прочитывает файл и помещает информацию из него в удобный для вывода контейрнер
      */
-     virtual void ReadingFromFile() = 0;
+    virtual void ReadingFromFile() = 0;
 
     /**
      * @return Максимальное читаемое количество строчек в файле
@@ -45,10 +45,6 @@ public:
     virtual void changeTable(int const number_of_line, string ToPrintToFile) = 0;
 
 protected:
-    /**
-     *  @brief Сюда записываются данные извлечённые из файла
-     */
-    vector<string> fileData;
 
     /**
      * @brief Максимальное читаемое количество строчек в файле

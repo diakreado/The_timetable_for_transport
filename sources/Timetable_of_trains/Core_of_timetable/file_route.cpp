@@ -1,6 +1,6 @@
 #include "file_route.h"
 
-void FileTimetable::ReadingFromFile()
+void FileRoute::ReadingFromFile()
 {
     ifstream inputFile_for_reading("../../Routetable.txt");
 
@@ -11,20 +11,20 @@ void FileTimetable::ReadingFromFile()
 
     inputFile_for_reading >> max_number_of_the_string;
 
-    fileData.resize(max_number_of_the_string + 1);
+    FileDataForRoute.resize(max_number_of_the_string + 1);
 
     int the_number_of_passes = 0;    /// Количество проходов
 
     while (inputFile_for_reading.peek()!=EOF)    /// Считывание до окончания файла
     {
-        getline(inputFile_for_reading,fileData[the_number_of_passes]); /// Получить строчку(на вход принимает поток откуда и место куда)
+        getline(inputFile_for_reading,FileDataForRoute[the_number_of_passes]); /// Получить строчку(на вход принимает поток откуда и место куда)
         the_number_of_passes++;  /// Получается, что у  fileData существует
     }                           /// нулевой элемент, он пусой, так как первую строчку уже читали
 
     inputFile_for_reading.close();
 }
 
-void FileTimetable::setMaxQuantityStringInFile(int const new_max_quantity)
+void FileRoute::setMaxQuantityStringInFile(int const new_max_quantity)
 {
     ofstream inputFileForRewriteMaxQuantity("../../Routetable.txt");
 
@@ -37,16 +37,16 @@ void FileTimetable::setMaxQuantityStringInFile(int const new_max_quantity)
 
     for (int step = 0; step < max_number_of_the_string; step++)
     {
-        if (fileData[step] != "")
+        if (FileDataForRoute[step] != "")
         {
-             inputFileForRewriteMaxQuantity << endl << fileData[step];
+             inputFileForRewriteMaxQuantity << endl << FileDataForRoute[step];
         }
     }
 
     inputFileForRewriteMaxQuantity.close();
 }
 
-void FileTimetable::changeTable(const int number_of_line, string ToPrintToFile)
+void FileRoute::changeTable(const int number_of_line, string ToPrintToFile)
 {
     ofstream inputFileForChangeRoute("../../Routetable.txt");
 
@@ -57,20 +57,22 @@ void FileTimetable::changeTable(const int number_of_line, string ToPrintToFile)
 
     inputFileForChangeRoute << max_number_of_the_string;
 
-    fileData[number_of_line] = ToPrintToFile;
+    FileDataForRoute[number_of_line] = ToPrintToFile;
 
-    for(unsigned int i = 0; i < fileData.size(); i++)
+    for(unsigned int i = 0; i < FileDataForRoute.size(); i++)
     {
-        if (fileData[i] != "")
+        if (FileDataForRoute[i] != "")
         {
-            inputFileForChangeRoute << endl << fileData[i] ;
+            inputFileForChangeRoute << endl << FileDataForRoute[i] ;
         }
     }
 
     inputFileForChangeRoute.close();
 }
 
-
-
+string FileRoute::getFileData(int number_of_the_line) const
+{
+    return FileDataForRoute[number_of_the_line];
+}
 
 

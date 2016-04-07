@@ -3,7 +3,8 @@
 CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
-    DataSet.ReadingFromFile();
+    DataSetOfTheRoute.ReadingFromFile();
+    DataSetOfTimetable.ReadingFromFile();
 }
 
 void CoreOfTimetable::issuanceOfRights(int const what_rights)
@@ -25,11 +26,11 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 {
-    if (number_of_the_route < 1 || number_of_the_route > DataSet.getMaxQuantityStringInFile())
+    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityStringInFile())
     {
         throw RouteDoesNotExist();
     }
-    string input_string = DataSet.getFileData(number_of_the_route);
+    string input_string = DataSetOfTheRoute.getFileData(number_of_the_route);
     vector<string> output_vector_string;
     output_vector_string.resize(50);
     int number_newlines = 0;
@@ -60,6 +61,12 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
     }
     output_vector_string.resize(50 - empty_string);
     return output_vector_string;
+}
+
+string CoreOfTimetable::getWhenStartMovementOnTheStation(string const name_of_the_station)
+{
+    int i = 3;
+    return DataSetOfTimetable.getFileData(i);
 }
 
 void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)
@@ -108,7 +115,7 @@ void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_statio
             flag = 1;
         }
     }
-    DataSet.changeTable(choice_route,ToPrintToFile);
+    DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 
 int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
@@ -126,8 +133,8 @@ void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
         {
             throw RecommendedSettings();
         }
-        DataSet.setMaxQuantityStringInFile(new_max_quantity);
-        DataSet.ReadingFromFile();
+        DataSetOfTheRoute.setMaxQuantityStringInFile(new_max_quantity);
+        DataSetOfTheRoute.ReadingFromFile();
     }
     else
     {
@@ -137,7 +144,7 @@ void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
 
 int CoreOfTimetable::getMaxNumberStringInFile()
 {
-    return DataSet.getMaxQuantityStringInFile();
+    return DataSetOfTheRoute.getMaxQuantityStringInFile();
 }
 
 
