@@ -32,7 +32,7 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
     }
     string input_string = DataSetOfTheRoute.getFileData(number_of_the_route);
     vector<string> output_vector_string;
-    output_vector_string.resize(50);
+    output_vector_string.resize(100);
     int number_newlines = 0;
     char symbol_int_string;
     for (unsigned int character_number = 0; character_number < input_string.length(); character_number++)
@@ -59,7 +59,7 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
             empty_string++;
         }
     }
-    output_vector_string.resize(50 - empty_string);
+    output_vector_string.resize(100 - empty_string);
     return output_vector_string;
 }
 
@@ -146,6 +146,13 @@ int CoreOfTimetable::getMaxNumberStringInFile()
     return DataSetOfTheRoute.getMaxQuantityStringInFile();
 }
 
+void CoreOfTimetable::changeTimetable(string const what_change, string const in_exchange)
+{
 
+}
 
+void CoreOfTimetable::removeStationFromTimetalbe(string const what_remove)
+{
+
+}
 

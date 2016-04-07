@@ -45,12 +45,6 @@ private:
     void convenientOutputInTheConsoleForRouteTable(int const choice_of_the_route);
 
     /**
-     * @brief Удобный вывод времени начала/конца движения в консоль
-     * @param Название станции
-     */
-    void convenientOutputInTheConsoleForTimetable(string const choice_of_the_station);
-
-    /**
      * @brief Печатает в консоль проложеный маршрут от одной станции до другой
      */
     void findTheRoute();
@@ -71,6 +65,11 @@ private:
      * @brief Изменить маршруты поездов
      */
     void changeRouteTable();
+
+    /**
+     * @brief Изменить расписание
+     */
+    void changeTimetable();
 
     CoreOfTimetable Core;
 };

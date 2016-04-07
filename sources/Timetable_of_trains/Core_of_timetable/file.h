@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <exception>
 
 using namespace std;
 
@@ -23,7 +24,7 @@ public:
     /**
      * @return Максимальное читаемое количество строчек в файле
      */
-    int getMaxQuantityStringInFile() const;
+    int getMaxQuantityStringInFile() const {return max_number_of_the_string;}
 
     /**
      * @brief Устанавливает максимальное количество читаемых строчек в файле

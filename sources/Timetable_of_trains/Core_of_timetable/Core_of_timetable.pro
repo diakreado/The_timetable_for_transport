@@ -13,7 +13,6 @@ CONFIG += staticlib
 SOURCES += \
     file_route.cpp \
     core.cpp \
-    file.cpp \
     file_timetable.cpp
 
 HEADERS += \

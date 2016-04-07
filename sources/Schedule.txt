@@ -1,23 +1,23 @@
 100
-Devyatkino~5.32 0.00
-Grazhdansky_Prospekt~5.30 0.44
-Akademicheskaya~5.35 0.40
-Politekhnicheskaya~5.37 0.39
-Ploschad_Muzhestva~5.40 0.37
-Lesnaya~5.42 0.33
-Vyborgskaya~5.45 0.30
-Ploshchad_Lenina~5.40 22.00
-Chernyshevskaya~5.43 0.25
-Ploshchad_Vosstaniya~5.44 0.25
-Vladimirskaya~5.38 0.26
-Pushkinskaya~5.38 0.28
-Tekhnologichesky_Institut~7.00 20.00
-Baltiyskaya~5.36 0.33
-Narvskaya~5.36 0.36
-Kirovsky_Zavod~5.30 0.40
-Avtovo~5.30 0.42
-Leninsky_Prospekt~6.30 20.00
-Prospekt_Veteranov~6.30 20.00
-Arbuzovo~0.00 23.45
-Abrikosovo_Rosha~9.00 10.10
-Pomidorovo~0.43 9.13
+Devyatkino~5.32-0.00
+Grazhdansky_Prospekt~5.30-0.44
+Akademicheskaya~5.35-0.40
+Politekhnicheskaya~5.37-0.39
+Ploschad_Muzhestva~5.40-0.37
+Lesnaya~5.42-0.33
+Vyborgskaya~5.45-0.30
+Ploshchad_Lenina~5.40-22.00
+Chernyshevskaya~5.43-0.25
+Ploshchad_Vosstaniya~5.44-0.25
+Vladimirskaya~5.38-0.26
+Pushkinskaya~5.38-0.28
+Tekhnologichesky_Institut~7.00-20.00
+Baltiyskaya~5.36-0.33
+Narvskaya~5.36-0.36
+Kirovsky_Zavod~5.30-0.40
+Avtovo~5.30-0.42
+Leninsky_Prospekt~6.30-20.00
+Prospekt_Veteranov~6.30-20.00
+Arbuzovo~0.00-23.45
+Abrikosovo_Rosha~9.00-10.10
+Pomidorovo~0.43-9.13

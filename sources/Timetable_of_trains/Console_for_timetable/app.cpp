@@ -51,24 +51,6 @@ void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const int ch
     cout << endl << endl;
 }
 
-void ConsoleForTimetable::convenientOutputInTheConsoleForTimetable(string const choice_of_the_route)
-{
-    cout << endl;
-    try
-    {
-        cout << Core.getWhenStartMovementOnTheStation(choice_of_the_route) << endl;
-    }
-    catch(FailedToOpen)
-    {
-        cout << " Error when opening file";
-    }
-    catch(RouteDoesNotExist)
-    {
-        cout << " The station does not exist";
-    }
-    cout << endl << endl;
-}
-
 void ConsoleForTimetable::getRoutelInformation()
 {
     int choice_of_the_route;
@@ -96,8 +78,21 @@ void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrain()
     string choice_of_the_station;
     cout << " What station are you interested?" << endl << endl << "-->";
     cin >> choice_of_the_station;
-    convenientOutputInTheConsoleForTimetable(choice_of_the_station);
-    cout << endl << " Press any key..." << endl;
+    cout << endl;
+    try
+    {
+        cout << endl << " Time of the work station:" << endl << endl << ' ' << choice_of_the_station << " : "
+             << Core.getWhenStartMovementOnTheStation(choice_of_the_station) << endl;
+    }
+    catch(FailedToOpen)
+    {
+        cout << " Error when opening file";
+    }
+    catch(StationDoesNotExist)
+    {
+        cout << " The station does not exist";
+    }
+    cout << endl << endl << " Press any key..." << endl;
     cin.get();
     cin.get();
     menu();
@@ -152,16 +147,49 @@ void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
     menu();
 }
 
+void ConsoleForTimetable::changeTimetable()
+{
+    if (Core.informationOfTheRights() == usual_user)
+    {
+        menu();
+    }
+    cout << " 1.Remove a station and it's' schedule" << endl << " 2.Add or change a station and it's schedule " << endl << endl << "-->";
+    char choice_of_action;
+    cin >> choice_of_action;
+    switch(choice_of_action)
+    {
+    case '1':
+    {
+
+        break;
+    }
+    case '2':
+    {
+
+        break;
+    }
+    default:
+    {
+        cout << " You have entered something incomprehensible" << endl;
+    }
+    }
+    cout << endl << " Press any key..." << endl;
+    cin.get();
+    cin.get();
+    menu();
+}
+
 void ConsoleForTimetable::menu()
 {
-//    system("cls"); // Очень удобная команда, но работает только под Windows
+    //system("cls"); // Очень удобная команда, но работает только под Windows
     cout << " 1. To see the route table for trains" << endl
          << " 2. To see when begins and ends movement of the train" << endl
          << " 3. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
         cout << " 4. To change the maximum number of lines in the file" << endl
-             << " 5. Change route table for the train" << endl;
+             << " 5. Change route table for the train" << endl
+             << " 6. Change timetable for the train" << endl;
     }
     cout << " 0. Exit" << endl << endl;
     char choice_in_menu;
@@ -193,6 +221,11 @@ void ConsoleForTimetable::menu()
     case '5':
     {
         changeRouteTable();
+        break;
+    }
+    case '6':
+    {
+        changeTimetable();
         break;
     }
     case '0':

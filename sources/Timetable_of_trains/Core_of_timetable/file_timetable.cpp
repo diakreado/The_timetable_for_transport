@@ -94,5 +94,9 @@ void FileTimetable::changeTable(int const number_of_line, string ToPrintToFile)
 
 string FileTimetable::getFileData(string const name_of_station)
 {
+    if(Timetable[name_of_station] == "")
+    {
+        throw StationDoesNotExist();
+    }
     return Timetable[name_of_station];
 }

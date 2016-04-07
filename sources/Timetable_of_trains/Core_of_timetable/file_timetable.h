@@ -47,4 +47,6 @@ private:
     map<string,string> Timetable;
 };
 
+class StationDoesNotExist : public exception {};
+
 #endif // FILESCHEDULE_H

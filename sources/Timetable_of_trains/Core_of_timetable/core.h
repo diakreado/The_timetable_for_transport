@@ -71,6 +71,19 @@ public:
     void changeRouteTable(int const  choice_route,int choice_station, string what_to_replace);
 
     /**
+     * @brief Изменение станции в файле "Schedule.txt"
+     * @param имя станции, которую нужно изменить или добавить
+     * @param что поставить вместо
+     */
+    void changeTimetable(string const what_change, string const in_exchange);
+
+    /**
+     * @brief Удаление станции из файла "Schedule.txt"
+     * @param имя станции, которую нужно удалить
+     */
+    void removeStationFromTimetalbe(string const what_remove);
+
+    /**
      * @param departure - станция отправления
      * @param arrival  - станция назначения
      * @param time - время (возможно я уберу этот параметр во время реализации функции)
