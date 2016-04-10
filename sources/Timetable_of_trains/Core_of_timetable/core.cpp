@@ -3,8 +3,8 @@
 CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
-    DataSetOfTheRoute.ReadingFromFile();
-    DataSetOfTimetable.ReadingFromFile();
+    DataSetOfTheRoute.readingFromFile();
+    DataSetOfTimetable.readingFromFile();
 }
 
 void CoreOfTimetable::issuanceOfRights(int const what_rights)
@@ -133,7 +133,7 @@ void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
             throw RecommendedSettings();
         }
         DataSetOfTheRoute.setMaxQuantityStringInFile(new_max_quantity);
-        DataSetOfTheRoute.ReadingFromFile();
+        DataSetOfTheRoute.readingFromFile();
     }
     else
     {
@@ -153,6 +153,6 @@ void CoreOfTimetable::changeTimetable(string const what_change, string const in_
 
 void CoreOfTimetable::removeStationFromTimetalbe(string const what_remove)
 {
-
+    DataSetOfTimetable.removeLine(what_remove);
 }
 

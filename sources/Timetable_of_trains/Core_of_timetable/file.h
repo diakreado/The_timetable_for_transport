@@ -19,7 +19,7 @@ public:
     /**
      * @brief Прочитывает файл и помещает информацию из него в удобный для вывода контейрнер
      */
-    virtual void ReadingFromFile() = 0;
+    virtual void readingFromFile() = 0;
 
     /**
      * @return Максимальное читаемое количество строчек в файле
@@ -32,19 +32,17 @@ public:
      */
     virtual void setMaxQuantityStringInFile(int const  new_max_quantity) = 0;
 
-    /**
-     * @brief Переписывает строчку в файле
-     * @param Номер строки которую надо переписать
-     * @param Что нужно написать на месте строки
-     */
-    virtual void changeTable(int const number_of_line, string ToPrintToFile) = 0;
-
 protected:
 
     /**
      * @brief Максимальное читаемое количество строчек в файле
      */
     int max_number_of_the_string;
+
+    /**
+     *  @brief Сюда записываются данные извлечённые из файла
+     */
+    vector<string> FileData;
 };
 
 /**

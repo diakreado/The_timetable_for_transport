@@ -1,6 +1,6 @@
 #include "file_route.h"
 
-void FileRoute::ReadingFromFile()
+void FileRoute::readingFromFile()
 {
     ifstream inputFile_for_reading("../../Routetable.txt");
     if (!inputFile_for_reading.is_open())
@@ -8,11 +8,11 @@ void FileRoute::ReadingFromFile()
         throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
     }
     inputFile_for_reading >> max_number_of_the_string;
-    FileDataForRoute.resize(max_number_of_the_string + 1);
+    FileData.resize(max_number_of_the_string + 1);
     int the_number_of_passes = 0;    /// Количество проходов
     while (inputFile_for_reading.peek()!=EOF)    /// Считывание до окончания файла
     {
-        getline(inputFile_for_reading,FileDataForRoute[the_number_of_passes]); /// Получить строчку(на вход принимает поток откуда и место куда)
+        getline(inputFile_for_reading,FileData[the_number_of_passes]); /// Получить строчку(на вход принимает поток откуда и место куда)
         the_number_of_passes++;  /// Получается, что у  fileData существует
     }                           /// нулевой элемент, он пустой, так как первую строчку уже читали
     inputFile_for_reading.close();
@@ -28,9 +28,9 @@ void FileRoute::setMaxQuantityStringInFile(int const new_max_quantity)
     inputFileForRewriteMaxQuantity << new_max_quantity;
     for (int step = 0; step < max_number_of_the_string; step++)
     {
-        if (FileDataForRoute[step] != "")
+        if (FileData[step] != "")
         {
-             inputFileForRewriteMaxQuantity << endl << FileDataForRoute[step];
+             inputFileForRewriteMaxQuantity << endl << FileData[step];
         }
     }
     inputFileForRewriteMaxQuantity.close();
@@ -44,12 +44,12 @@ void FileRoute::changeTable(const int number_of_line, string ToPrintToFile)
         throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
     }
     inputFileForChangeRoute << max_number_of_the_string;
-    FileDataForRoute[number_of_line] = ToPrintToFile;
-    for(unsigned int i = 0; i < FileDataForRoute.size(); i++)
+    FileData[number_of_line] = ToPrintToFile;
+    for(unsigned int i = 0; i < FileData.size(); i++)
     {
-        if (FileDataForRoute[i] != "")
+        if (FileData[i] != "")
         {
-            inputFileForChangeRoute << endl << FileDataForRoute[i] ;
+            inputFileForChangeRoute << endl << FileData[i] ;
         }
     }
     inputFileForChangeRoute.close();
@@ -57,7 +57,7 @@ void FileRoute::changeTable(const int number_of_line, string ToPrintToFile)
 
 string FileRoute::getFileData(int number_of_the_line) const
 {
-    return FileDataForRoute[number_of_the_line];
+    return FileData[number_of_the_line];
 }
 
 

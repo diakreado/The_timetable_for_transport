@@ -153,24 +153,38 @@ void ConsoleForTimetable::changeTimetable()
     {
         menu();
     }
-    cout << " 1.Remove a station and it's' schedule" << endl << " 2.Add or change a station and it's schedule " << endl << endl << "-->";
+    cout << " 1.Remove a station and schedule" << endl << " 2.Add or change a station and schedule " << endl << endl << "-->";
     char choice_of_action;
     cin >> choice_of_action;
     switch(choice_of_action)
     {
     case '1':
     {
-
+        string what_remove;
+        cout << endl << " What remove?" << endl << endl << "-->";
+        cin >> what_remove;
+        Core.removeStationFromTimetalbe(what_remove);
         break;
     }
     case '2':
     {
-
+        string when_begin;
+        string when_end;
+        string what_change;
+        cout << endl << " Which station change?" << endl << endl << "-->";
+        cin >> what_change;
+        cout << endl << " When station begin work?" << endl << endl << "-->";
+        cin >> when_begin;
+        cout << endl << " When station end work?" << endl << endl << "-->";
+        cin >> when_end;
+        string what_add = when_begin + when_end;
+        Core.changeTimetable(what_change,what_add);
         break;
     }
     default:
     {
         cout << " You have entered something incomprehensible" << endl;
+
     }
     }
     cout << endl << " Press any key..." << endl;

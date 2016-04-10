@@ -13,15 +13,8 @@ class FileTimetable : public File
 {
 public:
 
-    /**
-     * @brief Прочитывает файл "Schedule.txt" и помещает информацию из него в вектор стрингов
-     */
-    void ReadingFromFile();
+    void readingFromFile();
 
-    /**
-     * @brief Устанавливает максимальное количество читаемых строчек в файле "Schedule.txt"
-     * @param Новое значение
-     */
     void setMaxQuantityStringInFile(int const  new_max_quantity);
 
     /**
@@ -37,13 +30,17 @@ public:
      */
     string getFileData(const string name_of_station);
 
+    /**
+     *  @brief Удаляет строчку из "Schedule.txt"
+     *  @param какую строчку удалить
+     */
+    void removeLine(string const what_remove);
+
 private:
 
     /**
-     *  @brief Сюда записываются данные извлечённые из файла "Schedule.txt"
+     *  @brief Удобный формат хранения извлечённых данных
      */
-    vector<string> FileDataForTimetable;
-
     map<string,string> Timetable;
 };
 
