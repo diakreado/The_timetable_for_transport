@@ -7,11 +7,10 @@ CoreOfTimetable::CoreOfTimetable()
     {
     DataSetOfTheRoute.readingFromFile();
     DataSetOfTimetable.readingFromFile();
-    have_successfully_read_the_file = true;
     }
     catch(FailedToOpen)
     {
-        have_successfully_read_the_file = false;
+        /// Вроде как, ничего не надо делать, потому что уже всё сделано
     }
 }
 
@@ -34,9 +33,14 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
 {
-    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityStringInFile())
+    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityStringInFile() + 1)
     {
         throw RouteDoesNotExist();
+    }
+    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false)
+    {
+        vector<string> Null;
+        return Null;
     }
     string InputString = DataSetOfTheRoute.getFileData(number_of_the_route);
     vector<string> OutputVectorString;
@@ -75,18 +79,16 @@ string CoreOfTimetable::findSuitableRoute(string departure, string arrival, int 
 
 void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)
 {
-
-    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
-    NewVariantOfString.resize(50);
-    choice_station--;                                                        /// потому что с отсчёт с нуля
+    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);    /// Удобнее работать сразу с
+    choice_station--;       /// потому что с отсчёт с нуля               ///  сформированым вектором
     string buffer;
     for (unsigned int i = 0; i < NewVariantOfString.size(); i++)
     {
         buffer = NewVariantOfString[i];
         for (unsigned int j = 0; j < buffer.size(); j++)
         {
-            if (buffer[j] == ' ')
-            {
+            if (buffer[j] == ' ')     /// Заменяем пробелы в строчках, считаных из файла,
+            {                        ///  но преобразованых в вектор, знаком "_"
                 buffer[j] = '_';
             }
         }
@@ -96,10 +98,17 @@ void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_statio
     {
         if (what_to_replace[i] == ' ')
         {
-            what_to_replace[i] = '_';
+            what_to_replace[i] = '_';       /// Заменяем пробелы в введённой строчке знаком "_"
         }
     }
-    NewVariantOfString[choice_station] = what_to_replace;
+    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false)
+    {
+        NewVariantOfString.push_back(what_to_replace);
+    }
+    else
+    {
+        NewVariantOfString[choice_station] = what_to_replace;
+    }
     string ToPrintToFile;
     for (unsigned int i = 0; i < NewVariantOfString.size(); i++)
     {

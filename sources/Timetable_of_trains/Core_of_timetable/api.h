@@ -19,11 +19,6 @@ class API
 public:
 
     /**
-     * @brief Удалось ли прочитать файлы
-     */
-    bool have_successfully_read_the_file;
-
-    /**
      * @brief Выдача прав
      * @param Какие права нужно выдать
      */

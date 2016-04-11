@@ -5,6 +5,7 @@ void FileRoute::readingFromFile()
     ifstream inputFile_for_reading("../../Routetable.txt");
     if (!inputFile_for_reading.is_open())
     {
+        have_successfully_read_the_file = false;
         throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
     }
     string LineFromFile;
@@ -14,12 +15,20 @@ void FileRoute::readingFromFile()
         FileData.push_back(LineFromFile);
     }
     inputFile_for_reading.close();
+    have_successfully_read_the_file = true;
 }
 
 void FileRoute::changeTable(const int number_of_line, string ToPrintToFile)
 {
     ofstream inputFileForChangeRoute("../../Routetable.txt");
-    FileData[number_of_line] = ToPrintToFile;
+    if(have_successfully_read_the_file == true)
+    {
+        FileData[number_of_line] = ToPrintToFile;           /// ToDo Как-то неправильно печатет
+    }                                                      /// надо фопиксить
+    else
+    {
+        FileData.push_back(ToPrintToFile);
+    }
     for(unsigned int i = 0; i < FileData.size(); i++)
     {
         if (FileData[i] != "")
