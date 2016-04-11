@@ -12,17 +12,17 @@ public:
 
     void readingFromFile();
 
-    void setMaxQuantityStringInFile(int const  new_max_quantity);
-
     /**
      * @brief Переписывает строчку в файле "Routetable.txt"
      * @param Номер строки которую надо переписать
      * @param Что нужно написать на месте строки
-     *
-     *
-     * Скоро переделаю
      */
     void changeTable(int const number_of_line, string ToPrintToFile);
+
+    /**
+     * @return Максимальное читаемое количество строчек в файле
+     */
+    int getMaxQuantityStringInFile() const {return FileData.size();}
 
     /**
      *  @param Номер строчки из файла "Routetable.txt"

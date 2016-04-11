@@ -7,24 +7,13 @@ void FileTimetable::readingFromFile()
     {
         throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
     }
-    inputFile_for_reading >> max_number_of_the_string;
-    FileData.resize(max_number_of_the_string + 1);
-    int the_number_of_passes = 0;    /// Количество проходов
+    string LineFromFile;
     while (inputFile_for_reading.peek()!=EOF)    /// Считывание до окончания файла
     {
-        getline(inputFile_for_reading,FileData[the_number_of_passes]); /// Получить строчку(на вход принимает поток откуда и место куда)
-        the_number_of_passes++;  /// Получается, что у  fileData существует
-    }                           /// нулевой элемент, он пустой, так как первую строчку уже читали
-    inputFile_for_reading.close();
-    int empty_string = 0;
-    for(unsigned int i = 0; i < FileData.size(); i++)
-    {
-        if (FileData[i] == "")
-        {
-            empty_string++;
-        }
+        getline(inputFile_for_reading, LineFromFile); /// Получить строчку(на вход принимает поток откуда и место куда)
+        FileData.push_back(LineFromFile);
     }
-    FileData.resize(max_number_of_the_string - empty_string);  //// ToDo переделать, тут теряются информация, при прераспределение помяти
+    inputFile_for_reading.close();
     string buffer;
     string name_of_buffer;
     string value_of_buffer;
@@ -55,43 +44,6 @@ void FileTimetable::readingFromFile()
     }
 }
 
-void FileTimetable::setMaxQuantityStringInFile(int const  new_max_quantity)
-{
-    ofstream inputFileForRewriteMaxQuantity("../../Schedule.txt");
-    if (!inputFileForRewriteMaxQuantity.is_open())
-    {
-        throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
-    }
-    inputFileForRewriteMaxQuantity << new_max_quantity;
-    for (int step = 0; step < max_number_of_the_string; step++)
-    {
-        if (FileData[step] != "")
-        {
-            inputFileForRewriteMaxQuantity << endl << FileData[step];
-        }
-    }
-    inputFileForRewriteMaxQuantity.close();
-}
-
-void FileTimetable::changeTable(int const number_of_line, string ToPrintToFile)
-{
-    ofstream inputFileForChangeTimetable("../../Schedule.txt");
-    if (!inputFileForChangeTimetable.is_open())
-    {
-        throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
-    }
-    inputFileForChangeTimetable << max_number_of_the_string;
-    FileData[number_of_line] = ToPrintToFile;
-    for(unsigned int i = 0; i < FileData.size(); i++)
-    {
-        if (FileData[i] != "")
-        {
-            inputFileForChangeTimetable << endl << FileData[i] ;
-        }
-    }
-    inputFileForChangeTimetable.close();
-}
-
 string FileTimetable::getFileData(string const name_of_station)
 {
     if(Timetable[name_of_station] == "")
@@ -109,11 +61,6 @@ void FileTimetable::removeLine(string const what_remove)
     }
     Timetable.erase(Timetable.find(what_remove));
     ofstream inputFileForChangeTimetable("../../Schedule.txt");
-    if (!inputFileForChangeTimetable.is_open())
-    {
-        throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
-    }
-    inputFileForChangeTimetable << max_number_of_the_string;
     string buffer;
     string name_of_buffer;
     string value_of_buffer;

@@ -21,23 +21,9 @@ public:
      */
     virtual void readingFromFile() = 0;
 
-    /**
-     * @return Максимальное читаемое количество строчек в файле
-     */
-    int getMaxQuantityStringInFile() const {return max_number_of_the_string;}
-
-    /**
-     * @brief Устанавливает максимальное количество читаемых строчек в файле
-     * @param Новое значение
-     */
-    virtual void setMaxQuantityStringInFile(int const  new_max_quantity) = 0;
+    virtual ~File(){};
 
 protected:
-
-    /**
-     * @brief Максимальное читаемое количество строчек в файле
-     */
-    int max_number_of_the_string;
 
     /**
      *  @brief Сюда записываются данные извлечённые из файла

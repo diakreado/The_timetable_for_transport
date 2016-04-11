@@ -19,7 +19,8 @@ HEADERS += \
     core.h \
     file_route.h \
     file.h \
-    file_timetable.h
+    file_timetable.h \
+    api.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

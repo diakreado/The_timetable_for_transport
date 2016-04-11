@@ -3,8 +3,16 @@
 CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
+    try
+    {
     DataSetOfTheRoute.readingFromFile();
     DataSetOfTimetable.readingFromFile();
+    have_successfully_read_the_file = true;
+    }
+    catch(FailedToOpen)
+    {
+        have_successfully_read_the_file = false;
+    }
 }
 
 void CoreOfTimetable::issuanceOfRights(int const what_rights)
@@ -30,42 +38,39 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
     {
         throw RouteDoesNotExist();
     }
-    string input_string = DataSetOfTheRoute.getFileData(number_of_the_route);
-    vector<string> output_vector_string;
-    output_vector_string.resize(100);
-    int number_newlines = 0;
+    string InputString = DataSetOfTheRoute.getFileData(number_of_the_route);
+    vector<string> OutputVectorString;
     char symbol_int_string;
-    for (unsigned int character_number = 0; character_number < input_string.length(); character_number++)
+    string LineFromFile;
+    for (unsigned int character_number = 0; character_number < InputString.length(); character_number++)
     {
-        symbol_int_string = input_string[character_number];
+        symbol_int_string = InputString[character_number];
         if (symbol_int_string == ' ')
         {
-            number_newlines++;
+            OutputVectorString.push_back(LineFromFile);
+            LineFromFile = "";
         }
         else
         {
-        if (symbol_int_string == '_')
-        {
-            symbol_int_string = ' ';
-        }
-        output_vector_string[number_newlines] += symbol_int_string;
-        }
-    }
-    int empty_string = 0;
-    for(unsigned int i = 0; i < output_vector_string.size(); i++)
-    {
-        if (output_vector_string[i] == "")
-        {
-            empty_string++;
+            if (symbol_int_string == '_')
+            {
+                symbol_int_string = ' ';
+            }
+            LineFromFile += symbol_int_string;
         }
     }
-    output_vector_string.resize(100 - empty_string);
-    return output_vector_string;
+    OutputVectorString.push_back(LineFromFile);
+    return OutputVectorString;
 }
 
 string CoreOfTimetable::getWhenStartMovementOnTheStation(string const name_of_the_station)
 {
     return DataSetOfTimetable.getFileData(name_of_the_station);
+}
+
+string CoreOfTimetable::findSuitableRoute(string departure, string arrival, int time)
+{
+    return "Hello";
 }
 
 void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)
@@ -124,27 +129,6 @@ int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
     return 0;
 }
 
-void CoreOfTimetable::setMaxNumberStringInFile(int const new_max_quantity)
-{
-    if (right == administrator)
-    {
-        if (new_max_quantity < 10)
-        {
-            throw RecommendedSettings();
-        }
-        DataSetOfTheRoute.setMaxQuantityStringInFile(new_max_quantity);
-        DataSetOfTheRoute.readingFromFile();
-    }
-    else
-    {
-        throw InsufficientRights();   /// По факту исключение никогда не броситься, но по моему ядро всё равно не должно
-    }                                /// давать изменять этот параметр без прав администратора
-}
-
-int CoreOfTimetable::getMaxNumberStringInFile()
-{
-    return DataSetOfTheRoute.getMaxQuantityStringInFile();
-}
 
 void CoreOfTimetable::changeTimetable(string const what_change, string const in_exchange)
 {

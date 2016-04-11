@@ -1,4 +1,3 @@
-100
 Devyatkino~5.32-0.00
 Grazhdansky_Prospekt~5.30-0.44
 Akademicheskaya~5.35-0.40
@@ -19,5 +18,21 @@ Avtovo~5.30-0.42
 Leninsky_Prospekt~6.30-20.00
 Prospekt_Veteranov~6.30-20.00
 Arbuzovo~0.00-23.45
-Abrikosovo_Rosha~9.00-10.10
 Pomidorovo~0.43-9.13
+Parnas~5.47-0.00
+Prospekt_Prosvescheniya~5.37-0.40
+Ozerki~5.42-0.41
+Udelnaya~5.45-0.38
+Pionerskaya~5.47-0.35
+Chornaya_Rechka~5.50-0.32
+Petrogradskaya~5.36-0.28
+Gorkovskaya~5.38-0.26
+Nevsky_Prospekt~5.37-0.28
+Sennaya_Ploshchad~5.36-0.26
+Frunzenskaya~5.45-0.31
+Moskovskiye_Vorota~5.43-0.33
+Elektrosila~5.40-0.35
+Park_Pobedy~5.37-0.38
+Moskovskaya~5.35-0.41
+Zvyozdnaya~5.31-0.45
+Kupchino~5.30-0.00

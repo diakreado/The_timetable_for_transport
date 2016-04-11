@@ -16,8 +16,6 @@ private:
 private Q_SLOTS:
     void theTestForTheGrantOfRights();
     void fileProcessingChecks();
-    void setMaxNumberTestForRouteTable();
-    void setMaxNumberTestForTimetable();
 };
 
 Test_for_coreTest::Test_for_coreTest()
@@ -45,34 +43,6 @@ void Test_for_coreTest::fileProcessingChecks()
 
     QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(-1), RouteDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(50), RouteDoesNotExist);
-}
-
-/**
- * @brief Проверка правильности работы функциональности, выставления количества читаемых строк из файла "Routetable.txt"
- */
-void Test_for_coreTest::setMaxNumberTestForRouteTable()
-{
-    start_test.issuanceOfRights(administrator);
-
-    int max_num = start_test.getMaxNumberStringInFile();
-
-    start_test.setMaxNumberStringInFile(14);
-
-    QCOMPARE(start_test.getMaxNumberStringInFile(),14);
-
-    start_test.setMaxNumberStringInFile(max_num);
-
-    start_test.issuanceOfRights(usual_user);
-
-    QVERIFY_EXCEPTION_THROWN(start_test.setMaxNumberStringInFile(max_num), InsufficientRights);
-}
-
-/**
- * @brief Проверка правильности работы функциональности, выставления количества читаемых строк из файла "Schedule.txt"
- */
-void Test_for_coreTest::setMaxNumberTestForTimetable()
-{
-
 }
 
 QTEST_APPLESS_MAIN(Test_for_coreTest)

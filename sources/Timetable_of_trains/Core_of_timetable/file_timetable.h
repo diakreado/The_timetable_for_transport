@@ -18,13 +18,6 @@ public:
     void setMaxQuantityStringInFile(int const  new_max_quantity);
 
     /**
-     * @brief Переписывает строчку в файле "Schedule.txt"
-     * @param Номер строки которую надо переписать
-     * @param Что нужно написать на месте строки
-     */
-    void changeTable(int const number_of_line, string ToPrintToFile);
-
-    /**
      *  @param Номер строчки из файла "Schedule.txt"
      *  @return Строчка с необходимым временем
      */

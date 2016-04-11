@@ -32,21 +32,10 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
 void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const int choice_of_the_route)
 {
     cout << endl;
-    try
+    vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+    for(unsigned int i = 0; i < output_for_console.size(); i++)
     {
-        vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
-        for(unsigned int i = 0; i < output_for_console.size(); i++)
-        {
-            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;
-        }
-    }
-    catch(FailedToOpen)
-    {
-        cout << " Error when opening file";
-    }
-    catch(RouteDoesNotExist)
-    {
-        cout << " The route does not exist";
+        cout << ' ' << i+1 << '.' << output_for_console[i] << endl;
     }
     cout << endl << endl;
 }
@@ -56,7 +45,14 @@ void ConsoleForTimetable::getRoutelInformation()
     int choice_of_the_route;
     cout << " What route are you interested?" << endl << endl << "-->";
     cin >> choice_of_the_route;
+    try
+    {
     convenientOutputInTheConsoleForRouteTable(choice_of_the_route);
+    }
+    catch(RouteDoesNotExist)
+    {
+        cout << " The route does not exist" << endl;
+    }
     cout << endl << " Press any key..." << endl;
     cin.get();
     cin.get();
@@ -64,11 +60,6 @@ void ConsoleForTimetable::getRoutelInformation()
 }
 
 void ConsoleForTimetable::findTheRoute()
-{
-    return;
-}
-
-void ConsoleForTimetable::theNextTrainArrives()
 {
     return;
 }
@@ -83,10 +74,6 @@ void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrain()
     {
         cout << endl << " Time of the work station:" << endl << endl << ' ' << choice_of_the_station << " : "
              << Core.getWhenStartMovementOnTheStation(choice_of_the_station) << endl;
-    }
-    catch(FailedToOpen)
-    {
-        cout << " Error when opening file";
     }
     catch(StationDoesNotExist)
     {
@@ -107,43 +94,27 @@ void ConsoleForTimetable::changeRouteTable()
     cout << " Which route you want to change?" << endl << endl << "-->";
     int choice_route;
     cin >> choice_route;
-    convenientOutputInTheConsoleForRouteTable(choice_route);
-    cout << " What station to change?" << endl << endl << "-->";
-    int choice_station;
-    cin >> choice_station;
-    cout << endl;
-    cout << " What to put in replacements?" << endl << endl << "-->";
-    string what_to_replace;
-    cin.get();
-    getline(cin,what_to_replace);
-    cout << endl << endl;
-    Core.changeRouteTable(choice_route,choice_station,what_to_replace);
-    menu();
-}
-
-void ConsoleForTimetable::changeMaxValueOfStringInTheFile()
-{
-    if (Core.informationOfTheRights() == usual_user)
-    {
-        menu();
-    }
-    int new_max_number;
-    cout << " The maximum number of lines in the file is:      " << Core.getMaxNumberStringInFile() << endl << endl;
-    cout << " What value to set the maximum?" << endl << endl << "-->";
-    cin >> new_max_number;
-    cout << endl;
     try
     {
-        Core.setMaxNumberStringInFile(new_max_number);
+        convenientOutputInTheConsoleForRouteTable(choice_route);
+        cout << " What station to change?" << endl << endl << "-->";
+        int choice_station;
+        cin >> choice_station;
+        cout << endl;
+        cout << " What to put in replacements?" << endl << endl << "-->";
+        string what_to_replace;
+        cin.get();
+        getline(cin,what_to_replace);
+        cout << endl << endl;
+        Core.changeRouteTable(choice_route,choice_station,what_to_replace);
     }
-    catch(InsufficientRights)
+    catch(RouteDoesNotExist)
     {
-        cout << " Insufficient rights to perform the action" << endl << endl;
+        cout << " The route does not exist" << endl;
     }
-    catch(RecommendedSettings)
-    {
-        cout << " Put the number more" << endl << endl;
-    }
+    cout << endl << endl << " Press any key..." << endl;
+    cin.get();
+    cin.get();
     menu();
 }
 
@@ -201,9 +172,8 @@ void ConsoleForTimetable::menu()
          << " 3. To get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
-        cout << " 4. To change the maximum number of lines in the file" << endl
-             << " 5. Change route table for the train" << endl
-             << " 6. Change timetable for the train" << endl;
+        cout << " 4. Change route table for the train" << endl
+             << " 5. Change timetable for the train" << endl;
     }
     cout << " 0. Exit" << endl << endl;
     char choice_in_menu;
@@ -229,15 +199,10 @@ void ConsoleForTimetable::menu()
     }
     case '4':
     {
-        changeMaxValueOfStringInTheFile();
-        break;
-    }
-    case '5':
-    {
         changeRouteTable();
         break;
     }
-    case '6':
+    case '5':
     {
         changeTimetable();
         break;
