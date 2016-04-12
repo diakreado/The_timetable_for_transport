@@ -80,13 +80,10 @@ zip_files() {
 			if [ -e "report/Timetable_of_trains.pdf" ]; then
 				cp report/Timetable_of_trains.pdf $TITLE/Timetable_of_trains${BUILD_NUMBER}.pdf
 			fi
-		if [ -e "report/latex/refman.pdf" ]; then
-			cp report/latex/refman.pdf $TITLE/Timetable_of_trainsDoxygen${BUILD_NUMBER}.pdf
-		fi
-		if [ -e "report/Routetable.txt"]; then 
+		if [ -e "report/Routetable.txt" ]; then 
 			cp report/Routetable.txt $TITLE/Routetable${BUILD_NUMBER}.txt
 		fi
-		if [ -e "report/Schedule.txt"]; then 
+		if [ -e "report/Schedule.txt" ]; then 
 			cp report/Schedule.txt $TITLE/Schedule${BUILD_NUMBER}.txt
 		fi
 		zip --version

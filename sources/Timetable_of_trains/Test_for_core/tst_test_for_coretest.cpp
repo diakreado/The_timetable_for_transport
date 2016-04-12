@@ -37,6 +37,8 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
  */
 void Test_for_coreTest::fileProcessingChecks()
 {
+   vector<string> Null;
+   QCOMPARE(start_test.getRouteOfTrain(1),Null);
 }
 
 
