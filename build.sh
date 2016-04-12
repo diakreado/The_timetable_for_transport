@@ -29,13 +29,12 @@ build_debug_version() {
 		Test_for_core/tst_test_for_coretest -xml -o test_results || true
 		cppcheck --version
 		cppcheck --enable=all -v  --xml  * 2> cppcheck_result
-		gcovr --version
-		gcovr -r . --xml --exclude='tst*' -o gcovr_result
 		
 		valgrind --version
 		valgrind --leak-check=full --xml=yes --xml-file=/opt/tomcat/.jenkins/jobs/Timetable_for_train/workspace/tst_test_for_coretest.%p.result /opt/tomcat/.jenkins/jobs/Timetable_for_train/workspace/sources/Timetable_of_trains/Test_for_core/tst_test_for_coretest || true
 		
-
+		gcovr --version
+		gcovr -r . --xml --exclude='tst*' -o gcovr_result
 		cd ../..
 	else
 		echo "Makefile does not exist"
