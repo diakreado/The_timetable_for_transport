@@ -2,7 +2,7 @@
 
 void FileRoute::readingFromFile()
 {
-    ifstream inputFile_for_reading("Routetable.txt");
+    ifstream inputFile_for_reading("Routetable.txt");  ///ToDo сделать так, чтобы всё читалось с одной строки
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;

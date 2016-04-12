@@ -2,7 +2,7 @@
 
 void FileTimetable::readingFromFile()
 {
-    ifstream inputFile_for_reading("Schedule.txt");
+    ifstream inputFile_for_reading("Schedule.txt");     ///ToDo сделать так, чтобы всё читалось с одной строки
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;
