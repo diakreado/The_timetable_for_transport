@@ -1,6 +1,0 @@
-#include "file_timetable.h"
-
-FileSchedule::FileSchedule()
-{
-
-}
