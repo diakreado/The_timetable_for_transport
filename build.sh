@@ -79,13 +79,9 @@ zip_files() {
 		cp sources/Timetable_of_trains/Console_for_timetable/Console_for_timetable $TITLE/The_timetable_for_transport${BUILD_NUMBER}
 			if [ -e "report/Timetable_of_trains.pdf" ]; then
 				cp report/Timetable_of_trains.pdf $TITLE/Timetable_of_trains${BUILD_NUMBER}.pdf
+							if [ -e "report/Routetable.txt"]; then 
+								cp report/Routetable.txt $TITLE/Routetable${BUILD_NUMBER}.txt
 			fi
-		if [ -e "report/latex/refman.pdf" ]; then
-			cp report/latex/refman.pdf $TITLE/Timetable_of_trainsDoxygen${BUILD_NUMBER}.pdf
-		fi
-		if [ -e "report/Routetable.txt"]; then 
-			cp report/Routetable.txt $TITLE/Routetable${BUILD_NUMBER}.txt
-		fi
 		if [ -e "report/Schedule.txt"]; then 
 			cp report/Schedule.txt $TITLE/Schedule${BUILD_NUMBER}.txt
 		fi
