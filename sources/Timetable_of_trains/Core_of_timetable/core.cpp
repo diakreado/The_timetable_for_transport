@@ -12,6 +12,9 @@ CoreOfTimetable::CoreOfTimetable()
     {
         /// Вроде как, ничего не надо делать, потому что уже всё сделано
     }
+    catch(EmptyFile)
+    {
+    }
 }
 
 void CoreOfTimetable::issuanceOfRights(int const what_rights)
@@ -37,7 +40,8 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int const number_of_the_route)
     {
         throw RouteDoesNotExist();
     }
-    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false)
+    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false ||
+            number_of_the_route == DataSetOfTheRoute.getMaxQuantityStringInFile() + 1)
     {
         vector<string> Null;
         return Null;
@@ -72,12 +76,14 @@ string CoreOfTimetable::getWhenStartMovementOnTheStation(string const name_of_th
     return DataSetOfTimetable.getFileData(name_of_the_station);
 }
 
-string CoreOfTimetable::findSuitableRoute(string departure, string arrival, int time)
+string CoreOfTimetable::findSuitableRoute(string departure, string arrival)
 {
+    departure = "123";
+    arrival = "321";
     return "Hello";
 }
 
-void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_station, string what_to_replace)
+void CoreOfTimetable::changeRouteTable(unsigned int choice_route, unsigned int choice_station, string what_to_replace)
 {
     vector<string> NewVariantOfString = getRouteOfTrain(choice_route);    /// Удобнее работать сразу с
     choice_station--;       /// потому что с отсчёт с нуля               ///  сформированым вектором
@@ -101,7 +107,7 @@ void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_statio
             what_to_replace[i] = '_';       /// Заменяем пробелы в введённой строчке знаком "_"
         }
     }
-    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false)
+    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false || choice_station >= NewVariantOfString.size())
     {
         NewVariantOfString.push_back(what_to_replace);
     }
@@ -128,20 +134,13 @@ void CoreOfTimetable::changeRouteTable(int const choice_route, int choice_statio
             flag = 1;
         }
     }
+    choice_route--;
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 
-int CoreOfTimetable::whenWillTheTrainsArrive(string station, int time)
-{
-    station = 1;  /// Будет попозже реализация
-    time += 2;
-    return 0;
-}
-
-
 void CoreOfTimetable::changeTimetable(string const what_change, string const in_exchange)
 {
-
+    string abc = what_change + in_exchange;
 }
 
 void CoreOfTimetable::removeStationFromTimetalbe(string const what_remove)

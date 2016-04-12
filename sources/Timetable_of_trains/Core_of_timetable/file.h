@@ -47,6 +47,11 @@ protected:
 class FailedToOpen : public exception {};
 
 /**
+ * @brief Прочитаный файл пуст
+ */
+class EmptyFile : public exception {};
+
+/**
  * @brief Исключение "Выход за пределы массива"
  */
 class RouteDoesNotExist : public exception {};

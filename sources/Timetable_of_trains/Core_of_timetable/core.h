@@ -26,13 +26,13 @@ public:
 
     int getMaxNumberStringInFile();
 
-    void changeRouteTable(int const  choice_route,int choice_station, string what_to_replace);
+    void changeRouteTable(unsigned int choice_route,unsigned int choice_station, string what_to_replace);
 
     void changeTimetable(string const what_change, string const in_exchange);
 
     void removeStationFromTimetalbe(string const what_remove);
 
-    string findSuitableRoute(string departure,string arrival,int time);
+    string findSuitableRoute(string departure, string arrival);
 
 private:
 

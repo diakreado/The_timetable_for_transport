@@ -14,6 +14,8 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
     char answer;
     cout << " Are you the administrator? Y/N" << endl << endl << "-->";
     cin >> answer;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
     if (answer == 'Y' or answer == 'y')
     {
         Core.issuanceOfRights(administrator);
@@ -24,7 +26,6 @@ void ConsoleForTimetable::theDefinitionOfAdministrator()
         Core.issuanceOfRights(usual_user);
         cout << endl << " Granted privileges a usual user" << endl << endl;
     }
-    cin.get();
     cin.get();
     menu();
 }
@@ -42,19 +43,28 @@ void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const int ch
 
 void ConsoleForTimetable::getRoutelInformation()
 {
-    int choice_of_the_route;
-    cout << " What route are you interested?" << endl << endl << "-->";
-    cin >> choice_of_the_route;
     try
     {
-    convenientOutputInTheConsoleForRouteTable(choice_of_the_route);
+        int choice_of_the_route;
+        cout << " What route are you interested?" << endl << endl << "-->";
+        cin >> choice_of_the_route;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        if (!cin)
+        {
+            throw InputError();
+        }
+        convenientOutputInTheConsoleForRouteTable(choice_of_the_route);
     }
     catch(RouteDoesNotExist)
     {
         cout << " The route does not exist" << endl;
     }
+    catch(InputError)
+    {
+        cout << endl << "Input Error" << endl;
+    }
     cout << endl << " Press any key..." << endl;
-    cin.get();
     cin.get();
     menu();
 }
@@ -91,19 +101,29 @@ void ConsoleForTimetable::changeRouteTable()
     {
         menu();
     }
-    cout << " Which route you want to change?" << endl << endl << "-->";
-    int choice_route;
-    cin >> choice_route;
     try
     {
+        cout << " Which route you want to change?" << endl << endl << "-->";
+        int choice_route;
+        cin >> choice_route;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        if (!cin)
+        {
+            throw InputError();
+        }
         convenientOutputInTheConsoleForRouteTable(choice_route);
         cout << " What station to change?" << endl << endl << "-->";
         int choice_station;
         cin >> choice_station;
-        cout << endl;
-        cout << " What to put in replacements?" << endl << endl << "-->";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        if (!cin)
+        {
+            throw InputError();
+        }
+        cout << endl << " What to put in replacements?" << endl << endl << "-->";
         string what_to_replace;
-        cin.get();
         getline(cin,what_to_replace);
         cout << endl << endl;
         Core.changeRouteTable(choice_route,choice_station,what_to_replace);
@@ -112,21 +132,27 @@ void ConsoleForTimetable::changeRouteTable()
     {
         cout << " The route does not exist" << endl;
     }
+    catch(InputError)
+    {
+        cout << endl << "Input Error" << endl;
+    }
     cout << endl << endl << " Press any key..." << endl;
-    cin.get();
     cin.get();
     menu();
 }
 
 void ConsoleForTimetable::changeTimetable()
-{
+        {
     if (Core.informationOfTheRights() == usual_user)
     {
         menu();
     }
-    cout << " 1.Remove a station and schedule" << endl << " 2.Add or change a station and schedule " << endl << endl << "-->";
+    cout << " 1.Remove a station and schedule" << endl
+         << " 2.Add or change a station and schedule " << endl << endl << "-->";
     char choice_of_action;
     cin >> choice_of_action;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
     switch(choice_of_action)
     {
     case '1':
@@ -212,6 +238,8 @@ void ConsoleForTimetable::menu()
         return;
     }
     default:
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
         menu();
         break;
     }

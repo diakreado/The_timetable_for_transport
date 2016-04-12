@@ -44,17 +44,10 @@ public:
     virtual string getWhenStartMovementOnTheStation(string const name_of_the_station) = 0;
 
     /**
-     * @param station - станция
-     * @param time - время относительно которого делается вывод
-     * @return время до прибытия следующего поезда
-     */
-    virtual int whenWillTheTrainsArrive(string station, int time) = 0;
-
-    /**
      * @brief Изменить маршрут поезда
      * @param номер маршрута, который нужно изменить
      */
-    virtual void changeRouteTable(int const  choice_route,int choice_station, string what_to_replace) = 0;
+    virtual void changeRouteTable(unsigned int choice_route,unsigned int choice_station, string what_to_replace) = 0;
 
     /**
      * @brief Изменение станции в файле "Schedule.txt"
@@ -75,7 +68,7 @@ public:
      * @param time - время (возможно я уберу этот параметр во время реализации функции)
      * @return Возвращяет подходящий маршрут
      */
-    virtual string findSuitableRoute(string departure,string arrival,int time) = 0;
+    virtual string findSuitableRoute(string departure,string arrival) = 0;
 
     virtual ~API(){};
 };

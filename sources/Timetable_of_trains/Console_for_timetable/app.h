@@ -64,4 +64,6 @@ private:
     CoreOfTimetable Core;
 };
 
+class InputError : public exception {};
+
 #endif // CONSOLE_FOR_TIMETABLE_H

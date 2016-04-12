@@ -37,13 +37,10 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
  */
 void Test_for_coreTest::fileProcessingChecks()
 {
-    vector<string> buffer = start_test.getRouteOfTrain(3);
 
-    QVERIFY2(buffer[0] == "Elbatemit","Error to get second string from file");
-
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(-1), RouteDoesNotExist);
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(50), RouteDoesNotExist);
 }
+
+
 
 QTEST_APPLESS_MAIN(Test_for_coreTest)
 
