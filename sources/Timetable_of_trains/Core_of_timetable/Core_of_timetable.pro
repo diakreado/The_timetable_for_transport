@@ -25,6 +25,3 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
-
-RESOURCES += \
-    file_sources.qrc

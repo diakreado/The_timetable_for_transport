@@ -2,7 +2,7 @@
 
 void FileRoute::readingFromFile()
 {
-    ifstream inputFile_for_reading("../../Routetable.txt");
+    ifstream inputFile_for_reading("Routetable.txt");
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;
@@ -25,7 +25,7 @@ void FileRoute::readingFromFile()
 
 void FileRoute::changeTable(unsigned const int number_of_line, string ToPrintToFile)
 {
-    ofstream inputFileForChangeRoute("../../Routetable.txt");
+    ofstream inputFileForChangeRoute("Routetable.txt");
     if(have_successfully_read_the_file == false || number_of_line > FileData.size())
     {
         FileData.push_back(ToPrintToFile);

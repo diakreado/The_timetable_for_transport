@@ -37,7 +37,6 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
  */
 void Test_for_coreTest::fileProcessingChecks()
 {
-
 }
 
 
