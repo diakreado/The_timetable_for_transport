@@ -42,7 +42,6 @@ void Test_for_coreTest::fileProcessingChecks()
 }
 
 
-
 QTEST_APPLESS_MAIN(Test_for_coreTest)
 
 #include "tst_test_for_coretest.moc"

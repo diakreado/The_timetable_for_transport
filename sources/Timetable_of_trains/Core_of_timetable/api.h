@@ -70,7 +70,7 @@ public:
      */
     virtual string findSuitableRoute(string departure,string arrival) = 0;
 
-    virtual ~API(){};
+    virtual ~API(){}
 };
 
 #endif // API_H

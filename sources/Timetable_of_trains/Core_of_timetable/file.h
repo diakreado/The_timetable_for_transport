@@ -24,9 +24,9 @@ public:
     /**
      * @return Информация о том уалось ли прочитать файл
      */
-    bool getInformAboutSuccessfullyReading() {return have_successfully_read_the_file;};
+    bool getInformAboutSuccessfullyReading() {return have_successfully_read_the_file;}
 
-    virtual ~File(){};
+    virtual ~File(){}
 
 protected:
 

@@ -11,7 +11,7 @@ int main()
     }
     catch(exception &Error)
     {
-        cout << " Exception :  " <<Error.what() << endl << endl;
+        cout << " Exception :  " << Error.what() << endl << endl;
     }
     catch(...)
     {

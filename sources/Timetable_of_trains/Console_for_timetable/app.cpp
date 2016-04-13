@@ -160,7 +160,14 @@ void ConsoleForTimetable::changeTimetable()
         string what_remove;
         cout << endl << " What remove?" << endl << endl << "-->";
         cin >> what_remove;
-        Core.removeStationFromTimetalbe(what_remove);
+        try
+        {
+            Core.removeStationFromTimetalbe(what_remove);
+        }
+        catch(StationDoesNotExist)
+        {
+            cout << endl << " The station does not exist" << endl;
+        }
         break;
     }
     case '2':
@@ -175,6 +182,7 @@ void ConsoleForTimetable::changeTimetable()
         cout << endl << " When station end work?" << endl << endl << "-->";
         cin >> when_end;
         string what_add = when_begin + when_end;
+
         Core.changeTimetable(what_change,what_add);
         break;
     }

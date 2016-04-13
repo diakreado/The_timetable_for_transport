@@ -75,15 +75,13 @@ void FileTimetable::removeLine(string const what_remove)
     ofstream inputFileForChangeTimetable("Schedule.txt");
     string buffer;
     string name_of_buffer;
-    string value_of_buffer;
     int what_part;
     for(unsigned int i = 0; i < FileData.size(); i++)   /// ToDo  это был копипаст, нужно убрать лишнее
     {
         buffer = FileData[i];
         name_of_buffer = "";
-        value_of_buffer = "";
         what_part = name;
-        for(unsigned int j = 0; j < buffer.size(); j++) /// ToDo сделать так чтобы '/' уибралось вместе с словом
+        for(unsigned int j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
@@ -93,10 +91,6 @@ void FileTimetable::removeLine(string const what_remove)
             if (what_part == name)
             {
                 name_of_buffer += buffer[j];
-            }
-            else
-            {
-                value_of_buffer += buffer[j];
             }
         }
         if (Timetable[name_of_buffer] == "" )
@@ -109,7 +103,15 @@ void FileTimetable::removeLine(string const what_remove)
     {
         if (FileData[i] != "")
         {
-            inputFileForChangeTimetable << '/' << FileData[i] ;
+            inputFileForChangeTimetable << '/' << FileData[i];
+        }
+        else
+        {
+            if (i == 0)
+            {
+                i++;
+                inputFileForChangeTimetable << FileData[i];
+            }
         }
     }
     inputFileForChangeTimetable.close();
