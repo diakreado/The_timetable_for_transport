@@ -2,18 +2,28 @@
 
 void FileRoute::readingFromFile()
 {
-    ifstream inputFile_for_reading("Routetable.txt");  ///ToDo сделать так, чтобы всё читалось с одной строки
+    ifstream inputFile_for_reading("Routetable.txt");
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;
         throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
     }
     string LineFromFile;
-    while (inputFile_for_reading.peek()!=EOF)    /// Считывание до окончания файла
+    string buffer;
+    getline(inputFile_for_reading, LineFromFile);
+    for (unsigned int i = 0; i < LineFromFile.size(); i++)
     {
-        getline(inputFile_for_reading, LineFromFile); /// Получить строчку(на вход принимает поток откуда и место куда)
-        FileData.push_back(LineFromFile);
+        if (LineFromFile[i] == '/')
+        {
+            FileData.push_back(buffer);
+            buffer = "";
+        }
+        else
+        {
+        buffer += LineFromFile[i];
+        }
     }
+    FileData.push_back(buffer);
     inputFile_for_reading.close();
     if (FileData.empty())
     {
@@ -39,7 +49,7 @@ void FileRoute::changeTable(unsigned const int number_of_line, string ToPrintToF
     {
         if (FileData[i] != "")
         {
-            inputFileForChangeRoute << endl << FileData[i] ;
+            inputFileForChangeRoute << '/' << FileData[i] ;
         }
     }
     inputFileForChangeRoute.close();

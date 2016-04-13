@@ -2,18 +2,28 @@
 
 void FileTimetable::readingFromFile()
 {
-    ifstream inputFile_for_reading("Schedule.txt");     ///ToDo сделать так, чтобы всё читалось с одной строки
+    ifstream inputFile_for_reading("Schedule.txt");
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;
-        throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
+        throw FailedToOpen();                       /// Исключение бросается при неудачном открытие файла
     }
     string LineFromFile;
-    while (inputFile_for_reading.peek()!=EOF)    /// Считывание до окончания файла
+    string buffer_for_input;
+    getline(inputFile_for_reading, LineFromFile);
+    for (unsigned int i = 0; i < LineFromFile.size(); i++)
     {
-        getline(inputFile_for_reading, LineFromFile); /// Получить строчку(на вход принимает поток откуда и место куда)
-        FileData.push_back(LineFromFile);
+        if (LineFromFile[i] == '/')
+        {
+            FileData.push_back(buffer_for_input);
+            buffer_for_input = "";
+        }
+        else
+        {
+            buffer_for_input += LineFromFile[i];
+        }
     }
+    FileData.push_back(buffer_for_input);
     inputFile_for_reading.close();
     have_successfully_read_the_file = true;
     string buffer;
@@ -73,7 +83,7 @@ void FileTimetable::removeLine(string const what_remove)
         name_of_buffer = "";
         value_of_buffer = "";
         what_part = name;
-        for(unsigned int j = 0; j < buffer.size(); j++)
+        for(unsigned int j = 0; j < buffer.size(); j++) /// ToDo сделать так чтобы '/' уибралось вместе с словом
         {
             if (buffer[j] == '~')
             {
@@ -99,7 +109,7 @@ void FileTimetable::removeLine(string const what_remove)
     {
         if (FileData[i] != "")
         {
-            inputFileForChangeTimetable << endl << FileData[i] ;
+            inputFileForChangeTimetable << '/' << FileData[i] ;
         }
     }
     inputFileForChangeTimetable.close();
