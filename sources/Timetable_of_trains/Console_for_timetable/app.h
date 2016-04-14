@@ -19,28 +19,29 @@ public:
 private:
 
     /**
-     * @brief Показывает меню с предоставляемыми действиями
+     * @brief Выводи в консоль меню с предоставляемыми возможностями
      */
     void menu();
 
     /**
-     * @brief Показывает время начала и окончания движения
+     * @brief В зависимости от запрашиваемой станции, печатает время начала и окончания её работы
      */
-    void whenBeginsAndEndsMovementOfTheTrain();
+    void whenBeginsAndEndsMovementOfTheTrainAtTheStation();
 
     /**
-     * @brief Определяет пользователя, как администратора
+     * @brief Выдача прав или администратора, или обычного юзера
      */
-    void theDefinitionOfAdministrator();
+    void definitionOfAdministrator();
 
     /**
-     * @brief Получить информацию о маршруте
+     * @brief Предоставляет информация о запрашиваемом маршруте
      */
-    void getRoutelInformation();
+    void routeInformation();
 
     /**
      * @brief Удобный вывод маршрута в консоль
      * @param Номер маршрута
+     * Сделан, чтобы избежать копипаста, но я не уверен стоило ли это того
      */
     void convenientOutputInTheConsoleForRouteTable(int const choice_of_the_route);
 
@@ -48,6 +49,7 @@ private:
      * @brief Печатает в консоль проложеный маршрут от одной станции до другой
      */
     void findTheRoute();
+
 
     /// Методы для администратора:
 
@@ -64,6 +66,9 @@ private:
     CoreOfTimetable Core;
 };
 
+/**
+ * @brief Ошибка ввода  (не уверен в его необходимости)
+ */
 class InputError : public exception {};
 
 #endif // CONSOLE_FOR_TIMETABLE_H

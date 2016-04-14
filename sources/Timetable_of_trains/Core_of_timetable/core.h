@@ -6,7 +6,7 @@
 enum what_rights{usual_user = 0, administrator = 1};
 
 /**
- * @brief Класс в котором содержится бизнес-логика приложения
+ * @brief Класс в котором содержится основная бизнес-логика приложения
  */
 class CoreOfTimetable : public API
 {
@@ -18,13 +18,9 @@ public:
 
     bool informationOfTheRights() const;
 
-    vector<string> getRouteOfTrain(int const number_of_the_route);
+    vector<string> getRouteOfTrain(int number_of_the_route);
 
     string getWhenStartMovementOnTheStation(string const name_of_the_station);
-
-    int whenWillTheTrainsArrive(string station, int time);
-
-    int getMaxNumberStringInFile();
 
     void changeRouteTable(unsigned int choice_route,unsigned int choice_station, string what_to_replace);
 
@@ -42,15 +38,5 @@ private:
 
     FileTimetable DataSetOfTimetable;
 };
-
-/**
- * @brief Недостаточно прав
- */
-class InsufficientRights : public exception {};
-
-/**
- * @brief Рекомендованые параметры функции
- */
-class RecommendedSettings : public exception {};
 
 #endif // CORE_OF_TIMETABLE_H

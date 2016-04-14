@@ -9,21 +9,21 @@ void FileTimetable::readingFromFile()
         throw FailedToOpen();                       /// Исключение бросается при неудачном открытие файла
     }
     string LineFromFile;
-    string buffer_for_input;
+    string PartOfTheLine;
     getline(inputFile_for_reading, LineFromFile);
     for (unsigned int i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
         {
-            FileData.push_back(buffer_for_input);
-            buffer_for_input = "";
+            FileData.push_back(PartOfTheLine);      /// Здесь происходят действия аналогичные тем, что происходили
+            PartOfTheLine = "";                    ///  в file_route.cpp
         }
         else
         {
-            buffer_for_input += LineFromFile[i];
+            PartOfTheLine += LineFromFile[i];
         }
     }
-    FileData.push_back(buffer_for_input);
+    FileData.push_back(PartOfTheLine);
     inputFile_for_reading.close();
     have_successfully_read_the_file = true;
     string buffer;
@@ -35,12 +35,12 @@ void FileTimetable::readingFromFile()
         buffer = FileData[i];
         name_of_buffer = "";
         value_of_buffer = "";
-        what_part = name;
+        what_part = name;                                   /// Идёт заполение контейнера map
         for(unsigned int j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
-                what_part = value;
+                what_part = value;                    ///  отделяются имя и значение
                 j++;
             }
             if (what_part == name)
@@ -76,7 +76,7 @@ void FileTimetable::removeLine(string const what_remove)
     string buffer;
     string name_of_buffer;
     int what_part;
-    for(unsigned int i = 0; i < FileData.size(); i++)   /// ToDo  это был копипаст, нужно убрать лишнее
+    for(unsigned int i = 0; i < FileData.size(); i++)    /// ToDo  это был копипаст, нужно убрать лишнее
     {
         buffer = FileData[i];
         name_of_buffer = "";
@@ -99,7 +99,7 @@ void FileTimetable::removeLine(string const what_remove)
             continue;
         }
     }
-    for(unsigned int i = 0; i < FileData.size(); i++)
+    for(unsigned int i = 0; i < FileData.size(); i++)       /// Я этот метод ещё доработаю
     {
         if (FileData[i] != "")
         {

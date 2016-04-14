@@ -9,16 +9,16 @@ ConsoleForTimetable::ConsoleForTimetable()
     menu();
 }
 
-void ConsoleForTimetable::theDefinitionOfAdministrator()
+void ConsoleForTimetable::definitionOfAdministrator()
 {
     char answer;
     cout << " Are you the administrator? Y/N" << endl << endl << "-->";
     cin >> answer;
     cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
-    if (answer == 'Y' or answer == 'y')
-    {
-        Core.issuanceOfRights(administrator);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    if (answer == 'Y' or answer == 'y')      /// Вообще можно сделать, чтобы администратором становились только те,
+    {                                         /// кто знает определённый пароль, но это не главная часть программы,
+        Core.issuanceOfRights(administrator);  ///  поэтому мне кажется, так тоже норм
         cout << endl << " Obtained administrator privileges" << endl << endl;
     }
     else
@@ -36,12 +36,12 @@ void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const int ch
     vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
     for(unsigned int i = 0; i < output_for_console.size(); i++)
     {
-        cout << ' ' << i+1 << '.' << output_for_console[i] << endl;
-    }
+        cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+    }                                                               ///                    2.Prospekt Prosvescheniya
     cout << endl << endl;
 }
 
-void ConsoleForTimetable::getRoutelInformation()
+void ConsoleForTimetable::routeInformation()
 {
     try
     {
@@ -49,11 +49,11 @@ void ConsoleForTimetable::getRoutelInformation()
         cout << " What route are you interested?" << endl << endl << "-->";
         cin >> choice_of_the_route;
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         if (!cin)
         {
-            throw InputError();
-        }
+            throw InputError();      /// Икслючение почему-то не кидается, даже если вводить символы вместо int
+        }                           /// не знаю, стоит ли это убрать
         convenientOutputInTheConsoleForRouteTable(choice_of_the_route);
     }
     catch(RouteDoesNotExist)
@@ -69,12 +69,12 @@ void ConsoleForTimetable::getRoutelInformation()
     menu();
 }
 
-void ConsoleForTimetable::findTheRoute()
+void ConsoleForTimetable::findTheRoute()            /// ToDo Реализовать
 {
     return;
 }
 
-void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrain()
+void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
 {
     string choice_of_the_station;
     cout << " What station are you interested?" << endl << endl << "-->";
@@ -97,7 +97,7 @@ void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrain()
 
 void ConsoleForTimetable::changeRouteTable()
 {
-    if (Core.informationOfTheRights() == usual_user)
+    if (Core.informationOfTheRights() == usual_user)  /// Пользователь не сможет вызвать метод, если он не админ
     {
         menu();
     }
@@ -117,15 +117,15 @@ void ConsoleForTimetable::changeRouteTable()
         int choice_station;
         cin >> choice_station;
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         if (!cin)
         {
             throw InputError();
         }
         cout << endl << " What to put in replacements?" << endl << endl << "-->";
         string what_to_replace;
-        getline(cin,what_to_replace);
-        cout << endl << endl;
+        getline(cin,what_to_replace);    /// Сделано, чтобы пользователь могу назвать станцию двумя или тремя словами
+        cout << endl << endl;           ///  и всё было правильно прочитано
         Core.changeRouteTable(choice_route,choice_station,what_to_replace);
     }
     catch(RouteDoesNotExist)
@@ -173,7 +173,7 @@ void ConsoleForTimetable::changeTimetable()
     case '2':
     {
         string when_begin;
-        string when_end;
+        string when_end;         /// Пока не уверен, что будет именно так, потому что метод ядра не реализован
         string what_change;
         cout << endl << " Which station change?" << endl << endl << "-->";
         cin >> what_change;
@@ -218,17 +218,17 @@ void ConsoleForTimetable::menu()
     {
     case '1':
     {
-        getRoutelInformation();
+        routeInformation();
         break;
     }
     case '2':
     {
-        whenBeginsAndEndsMovementOfTheTrain();
+        whenBeginsAndEndsMovementOfTheTrainAtTheStation();
         break;
     }
     case '3':
     {
-        theDefinitionOfAdministrator();
+        definitionOfAdministrator();
         break;
     }
     case '4':
@@ -247,7 +247,7 @@ void ConsoleForTimetable::menu()
     }
     default:
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');  /// Мешает считать кучу символов(ведь нам нужен один)
         menu();
         break;
     }

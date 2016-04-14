@@ -17,7 +17,7 @@ class File
 public:
 
     /**
-     * @brief Прочитывает файл и помещает информацию из него в удобный для вывода контейрнер
+     * @brief Читает файл и помещает информацию из него в удобный для вывода контейрнер
      */
     virtual void readingFromFile() = 0;
 
@@ -31,7 +31,7 @@ public:
 protected:
 
     /**
-     * @brief Удалось ли прочитать файлы
+     * @brief Удалось ли прочитать файл
      */
     bool have_successfully_read_the_file;
 
@@ -47,12 +47,12 @@ protected:
 class FailedToOpen : public exception {};
 
 /**
- * @brief Прочитаный файл пуст
+ * @brief Исключение "Прочитаный файл пуст"
  */
 class EmptyFile : public exception {};
 
 /**
- * @brief Исключение "Выход за пределы массива"
+ * @brief Исключение "Запрашиваемый маршрут не обнаружен"
  */
 class RouteDoesNotExist : public exception {};
 

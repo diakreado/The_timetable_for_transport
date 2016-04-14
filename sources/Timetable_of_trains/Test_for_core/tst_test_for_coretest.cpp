@@ -15,7 +15,8 @@ private:
     CoreOfTimetable start_test;
 private Q_SLOTS:
     void theTestForTheGrantOfRights();
-    void fileProcessingChecks();
+    void fileProcessingChecksForRouteTable();       /// Слабоватенькие тесты
+    void fileProcessingChecksForSchedule();
 };
 
 Test_for_coreTest::Test_for_coreTest()
@@ -33,14 +34,23 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
 }
 
 /**
- * @brief Проверка правильности обработки файла(считывание полей и попытка вызвать исключение)
+ * @brief Проверка правильности обработки файла "Routetable.txt"
  */
-void Test_for_coreTest::fileProcessingChecks()
+void Test_for_coreTest::fileProcessingChecksForRouteTable()
 {
    vector<string> Null;
    QCOMPARE(start_test.getRouteOfTrain(1),Null);
+   QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(256),RouteDoesNotExist);
 }
 
+/**
+ * @brief Проверка правильности обработки файла "Schedule.txt"
+ */
+void Test_for_coreTest::fileProcessingChecksForSchedule()
+{
+    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation("Balalayka"),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.removeStationFromTimetalbe("Balalayka"),StationDoesNotExist);
+}
 
 QTEST_APPLESS_MAIN(Test_for_coreTest)
 

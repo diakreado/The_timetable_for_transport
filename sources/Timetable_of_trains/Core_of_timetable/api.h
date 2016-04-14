@@ -30,35 +30,37 @@ public:
     virtual bool informationOfTheRights() const = 0;
 
     /**
-     * @brief Используется для более удобного вывода в консоль
+     * @brief Используется для более удобного вывода маршрута
      * @param Номер маршрута
      * @return Маршрут поезда в формате vector<string>
      */
-    virtual vector<string> getRouteOfTrain(int const number_of_the_route) = 0;
+    virtual vector<string> getRouteOfTrain(int number_of_the_route) = 0;
 
     /**
-     * @brief Используется для более удобного вывода в консоль
+     * @brief Используется для более удобного вывода времени начала, окончания работы станции
      * @param Название станции
-     * @return Время начала движения в формате vector<string>
+     * @return Время начала движения в формате string
      */
     virtual string getWhenStartMovementOnTheStation(string const name_of_the_station) = 0;
 
     /**
-     * @brief Изменить маршрут поезда
+     * @brief Изменить маршрут поезда и печать изменённого в файл "Routetable.txt"
      * @param номер маршрута, который нужно изменить
+     * @param номер станции
+     * @param что нужно поставить взамен
      */
     virtual void changeRouteTable(unsigned int choice_route,unsigned int choice_station, string what_to_replace) = 0;
 
     /**
-     * @brief Изменение станции в файле "Schedule.txt"
-     * @param имя станции, которую нужно изменить или добавить
-     * @param что поставить вместо
+     * @brief Изменение станции и времени её открытия, закрытия  и печать в файл "Schedule.txt"
+     * @param название станции, которую нужно изменить или добавить
+     * @param что поставить вместо (здесь также находится информация о закрытие и открыите)
      */
     virtual void changeTimetable(string const what_change, string const in_exchange) = 0;
 
     /**
-     * @brief Удаление станции из файла "Schedule.txt"
-     * @param имя станции, которую нужно удалить
+     * @brief Удаление станции  и печать новой версии в файл "Schedule.txt"
+     * @param название станции, которую нужно удалить
      */
     virtual void removeStationFromTimetalbe(string const what_remove) = 0;
 

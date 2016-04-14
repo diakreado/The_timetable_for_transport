@@ -6,46 +6,46 @@ void FileRoute::readingFromFile()
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;
-        throw FailedToOpen();      /// Исключение бросается при неудачном открытие файла
+        throw FailedToOpen();                                /// Исключение бросается при неудачном открытие файла
     }
     string LineFromFile;
-    string buffer;
-    getline(inputFile_for_reading, LineFromFile);
+    string PartOfTheLine;
+    getline(inputFile_for_reading, LineFromFile);           /// Считывание информации из файла(там она длинной строкой)
     for (unsigned int i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
         {
-            FileData.push_back(buffer);
-            buffer = "";
+            FileData.push_back(PartOfTheLine);       /// Если встречаем символ '/', то следовательно это новый элемент
+            PartOfTheLine = "";
         }
         else
         {
-        buffer += LineFromFile[i];
+        PartOfTheLine += LineFromFile[i];
         }
     }
-    FileData.push_back(buffer);
+    FileData.push_back(PartOfTheLine);
     inputFile_for_reading.close();
     if (FileData.empty())
     {
         have_successfully_read_the_file = false;
-        throw EmptyFile();      /// Исключение бросается когда файл пуст
+        throw EmptyFile();                                   /// Исключение бросается когда файл пуст
     }
-    have_successfully_read_the_file = true;
+    have_successfully_read_the_file = true;   /// Если всё прочиталось хорошо, то поднимается флаг
 }
 
-void FileRoute::changeTable(unsigned const int number_of_line, string ToPrintToFile)
+void FileRoute::changeTable(unsigned const int number_of_line, string const ToPrintToFile)
 {
     ofstream inputFileForChangeRoute("Routetable.txt");
     if(have_successfully_read_the_file == false || number_of_line > FileData.size())
     {
-        FileData.push_back(ToPrintToFile);
-    }
+        FileData.push_back(ToPrintToFile);          /// Если файл плохо прочитан или номер вводимой станции
+    }                                              /// больше чем размер существующей строчки
     else
     {
         FileData[number_of_line] = ToPrintToFile;
     }
-    inputFileForChangeRoute << FileData[0];
-    for(unsigned int i = 1; i < FileData.size(); i++)
+    inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),
+    for(unsigned int i = 1; i < FileData.size(); i++)  ///  а отдельно потому что перед ним не надо ставить '/'
     {
         if (FileData[i] != "")
         {
@@ -53,12 +53,12 @@ void FileRoute::changeTable(unsigned const int number_of_line, string ToPrintToF
         }
     }
     inputFileForChangeRoute.close();
-    have_successfully_read_the_file = true;
-}
+    have_successfully_read_the_file = true;   /// Теперь у нас есть файл, и мы знаем, что в нём лежит инофрмация,
+}                                            ///  поэтому имеем право поднять этот флаг
 
 string FileRoute::getFileData(int number_of_the_line) const
 {
-    return FileData[number_of_the_line - 1];
+    return FileData[number_of_the_line];
 }
 
 
