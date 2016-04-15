@@ -17,7 +17,7 @@ public:
      * @param Номер строки которую надо переписать
      * @param Что нужно написать на месте строки
      */
-    void changeTable(unsigned int const number_of_line, string const ToPrintToFile);
+    void changeTable(unsigned int const number_of_line, const string &ToPrintToFile);
 
     /**
      * @return Максимальное читаемое количество строчек в файле

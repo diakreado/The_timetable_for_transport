@@ -20,15 +20,15 @@ public:
 
     vector<string> getRouteOfTrain(int number_of_the_route);
 
-    string getWhenStartMovementOnTheStation(string const name_of_the_station);
+    string getWhenStartMovementOnTheStation(const string &name_of_the_station);
 
-    void changeRouteTable(unsigned int choice_route,unsigned int choice_station, string what_to_replace);
+    void changeRouteTable(unsigned int choice_route, unsigned int choice_station, string &what_to_replace);
 
-    void changeTimetable(string const what_change, string const in_exchange);
+    void changeTimetable(string &what_change, string &in_exchange);
 
-    void removeStationFromTimetalbe(string const what_remove);
+    void removeStationFromTimetalbe(string const &what_remove);
 
-    string findSuitableRoute(string departure, string arrival);
+    string findSuitableRoute(string &departure, string &arrival);
 
 private:
 

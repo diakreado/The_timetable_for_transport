@@ -41,7 +41,7 @@ public:
      * @param Название станции
      * @return Время начала движения в формате string
      */
-    virtual string getWhenStartMovementOnTheStation(string const name_of_the_station) = 0;
+    virtual string getWhenStartMovementOnTheStation(string const &name_of_the_station) = 0;
 
     /**
      * @brief Изменить маршрут поезда и печать изменённого в файл "Routetable.txt"
@@ -49,20 +49,20 @@ public:
      * @param номер станции
      * @param что нужно поставить взамен
      */
-    virtual void changeRouteTable(unsigned int choice_route,unsigned int choice_station, string what_to_replace) = 0;
+    virtual void changeRouteTable(unsigned int choice_route,unsigned int choice_station, string &what_to_replace) = 0;
 
     /**
      * @brief Изменение станции и времени её открытия, закрытия  и печать в файл "Schedule.txt"
      * @param название станции, которую нужно изменить или добавить
      * @param что поставить вместо (здесь также находится информация о закрытие и открыите)
      */
-    virtual void changeTimetable(string const what_change, string const in_exchange) = 0;
+    virtual void changeTimetable(string &what_change, string &in_exchange) = 0;
 
     /**
      * @brief Удаление станции  и печать новой версии в файл "Schedule.txt"
      * @param название станции, которую нужно удалить
      */
-    virtual void removeStationFromTimetalbe(string const what_remove) = 0;
+    virtual void removeStationFromTimetalbe(string const &what_remove) = 0;
 
     /**
      * @param departure - станция отправления
@@ -70,7 +70,7 @@ public:
      * @param time - время (возможно я уберу этот параметр во время реализации функции)
      * @return Возвращяет подходящий маршрут
      */
-    virtual string findSuitableRoute(string departure,string arrival) = 0;
+    virtual string findSuitableRoute(string &departure, string &arrival) = 0;
 
     virtual ~API(){}
 };

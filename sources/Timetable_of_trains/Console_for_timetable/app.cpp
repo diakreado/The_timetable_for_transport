@@ -16,9 +16,9 @@ void ConsoleForTimetable::definitionOfAdministrator()
     cin >> answer;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    if (answer == 'Y' or answer == 'y')      /// Вообще можно сделать, чтобы администратором становились только те,
-    {                                         /// кто знает определённый пароль, но это не главная часть программы,
-        Core.issuanceOfRights(administrator);  ///  поэтому мне кажется, так тоже норм
+    if (answer == 'Y' or answer == 'y')         /// Вообще можно сделать, чтобы администратором становились только те,
+    {                                            /// кто знает определённый пароль, но это не главная часть программы,
+        Core.issuanceOfRights(administrator);      ///  поэтому мне кажется, так тоже норм
         cout << endl << " Obtained administrator privileges" << endl << endl;
     }
     else

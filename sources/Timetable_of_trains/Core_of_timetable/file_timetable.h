@@ -21,13 +21,13 @@ public:
      *  @param Номер строчки из файла "Schedule.txt"
      *  @return Строчка с необходимым временем
      */
-    string getFileData(const string name_of_station);
+    string getFileData(const string &name_of_station);
 
     /**
      *  @brief Удаляет строчку из "Schedule.txt"
      *  @param какую строчку удалить
      */
-    void removeLine(string const what_remove);
+    void removeLine(string const &what_remove);
 
 private:
 

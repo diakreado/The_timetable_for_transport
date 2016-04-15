@@ -72,19 +72,19 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int number_of_the_route)
     return OutputVectorString;
 }
 
-string CoreOfTimetable::getWhenStartMovementOnTheStation(string const name_of_the_station)
+string CoreOfTimetable::getWhenStartMovementOnTheStation(string const &name_of_the_station)
 {
     return DataSetOfTimetable.getFileData(name_of_the_station);
 }
 
-string CoreOfTimetable::findSuitableRoute(string departure, string arrival)
+string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
 {
     departure = "123";                  ///  ToDo  Не относиться к MVP, но если будет время реализую
     arrival = "321";
     return "Hello";
 }
 
-void CoreOfTimetable::changeRouteTable(unsigned int choice_route, unsigned int choice_station, string what_to_replace)
+void CoreOfTimetable::changeRouteTable(unsigned int choice_route,unsigned int choice_station,string &what_to_replace)
 {
     vector<string> NewVariantOfString = getRouteOfTrain(choice_route);                   /// Удобнее работать сразу с
     choice_station--;            /// потому что с отсчёт элементов массива с нуля       ///  сформированым вектором
@@ -122,8 +122,8 @@ void CoreOfTimetable::changeRouteTable(unsigned int choice_route, unsigned int c
         ToPrintToFile += NewVariantOfString[i] + ' ';
     }
     bool correct_beginning_of_the_line = 0;  /// Правильное ли начало строки
-    unsigned int size_of_string;
-    while(correct_beginning_of_the_line == 0)
+    unsigned int size_of_string;     /// Говорится, что можно уменьшить область видимости, но я не хочу определять её
+    while(correct_beginning_of_the_line == 0)                                               ///  в цикле
     {
         size_of_string = ToPrintToFile.size()-1;
         if (ToPrintToFile[size_of_string] == ' ' || ToPrintToFile[size_of_string] == '_')
@@ -139,12 +139,13 @@ void CoreOfTimetable::changeRouteTable(unsigned int choice_route, unsigned int c
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::changeTimetable(string const what_change, string const in_exchange)
+void CoreOfTimetable::changeTimetable(string &what_change, string &in_exchange)
 {
     string abc = what_change + in_exchange;
+    /// Просто нет реализации, а действие сделано, чтобы не выводилось предупреждение
 }
 
-void CoreOfTimetable::removeStationFromTimetalbe(string const what_remove)
+void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
 {
     DataSetOfTimetable.removeLine(what_remove);
 }
