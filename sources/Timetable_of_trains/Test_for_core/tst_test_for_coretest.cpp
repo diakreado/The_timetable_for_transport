@@ -6,7 +6,7 @@
  * @brief Тесты для функциональностей продоставляемых ядром
  */
 class Test_for_coreTest : public QObject
-{
+{                                                 /// Слабоватенькие тесты
     Q_OBJECT
 
 public:
@@ -15,7 +15,7 @@ private:
     CoreOfTimetable start_test;
 private Q_SLOTS:
     void theTestForTheGrantOfRights();
-    void fileProcessingChecksForRouteTable();       /// Слабоватенькие тесты
+    void fileProcessingChecksForRouteTable();
     void fileProcessingChecksForSchedule();
 };
 
@@ -38,9 +38,37 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
  */
 void Test_for_coreTest::fileProcessingChecksForRouteTable()
 {
-   vector<string> Null;
-   QCOMPARE(start_test.getRouteOfTrain(1),Null);
+   string Input = "Privet";
+   start_test.changeRouteTable(1,1,Input);
+   vector<string> VectorOfOutputWord = start_test.getRouteOfTrain(1);
+   string OutputWord = VectorOfOutputWord[0];
+   QCOMPARE(OutputWord,Input);
+
+   string what_to_replace = "Hello";
+   start_test.changeRouteTable(1,1,what_to_replace);
+   VectorOfOutputWord = start_test.getRouteOfTrain(1);
+   OutputWord = VectorOfOutputWord[0];
+   QCOMPARE(OutputWord,what_to_replace);
+
+   what_to_replace = "ABCDEFG";
+   start_test.changeRouteTable(1,2,what_to_replace);
+   VectorOfOutputWord = start_test.getRouteOfTrain(1);
+   OutputWord = VectorOfOutputWord[1];
+   QCOMPARE(OutputWord,what_to_replace);
+
+   what_to_replace = "ParaRuram";
+   start_test.changeRouteTable(2,1,what_to_replace);
+   VectorOfOutputWord = start_test.getRouteOfTrain(2);
+   OutputWord = VectorOfOutputWord[0];
+   QCOMPARE(OutputWord,what_to_replace);
+
+   what_to_replace = "";
+   start_test.changeRouteTable(2,1,what_to_replace);
+   start_test.changeRouteTable(1,2,what_to_replace);
+   start_test.changeRouteTable(1,1,what_to_replace);
+
    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(256),RouteDoesNotExist);
+   QVERIFY_EXCEPTION_THROWN(start_test.changeRouteTable(256,1,what_to_replace),RouteDoesNotExist);
 }
 
 /**
@@ -48,6 +76,7 @@ void Test_for_coreTest::fileProcessingChecksForRouteTable()
  */
 void Test_for_coreTest::fileProcessingChecksForSchedule()
 {
+    ///  Пока трудо тестить, не появилась функциональность редактирование расписания
     QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation("Balalayka"),StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.removeStationFromTimetalbe("Balalayka"),StationDoesNotExist);
 }

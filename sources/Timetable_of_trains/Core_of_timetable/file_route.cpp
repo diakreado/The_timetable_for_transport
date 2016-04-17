@@ -36,7 +36,7 @@ void FileRoute::readingFromFile()
 void FileRoute::changeTable(const unsigned number_of_line, const string &ToPrintToFile)
 {
     ofstream inputFileForChangeRoute("Routetable.txt");
-    if(have_successfully_read_the_file == false || number_of_line > FileData.size())
+    if(have_successfully_read_the_file == false || number_of_line >= FileData.size())
     {
         FileData.push_back(ToPrintToFile);          /// Если файл плохо прочитан или номер вводимой станции
     }                                              /// больше чем размер существующей строчки
