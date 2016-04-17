@@ -14,7 +14,7 @@ class CoreOfTimetable : public API
 public:
     CoreOfTimetable();
 
-    void issuanceOfRights(int const what_rights);
+    void issuanceOfRights(const int what_rights);
 
     bool informationOfTheRights() const;
 
@@ -22,11 +22,11 @@ public:
 
     string getWhenStartMovementOnTheStation(const string &name_of_the_station);
 
-    void changeRouteTable(unsigned int choice_route, unsigned int choice_station, string &what_to_replace);
+    void changeRouteTable(unsigned choice_route, unsigned choice_station, string &what_to_replace);
 
     void changeTimetable(string &what_change, string &in_exchange);
 
-    void removeStationFromTimetalbe(string const &what_remove);
+    void removeStationFromTimetalbe(const string &what_remove);
 
     string findSuitableRoute(string &departure, string &arrival);
 

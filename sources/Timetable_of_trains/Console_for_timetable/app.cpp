@@ -34,7 +34,7 @@ void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const int ch
 {
     cout << endl;
     vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
-    for(unsigned int i = 0; i < output_for_console.size(); i++)
+    for(unsigned i = 0; i < output_for_console.size(); i++)
     {
         cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
     }                                                               ///                    2.Prospekt Prosvescheniya

@@ -15,19 +15,19 @@ public:
 
     void readingFromFile();
 
-    void setMaxQuantityStringInFile(int const  new_max_quantity);
+    void setMaxQuantityStringInFile(const int  new_max_quantity);
 
     /**
-     *  @param Номер строчки из файла "Schedule.txt"
-     *  @return Строчка с необходимым временем
+     *  @param name_of_station - некоторая часть строчки из файла "Schedule.txt"
+     *  @return Строчка с необходимыми данными
      */
     string getFileData(const string &name_of_station);
 
     /**
-     *  @brief Удаляет строчку из "Schedule.txt"
-     *  @param какую строчку удалить
+     *  @brief Удаляет часть строчку из "Schedule.txt"
+     *  @param what_remove - какую часть строчки удалить
      */
-    void removeLine(string const &what_remove);
+    void removeLine(const string &what_remove);
 
 private:
 

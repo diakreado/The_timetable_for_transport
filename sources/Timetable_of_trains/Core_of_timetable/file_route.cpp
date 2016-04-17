@@ -6,12 +6,12 @@ void FileRoute::readingFromFile()
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;
-        throw FailedToOpen();                                /// Исключение бросается при неудачном открытие файла
+        return;
     }
     string LineFromFile;
     string PartOfTheLine;
     getline(inputFile_for_reading, LineFromFile);           /// Считывание информации из файла(там она длинной строкой)
-    for (unsigned int i = 0; i < LineFromFile.size(); i++)
+    for (unsigned  i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
         {
@@ -28,12 +28,12 @@ void FileRoute::readingFromFile()
     if (FileData.empty())
     {
         have_successfully_read_the_file = false;
-        throw EmptyFile();                                   /// Исключение бросается когда файл пуст
+        return;
     }
     have_successfully_read_the_file = true;   /// Если всё прочиталось хорошо, то поднимается флаг
 }
 
-void FileRoute::changeTable(unsigned const int number_of_line, string const &ToPrintToFile)
+void FileRoute::changeTable(const unsigned number_of_line, const string &ToPrintToFile)
 {
     ofstream inputFileForChangeRoute("Routetable.txt");
     if(have_successfully_read_the_file == false || number_of_line > FileData.size())
@@ -45,7 +45,7 @@ void FileRoute::changeTable(unsigned const int number_of_line, string const &ToP
         FileData[number_of_line] = ToPrintToFile;
     }
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),
-    for(unsigned int i = 1; i < FileData.size(); i++)  ///  а отдельно потому что перед ним не надо ставить '/'
+    for(unsigned i = 1; i < FileData.size(); i++)  ///  а отдельно потому что перед ним не надо ставить '/'
     {
         if (FileData[i] != "")
         {

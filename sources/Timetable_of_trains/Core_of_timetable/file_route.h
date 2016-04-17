@@ -13,19 +13,19 @@ public:
     void readingFromFile();
 
     /**
-     * @brief Переписывает строчку в файле "Routetable.txt"
-     * @param Номер строки которую надо переписать
-     * @param Что нужно написать на месте строки
+     * @brief Переписывает часть строчки в файле "Routetable.txt"
+     * @param number_of_line - номер части строки которую надо переписать
+     * @param ToPrintToFile - что нужно написать на месте части строки
      */
-    void changeTable(unsigned int const number_of_line, const string &ToPrintToFile);
+    void changeTable(const unsigned number_of_line, const string &ToPrintToFile);
 
     /**
-     * @return Максимальное читаемое количество строчек в файле
+     * @return Количество частей, на которые разибвается строчка
      */
     int getMaxQuantityStringInFile() const {return FileData.size();}
 
     /**
-     *  @param Номер строчки из файла "Routetable.txt"
+     *  @param number_of_the_line - часть строчки из файла "Routetable.txt"
      *  @return Строчка с необходимым маршрутом
      */
     string getFileData(int number_of_the_line) const;

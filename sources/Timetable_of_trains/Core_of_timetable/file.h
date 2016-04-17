@@ -42,16 +42,6 @@ protected:
 };
 
 /**
- * @brief Исключение "Не удалось открыть файл"
- */
-class FailedToOpen : public exception {};
-
-/**
- * @brief Исключение "Прочитаный файл пуст"
- */
-class EmptyFile : public exception {};
-
-/**
  * @brief Исключение "Запрашиваемый маршрут не обнаружен"
  */
 class RouteDoesNotExist : public exception {};

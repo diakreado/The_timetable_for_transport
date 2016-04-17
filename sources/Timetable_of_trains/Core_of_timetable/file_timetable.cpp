@@ -6,12 +6,12 @@ void FileTimetable::readingFromFile()
     if (!inputFile_for_reading.is_open())
     {
         have_successfully_read_the_file = false;
-        throw FailedToOpen();                       /// Исключение бросается при неудачном открытие файла
+        return;
     }
     string LineFromFile;
     string PartOfTheLine;
     getline(inputFile_for_reading, LineFromFile);
-    for (unsigned int i = 0; i < LineFromFile.size(); i++)
+    for (unsigned i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
         {
@@ -30,13 +30,13 @@ void FileTimetable::readingFromFile()
     string name_of_buffer;
     string value_of_buffer;
     int what_part;        ///  Cppcheck говорит, что можно уменьшить видимость, но стоит ли определять её в цикле?
-    for(unsigned int i = 0; i < FileData.size(); i++)
+    for(unsigned i = 0; i < FileData.size(); i++)
     {
         buffer = FileData[i];
         name_of_buffer = "";
         value_of_buffer = "";
         what_part = name;                                   /// Идёт заполение контейнера map
-        for(unsigned int j = 0; j < buffer.size(); j++)
+        for(unsigned j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
@@ -56,7 +56,7 @@ void FileTimetable::readingFromFile()
     }
 }
 
-string FileTimetable::getFileData(string const &name_of_station)
+string FileTimetable::getFileData(const string &name_of_station)
 {
     if(Timetable[name_of_station] == "")
     {
@@ -65,7 +65,7 @@ string FileTimetable::getFileData(string const &name_of_station)
     return Timetable[name_of_station];
 }
 
-void FileTimetable::removeLine(string const &what_remove)
+void FileTimetable::removeLine(const string &what_remove)
 {
     if(Timetable[what_remove] == "")
     {
@@ -76,12 +76,12 @@ void FileTimetable::removeLine(string const &what_remove)
     string buffer;
     string name_of_buffer;
     int what_part;
-    for(unsigned int i = 0; i < FileData.size(); i++)    /// ToDo  это был копипаст, нужно убрать лишнее
+    for(unsigned i = 0; i < FileData.size(); i++)    /// ToDo  это был копипаст, нужно убрать лишнее
     {
         buffer = FileData[i];
         name_of_buffer = "";
         what_part = name;
-        for(unsigned int j = 0; j < buffer.size(); j++)
+        for(unsigned j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
@@ -99,7 +99,7 @@ void FileTimetable::removeLine(string const &what_remove)
             continue;
         }
     }
-    for(unsigned int i = 0; i < FileData.size(); i++)       /// Я этот метод ещё доработаю
+    for(unsigned i = 0; i < FileData.size(); i++)       /// Я этот метод ещё доработаю
     {
         if (FileData[i] != "")
         {
