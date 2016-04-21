@@ -33,16 +33,16 @@ void FileRoute::readingFromFile()
     have_successfully_read_the_file = true;   /// Если всё прочиталось хорошо, то поднимается флаг
 }
 
-void FileRoute::changeTable(const unsigned number_of_line, const string &ToPrintToFile)
+void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrintToFile)
 {
     ofstream inputFileForChangeRoute("Routetable.txt");
-    if(have_successfully_read_the_file == false || number_of_line >= FileData.size())
+    if(have_successfully_read_the_file == false || number_of_part >= FileData.size())
     {
         FileData.push_back(ToPrintToFile);          /// Если файл плохо прочитан или номер вводимой станции
     }                                              /// больше чем размер существующей строчки
     else
     {
-        FileData[number_of_line] = ToPrintToFile;
+        FileData[number_of_part] = ToPrintToFile;
     }
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),
     for(unsigned i = 1; i < FileData.size(); i++)  ///  а отдельно потому что перед ним не надо ставить '/'

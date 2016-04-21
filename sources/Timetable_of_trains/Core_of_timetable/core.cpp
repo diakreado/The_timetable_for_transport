@@ -112,16 +112,23 @@ void CoreOfTimetable::deleteStationFromRouteTable(unsigned choice_route, unsigne
     {
         throw NotSuitableInquiry();
     }
-    else
-    {
-        NewVariantOfString[choice_station] = "";
-    }
+    NewVariantOfString[choice_station] = "";
     string ToPrintToFile;
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
-        ToPrintToFile += NewVariantOfString[i] + ',';
+        if (NewVariantOfString[i] != "")
+        {
+            ToPrintToFile += NewVariantOfString[i] + ',';
+        }
     }
-    ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
+    if (NewVariantOfString[NewVariantOfString.size()-1] != "")
+    {
+        ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
+    }
+    else
+    {
+        ToPrintToFile.erase(ToPrintToFile.size()-1);  /// Убрал запятую
+    }
     bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
     unsigned size_of_string;
     while(correct_beginning_of_the_line == 0)

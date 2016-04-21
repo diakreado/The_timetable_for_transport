@@ -17,7 +17,7 @@ public:
      * @param number_of_line - номер части строки которую надо переписать
      * @param ToPrintToFile - что нужно написать на месте части строки
      */
-    void changeTable(const unsigned number_of_line, const string &ToPrintToFile);
+    void changeTable(const unsigned number_of_part, const string &ToPrintToFile);
 
     /**
      * @return Количество частей, на которые разибвается строчка

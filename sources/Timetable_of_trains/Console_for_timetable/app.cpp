@@ -16,16 +16,17 @@ void ConsoleForTimetable::definitionOfAdministrator()
     cin >> answer;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    if (answer == 'Y' or answer == 'y')         /// Вообще можно сделать, чтобы администратором становились только те,
-    {                                            /// кто знает определённый пароль, но это не главная часть программы,
-        Core.issuanceOfRights(administrator);      ///  поэтому мне кажется, так тоже норм
-        cout << endl << " Obtained administrator privileges" << endl << endl;
+    if (answer == 'Y' or answer == 'y')
+    {
+        Core.issuanceOfRights(administrator);
+        cout << endl << " You got administrator rights" << endl << endl;
     }
     else
     {
         Core.issuanceOfRights(usual_user);
-        cout << endl << " Granted privileges a usual user" << endl << endl;
+        cout << endl << " You got rights as a usual user" << endl << endl;
     }
+    cout << endl << " Press any key..." << endl;
     cin.get();
     menu();
 }
@@ -46,7 +47,7 @@ void ConsoleForTimetable::routeInformation()
     try
     {
         int choice_of_the_route;
-        cout << " What route are you interested?" << endl << endl << "-->";
+        cout << " What route are you interested in?  (Enter number)" << endl << endl << "-->";
         cin >> choice_of_the_route;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -54,7 +55,8 @@ void ConsoleForTimetable::routeInformation()
     }
     catch(RouteDoesNotExist)
     {
-        cout << " The route does not exist" << endl;
+        cout << " The route does not exist" << endl
+        << endl << " Enter number of the route, for example: 1" << endl;
     }
     cout << endl << " Press any key..." << endl << endl;
     cin.get();
@@ -69,14 +71,14 @@ void ConsoleForTimetable::findTheRoute()            /// ToDo Реализова�
 void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
 {
     string choice_of_the_station;
-    cout << " What station are you interested?" << endl << endl << "-->";
+    cout << " What station are you interested in?" << endl << endl << "-->";
     cin >> choice_of_the_station;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << endl;
     try
     {
-        cout << endl << " Time of the work station:" << endl << endl << ' ' << choice_of_the_station << " : "
+        cout << endl << " Working hours of the station:" << endl << endl << ' ' << choice_of_the_station << " : "
              << Core.getWhenStartMovementOnTheStation(choice_of_the_station) << endl;
     }
     catch(StationDoesNotExist)
@@ -95,7 +97,7 @@ void ConsoleForTimetable::changeRouteTable()
         menu();
         return;
     }
-    cout << " Which route you want to change?" << endl << endl << "-->";
+    cout << " Which do route you want to change?" << endl << endl << "-->";
     int choice_route;
     cin >> choice_route;
     cin.clear();
@@ -117,7 +119,7 @@ void ConsoleForTimetable::changeRouteTable()
         {
         case 1:
         {
-            cout << " What name of the station which you want to add?" <<endl << endl << "-->";
+            cout << " What station do you want to add?" << endl << "  (the station will be added to the end of the branch)" <<endl << endl << "-->";
             string what_to_add;
             getline(cin,what_to_add);
             cout << endl << endl;
@@ -126,12 +128,12 @@ void ConsoleForTimetable::changeRouteTable()
         }
         case 2:
         {
-            cout << " What number of the station which should to change?" << endl << endl << "-->";
+            cout << " What station do you want to change?" << endl << endl << "-->";
             int choice_station;
             cin >> choice_station;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << endl << " What to put in replacements?" << endl << endl << "-->";
+            cout << endl << " What do you want to put in replacement?" << endl << endl << "-->";
             string what_to_replace;
             getline(cin,what_to_replace);
             cout << endl << endl;
@@ -140,7 +142,7 @@ void ConsoleForTimetable::changeRouteTable()
         }
         case 3:
         {
-            cout << " What number of the station which should to delete?" << endl << endl << "-->";
+            cout << " What station do you want to delete?" << endl << endl << "-->";
             int choice_station;
             cin >> choice_station;
             cin.clear();
@@ -162,7 +164,8 @@ void ConsoleForTimetable::changeRouteTable()
     {
         cout << endl << " Not the correct use of functions" << endl;
     }
-    cout << endl << endl << " Press any key..." << endl;
+    cout << endl << " The changes have been well accepted" << endl <<
+         endl << " Press any key..." << endl;
     cin.get();
     menu();
 }
@@ -174,8 +177,8 @@ void ConsoleForTimetable::changeTimetable()
         menu();
         return;
     }
-    cout << " 1.Remove a station and schedule" << endl
-         << " 2.Add or change a station and schedule " << endl << endl << "-->";
+    cout << " 1.Remove station and schedule" << endl
+         << " 2.Add or change station and schedule " << endl << endl << "-->";
     int choice_of_action;
     cin >> choice_of_action;
     cin.clear();
@@ -185,7 +188,7 @@ void ConsoleForTimetable::changeTimetable()
     case 1:
     {
         string what_remove;
-        cout << endl << " What remove?" << endl << endl << "-->";
+        cout << endl << " What do you want to remove?" << endl << endl << "-->";
         cin >> what_remove;
         try
         {
@@ -202,11 +205,11 @@ void ConsoleForTimetable::changeTimetable()
         string when_begin;
         string when_end;         /// Пока не уверен, что будет именно так, потому что метод ядра не реализован
         string what_change;
-        cout << endl << " Which station change?" << endl << endl << "-->";
+        cout << endl << " Which station do you want to change?" << endl << endl << "-->";
         cin >> what_change;
-        cout << endl << " When station begin work?" << endl << endl << "-->";
+        cout << endl << " When does the station open?" << endl << endl << "-->";
         cin >> when_begin;
-        cout << endl << " When station end work?" << endl << endl << "-->";
+        cout << endl << " When does the station close?" << endl << endl << "-->";
         cin >> when_end;
         string what_add = when_begin + when_end;
 
@@ -215,11 +218,12 @@ void ConsoleForTimetable::changeTimetable()
     }
     default:
     {
-        cout << " You have entered something incomprehensible" << endl;
+        cout << " You have entered something unclear" << endl;
 
     }
     }
-    cout << endl << " Press any key..." << endl;
+    cout << endl << " The changes have been well accepted" << endl <<
+         endl << " Press any key..." << endl;
     cin.get();
     cin.get();
     menu();
@@ -228,9 +232,9 @@ void ConsoleForTimetable::changeTimetable()
 void ConsoleForTimetable::menu()
 {
     //system("cls"); // Очень удобная команда, но работает только под Windows
-    cout << " 1. To see the route table for trains" << endl
-         << " 2. To see when begins and ends movement of the train" << endl
-         << " 3. To get administrator rights" << endl;
+    cout << " 1. The route table for trains" << endl
+         << " 2. Working hours of the train" << endl
+         << " 3. Get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
         cout << " 4. Change route table for the train" << endl
