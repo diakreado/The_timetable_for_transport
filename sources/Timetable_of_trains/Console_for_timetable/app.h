@@ -67,9 +67,4 @@ private:
     CoreOfTimetable Core;
 };
 
-/**
- * @brief Ошибка ввода  (не уверен в его необходимости)
- */
-class InputError : public exception {};
-
 #endif // CONSOLE_FOR_TIMETABLE_H

@@ -26,7 +26,7 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 vector<string> CoreOfTimetable::getRouteOfTrain(int number_of_the_route)
 {
-    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityStringInFile() + 1)
+    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityStringInFile())
     {
         throw RouteDoesNotExist();
     }
@@ -70,17 +70,81 @@ string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
 
 void CoreOfTimetable::changeRouteTable(unsigned choice_route, unsigned choice_station, string &what_to_replace)
 {
-    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);                   /// Удобнее работать сразу с
-    choice_station--;            /// потому что с отсчёт элементов массива с нуля       ///  сформированым вектором
+    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
+    choice_station--;
     if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false || choice_station >= NewVariantOfString.size())
     {
-        NewVariantOfString.push_back(what_to_replace);  /* Если файл плохо прочитан или номер вводимой станции */
-    }                                                  /* больше чем размер существующего vector */
+        throw NotSuitableInquiry();
+    }
     else
     {
         NewVariantOfString[choice_station] = what_to_replace;
     }
-    string ToPrintToFile;                                       /// Та строчка, что будет напечатана в файл
+    string ToPrintToFile;
+    for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
+    {
+        ToPrintToFile += NewVariantOfString[i] + ',';
+    }
+    ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
+    bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
+    unsigned size_of_string;
+    while(correct_beginning_of_the_line == 0)
+    {
+        size_of_string = ToPrintToFile.size()-1;
+        if (ToPrintToFile[size_of_string] == ' ')
+        {
+            ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
+        }                                               /// не оставалось в начале сторки символы '_' и пробелы
+        else
+        {
+            correct_beginning_of_the_line = 1;
+        }
+    }
+    choice_route--;                                            /// Потому что отсчёт с нуля
+    DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
+}
+
+void CoreOfTimetable::deleteStationFromRouteTable(unsigned choice_route, unsigned choice_station)
+{
+    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
+    choice_station--;
+    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false || choice_station >= NewVariantOfString.size())
+    {
+        throw NotSuitableInquiry();
+    }
+    else
+    {
+        NewVariantOfString[choice_station] = "";
+    }
+    string ToPrintToFile;
+    for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
+    {
+        ToPrintToFile += NewVariantOfString[i] + ',';
+    }
+    ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
+    bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
+    unsigned size_of_string;
+    while(correct_beginning_of_the_line == 0)
+    {
+        size_of_string = ToPrintToFile.size()-1;
+        if (ToPrintToFile[size_of_string] == ' ')
+        {
+            ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
+        }                                               /// не оставалось в начале сторки символы '_' и пробелы
+        else
+        {
+            correct_beginning_of_the_line = 1;
+        }
+    }
+    choice_route--;                                            /// Потому что отсчёт с нуля
+    DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
+}
+
+void CoreOfTimetable::addStationInRouteTable(unsigned choice_route, string &what_to_add)
+{
+    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
+    NewVariantOfString.push_back(what_to_add);
+    string ToPrintToFile;
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
         ToPrintToFile += NewVariantOfString[i] + ',';

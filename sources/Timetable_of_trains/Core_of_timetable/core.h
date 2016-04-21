@@ -24,6 +24,10 @@ public:
 
     void changeRouteTable(unsigned choice_route, unsigned choice_station, string &what_to_replace);
 
+    void deleteStationFromRouteTable(unsigned choice_route, unsigned choice_station);
+
+    void addStationInRouteTable(unsigned choice_route, string &what_to_add);
+
     void changeTimetable(string &what_change, string &in_exchange);
 
     void removeStationFromTimetalbe(const string &what_remove);
@@ -37,6 +41,14 @@ private:
     FileRoute DataSetOfTheRoute;
 
     FileTimetable DataSetOfTimetable;
+};
+
+class NotSuitableInquiry
+{
+public:
+    string getInformation(){return whatIsWrong;}
+private:
+    string whatIsWrong;
 };
 
 #endif // CORE_OF_TIMETABLE_H

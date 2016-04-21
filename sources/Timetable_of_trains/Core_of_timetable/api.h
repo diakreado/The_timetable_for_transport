@@ -52,6 +52,21 @@ public:
     virtual void changeRouteTable(unsigned choice_route,unsigned choice_station, string &what_to_replace) = 0;
 
     /**
+     * @brief Удалить маршрут поезда и печать изменённого в файл "Routetable.txt"
+     * @param choice_route - номер маршрута, который нужно изменить
+     * @param choice_station - номер станции
+     */
+    virtual void deleteStationFromRouteTable(unsigned choice_route,unsigned choice_station) = 0;
+
+    /**
+     * @brief Добавить станцию маршрут поезда и печать изменённого в файл "Routetable.txt"
+     * @param choice_route - номер маршрута, который нужно изменить
+     * @param choice_station - номер станции
+     * @param what_to_replace - что нужно поставить взамен
+     */
+    virtual void addStationInRouteTable(unsigned choice_route, string &what_to_add) = 0;
+
+    /**
      * @brief Изменение станции и времени её открытия, закрытия  и печать в файл "Schedule.txt"
      * @param what_change - название станции, которую нужно изменить или добавить
      * @param in_exchange - что поставить вместо (здесь также находится информация о закрытие и открыите)

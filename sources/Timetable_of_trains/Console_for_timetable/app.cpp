@@ -50,21 +50,13 @@ void ConsoleForTimetable::routeInformation()
         cin >> choice_of_the_route;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if (!cin)
-        {
-            throw InputError();      /// Икслючение почему-то не кидается, даже если вводить символы вместо int
-        }                           /// не знаю, стоит ли это убрать
         convenientOutputInTheConsoleForRouteTable(choice_of_the_route);
     }
     catch(RouteDoesNotExist)
     {
         cout << " The route does not exist" << endl;
     }
-    catch(InputError)
-    {
-        cout << endl << "Input Error" << endl;
-    }
-    cout << endl << " Press any key..." << endl;
+    cout << endl << " Press any key..." << endl << endl;
     cin.get();
     menu();
 }
@@ -79,6 +71,8 @@ void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
     string choice_of_the_station;
     cout << " What station are you interested?" << endl << endl << "-->";
     cin >> choice_of_the_station;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << endl;
     try
     {
@@ -91,7 +85,6 @@ void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
     }
     cout << endl << endl << " Press any key..." << endl;
     cin.get();
-    cin.get();
     menu();
 }
 
@@ -100,41 +93,74 @@ void ConsoleForTimetable::changeRouteTable()
     if (Core.informationOfTheRights() == usual_user)  /// Пользователь не сможет вызвать метод, если он не админ
     {
         menu();
+        return;
     }
+    cout << " Which route you want to change?" << endl << endl << "-->";
+    int choice_route;
+    cin >> choice_route;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    convenientOutputInTheConsoleForRouteTable(choice_route);
+    cout << " What do you want?" << endl
+         << " 1.Add station" << endl
+         << " 2.Change station" << endl
+         << " 3.Delete station" << endl
+         << endl << "-->";
+    int choice_action;
+    cin >> choice_action;
+    cout << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     try
     {
-        cout << " Which route you want to change?" << endl << endl << "-->";
-        int choice_route;
-        cin >> choice_route;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
-        if (!cin)
+        switch (choice_action)
         {
-            throw InputError();
-        }
-        convenientOutputInTheConsoleForRouteTable(choice_route);
-        cout << " What station to change?" << endl << endl << "-->";
-        int choice_station;
-        cin >> choice_station;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if (!cin)
+        case 1:
         {
-            throw InputError();
+            cout << " What name of the station which you want to add?" <<endl << endl << "-->";
+            string what_to_add;
+            getline(cin,what_to_add);
+            cout << endl << endl;
+            Core.addStationInRouteTable(choice_route,what_to_add);
+            break;
         }
-        cout << endl << " What to put in replacements?" << endl << endl << "-->";
-        string what_to_replace;
-        getline(cin,what_to_replace);    /// Сделано, чтобы пользователь могу назвать станцию двумя или тремя словами
-        cout << endl << endl;           ///  и всё было правильно прочитано
-        Core.changeRouteTable(choice_route,choice_station,what_to_replace);
+        case 2:
+        {
+            cout << " What number of the station which should to change?" << endl << endl << "-->";
+            int choice_station;
+            cin >> choice_station;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << endl << " What to put in replacements?" << endl << endl << "-->";
+            string what_to_replace;
+            getline(cin,what_to_replace);
+            cout << endl << endl;
+            Core.changeRouteTable(choice_route,choice_station,what_to_replace);
+            break;
+        }
+        case 3:
+        {
+            cout << " What number of the station which should to delete?" << endl << endl << "-->";
+            int choice_station;
+            cin >> choice_station;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            Core.deleteStationFromRouteTable(choice_route,choice_station);
+            break;
+        }
+        default:
+        {
+            break;
+        }
+        }
     }
     catch(RouteDoesNotExist)
     {
         cout << " The route does not exist" << endl;
     }
-    catch(InputError)
+    catch(NotSuitableInquiry)
     {
-        cout << endl << "Input Error" << endl;
+        cout << endl << " Not the correct use of functions" << endl;
     }
     cout << endl << endl << " Press any key..." << endl;
     cin.get();
@@ -142,20 +168,21 @@ void ConsoleForTimetable::changeRouteTable()
 }
 
 void ConsoleForTimetable::changeTimetable()
-        {
+{
     if (Core.informationOfTheRights() == usual_user)
     {
         menu();
+        return;
     }
     cout << " 1.Remove a station and schedule" << endl
          << " 2.Add or change a station and schedule " << endl << endl << "-->";
-    char choice_of_action;
+    int choice_of_action;
     cin >> choice_of_action;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
     switch(choice_of_action)
     {
-    case '1':
+    case 1:
     {
         string what_remove;
         cout << endl << " What remove?" << endl << endl << "-->";
@@ -170,7 +197,7 @@ void ConsoleForTimetable::changeTimetable()
         }
         break;
     }
-    case '2':
+    case 2:
     {
         string when_begin;
         string when_end;         /// Пока не уверен, что будет именно так, потому что метод ядра не реализован
@@ -210,44 +237,44 @@ void ConsoleForTimetable::menu()
              << " 5. Change timetable for the train" << endl;
     }
     cout << " 0. Exit" << endl << endl;
-    char choice_in_menu;
+    int choice_in_menu;
     cout << "-->";
     cin >> choice_in_menu;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');  /// Мешает считать кучу символов(ведь нам нужен один)
     cout << endl;
     switch(choice_in_menu)
     {
-    case '1':
+    case 1:
     {
         routeInformation();
         break;
     }
-    case '2':
+    case 2:
     {
         whenBeginsAndEndsMovementOfTheTrainAtTheStation();
         break;
     }
-    case '3':
+    case 3:
     {
         definitionOfAdministrator();
         break;
     }
-    case '4':
+    case 4:
     {
         changeRouteTable();
         break;
     }
-    case '5':
+    case 5:
     {
         changeTimetable();
         break;
     }
-    case '0':
+    case 0:
     {
         return;
     }
     default:
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');  /// Мешает считать кучу символов(ведь нам нужен один)
         menu();
         break;
     }
