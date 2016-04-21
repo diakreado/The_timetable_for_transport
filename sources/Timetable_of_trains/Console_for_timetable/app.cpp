@@ -55,8 +55,9 @@ void ConsoleForTimetable::routeInformation()
     }
     catch(RouteDoesNotExist)
     {
-        cout << " The route does not exist" << endl
-        << endl << " Enter number of the route, for example: 1" << endl;
+        cout << " The route does not exist" << endl << endl
+        << endl << " Enter number of the route, for example: 1" << endl
+        << "   (If it does not help, contact the administrator)" << endl;
     }
     cout << endl << " Press any key..." << endl << endl;
     cin.get();
@@ -229,16 +230,30 @@ void ConsoleForTimetable::changeTimetable()
     menu();
 }
 
+void ConsoleForTimetable::saveChanges()
+{
+    if (Core.informationOfTheRights() == usual_user)
+    {
+        menu();
+        return;
+    }
+    Core.saveChanges();
+    cout << endl << " The information was saved successfully" << endl <<
+         endl << " Press any key..." << endl;
+    cin.get();
+    menu();
+}
+
 void ConsoleForTimetable::menu()
 {
-    //system("cls"); // Очень удобная команда, но работает только под Windows
     cout << " 1. The route table for trains" << endl
          << " 2. Working hours of the train" << endl
          << " 3. Get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
         cout << " 4. Change route table for the train" << endl
-             << " 5. Change timetable for the train" << endl;
+             << " 5. Change timetable for the train" << endl
+             << " 6. Save Changes" << endl;
     }
     cout << " 0. Exit" << endl << endl;
     int choice_in_menu;
@@ -274,6 +289,11 @@ void ConsoleForTimetable::menu()
         changeTimetable();
         break;
     }
+    case 6:
+    {
+        saveChanges();
+        break;
+    }
     case 0:
     {
         return;
@@ -283,4 +303,3 @@ void ConsoleForTimetable::menu()
         break;
     }
 }
-

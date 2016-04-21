@@ -86,6 +86,8 @@ public:
      */
     virtual string findSuitableRoute(string &departure, string &arrival) = 0;
 
+    virtual void saveChanges() = 0;
+
     virtual ~API(){}
 };
 

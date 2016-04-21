@@ -64,6 +64,9 @@ private:
      */
     void changeTimetable();
 
+
+    void saveChanges();
+
     CoreOfTimetable Core;
 };
 

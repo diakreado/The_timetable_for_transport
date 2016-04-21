@@ -186,3 +186,15 @@ void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
     DataSetOfTimetable.removeLine(what_remove);
 }
 
+void CoreOfTimetable::saveChanges()
+{
+    DataSetOfTheRoute.saveChanges();
+    DataSetOfTimetable.saveChanges();
+}
+
+
+
+
+
+
+

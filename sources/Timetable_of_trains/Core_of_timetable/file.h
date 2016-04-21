@@ -26,6 +26,11 @@ public:
      */
     bool getInformAboutSuccessfullyReading() {return have_successfully_read_the_file;}
 
+    /**
+     * @brief Сохранить изменения в файле
+     */
+    virtual void saveChanges() = 0;
+
     virtual ~File(){}
 
 protected:

@@ -72,6 +72,11 @@ void FileTimetable::removeLine(const string &what_remove)
         throw StationDoesNotExist();
     }
     Timetable.erase(Timetable.find(what_remove));
+
+}
+
+void FileTimetable::saveChanges()
+{
     ofstream inputFileForChangeTimetable("Schedule.txt");
     string buffer;
     string name_of_buffer;
@@ -116,8 +121,6 @@ void FileTimetable::removeLine(const string &what_remove)
     }
     inputFileForChangeTimetable.close();
 }
-
-
 
 
 

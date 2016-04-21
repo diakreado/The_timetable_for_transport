@@ -34,6 +34,8 @@ public:
 
     string findSuitableRoute(string &departure, string &arrival);
 
+    void saveChanges();
+
 private:
 
     int right;

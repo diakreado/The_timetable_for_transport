@@ -20,7 +20,7 @@ void FileRoute::readingFromFile()
         }
         else
         {
-        PartOfTheLine += LineFromFile[i];
+            PartOfTheLine += LineFromFile[i];
         }
     }
     FileData.push_back(PartOfTheLine);
@@ -35,7 +35,7 @@ void FileRoute::readingFromFile()
 
 void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrintToFile)
 {
-    ofstream inputFileForChangeRoute("Routetable.txt");
+
     if(have_successfully_read_the_file == false || number_of_part >= FileData.size())
     {
         FileData.push_back(ToPrintToFile);          /// Если файл плохо прочитан или номер вводимой станции
@@ -44,6 +44,17 @@ void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrint
     {
         FileData[number_of_part] = ToPrintToFile;
     }
+}
+
+
+string FileRoute::getFileData(int number_of_the_line) const
+{
+    return FileData[number_of_the_line];
+}
+
+void FileRoute::saveChanges()
+{
+    ofstream inputFileForChangeRoute("Routetable.txt");
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),
     for(unsigned i = 1; i < FileData.size(); i++)  ///  а отдельно потому что перед ним не надо ставить '/'
     {
@@ -55,10 +66,4 @@ void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrint
     inputFileForChangeRoute.close();
     have_successfully_read_the_file = true;   /// Теперь у нас есть файл, и мы знаем, что в нём лежит инофрмация,
 }                                            ///  поэтому имеем право поднять этот флаг
-
-string FileRoute::getFileData(int number_of_the_line) const
-{
-    return FileData[number_of_the_line];
-}
-
 

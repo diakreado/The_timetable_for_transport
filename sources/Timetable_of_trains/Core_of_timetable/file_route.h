@@ -24,6 +24,8 @@ public:
      */
     int getMaxQuantityStringInFile() const {return FileData.size();}
 
+    void saveChanges();
+
     /**
      *  @param number_of_the_line - часть строчки из файла "Routetable.txt"
      *  @return Строчка с необходимым маршрутом

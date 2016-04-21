@@ -29,6 +29,8 @@ public:
      */
     void removeLine(const string &what_remove);
 
+    void saveChanges();
+
 private:
 
     /**
