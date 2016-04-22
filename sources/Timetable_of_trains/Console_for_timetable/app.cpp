@@ -31,7 +31,7 @@ void ConsoleForTimetable::definitionOfAdministrator()
     menu();
 }
 
-void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const int choice_of_the_route)
+void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const unsigned choice_of_the_route)
 {
     cout << endl;
     vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
@@ -46,7 +46,7 @@ void ConsoleForTimetable::routeInformation()
 {
     try
     {
-        int choice_of_the_route;
+        unsigned choice_of_the_route;
         cout << " What route are you interested in?  (Enter number)" << endl << endl << "-->";
         cin >> choice_of_the_route;
         cin.clear();
@@ -102,7 +102,7 @@ void ConsoleForTimetable::changeRouteTable()
     cout << " What do you want to do with route table?" << endl
          << " 1.Add route" << endl
          << " 2.Change route" << endl
-         << " 3.Delete route" << endl;
+         << " 3.Delete route" << endl << endl << "-->";
     cin >> choice_action_with_route_table;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -136,21 +136,33 @@ void ConsoleForTimetable::changeRouteTable()
 
 void ConsoleForTimetable::addRoute()
 {
-    unsigned choice_route;
-    cin >> choice_route;
-    Core.deleteRoute(choice_route); /// Парадокс
+    cout << endl << " Was created the route " << Core.addRoute() << endl;
 }
 
 void ConsoleForTimetable::deleteRoute()
 {
+    unsigned choice_route;
+    cout << endl << " Which route you want to delete" << endl << endl << "-->";
+    cin >> choice_route;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    try
+    {
+        Core.deleteRoute(choice_route);
+    }
+    catch(RouteDoesNotExist)
+    {
+        cout << endl << " The route does not exist" << endl;
+    }
 
+    cout << endl;
 }
 
 void ConsoleForTimetable::changeRoute()
 {
     bool how_successful_changes = 1;
     cout << " Which do route you want to change?" << endl << endl << "-->";
-    int choice_route;
+    unsigned choice_route;
     cin >> choice_route;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -292,9 +304,21 @@ void ConsoleForTimetable::saveChanges()
         menu();
         return;
     }
-    Core.saveChanges();
-    cout << endl << " The information was saved successfully" << endl <<
-         endl << " Press any key..." << endl;
+    cout << endl << " Really save? (Y/N)" << endl << endl << "-->";
+    char answer_about_save;
+    cin >> answer_about_save;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    if (answer_about_save == 'Y' || answer_about_save == 'y')
+    {
+        Core.saveChanges();
+        cout << endl << " The information was saved successfully" << endl << endl;
+    }
+    else
+    {
+         cout << endl << " You refused to save" << endl << endl;
+    }
+    cout << " Press any key..." << endl;
     cin.get();
     menu();
 }

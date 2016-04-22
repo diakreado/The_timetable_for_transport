@@ -38,37 +38,7 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
  */
 void Test_for_coreTest::fileProcessingChecksForRouteTable()
 {
-//    string Input = "Privet";
-//    start_test.changeRouteTable(1,1,Input);
-//    vector<string> VectorOfOutputWord = start_test.getRouteOfTrain(1);
-//    string OutputWord = VectorOfOutputWord[0];
-//    QVERIFY2(OutputWord == Input," 1 word 1 line not work initial input (Part of Test 1) ");
 
-//    string what_to_replace = "Hello";
-//    start_test.changeRouteTable(1,1,what_to_replace);
-//    VectorOfOutputWord = start_test.getRouteOfTrain(1);
-//    OutputWord = VectorOfOutputWord[0];
-//    QVERIFY2(OutputWord == what_to_replace," 1 word 1 line not accepted changes (Part of Test 2) ");
-
-//    what_to_replace = "ABCDEFG";
-//    start_test.changeRouteTable(1,2,what_to_replace);
-//    VectorOfOutputWord = start_test.getRouteOfTrain(1);
-//    OutputWord = VectorOfOutputWord[1];
-//    QVERIFY2(OutputWord == what_to_replace," 1 word 2 line not work initial input (Part of Test 3) ");
-
-//    what_to_replace = "ParaRuram";
-//    start_test.changeRouteTable(2,1,what_to_replace);
-//    VectorOfOutputWord = start_test.getRouteOfTrain(2);
-//    OutputWord = VectorOfOutputWord[0];
-//    QVERIFY2(OutputWord == what_to_replace," 2 word 1 line not work initial input (Part of Test 4) ");
-
-//    what_to_replace = "";
-//    start_test.changeRouteTable(2,1,what_to_replace);
-//    start_test.changeRouteTable(1,2,what_to_replace);
-//    start_test.changeRouteTable(1,1,what_to_replace);
-
-//    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(256),RouteDoesNotExist);
-//    QVERIFY_EXCEPTION_THROWN(start_test.changeRouteTable(256,1,what_to_replace),RouteDoesNotExist);
 }
 
 /**

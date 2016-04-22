@@ -35,8 +35,12 @@ void FileRoute::readingFromFile()
 
 void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrintToFile)
 {
-
-    if(have_successfully_read_the_file == false || number_of_part >= FileData.size())
+    if ( ToPrintToFile == "" && number_of_part != 0)
+    {
+        FileData.erase(FileData.begin()+number_of_part);
+        return;
+    }
+    if( have_successfully_read_the_file == false || number_of_part >= FileData.size() )
     {
         FileData.push_back(ToPrintToFile);          /// Если файл плохо прочитан или номер вводимой станции
     }                                              /// больше чем размер существующей строчки

@@ -24,7 +24,7 @@ bool CoreOfTimetable::informationOfTheRights() const
     return right;
 }
 
-vector<string> CoreOfTimetable::getRouteOfTrain(int number_of_the_route)
+vector<string> CoreOfTimetable::getRouteOfTrain(unsigned number_of_the_route)
 {
     if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityStringInFile())
     {
@@ -104,14 +104,23 @@ void CoreOfTimetable::changeRouteTable(unsigned choice_route, unsigned choice_st
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::addRoute()
+unsigned CoreOfTimetable::addRoute()
 {
+    string ToPrintToFile = " ";
+    unsigned choice_route = DataSetOfTheRoute.getMaxQuantityStringInFile();
+    DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
+    choice_route++;
+    return choice_route;
 }
 
 void CoreOfTimetable::deleteRoute(unsigned choice_route)
 {
-    string ToPrintToFile;
+    if ( choice_route > DataSetOfTheRoute.getMaxQuantityStringInFile() )
+    {
+        throw RouteDoesNotExist();
+    }
     choice_route--;
+    string ToPrintToFile = "";
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 

@@ -43,7 +43,7 @@ private:
      * @param Номер маршрута
      * Сделан, чтобы избежать копипаста, но я не уверен стоило ли это того
      */
-    void convenientOutputInTheConsoleForRouteTable(int const choice_of_the_route);
+    void convenientOutputInTheConsoleForRouteTable(const unsigned choice_of_the_route);
 
     /**
      * @brief Печатает в консоль проложеный маршрут от одной станции до другой

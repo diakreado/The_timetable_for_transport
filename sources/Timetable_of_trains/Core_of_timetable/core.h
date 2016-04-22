@@ -18,7 +18,7 @@ public:
 
     bool informationOfTheRights() const;
 
-    vector<string> getRouteOfTrain(int number_of_the_route);
+    vector<string> getRouteOfTrain(unsigned number_of_the_route);
 
     string getWhenStartMovementOnTheStation(const string &name_of_the_station);
 
@@ -34,7 +34,7 @@ public:
 
     string findSuitableRoute(string &departure, string &arrival);
 
-    void addRoute();
+    unsigned addRoute();
 
     void deleteRoute(unsigned choice_route);
 

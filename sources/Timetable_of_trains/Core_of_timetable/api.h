@@ -34,7 +34,7 @@ public:
      * @param number_of_the_route - номер маршрута
      * @return Маршрут поезда в формате vector<string>
      */
-    virtual vector<string> getRouteOfTrain(int number_of_the_route) = 0;
+    virtual vector<string> getRouteOfTrain(unsigned number_of_the_route) = 0;
 
     /**
      * @brief Используется для более удобного вывода времени начала, окончания работы станции
@@ -86,8 +86,16 @@ public:
      */
     virtual string findSuitableRoute(string &departure, string &arrival) = 0;
 
-    virtual void addRoute() = 0;
+    /**
+     * @brief Добавить новый маршурт в таблицу
+     * @return Номер добавленного маршрута
+     */
+    virtual unsigned addRoute() = 0;
 
+    /**
+     * @brief Удаление маршрута
+     * @param Номер маршрута, который нужно удалить
+     */
     virtual void deleteRoute(unsigned choice_route) = 0;
 
     /**
