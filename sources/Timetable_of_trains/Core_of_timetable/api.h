@@ -52,14 +52,14 @@ public:
     virtual void changeRouteTable(unsigned choice_route,unsigned choice_station, string &what_to_replace) = 0;
 
     /**
-     * @brief Удалить маршрут поезда и печать изменённого в файл "Routetable.txt"
+     * @brief Удалить станцию из определённого маршрута поезда "Routetable.txt"
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      */
     virtual void deleteStationFromRouteTable(unsigned choice_route,unsigned choice_station) = 0;
 
     /**
-     * @brief Добавить станцию маршрут поезда и печать изменённого в файл "Routetable.txt"
+     * @brief Добавить станцию маршрут поезда (работа с информацией из файла "Routetable.txt")
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      * @param what_to_replace - что нужно поставить взамен
@@ -67,14 +67,14 @@ public:
     virtual void addStationInRouteTable(unsigned choice_route, string &what_to_add) = 0;
 
     /**
-     * @brief Изменение станции и времени её открытия, закрытия  и печать в файл "Schedule.txt"
+     * @brief Изменение станции и времени её открытия, закрытия (работа с информацией из файла "Schedule.txt")
      * @param what_change - название станции, которую нужно изменить или добавить
      * @param in_exchange - что поставить вместо (здесь также находится информация о закрытие и открыите)
      */
     virtual void changeTimetable(string &what_change, string &in_exchange) = 0;
 
     /**
-     * @brief Удаление станции  и печать новой версии в файл "Schedule.txt"
+     * @brief Удаление станции и информации о ней  из расписания (работа с информацией из файла "Schedule.txt")
      * @param what_remove - название станции, которую нужно удалить
      */
     virtual void removeStationFromTimetalbe(const string &what_remove)= 0;
@@ -86,6 +86,13 @@ public:
      */
     virtual string findSuitableRoute(string &departure, string &arrival) = 0;
 
+    virtual void addRoute() = 0;
+
+    virtual void deleteRoute(unsigned choice_route) = 0;
+
+    /**
+     * @brief Сохраняет изменения в файлах "Schedule.txt" и "Schedule.txt"
+     */
     virtual void saveChanges() = 0;
 
     virtual ~API(){}

@@ -104,6 +104,17 @@ void CoreOfTimetable::changeRouteTable(unsigned choice_route, unsigned choice_st
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 
+void CoreOfTimetable::addRoute()
+{
+}
+
+void CoreOfTimetable::deleteRoute(unsigned choice_route)
+{
+    string ToPrintToFile;
+    choice_route--;
+    DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
+}
+
 void CoreOfTimetable::deleteStationFromRouteTable(unsigned choice_route, unsigned choice_station)
 {
     vector<string> NewVariantOfString = getRouteOfTrain(choice_route);

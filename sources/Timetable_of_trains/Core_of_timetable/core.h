@@ -34,6 +34,10 @@ public:
 
     string findSuitableRoute(string &departure, string &arrival);
 
+    void addRoute();
+
+    void deleteRoute(unsigned choice_route);
+
     void saveChanges();
 
 private:

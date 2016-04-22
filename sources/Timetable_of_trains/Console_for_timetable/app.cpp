@@ -98,25 +98,76 @@ void ConsoleForTimetable::changeRouteTable()
         menu();
         return;
     }
+    int choice_action_with_route_table;
+    cout << " What do you want to do with route table?" << endl
+         << " 1.Add route" << endl
+         << " 2.Change route" << endl
+         << " 3.Delete route" << endl;
+    cin >> choice_action_with_route_table;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    switch(choice_action_with_route_table)
+    {
+    case 1:
+    {
+        addRoute();
+        break;
+    }
+    case 2:
+    {
+        changeRoute();
+        break;
+    }
+    case 3:
+    {
+        deleteRoute();
+        break;
+    }
+    default:
+    {
+        cout << " You have entered something unclear" << endl;
+        break;
+    }
+    }
+    cout << endl << " Press any key..." << endl << endl;
+    cin.get();
+    menu();
+}
+
+void ConsoleForTimetable::addRoute()
+{
+    unsigned choice_route;
+    cin >> choice_route;
+    Core.deleteRoute(choice_route); /// Парадокс
+}
+
+void ConsoleForTimetable::deleteRoute()
+{
+
+}
+
+void ConsoleForTimetable::changeRoute()
+{
+    bool how_successful_changes = 1;
     cout << " Which do route you want to change?" << endl << endl << "-->";
     int choice_route;
     cin >> choice_route;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    convenientOutputInTheConsoleForRouteTable(choice_route);
-    cout << " What do you want?" << endl
-         << " 1.Add station" << endl
-         << " 2.Change station" << endl
-         << " 3.Delete station" << endl
-         << endl << "-->";
-    int choice_action;
-    cin >> choice_action;
-    cout << endl;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     try
     {
-        switch (choice_action)
+        convenientOutputInTheConsoleForRouteTable(choice_route);
+        cout << " What do you want?" << endl
+             << " 1.Add station" << endl
+             << " 2.Change station" << endl
+             << " 3.Delete station" << endl
+             << endl << "-->";
+        int choice_action_with_rote;
+        cin >> choice_action_with_rote;
+        cout << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        switch (choice_action_with_rote)
         {
         case 1:
         {
@@ -153,6 +204,8 @@ void ConsoleForTimetable::changeRouteTable()
         }
         default:
         {
+            cout << " You have entered something unclear" << endl;
+            how_successful_changes = 0;
             break;
         }
         }
@@ -160,15 +213,17 @@ void ConsoleForTimetable::changeRouteTable()
     catch(RouteDoesNotExist)
     {
         cout << " The route does not exist" << endl;
+        how_successful_changes = 0;
     }
     catch(NotSuitableInquiry)
     {
         cout << endl << " Not the correct use of functions" << endl;
+        how_successful_changes = 0;
     }
-    cout << endl << " The changes have been well accepted" << endl <<
-         endl << " Press any key..." << endl;
-    cin.get();
-    menu();
+    if (how_successful_changes == 1)
+    {
+        cout << endl << " The changes have been well accepted" << endl;
+    }
 }
 
 void ConsoleForTimetable::changeTimetable()
@@ -220,7 +275,7 @@ void ConsoleForTimetable::changeTimetable()
     default:
     {
         cout << " You have entered something unclear" << endl;
-
+        break;
     }
     }
     cout << endl << " The changes have been well accepted" << endl <<

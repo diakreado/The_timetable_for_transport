@@ -64,6 +64,11 @@ private:
      */
     void changeTimetable();
 
+    void changeRoute();
+
+    void addRoute();
+
+    void deleteRoute();
 
     void saveChanges();
 
