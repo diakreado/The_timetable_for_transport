@@ -30,12 +30,16 @@ void FileRoute::readingFromFile()
     }
 }
 
-void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrintToFile)
+void FileRoute::changeTable(const unsigned number_of_part, string &ToPrintToFile)
 {
-    if ( ToPrintToFile == "" && number_of_part != 0)
+    if (ToPrintToFile == "" && number_of_part != 0)
     {
         FileData.erase(FileData.begin()+number_of_part);
         return;
+    }
+    if (ToPrintToFile == " ")
+    {
+        ToPrintToFile = "";
     }
     if(number_of_part >= FileData.size())
     {

@@ -205,7 +205,7 @@ void ConsoleForTimetable::changeRoute()
         case 2:
         {
             cout << " What station do you want to change?" << endl << endl << "-->";
-            int choice_station;
+            unsigned choice_station;
             cin >> choice_station;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -219,7 +219,7 @@ void ConsoleForTimetable::changeRoute()
         case 3:
         {
             cout << " What station do you want to delete?" << endl << endl << "-->";
-            int choice_station;
+            unsigned choice_station;
             cin >> choice_station;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -228,7 +228,7 @@ void ConsoleForTimetable::changeRoute()
         }
         default:
         {
-            cout << " You have entered something unclear" << endl;
+            cout << endl << " You have entered something unclear" << endl;
             how_successful_changes = 0;
             break;
         }
