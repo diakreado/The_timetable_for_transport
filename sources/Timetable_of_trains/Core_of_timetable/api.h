@@ -103,6 +103,11 @@ public:
      */
     virtual void saveChanges() = 0;
 
+    /**
+     * @return Возвращяет количество существующих маршрутов
+     */
+    virtual unsigned howManyRoutes() = 0;
+
     virtual ~API(){}
 };
 

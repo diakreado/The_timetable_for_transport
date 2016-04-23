@@ -41,7 +41,7 @@ private:
     /**
      * @brief Удобный вывод маршрута в консоль
      * @param Номер маршрута
-     * Сделан, чтобы избежать копипаста, но я не уверен стоило ли это того
+     * @return Количество существующих маршрутов
      */
     void convenientOutputInTheConsoleForRouteTable(const unsigned choice_of_the_route);
 
@@ -64,12 +64,24 @@ private:
      */
     void changeTimetable();
 
+    /**
+     * @brief Изменяет конкретный маршрут
+     */
     void changeRoute();
 
+    /**
+     * @brief Добавляет новый маршрут(пустой) с номером, на один больше чем последний существующий
+     */
     void addRoute();
 
+    /**
+     * @brief Удаляет маршрут с указаным номером, причём маршруты чей номер больше указаного сдвигаються вниз
+     */
     void deleteRoute();
 
+    /**
+     * @brief Все изменения записываются в файл
+     */
     void saveChanges();
 
     CoreOfTimetable Core;

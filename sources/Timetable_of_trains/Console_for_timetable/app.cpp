@@ -39,15 +39,17 @@ void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const unsign
     {
         cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
     }                                                               ///                    2.Prospekt Prosvescheniya
-    cout << endl << endl;
+    cout << endl;
 }
 
 void ConsoleForTimetable::routeInformation()
 {
+    unsigned how_many_routes = 0;
     try
     {
         unsigned choice_of_the_route;
-        cout << " What route are you interested in?  (Enter number)" << endl << endl << "-->";
+        how_many_routes = Core.howManyRoutes();
+        cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << endl << endl << "-->";
         cin >> choice_of_the_route;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -55,9 +57,13 @@ void ConsoleForTimetable::routeInformation()
     }
     catch(RouteDoesNotExist)
     {
-        cout << " The route does not exist" << endl << endl
-        << endl << " Enter number of the route, for example: 1" << endl
-        << "   (If it does not help, contact the administrator)" << endl;
+        cout << " The route does not exist" << endl
+             << endl << " At the moment there are 1-" << how_many_routes << " routes" << endl
+             << endl << " Enter number of the route, for example: 1" << endl;
+    }
+    catch(ThereAreNoRoutes)
+    {
+        cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
     }
     cout << endl << " Press any key..." << endl << endl;
     cin.get();
@@ -149,19 +155,19 @@ void ConsoleForTimetable::deleteRoute()
     try
     {
         Core.deleteRoute(choice_route);
+        cout << endl << " The route " << choice_route << " was successfully deleted" << endl;
     }
     catch(RouteDoesNotExist)
     {
         cout << endl << " The route does not exist" << endl;
     }
-
     cout << endl;
 }
 
 void ConsoleForTimetable::changeRoute()
 {
     bool how_successful_changes = 1;
-    cout << " Which do route you want to change?" << endl << endl << "-->";
+    cout << endl << " Which do route you want to change?" << endl << endl << "-->";
     unsigned choice_route;
     cin >> choice_route;
     cin.clear();
@@ -183,7 +189,8 @@ void ConsoleForTimetable::changeRoute()
         {
         case 1:
         {
-            cout << " What station do you want to add?" << endl << "  (the station will be added to the end of the branch)" <<endl << endl << "-->";
+            cout << " What station do you want to add?" << endl
+                 << "  (the station will be added to the end of the branch)" <<endl << endl << "-->";
             string what_to_add;
             getline(cin,what_to_add);
             cout << endl << endl;

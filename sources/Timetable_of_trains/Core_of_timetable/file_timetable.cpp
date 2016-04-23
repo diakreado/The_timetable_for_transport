@@ -5,7 +5,6 @@ void FileTimetable::readingFromFile()
     ifstream inputFile_for_reading("Schedule.txt");
     if (!inputFile_for_reading.is_open())
     {
-        have_successfully_read_the_file = false;
         return;
     }
     string LineFromFile;
@@ -25,7 +24,6 @@ void FileTimetable::readingFromFile()
     }
     FileData.push_back(PartOfTheLine);
     inputFile_for_reading.close();
-    have_successfully_read_the_file = true;
     string buffer;
     string name_of_buffer;
     string value_of_buffer;

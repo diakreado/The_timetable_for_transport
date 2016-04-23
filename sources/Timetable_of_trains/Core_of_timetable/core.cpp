@@ -26,12 +26,11 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 vector<string> CoreOfTimetable::getRouteOfTrain(unsigned number_of_the_route)
 {
-    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityStringInFile())
+    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityPartInFile())
     {
         throw RouteDoesNotExist();
     }
-    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false ||
-            number_of_the_route == DataSetOfTheRoute.getMaxQuantityStringInFile() + 1)
+    if(number_of_the_route == DataSetOfTheRoute.getMaxQuantityPartInFile() + 1)
     {
         vector<string> Null;        ///  Если была ошибка при чтение файла,
         return Null;               ///  то возвращяем пустой вектор (нет файла, нет данных)
@@ -72,7 +71,7 @@ void CoreOfTimetable::changeRouteTable(unsigned choice_route, unsigned choice_st
 {
     vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
     choice_station--;
-    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false || choice_station >= NewVariantOfString.size())
+    if(choice_station >= NewVariantOfString.size())
     {
         throw NotSuitableInquiry();
     }
@@ -107,7 +106,7 @@ void CoreOfTimetable::changeRouteTable(unsigned choice_route, unsigned choice_st
 unsigned CoreOfTimetable::addRoute()
 {
     string ToPrintToFile = " ";
-    unsigned choice_route = DataSetOfTheRoute.getMaxQuantityStringInFile();
+    unsigned choice_route = DataSetOfTheRoute.getMaxQuantityPartInFile();
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
     choice_route++;
     return choice_route;
@@ -115,7 +114,7 @@ unsigned CoreOfTimetable::addRoute()
 
 void CoreOfTimetable::deleteRoute(unsigned choice_route)
 {
-    if ( choice_route > DataSetOfTheRoute.getMaxQuantityStringInFile() )
+    if ( choice_route > DataSetOfTheRoute.getMaxQuantityPartInFile() )
     {
         throw RouteDoesNotExist();
     }
@@ -128,7 +127,7 @@ void CoreOfTimetable::deleteStationFromRouteTable(unsigned choice_route, unsigne
 {
     vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
     choice_station--;
-    if(DataSetOfTheRoute.getInformAboutSuccessfullyReading() == false || choice_station >= NewVariantOfString.size())
+    if(choice_station >= NewVariantOfString.size())
     {
         throw NotSuitableInquiry();
     }
@@ -211,6 +210,17 @@ void CoreOfTimetable::saveChanges()
     DataSetOfTheRoute.saveChanges();
     DataSetOfTimetable.saveChanges();
 }
+
+unsigned CoreOfTimetable::howManyRoutes()
+{
+    unsigned how_many_routes = DataSetOfTheRoute.getMaxQuantityPartInFile();
+    if (how_many_routes == 0)
+    {
+        throw ThereAreNoRoutes();
+    }
+    return how_many_routes;
+}
+
 
 
 

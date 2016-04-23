@@ -22,7 +22,7 @@ public:
     /**
      * @return Количество частей, на которые разибвается строчка
      */
-    unsigned getMaxQuantityStringInFile() const {return FileData.size();}
+    unsigned getMaxQuantityPartInFile() const {return FileData.size();}
 
     void saveChanges();
 

@@ -5,8 +5,7 @@ void FileRoute::readingFromFile()
     ifstream inputFile_for_reading("Routetable.txt");
     if (!inputFile_for_reading.is_open())
     {
-        have_successfully_read_the_file = false;
-        return;
+        return;                                             /// Если нет файла, то и читать его нет смысла
     }
     string LineFromFile;
     string PartOfTheLine;
@@ -27,10 +26,8 @@ void FileRoute::readingFromFile()
     inputFile_for_reading.close();
     if (FileData.empty())
     {
-        have_successfully_read_the_file = false;
         return;
     }
-    have_successfully_read_the_file = true;   /// Если всё прочиталось хорошо, то поднимается флаг
 }
 
 void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrintToFile)
@@ -40,7 +37,7 @@ void FileRoute::changeTable(const unsigned number_of_part, const string &ToPrint
         FileData.erase(FileData.begin()+number_of_part);
         return;
     }
-    if( have_successfully_read_the_file == false || number_of_part >= FileData.size() )
+    if(number_of_part >= FileData.size())
     {
         FileData.push_back(ToPrintToFile);          /// Если файл плохо прочитан или номер вводимой станции
     }                                              /// больше чем размер существующей строчки
@@ -68,6 +65,5 @@ void FileRoute::saveChanges()
         }
     }
     inputFileForChangeRoute.close();
-    have_successfully_read_the_file = true;   /// Теперь у нас есть файл, и мы знаем, что в нём лежит инофрмация,
-}                                            ///  поэтому имеем право поднять этот флаг
 
+}

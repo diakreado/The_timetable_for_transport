@@ -40,6 +40,8 @@ public:
 
     void saveChanges();
 
+    unsigned howManyRoutes();
+
 private:
 
     int right;
@@ -49,12 +51,9 @@ private:
     FileTimetable DataSetOfTimetable;
 };
 
-class NotSuitableInquiry
-{
-public:
-    string getInformation(){return whatIsWrong;}
-private:
-    string whatIsWrong;
-};
+
+class ThereAreNoRoutes : public exception {};
+
+class NotSuitableInquiry : public exception {};
 
 #endif // CORE_OF_TIMETABLE_H

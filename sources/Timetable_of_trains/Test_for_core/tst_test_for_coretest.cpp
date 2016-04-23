@@ -38,7 +38,11 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
  */
 void Test_for_coreTest::fileProcessingChecksForRouteTable()
 {
-
+    unsigned what_expected = 0;
+    QCOMPARE(start_test.howManyRoutes(),what_expected);
+    vector<string> Null;
+    what_expected = 1;
+    QCOMPARE(start_test.getRouteOfTrain(what_expected),Null);
 }
 
 /**
