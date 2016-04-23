@@ -28,7 +28,6 @@ void ConsoleForTimetable::definitionOfAdministrator()
     }
     cout << endl << " Press any key..." << endl;
     cin.get();
-    menu();
 }
 
 void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const unsigned choice_of_the_route)
@@ -67,7 +66,6 @@ void ConsoleForTimetable::routeInformation()
     }
     cout << endl << " Press any key..." << endl << endl;
     cin.get();
-    menu();
 }
 
 void ConsoleForTimetable::findTheRoute()            /// ToDo Реализовать
@@ -94,19 +92,27 @@ void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
     }
     cout << endl << endl << " Press any key..." << endl;
     cin.get();
-    menu();
 }
 
 void ConsoleForTimetable::changeRouteTable()
 {
     if (Core.informationOfTheRights() == usual_user)  /// Пользователь не сможет вызвать метод, если он не админ
     {
-        menu();
         return;
     }
+    unsigned how_many_routes = 0;
     int choice_action_with_route_table;
-    cout << " What do you want to do with route table?" << endl
-         << " 1.Add route" << endl
+    cout << " What do you want to do with route table? ";
+    try
+    {
+        how_many_routes = Core.howManyRoutes();
+        cout << "(There are routes: 1-" << how_many_routes << ')' << endl;
+    }
+    catch(ThereAreNoRoutes)
+    {
+        cout << "(There are routes: 0)" << endl;
+    }
+    cout << " 1.Add route" << endl
          << " 2.Change route" << endl
          << " 3.Delete route" << endl << endl << "-->";
     cin >> choice_action_with_route_table;
@@ -137,7 +143,6 @@ void ConsoleForTimetable::changeRouteTable()
     }
     cout << endl << " Press any key..." << endl << endl;
     cin.get();
-    menu();
 }
 
 void ConsoleForTimetable::addRoute()
@@ -249,7 +254,6 @@ void ConsoleForTimetable::changeTimetable()
 {
     if (Core.informationOfTheRights() == usual_user)
     {
-        menu();
         return;
     }
     cout << " 1.Remove station and schedule" << endl
@@ -301,17 +305,15 @@ void ConsoleForTimetable::changeTimetable()
          endl << " Press any key..." << endl;
     cin.get();
     cin.get();
-    menu();
 }
 
 void ConsoleForTimetable::saveChanges()
 {
     if (Core.informationOfTheRights() == usual_user)
     {
-        menu();
         return;
     }
-    cout << endl << " Really save? (Y/N)" << endl << endl << "-->";
+    cout << endl << " Do you want to save changes? (Y/N)" << endl << endl << "-->";
     char answer_about_save;
     cin >> answer_about_save;
     cin.clear();
@@ -327,7 +329,6 @@ void ConsoleForTimetable::saveChanges()
     }
     cout << " Press any key..." << endl;
     cin.get();
-    menu();
 }
 
 void ConsoleForTimetable::menu()
@@ -382,10 +383,9 @@ void ConsoleForTimetable::menu()
     }
     case 0:
     {
+        saveChanges();
         return;
     }
-    default:
-        menu();
-        break;
     }
+    menu();
 }
