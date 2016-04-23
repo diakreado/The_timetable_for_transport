@@ -305,16 +305,16 @@ void ConsoleForTimetable::changeTimetable()
     {
         string when_begin;
         string when_end;         /// Пока не уверен, что будет именно так, потому что метод ядра не реализован
-        string what_change;
-        cout << endl << " Which station do you want to change?" << endl << endl << "-->";
-        cin >> what_change;
+        string what_name;
+        cout << endl << " Which station do you want to add?" << endl << endl << "-->";
+        cin >> what_name;
         cout << endl << " When does the station open?" << endl << endl << "-->";
         cin >> when_begin;
         cout << endl << " When does the station close?" << endl << endl << "-->";
         cin >> when_end;
-        string what_add = when_begin + when_end;
+        string what_value = when_begin + '-' + when_end;
 
-        Core.changeTimetable(what_change,what_add);
+        Core.addStationInTimetable(what_name,what_value);
         break;
     }
     default:

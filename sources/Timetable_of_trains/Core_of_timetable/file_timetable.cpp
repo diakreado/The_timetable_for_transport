@@ -73,6 +73,11 @@ void FileTimetable::removeLine(const string &what_remove)
 
 }
 
+void FileTimetable::addStationInTimetable(string &what_add, string &what_value)
+{
+    Timetable[what_add] = what_value;
+}
+
 void FileTimetable::saveChanges()
 {
     ofstream inputFileForChangeTimetable("Schedule.txt");
@@ -119,8 +124,4 @@ void FileTimetable::saveChanges()
     }
     inputFileForChangeTimetable.close();
 }
-
-
-
-
 

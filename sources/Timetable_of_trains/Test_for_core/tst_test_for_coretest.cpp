@@ -17,7 +17,7 @@ private Q_SLOTS:
     void theTestForTheGrantOfRights();
     void checkAddAndRemoveRoutes();
     void verifyRouteChanges();
-    void fileProcessingChecksForSchedule();
+    void verifyTimetableChanges();
 };
 
 Test_for_coreTest::Test_for_coreTest()
@@ -123,9 +123,21 @@ void Test_for_coreTest::verifyRouteChanges()
     QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),what_to_expected);
 }
 
-void Test_for_coreTest::fileProcessingChecksForSchedule()
+void Test_for_coreTest::verifyTimetableChanges()
 {
-    ///  Пока трудо тестить, не появилась функциональность редактирование расписания
+    string name_of_the_station = "Parnas";
+    string working_hours_of_the_station = "9.00-20.20";
+
+    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station),StationDoesNotExist);
+
+    start_test.addStationInTimetable(name_of_the_station,working_hours_of_the_station);
+
+    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station),working_hours_of_the_station);
+
+    start_test.removeStationFromTimetalbe(name_of_the_station);
+
+    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station),StationDoesNotExist);
+
     QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation("Balalayka"),StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.removeStationFromTimetalbe("Balalayka"),StationDoesNotExist);
 }

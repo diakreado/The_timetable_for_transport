@@ -194,10 +194,9 @@ void CoreOfTimetable::addStationInRouteTable(unsigned choice_route, string &what
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::changeTimetable(string &what_change, string &in_exchange)
+void CoreOfTimetable::addStationInTimetable(string &what_add, string &what_value)
 {
-    string abc = what_change + in_exchange;
-    /// Просто нет реализации, а действие сделано, чтобы не выводилось предупреждение
+    DataSetOfTimetable.addStationInTimetable(what_add, what_value);
 }
 
 void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)

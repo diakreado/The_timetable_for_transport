@@ -71,7 +71,7 @@ public:
      * @param what_change - название станции, которую нужно изменить или добавить
      * @param in_exchange - что поставить вместо (здесь также находится информация о закрытие и открыите)
      */
-    virtual void changeTimetable(string &what_change, string &in_exchange) = 0;
+    virtual void addStationInTimetable(string &what_add, string &what_value) = 0;
 
     /**
      * @brief Удаление станции и информации о ней  из расписания (работа с информацией из файла "Schedule.txt")

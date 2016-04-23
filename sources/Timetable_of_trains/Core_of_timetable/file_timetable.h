@@ -17,6 +17,8 @@ public:
 
     void setMaxQuantityStringInFile(const int  new_max_quantity);
 
+    void addStationInTimetable(string &what_add, string &what_value);
+
     /**
      *  @param name_of_station - некоторая часть строчки из файла "Schedule.txt"
      *  @return Строчка с необходимыми данными

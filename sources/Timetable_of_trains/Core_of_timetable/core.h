@@ -28,7 +28,7 @@ public:
 
     void addStationInRouteTable(unsigned choice_route, string &what_to_add);
 
-    void changeTimetable(string &what_change, string &in_exchange);
+    void addStationInTimetable(string &what_add, string &what_value);
 
     void removeStationFromTimetalbe(const string &what_remove);
 
