@@ -75,16 +75,38 @@ void ConsoleForTimetable::findTheRoute()            /// ToDo Реализова�
 
 void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
 {
-    string choice_of_the_station;
-    cout << " What station are you interested in?" << endl << endl << "-->";
-    cin >> choice_of_the_station;
+    cout << " what route are you interested in?"<< endl << endl << "-->";
+    unsigned choice_of_the_route;
+    cin >> choice_of_the_route;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << endl;
+    vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+    for(unsigned i = 0; i < output_for_console.size(); i++)
+    {
+        cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+    }                                                               ///                    2.Prospekt Prosvescheniya
+    cout << endl;
+    cout << " What station are you interested in?" << endl << endl << "-->";
+    unsigned choice_number_of_the_station;
+    cin >> choice_number_of_the_station;
+    choice_number_of_the_station--;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << endl;
+    string choice_name_of_the_station;
+    if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
+    {
+        choice_name_of_the_station = output_for_console[choice_number_of_the_station];
+    }
+    else
+    {
+        choice_name_of_the_station = " ";
+    }
     try
     {
-        cout << endl << " Working hours of the station:" << endl << endl << ' ' << choice_of_the_station << " : "
-             << Core.getWhenStartMovementOnTheStation(choice_of_the_station) << endl;
+        cout << endl << " Working hours of the station:" << endl << endl << ' ' << choice_name_of_the_station << " : "
+             << Core.getWhenStartMovementOnTheStation(choice_name_of_the_station) << endl;
     }
     catch(StationDoesNotExist)
     {
