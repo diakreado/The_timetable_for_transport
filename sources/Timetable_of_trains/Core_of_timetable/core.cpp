@@ -201,7 +201,17 @@ void CoreOfTimetable::addStationInTimetable(string &what_add, string &what_value
 
 void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
 {
-    DataSetOfTimetable.removeLine(what_remove);
+    string new_what_remove;
+    for(char j : what_remove)
+    {
+        if (j == '~')
+        {
+            break;
+        }
+        new_what_remove += j;
+    }
+
+    DataSetOfTimetable.removeLine(new_what_remove);
 }
 
 void CoreOfTimetable::saveChanges()
@@ -220,10 +230,9 @@ unsigned CoreOfTimetable::howManyRoutes()
     return how_many_routes;
 }
 
-
-
-
-
-
+vector<string> CoreOfTimetable::getAllItemFromTimetable()
+{
+    return DataSetOfTimetable.getAllItem();
+}
 
 

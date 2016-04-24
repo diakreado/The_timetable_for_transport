@@ -71,20 +71,10 @@ void FileTimetable::removeLine(const string &what_remove)
     }
     Timetable.erase(Timetable.find(what_remove));
 
-}
-
-void FileTimetable::addStationInTimetable(string &what_add, string &what_value)
-{
-    Timetable[what_add] = what_value;
-}
-
-void FileTimetable::saveChanges()
-{
-    ofstream inputFileForChangeTimetable("Schedule.txt");
     string buffer;
     string name_of_buffer;
     int what_part;
-    for(unsigned i = 0; i < FileData.size(); i++)
+    for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находиться и удаляется запрашиваемый элемент
     {
         buffer = FileData[i];
         name_of_buffer = "";
@@ -103,10 +93,55 @@ void FileTimetable::saveChanges()
         }
         if (Timetable[name_of_buffer] == "" )
         {
-            FileData[i] = "";
-            continue;
+            FileData.erase(FileData.begin() + i);
         }
     }
+}
+
+void FileTimetable::addStationInTimetable(string &what_add, string &what_value)
+{
+    Timetable[what_add] = what_value;
+
+    string buffer;
+    string name_of_buffer;
+    int what_part;
+    int number_of_the_same = -1;
+    for(unsigned i = 0; i < FileData.size(); i++)
+    {                                                    /// Проверяется содерижтся ли такой элемент в FileData или нет
+        buffer = FileData[i];
+        name_of_buffer = "";
+        what_part = name;
+        for(unsigned j = 0; j < buffer.size(); j++)
+        {
+            if (buffer[j] == '~')
+            {
+                what_part = value;
+                j++;
+            }
+            if (what_part == name)
+            {
+                name_of_buffer += buffer[j];
+            }
+        }
+        if (name_of_buffer == what_add)
+        {
+            number_of_the_same = i;
+        }
+    }
+    if (number_of_the_same != -1)
+    {
+        FileData[number_of_the_same] = what_add + '~' + what_value;
+    }
+    else
+    {
+        FileData.push_back(what_add + '~' + what_value);
+    }
+}
+
+void FileTimetable::saveChanges()
+{
+    ofstream inputFileForChangeTimetable("Schedule.txt");
+
     for(unsigned i = 0; i < FileData.size(); i++)
     {
         if (FileData[i] != "")
@@ -123,5 +158,11 @@ void FileTimetable::saveChanges()
         }
     }
     inputFileForChangeTimetable.close();
+}
+
+vector<string> FileTimetable::getAllItem()
+{
+
+    return FileData;
 }
 

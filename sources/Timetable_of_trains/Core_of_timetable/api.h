@@ -108,6 +108,8 @@ public:
      */
     virtual unsigned howManyRoutes() = 0;
 
+    virtual vector<string> getAllItemFromTimetable() = 0;
+
     virtual ~API(){}
 };
 

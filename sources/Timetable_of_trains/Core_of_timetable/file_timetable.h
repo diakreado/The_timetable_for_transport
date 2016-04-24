@@ -31,6 +31,8 @@ public:
      */
     void removeLine(const string &what_remove);
 
+    vector<string> getAllItem();
+
     void saveChanges();
 
 private:

@@ -34,6 +34,8 @@ public:
 
     string findSuitableRoute(string &departure, string &arrival);
 
+    vector<string> getAllItemFromTimetable();
+
     unsigned addRoute();
 
     void deleteRoute(unsigned choice_route);

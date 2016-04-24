@@ -303,12 +303,13 @@ void ConsoleForTimetable::changeTimetable()
         cin >> choice_of_action;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        cout << endl;
         switch(choice_of_action)
         {
         case 1:
         {
             how_many_routes = Core.howManyRoutes();
-            cout << endl << " What route are you interested in?  (Enter number: 1-"
+            cout << " What route are you interested in?  (Enter number: 1-"
                  << how_many_routes << ')' << endl << endl << "-->";
             unsigned choice_of_the_route;
             cin >> choice_of_the_route;
@@ -318,15 +319,17 @@ void ConsoleForTimetable::changeTimetable()
             vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
             for(unsigned i = 0; i < output_for_console.size(); i++)
             {
-                cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
-            }                                                               ///                    2.Prospekt Prosvescheniya
+                cout << ' ' << i+1 << '.' << output_for_console[i] << endl;
+            }
             cout << endl;
             string when_begin;
             string when_end;
             string what_name;
             unsigned choice_number_of_the_station;
-            cout << endl << " Which station do you want to add?" << endl << endl << "-->";
+            cout << endl << " Which information about station do you want to change?" << endl << endl << "-->";
             cin >> choice_number_of_the_station;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             choice_number_of_the_station--;
             if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
             {
@@ -336,7 +339,6 @@ void ConsoleForTimetable::changeTimetable()
             {
                 what_name = " ";
             }
-            cout << endl << what_name << endl;
             cout << endl << " When does the station open?" << endl << endl << "-->";
             cin >> when_begin;
             cout << endl << " When does the station close?" << endl << endl << "-->";
@@ -349,9 +351,26 @@ void ConsoleForTimetable::changeTimetable()
         }
         case 2:
         {
+            vector<string> AllItemFromTimetable = Core.getAllItemFromTimetable();
+            for(unsigned i = 0; i < AllItemFromTimetable.size(); i++)
+            {
+                cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << endl;
+            }
+            unsigned number_of_what_remove;
             string what_remove;
             cout << endl << " What do you want to remove?" << endl << endl << "-->";
-            cin >> what_remove;
+            cin >> number_of_what_remove;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            number_of_what_remove--;
+            if (number_of_what_remove >= 0 && number_of_what_remove < AllItemFromTimetable.size())
+            {
+                what_remove = AllItemFromTimetable[number_of_what_remove];
+            }
+            else
+            {
+                what_remove = " ";
+            }
             try
             {
                 Core.removeStationFromTimetalbe(what_remove);
@@ -382,7 +401,6 @@ void ConsoleForTimetable::changeTimetable()
         cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
     }
     cout << endl << endl << " Press Enter..." << endl;
-    cin.get();
     cin.get();
 }
 
