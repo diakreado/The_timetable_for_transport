@@ -74,6 +74,11 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
     QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(number_of_the_route),RouteDoesNotExist);
     number_of_the_route = 10;
     QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(number_of_the_route),RouteDoesNotExist);
+
+    int negative_number_of_the_route = -1;
+    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(negative_number_of_the_route),RouteDoesNotExist);
+    negative_number_of_the_route = -256;
+    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(negative_number_of_the_route),RouteDoesNotExist);
 }
 
 void Test_for_coreTest::verifyRouteChanges()
@@ -96,12 +101,25 @@ void Test_for_coreTest::verifyRouteChanges()
 
     QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),what_to_expected);
 
-    unsigned number_of_the_station = 4;
+    int number_of_the_station = 4;
 
     string what_to_replace = "Parnas";
 
     QVERIFY_EXCEPTION_THROWN(start_test.changeRouteTable(number_of_the_route,number_of_the_station,what_to_replace),
                              NotSuitableInquiry);
+
+    number_of_the_station = -1;
+    QVERIFY_EXCEPTION_THROWN(start_test.changeRouteTable(number_of_the_route,number_of_the_station,what_to_replace),
+                             NotSuitableInquiry);
+
+    number_of_the_station = -256;
+    QVERIFY_EXCEPTION_THROWN(start_test.changeRouteTable(number_of_the_route,number_of_the_station,what_to_replace),
+                             NotSuitableInquiry);
+
+    number_of_the_station = 256;
+    QVERIFY_EXCEPTION_THROWN(start_test.changeRouteTable(number_of_the_route,number_of_the_station,what_to_replace),
+                             NotSuitableInquiry);
+
 
     number_of_the_station = 1;
     start_test.changeRouteTable(number_of_the_route,number_of_the_station,what_to_replace);
@@ -125,18 +143,32 @@ void Test_for_coreTest::verifyRouteChanges()
 
 void Test_for_coreTest::verifyTimetableChanges()
 {
-    string name_of_the_station = "Parnas";
-    string working_hours_of_the_station = "9.00-20.20";
+    string name_of_the_station_1 = "Parnas";
+    string working_hours_of_the_station_1 = "9.00-20.20";
 
-    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station),StationDoesNotExist);
+    string name_of_the_station_2 = "Devyatkino";
+    string working_hours_of_the_station_2 = "6.35 - 23.34";
 
-    start_test.addStationInTimetable(name_of_the_station,working_hours_of_the_station);
+    string name_of_the_station_3 = "Avtovo";
+    string working_hours_of_the_station_3 = "7:55-20:83";
 
-    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station),working_hours_of_the_station);
 
-    start_test.removeStationFromTimetalbe(name_of_the_station);
+    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station_1),StationDoesNotExist);
 
-    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station),StationDoesNotExist);
+    start_test.addStationInTimetable(name_of_the_station_1,working_hours_of_the_station_1);
+    start_test.addStationInTimetable(name_of_the_station_2,working_hours_of_the_station_2);
+    start_test.addStationInTimetable(name_of_the_station_3,working_hours_of_the_station_3);
+
+    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_1),working_hours_of_the_station_1);
+    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_2),working_hours_of_the_station_2);
+    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_3),working_hours_of_the_station_3);
+
+    start_test.removeStationFromTimetalbe(name_of_the_station_1);
+    start_test.removeStationFromTimetalbe(name_of_the_station_3);
+
+    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station_1),StationDoesNotExist);
+    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_2),working_hours_of_the_station_2);
+    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station_3),StationDoesNotExist);
 
     QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation("Balalayka"),StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.removeStationFromTimetalbe("Balalayka"),StationDoesNotExist);

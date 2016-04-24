@@ -84,7 +84,7 @@ void FileTimetable::saveChanges()
     string buffer;
     string name_of_buffer;
     int what_part;
-    for(unsigned i = 0; i < FileData.size(); i++)    /// ToDo  это был копипаст, нужно убрать лишнее
+    for(unsigned i = 0; i < FileData.size(); i++)
     {
         buffer = FileData[i];
         name_of_buffer = "";
@@ -107,7 +107,7 @@ void FileTimetable::saveChanges()
             continue;
         }
     }
-    for(unsigned i = 0; i < FileData.size(); i++)       /// Я этот метод ещё доработаю
+    for(unsigned i = 0; i < FileData.size(); i++)
     {
         if (FileData[i] != "")
         {

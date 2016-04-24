@@ -26,7 +26,7 @@ void ConsoleForTimetable::definitionOfAdministrator()
         Core.issuanceOfRights(usual_user);
         cout << endl << " You got rights as a usual user" << endl << endl;
     }
-    cout << endl << " Press any key..." << endl;
+    cout << endl << " Press Enter..." << endl;
     cin.get();
 }
 
@@ -64,7 +64,7 @@ void ConsoleForTimetable::routeInformation()
     {
         cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
     }
-    cout << endl << " Press any key..." << endl << endl;
+    cout << endl << " Press Enter..." << endl << endl;
     cin.get();
 }
 
@@ -75,44 +75,60 @@ void ConsoleForTimetable::findTheRoute()            /// ToDo Реализова�
 
 void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
 {
-    cout << " what route are you interested in?"<< endl << endl << "-->";
-    unsigned choice_of_the_route;
-    cin >> choice_of_the_route;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << endl;
-    vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
-    for(unsigned i = 0; i < output_for_console.size(); i++)
-    {
-        cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
-    }                                                               ///                    2.Prospekt Prosvescheniya
-    cout << endl;
-    cout << " What station are you interested in?" << endl << endl << "-->";
-    unsigned choice_number_of_the_station;
-    cin >> choice_number_of_the_station;
-    choice_number_of_the_station--;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << endl;
-    string choice_name_of_the_station;
-    if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
-    {
-        choice_name_of_the_station = output_for_console[choice_number_of_the_station];
-    }
-    else
-    {
-        choice_name_of_the_station = " ";
-    }
+    unsigned how_many_routes = 0;
     try
     {
-        cout << endl << " Working hours of the station:" << endl << endl << ' ' << choice_name_of_the_station << " : "
-             << Core.getWhenStartMovementOnTheStation(choice_name_of_the_station) << endl;
+        how_many_routes = Core.howManyRoutes();
+        cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << endl << endl << "-->";
+        unsigned choice_of_the_route;
+        cin >> choice_of_the_route;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << endl;
+        vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+        for(unsigned i = 0; i < output_for_console.size(); i++)
+        {
+            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+        }                                                               ///                    2.Prospekt Prosvescheniya
+        cout << endl;
+        cout << " What station are you interested in?" << endl << endl << "-->";
+        unsigned choice_number_of_the_station;
+        cin >> choice_number_of_the_station;
+        choice_number_of_the_station--;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << endl;
+        string choice_name_of_the_station;
+        if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
+        {
+            choice_name_of_the_station = output_for_console[choice_number_of_the_station];
+        }
+        else
+        {
+            choice_name_of_the_station = " ";
+        }
+        try
+        {
+            cout << endl << " Working hours of the station:" << endl << endl << ' ' << choice_name_of_the_station << " : "
+                 << Core.getWhenStartMovementOnTheStation(choice_name_of_the_station) << endl;
+        }
+        catch(StationDoesNotExist)
+        {
+            cout << " The station does not exist";
+        }
+
     }
-    catch(StationDoesNotExist)
+    catch(RouteDoesNotExist)
     {
-        cout << " The station does not exist";
+        cout << " The route does not exist" << endl
+             << endl << " At the moment there are 1-" << how_many_routes << " routes" << endl
+             << endl << " Enter number of the route, for example: 1" << endl;
     }
-    cout << endl << endl << " Press any key..." << endl;
+    catch(ThereAreNoRoutes)
+    {
+        cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
+    }
+    cout << endl << endl << " Press Enter..." << endl;
     cin.get();
 }
 
@@ -163,7 +179,7 @@ void ConsoleForTimetable::changeRouteTable()
         break;
     }
     }
-    cout << endl << " Press any key..." << endl << endl;
+    cout << endl << " Press Enter..." << endl << endl;
     cin.get();
 }
 
@@ -278,53 +294,94 @@ void ConsoleForTimetable::changeTimetable()
     {
         return;
     }
-    cout << " 1.Remove station and schedule" << endl
-         << " 2.Add or change station and schedule " << endl << endl << "-->";
-    int choice_of_action;
-    cin >> choice_of_action;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
-    switch(choice_of_action)
+    unsigned how_many_routes = 0;
+    try
     {
-    case 1:
-    {
-        string what_remove;
-        cout << endl << " What do you want to remove?" << endl << endl << "-->";
-        cin >> what_remove;
-        try
+        cout << " 1.Add or change information about station" << endl
+             << " 2.Remove information about station" << endl << endl << "-->";
+        int choice_of_action;
+        cin >> choice_of_action;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        switch(choice_of_action)
         {
-            Core.removeStationFromTimetalbe(what_remove);
-        }
-        catch(StationDoesNotExist)
+        case 1:
         {
-            cout << endl << " The station does not exist" << endl;
-        }
-        break;
-    }
-    case 2:
-    {
-        string when_begin;
-        string when_end;         /// Пока не уверен, что будет именно так, потому что метод ядра не реализован
-        string what_name;
-        cout << endl << " Which station do you want to add?" << endl << endl << "-->";
-        cin >> what_name;
-        cout << endl << " When does the station open?" << endl << endl << "-->";
-        cin >> when_begin;
-        cout << endl << " When does the station close?" << endl << endl << "-->";
-        cin >> when_end;
-        string what_value = when_begin + '-' + when_end;
+            how_many_routes = Core.howManyRoutes();
+            cout << endl << " What route are you interested in?  (Enter number: 1-"
+                 << how_many_routes << ')' << endl << endl << "-->";
+            unsigned choice_of_the_route;
+            cin >> choice_of_the_route;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << endl;
+            vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+            for(unsigned i = 0; i < output_for_console.size(); i++)
+            {
+                cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+            }                                                               ///                    2.Prospekt Prosvescheniya
+            cout << endl;
+            string when_begin;
+            string when_end;
+            string what_name;
+            unsigned choice_number_of_the_station;
+            cout << endl << " Which station do you want to add?" << endl << endl << "-->";
+            cin >> choice_number_of_the_station;
+            choice_number_of_the_station--;
+            if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
+            {
+                what_name = output_for_console[choice_number_of_the_station];
+            }
+            else
+            {
+                what_name = " ";
+            }
+            cout << endl << what_name << endl;
+            cout << endl << " When does the station open?" << endl << endl << "-->";
+            cin >> when_begin;
+            cout << endl << " When does the station close?" << endl << endl << "-->";
+            cin >> when_end;
+            string what_value = when_begin + '-' + when_end;
 
-        Core.addStationInTimetable(what_name,what_value);
-        break;
+            Core.addStationInTimetable(what_name,what_value);
+            break;
+
+        }
+        case 2:
+        {
+            string what_remove;
+            cout << endl << " What do you want to remove?" << endl << endl << "-->";
+            cin >> what_remove;
+            try
+            {
+                Core.removeStationFromTimetalbe(what_remove);
+            }
+            catch(StationDoesNotExist)
+            {
+                cout << endl << " The station does not exist" << endl;
+            }
+            break;
+        }
+        default:
+        {
+            cout << " You have entered something unclear" << endl;
+            break;
+        }
+        }
+        cout << endl << " The changes have been well accepted" << endl;
+
     }
-    default:
+    catch(RouteDoesNotExist)
     {
-        cout << " You have entered something unclear" << endl;
-        break;
+        cout << " The route does not exist" << endl
+             << endl << " At the moment there are 1-" << how_many_routes << " routes" << endl
+             << endl << " Enter number of the route, for example: 1" << endl;
     }
+    catch(ThereAreNoRoutes)
+    {
+        cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
     }
-    cout << endl << " The changes have been well accepted" << endl <<
-         endl << " Press any key..." << endl;
+    cout << endl << endl << " Press Enter..." << endl;
     cin.get();
     cin.get();
 }
@@ -349,7 +406,7 @@ void ConsoleForTimetable::saveChanges()
     {
          cout << endl << " You refused to save" << endl << endl;
     }
-    cout << " Press any key..." << endl;
+    cout << " Press Enter..." << endl;
     cin.get();
 }
 
