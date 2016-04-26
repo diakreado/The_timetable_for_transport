@@ -24,10 +24,6 @@ void FileRoute::readingFromFile()
     }
     FileData.push_back(PartOfTheLine);
     inputFile_for_reading.close();
-    if (FileData.empty())
-    {
-        return;
-    }
 }
 
 void FileRoute::changeTable(const unsigned number_of_part, string &ToPrintToFile)

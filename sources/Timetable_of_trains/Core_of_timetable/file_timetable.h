@@ -15,8 +15,6 @@ public:
 
     void readingFromFile();
 
-    void setMaxQuantityStringInFile(const int  new_max_quantity);
-
     void addStationInTimetable(string &what_add, string &what_value);
 
     /**

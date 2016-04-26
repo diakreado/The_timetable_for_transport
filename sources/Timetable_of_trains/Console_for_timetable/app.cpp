@@ -388,7 +388,6 @@ void ConsoleForTimetable::changeTimetable()
         }
         }
         cout << endl << " The changes have been well accepted" << endl;
-
     }
     catch(RouteDoesNotExist)
     {
@@ -400,7 +399,8 @@ void ConsoleForTimetable::changeTimetable()
     {
         cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
     }
-    cout << endl << endl << " Press Enter..." << endl;
+    cout << endl << endl << " Press Enter..." << endl << endl;
+    cin.get();
     cin.get();
 }
 
@@ -440,7 +440,7 @@ void ConsoleForTimetable::menu()
              << " 6. Save Changes" << endl;
     }
     cout << " 0. Exit" << endl << endl;
-    int choice_in_menu;
+    char choice_in_menu;
     cout << "-->";
     cin >> choice_in_menu;
     cin.clear();
@@ -448,37 +448,37 @@ void ConsoleForTimetable::menu()
     cout << endl;
     switch(choice_in_menu)
     {
-    case 1:
+    case '1':
     {
         routeInformation();
         break;
     }
-    case 2:
+    case '2':
     {
         whenBeginsAndEndsMovementOfTheTrainAtTheStation();
         break;
     }
-    case 3:
+    case '3':
     {
         definitionOfAdministrator();
         break;
     }
-    case 4:
+    case '4':
     {
         changeRouteTable();
         break;
     }
-    case 5:
+    case '5':
     {
         changeTimetable();
         break;
     }
-    case 6:
+    case '6':
     {
         saveChanges();
         break;
     }
-    case 0:
+    case '0':
     {
         saveChanges();
         return;

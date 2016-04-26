@@ -14,10 +14,18 @@ public:
 private:
     CoreOfTimetable start_test;
 private Q_SLOTS:
+
+    /// Функциональные
+
     void theTestForTheGrantOfRights();
     void checkAddAndRemoveRoutes();
     void verifyRouteChanges();
     void verifyTimetableChanges();
+
+    /// Модульные
+
+    void checkFileRoute();
+    void checkFileTimetable();
 };
 
 Test_for_coreTest::Test_for_coreTest()
@@ -185,6 +193,81 @@ void Test_for_coreTest::verifyTimetableChanges()
     QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation("Balalayka"),StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.removeStationFromTimetalbe("Balalayka"),StationDoesNotExist);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void Test_for_coreTest::checkFileRoute()
+{
+    FileRoute start_file_test;
+
+    unsigned null_number = 0;
+    QCOMPARE(start_file_test.getMaxQuantityPartInFile(), null_number);
+
+    string input_word = "Avtovo,Grazhdansky Prospekt";
+    start_file_test.changeTable(0, input_word);
+
+    QCOMPARE(start_file_test.getFileData(0), input_word);
+
+    input_word = "Komendantskiy Prospekt,Lesnaya";
+    start_file_test.changeTable(1, input_word);
+
+    QCOMPARE(start_file_test.getFileData(1), input_word);
+
+    input_word = "Politekhnicheskaya,Prospekt Veteranov";
+    start_file_test.changeTable(2, input_word);
+
+    QCOMPARE(start_file_test.getFileData(2), input_word);
+}
+
+void Test_for_coreTest::checkFileTimetable()
+{
+    FileTimetable start_file_test;
+
+    vector<string> Null_vector;
+    QCOMPARE(start_file_test.getAllItem(), Null_vector);
+
+    string what_add = "Peremenka 2";
+    string what_value = "14.00-14.30";
+    start_file_test.addStationInTimetable(what_add, what_value);
+
+    what_add = "Peremenka 1";
+    what_value = "12.00-12.30";
+    start_file_test.addStationInTimetable(what_add, what_value);
+
+    what_add = "Peremenka 3";
+    what_value = "15.00-15.30";
+    start_file_test.addStationInTimetable(what_add, what_value);
+
+    string input_data = "Peremenka 2";
+    string what_expected = "14.00-14.30";
+    QCOMPARE(start_file_test.getFileData(input_data), what_expected);
+
+    input_data = "Peremenka 1";
+    what_expected = "12.00-12.30";
+    QCOMPARE(start_file_test.getFileData(input_data), what_expected);
+
+    input_data = "Peremenka 3";
+    what_expected = "15.00-15.30";
+    QCOMPARE(start_file_test.getFileData(input_data), what_expected);
+
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData("Perepodgotovka"),StationDoesNotExist);
+
+    input_data = "Peremenka 1";
+    start_file_test.removeLine(input_data);
+
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data),StationDoesNotExist);
+
+    input_data = "Peremenka 2";
+    start_file_test.removeLine(input_data);
+
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data),StationDoesNotExist);
+
+    input_data = "Peremenka 3";
+    start_file_test.removeLine(input_data);
+
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data),StationDoesNotExist);
+}
+
 
 QTEST_APPLESS_MAIN(Test_for_coreTest)
 
