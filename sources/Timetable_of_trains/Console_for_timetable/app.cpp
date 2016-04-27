@@ -58,7 +58,7 @@ void ConsoleForTimetable::routeInformation()
     cin.get();
 }
 
-void ConsoleForTimetable::findTheRoute()            /// ToDo Реализовать
+void ConsoleForTimetable::findTheRoute()
 {
     return;
 }

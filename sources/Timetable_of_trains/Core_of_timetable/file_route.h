@@ -14,7 +14,7 @@ public:
 
     /**
      * @brief Переписывает часть строчки в файле "Routetable.txt"
-     * @param number_of_line - номер части строки которую надо переписать
+     * @param number_of_part - номер части строки которую надо переписать
      * @param ToPrintToFile - что нужно написать на месте части строки
      */
     void changeTable(const unsigned number_of_part,  string &ToPrintToFile);

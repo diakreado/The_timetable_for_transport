@@ -62,7 +62,7 @@ string CoreOfTimetable::getInformationAboutStation(const string &name_of_the_sta
 
 string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
 {
-    departure = "123";                  ///  ToDo  Не относиться к MVP, но если будет время реализую
+    departure = "123";                  /// ToDo  Реализовать
     arrival = "321";
     return "Hello";
 }

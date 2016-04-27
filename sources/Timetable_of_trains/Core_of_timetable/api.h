@@ -108,7 +108,7 @@ public:
     virtual unsigned howManyRoutes() = 0;
 
     /**
-     * @return Возвращяет все элементы <map>
+     * @return Возвращяет все элементы из контейнера, свзяанного с описанием станций
      */
     virtual vector<string> getAllItemFromTimetable() = 0;
 

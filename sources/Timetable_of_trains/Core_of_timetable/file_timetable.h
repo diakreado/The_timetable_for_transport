@@ -29,6 +29,9 @@ public:
      */
     void removeLine(const string &what_remove);
 
+    /**
+     * @return Возвращяет все элементы находящиеся в контейнерах
+     */
     vector<string> getAllItem();
 
     void saveChanges();
