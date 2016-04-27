@@ -15,7 +15,7 @@ public:
 
     void readingFromFile();
 
-    void addStationInTimetable(string &what_add, string &what_value);
+    void addStationInTimetable(string &name_of_the_route, string &route_description);
 
     /**
      *  @param name_of_station - некоторая часть строчки из файла "Schedule.txt"

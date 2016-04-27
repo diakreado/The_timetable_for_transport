@@ -161,7 +161,7 @@ void Test_for_coreTest::verifyTimetableChanges()
     string working_hours_of_the_station_3 = "7:55-20:83";
 
 
-    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station_1),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_1),StationDoesNotExist);
 
     start_test.addStationInTimetable(name_of_the_station_1,working_hours_of_the_station_1);
     start_test.addStationInTimetable(name_of_the_station_2,working_hours_of_the_station_2);
@@ -174,9 +174,9 @@ void Test_for_coreTest::verifyTimetableChanges()
 
     QCOMPARE(start_test.getAllItemFromTimetable(),AllItem);
 
-    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_1),working_hours_of_the_station_1);
-    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_2),working_hours_of_the_station_2);
-    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_3),working_hours_of_the_station_3);
+    QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_1),working_hours_of_the_station_1);
+    QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_2),working_hours_of_the_station_2);
+    QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_3),working_hours_of_the_station_3);
 
     start_test.removeStationFromTimetalbe(name_of_the_station_1);
     start_test.removeStationFromTimetalbe(name_of_the_station_3);
@@ -186,11 +186,11 @@ void Test_for_coreTest::verifyTimetableChanges()
 
     QCOMPARE(start_test.getAllItemFromTimetable(),AllItem);
 
-    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station_1),StationDoesNotExist);
-    QCOMPARE(start_test.getWhenStartMovementOnTheStation(name_of_the_station_2),working_hours_of_the_station_2);
-    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation(name_of_the_station_3),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_1),StationDoesNotExist);
+    QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_2),working_hours_of_the_station_2);
+    QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_3),StationDoesNotExist);
 
-    QVERIFY_EXCEPTION_THROWN(start_test.getWhenStartMovementOnTheStation("Balalayka"),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation("Balalayka"),StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.removeStationFromTimetalbe("Balalayka"),StationDoesNotExist);
 }
 

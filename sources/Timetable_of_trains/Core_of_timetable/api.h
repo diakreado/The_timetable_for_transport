@@ -37,14 +37,14 @@ public:
     virtual vector<string> getRouteOfTrain(unsigned number_of_the_route) = 0;
 
     /**
-     * @brief Используется для более удобного вывода времени начала, окончания работы станции
+     * @brief Используется для более удобного вывода информации о станции
      * @param name_of_the_station - название станции
-     * @return Время начала движения в формате string
+     * @return Информация о станции в формате string
      */
-    virtual string getWhenStartMovementOnTheStation(const string &name_of_the_station) = 0;
+    virtual string getInformationAboutStation(const string &name_of_the_station) = 0;
 
     /**
-     * @brief Изменить маршрут поезда и печать изменённого в файл "Routetable.txt"
+     * @brief Изменение маршрута поезда
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      * @param what_to_replace - что нужно поставить взамен
@@ -52,29 +52,28 @@ public:
     virtual void changeRouteTable(unsigned choice_route,unsigned choice_station, string &what_to_replace) = 0;
 
     /**
-     * @brief Удалить станцию из определённого маршрута поезда "Routetable.txt"
+     * @brief Удалить станцию из определённого маршрута
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      */
     virtual void deleteStationFromRouteTable(unsigned choice_route,unsigned choice_station) = 0;
 
     /**
-     * @brief Добавить станцию маршрут поезда (работа с информацией из файла "Routetable.txt")
+     * @brief Добавить станцию маршрут поезда
      * @param choice_route - номер маршрута, который нужно изменить
-     * @param choice_station - номер станции
-     * @param what_to_replace - что нужно поставить взамен
+     * @param what_to_add - что нужно поставить взамен
      */
     virtual void addStationInRouteTable(unsigned choice_route, string &what_to_add) = 0;
 
     /**
-     * @brief Изменение станции и времени её открытия, закрытия (работа с информацией из файла "Schedule.txt")
-     * @param what_change - название станции, которую нужно изменить или добавить
-     * @param in_exchange - что поставить вместо (здесь также находится информация о закрытие и открыите)
+     * @brief Добавляет информацию о новом маршруте в контейнеры
+     * @param name_of_the_route - название маршрута
+     * @param route_description - описание маршрута
      */
-    virtual void addStationInTimetable(string &what_add, string &what_value) = 0;
+    virtual void addStationInTimetable(string &name_of_the_route, string &route_description) = 0;
 
     /**
-     * @brief Удаление станции и информации о ней  из расписания (работа с информацией из файла "Schedule.txt")
+     * @brief Удаление информации о станции из расписания
      * @param what_remove - название станции, которую нужно удалить
      */
     virtual void removeStationFromTimetalbe(const string &what_remove)= 0;
@@ -94,7 +93,7 @@ public:
 
     /**
      * @brief Удаление маршрута
-     * @param Номер маршрута, который нужно удалить
+     * @param choice_route - номер маршрута, который нужно удалить
      */
     virtual void deleteRoute(unsigned choice_route) = 0;
 
@@ -108,6 +107,9 @@ public:
      */
     virtual unsigned howManyRoutes() = 0;
 
+    /**
+     * @return Возвращяет все элементы <map>
+     */
     virtual vector<string> getAllItemFromTimetable() = 0;
 
     virtual ~API(){}

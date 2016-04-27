@@ -98,9 +98,9 @@ void FileTimetable::removeLine(const string &what_remove)
     }
 }
 
-void FileTimetable::addStationInTimetable(string &what_add, string &what_value)
+void FileTimetable::addStationInTimetable(string &name_of_the_route, string &route_description)
 {
-    Timetable[what_add] = what_value;
+    Timetable[name_of_the_route] = route_description;
 
     string buffer;
     string name_of_buffer;
@@ -123,18 +123,18 @@ void FileTimetable::addStationInTimetable(string &what_add, string &what_value)
                 name_of_buffer += buffer[j];
             }
         }
-        if (name_of_buffer == what_add)
+        if (name_of_buffer == name_of_the_route)
         {
             number_of_the_same = i;
         }
     }
     if (number_of_the_same != -1)
     {
-        FileData[number_of_the_same] = what_add + '~' + what_value;
+        FileData[number_of_the_same] = name_of_the_route + '~' + route_description;
     }
     else
     {
-        FileData.push_back(what_add + '~' + what_value);
+        FileData.push_back(name_of_the_route + '~' + route_description);
     }
 }
 

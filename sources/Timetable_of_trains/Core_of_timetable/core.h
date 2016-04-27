@@ -20,7 +20,7 @@ public:
 
     vector<string> getRouteOfTrain(unsigned number_of_the_route);
 
-    string getWhenStartMovementOnTheStation(const string &name_of_the_station);
+    string getInformationAboutStation(const string &name_of_the_station);
 
     void changeRouteTable(unsigned choice_route, unsigned choice_station, string &what_to_replace);
 
@@ -28,7 +28,7 @@ public:
 
     void addStationInRouteTable(unsigned choice_route, string &what_to_add);
 
-    void addStationInTimetable(string &what_add, string &what_value);
+    void addStationInTimetable(string &name_of_the_route, string &route_description);
 
     void removeStationFromTimetalbe(const string &what_remove);
 

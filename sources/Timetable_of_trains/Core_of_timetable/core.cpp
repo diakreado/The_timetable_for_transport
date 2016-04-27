@@ -55,7 +55,7 @@ vector<string> CoreOfTimetable::getRouteOfTrain(unsigned number_of_the_route)
     return OutputVectorString;
 }
 
-string CoreOfTimetable::getWhenStartMovementOnTheStation(const string &name_of_the_station)
+string CoreOfTimetable::getInformationAboutStation(const string &name_of_the_station)
 {
     return DataSetOfTimetable.getFileData(name_of_the_station);
 }
@@ -194,9 +194,9 @@ void CoreOfTimetable::addStationInRouteTable(unsigned choice_route, string &what
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::addStationInTimetable(string &what_add, string &what_value)
+void CoreOfTimetable::addStationInTimetable(string &name_of_the_route, string &route_description)
 {
-    DataSetOfTimetable.addStationInTimetable(what_add, what_value);
+    DataSetOfTimetable.addStationInTimetable(name_of_the_route, route_description);
 }
 
 void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)

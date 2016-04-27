@@ -100,7 +100,7 @@ void ConsoleForTimetable::informationAboutStation()
         try
         {
             cout << endl << " Working hours of the station:" << endl << endl << ' ' << choice_name_of_the_station << " : "
-                 << Core.getWhenStartMovementOnTheStation(choice_name_of_the_station) << endl;
+                 << Core.getInformationAboutStation(choice_name_of_the_station) << endl;
         }
         catch(StationDoesNotExist)
         {
@@ -320,7 +320,7 @@ void ConsoleForTimetable::changeTimetable()
             cout << endl;
             string when_begin;
             string when_end;
-            string what_name;
+            string name_of_the_route;
             int choice_number_of_the_station;
             cout << endl << " Which information about station do you want to change?" << endl << endl << "-->";
             cin >> choice_number_of_the_station;
@@ -329,19 +329,19 @@ void ConsoleForTimetable::changeTimetable()
             choice_number_of_the_station--;
             if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
             {
-                what_name = output_for_console[choice_number_of_the_station];
+                name_of_the_route = output_for_console[choice_number_of_the_station];
             }
             else
             {
-                what_name = " ";
+                name_of_the_route = " ";
             }
             cout << endl << " When does the station open?" << endl << endl << "-->";
             cin >> when_begin;
             cout << endl << " When does the station close?" << endl << endl << "-->";
             cin >> when_end;
-            string what_value = when_begin + '-' + when_end;
+            string route_description = when_begin + '-' + when_end;
 
-            Core.addStationInTimetable(what_name,what_value);
+            Core.addStationInTimetable(name_of_the_route, route_description);
             break;
 
         }
