@@ -82,7 +82,7 @@ void ConsoleForTimetable::informationAboutStation()
         }                                                               ///                    2.Prospekt Prosvescheniya
         cout << endl;
         cout << " What station are you interested in?" << endl << endl << "-->";
-        unsigned choice_number_of_the_station;
+        int choice_number_of_the_station;
         cin >> choice_number_of_the_station;
         choice_number_of_the_station--;
         cin.clear();
@@ -128,11 +128,11 @@ void ConsoleForTimetable::changeRouteTable()
     {
         return;
     }
-    unsigned how_many_routes = 0;
     int choice_action_with_route_table;
     cout << " What do you want to do with route table? ";
     try
     {
+        unsigned how_many_routes = 0;
         how_many_routes = Core.howManyRoutes();
         cout << "(There are routes: 1-" << how_many_routes << ')' << endl;
     }
@@ -321,7 +321,7 @@ void ConsoleForTimetable::changeTimetable()
             string when_begin;
             string when_end;
             string what_name;
-            unsigned choice_number_of_the_station;
+            int choice_number_of_the_station;
             cout << endl << " Which information about station do you want to change?" << endl << endl << "-->";
             cin >> choice_number_of_the_station;
             cin.clear();
@@ -352,7 +352,7 @@ void ConsoleForTimetable::changeTimetable()
             {
                 cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << endl;
             }
-            unsigned number_of_what_remove;
+            int number_of_what_remove;
             string what_remove;
             cout << endl << " What do you want to remove?" << endl << endl << "-->";
             cin >> number_of_what_remove;

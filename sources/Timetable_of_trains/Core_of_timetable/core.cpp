@@ -86,9 +86,9 @@ void CoreOfTimetable::changeRouteTable(unsigned choice_route, unsigned choice_st
     }
     ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
     bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
-    unsigned size_of_string;
     while(correct_beginning_of_the_line == 0)
     {
+        unsigned size_of_string;
         size_of_string = ToPrintToFile.size()-1;
         if (ToPrintToFile[size_of_string] == ' ')
         {
@@ -149,9 +149,9 @@ void CoreOfTimetable::deleteStationFromRouteTable(unsigned choice_route, unsigne
         ToPrintToFile.erase(ToPrintToFile.size()-1);  /// Убрал запятую
     }
     bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
-    unsigned size_of_string;
     while(correct_beginning_of_the_line == 0)
     {
+        unsigned size_of_string;
         size_of_string = ToPrintToFile.size()-1;
         if (ToPrintToFile[size_of_string] == ' ')
         {
@@ -177,9 +177,9 @@ void CoreOfTimetable::addStationInRouteTable(unsigned choice_route, string &what
     }
     ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
     bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
-    unsigned size_of_string;
     while(correct_beginning_of_the_line == 0)
     {
+        unsigned size_of_string;
         size_of_string = ToPrintToFile.size()-1;
         if (ToPrintToFile[size_of_string] == ' ')
         {

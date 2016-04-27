@@ -27,9 +27,9 @@ void FileTimetable::readingFromFile()
     string buffer;
     string name_of_buffer;
     string value_of_buffer;
-    int what_part;        ///  Cppcheck говорит, что можно уменьшить видимость, но стоит ли определять её в цикле?
     for(unsigned i = 0; i < FileData.size(); i++)
     {
+        int what_part;
         buffer = FileData[i];
         name_of_buffer = "";
         value_of_buffer = "";
@@ -73,9 +73,9 @@ void FileTimetable::removeLine(const string &what_remove)
 
     string buffer;
     string name_of_buffer;
-    int what_part;
     for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находиться и удаляется запрашиваемый элемент
     {
+        int what_part;
         buffer = FileData[i];
         name_of_buffer = "";
         what_part = name;
@@ -104,10 +104,10 @@ void FileTimetable::addStationInTimetable(string &what_add, string &what_value)
 
     string buffer;
     string name_of_buffer;
-    int what_part;
     int number_of_the_same = -1;
     for(unsigned i = 0; i < FileData.size(); i++)
     {                                                    /// Проверяется содерижтся ли такой элемент в FileData или нет
+        int what_part;
         buffer = FileData[i];
         name_of_buffer = "";
         what_part = name;
