@@ -8,6 +8,7 @@ int main()
     try
     {
         ConsoleForTimetable start;
+        while(start.menu()) {}
     }
     catch(exception &Error)
     {

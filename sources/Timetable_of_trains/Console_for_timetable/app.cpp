@@ -4,18 +4,13 @@
 
 using namespace std;
 
-ConsoleForTimetable::ConsoleForTimetable()
-{
-    menu();
-}
-
 void ConsoleForTimetable::definitionOfAdministrator()
 {
     char answer;
     cout << " Are you the administrator? Y/N" << endl << endl << "-->";
     cin >> answer;
     cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');       /// Мешает считать кучу символов(ведь нам нужен один)
     if (answer == 'Y' or answer == 'y')
     {
         Core.issuanceOfRights(administrator);
@@ -30,17 +25,6 @@ void ConsoleForTimetable::definitionOfAdministrator()
     cin.get();
 }
 
-void ConsoleForTimetable::convenientOutputInTheConsoleForRouteTable(const unsigned choice_of_the_route)
-{
-    cout << endl;
-    vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
-    for(unsigned i = 0; i < output_for_console.size(); i++)
-    {
-        cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
-    }                                                               ///                    2.Prospekt Prosvescheniya
-    cout << endl;
-}
-
 void ConsoleForTimetable::routeInformation()
 {
     unsigned how_many_routes = 0;
@@ -52,7 +36,13 @@ void ConsoleForTimetable::routeInformation()
         cin >> choice_of_the_route;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        convenientOutputInTheConsoleForRouteTable(choice_of_the_route);
+        cout << endl;
+        vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+        for(unsigned i = 0; i < output_for_console.size(); i++)
+        {
+            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+        }                                                               ///                    2.Prospekt Prosvescheniya
+        cout << endl;
     }
     catch(RouteDoesNotExist)
     {
@@ -73,7 +63,7 @@ void ConsoleForTimetable::findTheRoute()            /// ToDo Реализова�
     return;
 }
 
-void ConsoleForTimetable::whenBeginsAndEndsMovementOfTheTrainAtTheStation()
+void ConsoleForTimetable::informationAboutStation()
 {
     unsigned how_many_routes = 0;
     try
@@ -217,7 +207,13 @@ void ConsoleForTimetable::changeRoute()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     try
     {
-        convenientOutputInTheConsoleForRouteTable(choice_route);
+        cout << endl;
+        vector<string> output_for_console = Core.getRouteOfTrain(choice_route);
+        for(unsigned i = 0; i < output_for_console.size(); i++)
+        {
+            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+        }                                                               ///                    2.Prospekt Prosvescheniya
+        cout << endl;
         cout << " What do you want?" << endl
              << " 1.Add station" << endl
              << " 2.Change station" << endl
@@ -302,7 +298,7 @@ void ConsoleForTimetable::changeTimetable()
         int choice_of_action;
         cin >> choice_of_action;
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); /// Мешает считать кучу символов(ведь нам нужен один)
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << endl;
         switch(choice_of_action)
         {
@@ -428,7 +424,7 @@ void ConsoleForTimetable::saveChanges()
     cin.get();
 }
 
-void ConsoleForTimetable::menu()
+bool ConsoleForTimetable::menu()
 {
     cout << " 1. The route table for trains" << endl
          << " 2. Working hours of the train" << endl
@@ -455,7 +451,7 @@ void ConsoleForTimetable::menu()
     }
     case '2':
     {
-        whenBeginsAndEndsMovementOfTheTrainAtTheStation();
+        informationAboutStation();
         break;
     }
     case '3':
@@ -481,8 +477,8 @@ void ConsoleForTimetable::menu()
     case '0':
     {
         saveChanges();
-        return;
+        return false;
     }
     }
-    menu();
+    return true;
 }
