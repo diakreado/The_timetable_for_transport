@@ -10,7 +10,7 @@ class FileRoute : public File
 {
 public:
 
-    void readingFromFile();
+    void readingFromFile() override;
 
     /**
      * @brief Переписывает часть строчки в файле "Routetable.txt"
@@ -24,7 +24,7 @@ public:
      */
     unsigned getMaxQuantityPartInFile() const {return FileData.size();}
 
-    void saveChanges();
+    void saveChanges() override;
 
     /**
      *  @param number_of_the_line - часть строчки из файла "Routetable.txt"

@@ -1,8 +1,4 @@
 #include "app.h"
-#include <iostream>
-#include <core.h>
-
-using namespace std;
 
 void ConsoleForTimetable::definitionOfAdministrator()
 {

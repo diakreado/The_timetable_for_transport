@@ -13,7 +13,7 @@ class FileTimetable : public File
 {
 public:
 
-    void readingFromFile();
+    void readingFromFile() override;
 
     void addStationInTimetable(string &name_of_the_route, string &route_description);
 
@@ -34,7 +34,7 @@ public:
      */
     vector<string> getAllItem();
 
-    void saveChanges();
+    void saveChanges() override;
 
 private:
 

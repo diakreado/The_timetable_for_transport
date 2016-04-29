@@ -6,11 +6,11 @@
 
 QT       -= gui
 
-CONFIG += c++11
-
 TARGET = Core_of_timetable
 TEMPLATE = lib
+
 CONFIG += staticlib
+CONFIG += c++11
 
 SOURCES += \
     file_route.cpp \
