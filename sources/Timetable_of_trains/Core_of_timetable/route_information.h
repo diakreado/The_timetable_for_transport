@@ -4,7 +4,7 @@
 #include "file_handling.h"
 
 /**
- *  @brief Наследник класса FileHandling, который нужен, чтобы работать с файлом "Routetable.txt"
+ *  @brief Класс,для обработатки первой строчки файла, в которой находиться информация о маршрутах
  */
 class FileRouteInformation : public FileHandling
 {
@@ -22,15 +22,15 @@ public:
     /**
      * @return Количество частей, на которые разибвается строчка
      */
-    unsigned getMaxQuantityPartInFile() const {return FileData.size();}
+    unsigned getNumberOfPartsOfLine() const {return FileData.size();}
 
     void saveChanges() override;
 
     /**
-     *  @param number_of_the_line - часть строчки из файла "Routetable.txt"
-     *  @return Строчка с необходимым маршрутом
+     *  @param number_of_the_part - номер запрашиваемой части строки
+     *  @return Строчка с необходимыми данными
      */
-    string getFileData(int number_of_the_line) const;
+    string getFileData(int number_of_the_part) const;
 };
 
 #endif // FILETIMETABLE_H

@@ -7,7 +7,7 @@
 enum what_part_of_buffer{name = 0, value = 1};
 
 /**
- *  @brief Наследник класса FileHandling, который нужен, чтобы работать с файлом "Schedule.txt"
+ *  @brief Класс,для обработатки второй строчки файла, в которой находиться информация о станциях
  */
 class FileStationInformation : public FileHandling
 {
@@ -15,7 +15,7 @@ public:
 
     void readingFromFile() override;
 
-    void addStationInTimetable(string &name_of_the_route, string &route_description);
+    void addInformationAboutStation(string &name_of_the_station, string &station_description);
 
     /**
      *  @param name_of_station - некоторая часть строчки из файла "Schedule.txt"

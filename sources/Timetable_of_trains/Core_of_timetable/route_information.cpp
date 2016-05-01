@@ -2,7 +2,7 @@
 
 void FileRouteInformation::readingFromFile()
 {
-    ifstream inputFile_for_reading("Routetable.txt");
+    ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
     {
         return;                                             /// Если нет файла, то и читать его нет смысла
@@ -48,14 +48,14 @@ void FileRouteInformation::changeTable(const unsigned number_of_part, string &To
 }
 
 
-string FileRouteInformation::getFileData(int number_of_the_line) const
+string FileRouteInformation::getFileData(int number_of_the_part) const
 {
-    return FileData[number_of_the_line];
+    return FileData[number_of_the_part];
 }
 
 void FileRouteInformation::saveChanges()
 {
-    ofstream inputFileForChangeRoute("Routetable.txt");
+    ofstream inputFileForChangeRoute("metro_Saint-Petersburg.txt");
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),
     for(unsigned i = 1; i < FileData.size(); i++)  ///  а отдельно потому что перед ним не надо ставить '/'
     {

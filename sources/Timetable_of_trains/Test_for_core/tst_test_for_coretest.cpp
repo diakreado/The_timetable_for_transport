@@ -194,14 +194,14 @@ void Test_for_coreTest::verifyTimetableChanges()
     QVERIFY_EXCEPTION_THROWN(start_test.removeStationFromTimetalbe("Balalayka"),StationDoesNotExist);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Test_for_coreTest::checkFileRoute()
 {
     FileRouteInformation start_file_test;
 
     unsigned null_number = 0;
-    QCOMPARE(start_file_test.getMaxQuantityPartInFile(), null_number);
+    QCOMPARE(start_file_test.getNumberOfPartsOfLine(), null_number);
 
     string input_word = "Avtovo,Grazhdansky Prospekt";
     start_file_test.changeTable(0, input_word);
@@ -228,15 +228,15 @@ void Test_for_coreTest::checkFileTimetable()
 
     string what_add = "Peremenka 2";
     string what_value = "14.00-14.30";
-    start_file_test.addStationInTimetable(what_add, what_value);
+    start_file_test.addInformationAboutStation(what_add, what_value);
 
     what_add = "Peremenka 1";
     what_value = "12.00-12.30";
-    start_file_test.addStationInTimetable(what_add, what_value);
+    start_file_test.addInformationAboutStation(what_add, what_value);
 
     what_add = "Peremenka 3";
     what_value = "15.00-15.30";
-    start_file_test.addStationInTimetable(what_add, what_value);
+    start_file_test.addInformationAboutStation(what_add, what_value);
 
     string input_data = "Peremenka 2";
     string what_expected = "14.00-14.30";

@@ -2,13 +2,15 @@
 
 void FileStationInformation::readingFromFile()
 {
-    ifstream inputFile_for_reading("Schedule.txt");
+    ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
     {
         return;
     }
     string LineFromFile;
     string PartOfTheLine;
+    string Pustota;
+    getline(inputFile_for_reading, Pustota);
     getline(inputFile_for_reading, LineFromFile);
     for (unsigned i = 0; i < LineFromFile.size(); i++)
     {
@@ -98,9 +100,9 @@ void FileStationInformation::removeLine(const string &what_remove)
     }
 }
 
-void FileStationInformation::addStationInTimetable(string &name_of_the_route, string &route_description)
+void FileStationInformation::addInformationAboutStation(string &name_of_the_station, string &station_description)
 {
-    Timetable[name_of_the_route] = route_description;
+    Timetable[name_of_the_station] = station_description;
 
     string buffer;
     string name_of_buffer;
@@ -123,24 +125,27 @@ void FileStationInformation::addStationInTimetable(string &name_of_the_route, st
                 name_of_buffer += buffer[j];
             }
         }
-        if (name_of_buffer == name_of_the_route)
+        if (name_of_buffer == name_of_the_station)
         {
             number_of_the_same = i;
         }
     }
     if (number_of_the_same != -1)
     {
-        FileData[number_of_the_same] = name_of_the_route + '~' + route_description;
+        FileData[number_of_the_same] = name_of_the_station + '~' + station_description;
     }
     else
     {
-        FileData.push_back(name_of_the_route + '~' + route_description);
+        FileData.push_back(name_of_the_station + '~' + station_description);
     }
 }
 
 void FileStationInformation::saveChanges()
 {
-    ofstream inputFileForChangeTimetable("Schedule.txt");
+    ofstream inputFileForChangeTimetable;
+    inputFileForChangeTimetable.open(("metro_Saint-Petersburg.txt"),ios::app);
+
+    inputFileForChangeTimetable << endl;
 
     for(unsigned i = 0; i < FileData.size(); i++)
     {
@@ -162,7 +167,6 @@ void FileStationInformation::saveChanges()
 
 vector<string> FileStationInformation::getAllItem()
 {
-
     return FileData;
 }
 

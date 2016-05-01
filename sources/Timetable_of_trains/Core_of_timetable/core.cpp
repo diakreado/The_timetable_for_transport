@@ -26,11 +26,11 @@ bool CoreOfTimetable::informationOfTheRights() const
 
 vector<string> CoreOfTimetable::getRouteOfTrain(unsigned number_of_the_route)
 {
-    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getMaxQuantityPartInFile())
+    if (number_of_the_route < 1 || number_of_the_route > DataSetOfTheRoute.getNumberOfPartsOfLine())
     {
         throw RouteDoesNotExist();
     }
-    if(number_of_the_route == DataSetOfTheRoute.getMaxQuantityPartInFile() + 1)
+    if(number_of_the_route == DataSetOfTheRoute.getNumberOfPartsOfLine() + 1)
     {
         vector<string> Null;        ///  Если была ошибка при чтение файла,
         return Null;               ///  то возвращяем пустой вектор (нет файла, нет данных)
@@ -106,7 +106,7 @@ void CoreOfTimetable::changeRouteTable(unsigned choice_route, unsigned choice_st
 unsigned CoreOfTimetable::addRoute()
 {
     string ToPrintToFile = " ";
-    unsigned choice_route = DataSetOfTheRoute.getMaxQuantityPartInFile();
+    unsigned choice_route = DataSetOfTheRoute.getNumberOfPartsOfLine();
     DataSetOfTheRoute.changeTable(choice_route,ToPrintToFile);
     choice_route++;
     return choice_route;
@@ -114,7 +114,7 @@ unsigned CoreOfTimetable::addRoute()
 
 void CoreOfTimetable::deleteRoute(unsigned choice_route)
 {
-    if ( choice_route > DataSetOfTheRoute.getMaxQuantityPartInFile() )
+    if ( choice_route > DataSetOfTheRoute.getNumberOfPartsOfLine() )
     {
         throw RouteDoesNotExist();
     }
@@ -196,7 +196,7 @@ void CoreOfTimetable::addStationInRouteTable(unsigned choice_route, string &what
 
 void CoreOfTimetable::addStationInTimetable(string &name_of_the_route, string &route_description)
 {
-    DataSetOfTimetable.addStationInTimetable(name_of_the_route, route_description);
+    DataSetOfTimetable.addInformationAboutStation(name_of_the_route, route_description);
 }
 
 void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
@@ -222,7 +222,7 @@ void CoreOfTimetable::saveChanges()
 
 unsigned CoreOfTimetable::howManyRoutes()
 {
-    unsigned how_many_routes = DataSetOfTheRoute.getMaxQuantityPartInFile();
+    unsigned how_many_routes = DataSetOfTheRoute.getNumberOfPartsOfLine();
     if (how_many_routes == 0)
     {
         throw ThereAreNoRoutes();

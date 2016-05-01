@@ -314,8 +314,6 @@ void ConsoleForTimetable::changeTimetable()
                 cout << ' ' << i+1 << '.' << output_for_console[i] << endl;
             }
             cout << endl;
-            string when_begin;
-            string when_end;
             string name_of_the_route;
             int choice_number_of_the_station;
             cout << endl << " Which information about station do you want to change?" << endl << endl << "-->";
@@ -331,13 +329,10 @@ void ConsoleForTimetable::changeTimetable()
             {
                 name_of_the_route = " ";
             }
-            cout << endl << " When does the station open?" << endl << endl << "-->";
-            cin >> when_begin;
-            cout << endl << " When does the station close?" << endl << endl << "-->";
-            cin >> when_end;
-            string route_description = when_begin + '-' + when_end;
-
-            Core.addStationInTimetable(name_of_the_route, route_description);
+            cout << endl << " What is known about the station?" << endl << endl << "-->";
+            string station_description;
+            getline(cin, station_description);
+            Core.addStationInTimetable(name_of_the_route, station_description);
             break;
 
         }
@@ -392,7 +387,6 @@ void ConsoleForTimetable::changeTimetable()
         cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
     }
     cout << endl << endl << " Press Enter..." << endl << endl;
-    cin.get();
     cin.get();
 }
 
