@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
 CONFIG += c++11
-CONFIG += c++11
 
 Console_for_timetable.depends = Core_of_timetable
 Test_for_core.depends = Core_of_timetable

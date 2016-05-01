@@ -14,8 +14,8 @@ class CoreOfTimetable : public API
 public:
     CoreOfTimetable();
 
-    void issuanceOfRights(const int what_rights) override;
-
+    void issuanceOfRights(const int what_rights) override;   /// Я что-то делаю не так и у меня на каждый override
+                                                      ///выходи предупреждениеonly available with -std=c++11 or -std=gnu++11
     bool informationOfTheRights() const override;
 
     vector<string> getRouteOfTrain(unsigned number_of_the_route) override;
@@ -48,9 +48,9 @@ private:
 
     int right;
 
-    FileRoute DataSetOfTheRoute;
+    FileRouteInformation DataSetOfTheRoute;
 
-    FileTimetable DataSetOfTimetable;
+    FileStationInformation DataSetOfTimetable;
 };
 
 

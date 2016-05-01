@@ -1,12 +1,12 @@
 #ifndef FILETIMETABLE_H
 #define FILETIMETABLE_H
 
-#include "file.h"
+#include "file_handling.h"
 
 /**
- *  @brief Наследник класса File, который нужен, чтобы работать с файлом "Routetable.txt"
+ *  @brief Наследник класса FileHandling, который нужен, чтобы работать с файлом "Routetable.txt"
  */
-class FileRoute : public File
+class FileRouteInformation : public FileHandling
 {
 public:
 

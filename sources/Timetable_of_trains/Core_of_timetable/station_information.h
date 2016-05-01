@@ -1,15 +1,15 @@
 #ifndef FILESCHEDULE_H
 #define FILESCHEDULE_H
 
-#include "file.h"
+#include "file_handling.h"
 #include <map>
 
 enum what_part_of_buffer{name = 0, value = 1};
 
 /**
- *  @brief Наследник класса File, который нужен, чтобы работать с файлом "Schedule.txt"
+ *  @brief Наследник класса FileHandling, который нужен, чтобы работать с файлом "Schedule.txt"
  */
-class FileTimetable : public File
+class FileStationInformation : public FileHandling
 {
 public:
 

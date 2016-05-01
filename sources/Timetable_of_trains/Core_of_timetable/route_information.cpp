@@ -1,6 +1,6 @@
-#include "file_route.h"
+#include "route_information.h"
 
-void FileRoute::readingFromFile()
+void FileRouteInformation::readingFromFile()
 {
     ifstream inputFile_for_reading("Routetable.txt");
     if (!inputFile_for_reading.is_open())
@@ -26,7 +26,7 @@ void FileRoute::readingFromFile()
     inputFile_for_reading.close();
 }
 
-void FileRoute::changeTable(const unsigned number_of_part, string &ToPrintToFile)
+void FileRouteInformation::changeTable(const unsigned number_of_part, string &ToPrintToFile)
 {
     if (ToPrintToFile == "" && number_of_part != 0)
     {
@@ -48,12 +48,12 @@ void FileRoute::changeTable(const unsigned number_of_part, string &ToPrintToFile
 }
 
 
-string FileRoute::getFileData(int number_of_the_line) const
+string FileRouteInformation::getFileData(int number_of_the_line) const
 {
     return FileData[number_of_the_line];
 }
 
-void FileRoute::saveChanges()
+void FileRouteInformation::saveChanges()
 {
     ofstream inputFileForChangeRoute("Routetable.txt");
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),

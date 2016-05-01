@@ -198,7 +198,7 @@ void Test_for_coreTest::verifyTimetableChanges()
 
 void Test_for_coreTest::checkFileRoute()
 {
-    FileRoute start_file_test;
+    FileRouteInformation start_file_test;
 
     unsigned null_number = 0;
     QCOMPARE(start_file_test.getMaxQuantityPartInFile(), null_number);
@@ -221,7 +221,7 @@ void Test_for_coreTest::checkFileRoute()
 
 void Test_for_coreTest::checkFileTimetable()
 {
-    FileTimetable start_file_test;
+    FileStationInformation start_file_test;
 
     vector<string> Null_vector;
     QCOMPARE(start_file_test.getAllItem(), Null_vector);

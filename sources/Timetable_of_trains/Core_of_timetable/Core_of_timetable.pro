@@ -13,16 +13,16 @@ CONFIG += staticlib
 CONFIG += c++11
 
 SOURCES += \
-    file_route.cpp \
     core.cpp \
-    file_timetable.cpp
+    station_information.cpp \
+    route_information.cpp
 
 HEADERS += \
     core.h \
-    file_route.h \
-    file.h \
-    file_timetable.h \
-    api.h
+    api.h \
+    station_information.h \
+    route_information.h \
+    file_handling.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

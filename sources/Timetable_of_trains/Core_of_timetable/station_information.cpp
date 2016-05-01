@@ -1,6 +1,6 @@
-#include "file_timetable.h"
+#include "station_information.h"
 
-void FileTimetable::readingFromFile()
+void FileStationInformation::readingFromFile()
 {
     ifstream inputFile_for_reading("Schedule.txt");
     if (!inputFile_for_reading.is_open())
@@ -54,7 +54,7 @@ void FileTimetable::readingFromFile()
     }
 }
 
-string FileTimetable::getFileData(const string &name_of_station)
+string FileStationInformation::getFileData(const string &name_of_station)
 {
     if(Timetable[name_of_station] == "")
     {
@@ -63,7 +63,7 @@ string FileTimetable::getFileData(const string &name_of_station)
     return Timetable[name_of_station];
 }
 
-void FileTimetable::removeLine(const string &what_remove)
+void FileStationInformation::removeLine(const string &what_remove)
 {
     if(Timetable[what_remove] == "")
     {
@@ -98,7 +98,7 @@ void FileTimetable::removeLine(const string &what_remove)
     }
 }
 
-void FileTimetable::addStationInTimetable(string &name_of_the_route, string &route_description)
+void FileStationInformation::addStationInTimetable(string &name_of_the_route, string &route_description)
 {
     Timetable[name_of_the_route] = route_description;
 
@@ -138,7 +138,7 @@ void FileTimetable::addStationInTimetable(string &name_of_the_route, string &rou
     }
 }
 
-void FileTimetable::saveChanges()
+void FileStationInformation::saveChanges()
 {
     ofstream inputFileForChangeTimetable("Schedule.txt");
 
@@ -160,7 +160,7 @@ void FileTimetable::saveChanges()
     inputFileForChangeTimetable.close();
 }
 
-vector<string> FileTimetable::getAllItem()
+vector<string> FileStationInformation::getAllItem()
 {
 
     return FileData;

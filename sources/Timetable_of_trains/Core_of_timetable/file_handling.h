@@ -12,7 +12,7 @@ using namespace std;
 /**
  *  @brief Абстрактный класс объединяющий взаимодействие с файлами
  */
-class File
+class FileHandling
 {
 public:
 
@@ -26,7 +26,7 @@ public:
      */
     virtual void saveChanges() = 0;
 
-    virtual ~File(){}
+    virtual ~FileHandling(){}
 
 protected:
 
