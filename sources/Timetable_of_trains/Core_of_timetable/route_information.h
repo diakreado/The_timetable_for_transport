@@ -14,14 +14,14 @@ public:
 
     /**
      * @brief Переписать часть строки
-     * @param number_of_part - номер части строки, которую надо перезаписать
-     * @param ToPrintToFile - что нужно написать на этом месте
+     * @param number_of_block - номер части строки, которую надо перезаписать
+     * @param InExchange - что нужно написать на этом месте
      */
     void changeBlockFromLine(const int number_of_block,  string &InExchange);
 
     /**
      * @brief Удалить определённую часть отделёную знаками '/'
-     * @param number_of_part номер части, которую нужно удалить
+     * @param number_of_block номер части, которую нужно удалить
      */
     void deleteBlockFromLine(const int number_of_block);
 

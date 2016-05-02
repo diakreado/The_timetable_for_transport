@@ -59,14 +59,14 @@ public:
 
     /**
      * @brief Добавляет информацию о новом маршруте в контейнеры
-     * @param name_of_the_route - название маршрута
-     * @param route_description - описание маршрута
+     * @param name_of_the_station - название маршрута
+     * @param station_description - описание маршрута
      */
     virtual void addInformationAboutStation(string &name_of_the_station, string &station_description) = 0;
 
     /**
      * @brief Удаление информации о станции из расписания
-     * @param what_remove - название станции, которую нужно удалить
+     * @param what_station_to_remove - название станции, которую нужно удалить
      */
     virtual void removeInformationAboutStation(const string &what_station_to_remove)= 0;
 
@@ -90,7 +90,7 @@ public:
     virtual void deleteRoute(unsigned choice_route) = 0;
 
     /**
-     * @brief Сохраняет изменения в файлах "Schedule.txt" и "Schedule.txt"
+     * @brief Сохраняет изменения в файле "metro_Saint-Petersburg"
      */
     virtual void saveChanges() = 0;
 

@@ -30,7 +30,7 @@ public:
 
     /**
      *  @brief Удаляет блок с информацией
-     *  @param what_remove - название блока, который ужно удалить
+     *  @param by_what_name_to_delete - название блока, который ужно удалить
      */
     void deleteBlockFromeLine(const string &by_what_name_to_delete);
 
