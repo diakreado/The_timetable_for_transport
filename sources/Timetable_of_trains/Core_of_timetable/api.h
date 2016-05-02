@@ -62,13 +62,13 @@ public:
      * @param name_of_the_route - название маршрута
      * @param route_description - описание маршрута
      */
-    virtual void addStationInTimetable(string &name_of_the_route, string &route_description) = 0;
+    virtual void addInformationAboutStation(string &name_of_the_station, string &station_description) = 0;
 
     /**
      * @brief Удаление информации о станции из расписания
      * @param what_remove - название станции, которую нужно удалить
      */
-    virtual void removeStationFromTimetalbe(const string &what_remove)= 0;
+    virtual void removeInformationAboutStation(const string &what_station_to_remove)= 0;
 
     /**
      * @param departure - станция отправления
@@ -102,7 +102,7 @@ public:
     /**
      * @return Возвращяет все элементы из контейнера, свзяанного с описанием станций
      */
-    virtual vector<string> getAllItemFromTimetable() = 0;
+    virtual vector<string> getAllItemWhichHaveDescription() = 0;
 
     virtual ~API(){}
 };

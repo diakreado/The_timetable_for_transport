@@ -32,7 +32,7 @@ public:
      *  @brief Удаляет блок с информацией
      *  @param what_remove - название блока, который ужно удалить
      */
-    void deleteBlockFromeLine(const string &what_remove);
+    void deleteBlockFromeLine(const string &by_what_name_to_delete);
 
     /**
      * @return Возвращяет все элементы находящиеся в контейнерах

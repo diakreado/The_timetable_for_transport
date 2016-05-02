@@ -2,12 +2,12 @@
 
 void ConsoleForTimetable::definitionOfAdministrator()
 {
-    char answer;
+    char answer_about_rights;
     cout << " Are you the administrator? Y/N" << endl << endl << "-->";
-    cin >> answer;
+    cin >> answer_about_rights;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');       /// Мешает считать кучу символов(ведь нам нужен один)
-    if (answer == 'Y' or answer == 'y')
+    if (answer_about_rights == 'Y' or answer_about_rights == 'y')
     {
         Core.issuanceOfRights(administrator);
         cout << endl << " You got administrator rights" << endl << endl;
@@ -23,7 +23,7 @@ void ConsoleForTimetable::definitionOfAdministrator()
 
 void ConsoleForTimetable::routeInformation()
 {
-    unsigned how_many_routes = 0;
+    unsigned how_many_routes;
     try
     {
         unsigned choice_of_the_route;
@@ -95,7 +95,7 @@ void ConsoleForTimetable::informationAboutStation()
         }
         try
         {
-            cout << endl << " Working hours of the station:" << endl << endl << ' ' << choice_name_of_the_station << " : "
+            cout << endl << " Information about the station:" << endl << endl << ' ' << choice_name_of_the_station << " : "
                  << Core.getInformationAboutStation(choice_name_of_the_station) << endl;
         }
         catch(StationDoesNotExist)
@@ -118,7 +118,7 @@ void ConsoleForTimetable::informationAboutStation()
     cin.get();
 }
 
-void ConsoleForTimetable::changeRouteTable()
+void ConsoleForTimetable::changeItinerarys()
 {
     if (Core.informationOfTheRights() == usual_user)  /// Пользователь не сможет вызвать метод, если он не админ
     {
@@ -280,7 +280,7 @@ void ConsoleForTimetable::changeRoute()
     }
 }
 
-void ConsoleForTimetable::changeTimetable()
+void ConsoleForTimetable::changeInfoAboutStation()
 {
     if (Core.informationOfTheRights() == usual_user)
     {
@@ -332,13 +332,13 @@ void ConsoleForTimetable::changeTimetable()
             cout << endl << " What is known about the station?" << endl << endl << "-->";
             string station_description;
             getline(cin, station_description);
-            Core.addStationInTimetable(name_of_the_route, station_description);
+            Core.addInformationAboutStation(name_of_the_route, station_description);
             break;
 
         }
         case 2:
         {
-            vector<string> AllItemFromTimetable = Core.getAllItemFromTimetable();
+            vector<string> AllItemFromTimetable = Core.getAllItemWhichHaveDescription();
             for(unsigned i = 0; i < AllItemFromTimetable.size(); i++)
             {
                 cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << endl;
@@ -360,7 +360,7 @@ void ConsoleForTimetable::changeTimetable()
             }
             try
             {
-                Core.removeStationFromTimetalbe(what_remove);
+                Core.removeInformationAboutStation(what_remove);
             }
             catch(StationDoesNotExist)
             {
@@ -417,12 +417,12 @@ void ConsoleForTimetable::saveChanges()
 bool ConsoleForTimetable::menu()
 {
     cout << " 1. The route table for trains" << endl
-         << " 2. Working hours of the train" << endl
+         << " 2. Information about station" << endl
          << " 3. Get administrator rights" << endl;
     if (Core.informationOfTheRights() == administrator)
     {
         cout << " 4. Change route table for the train" << endl
-             << " 5. Change timetable for the train" << endl
+             << " 5. Change information about station" << endl
              << " 6. Save Changes" << endl;
     }
     cout << " 0. Exit" << endl << endl;
@@ -451,12 +451,12 @@ bool ConsoleForTimetable::menu()
     }
     case '4':
     {
-        changeRouteTable();
+        changeItinerarys();
         break;
     }
     case '5':
     {
-        changeTimetable();
+        changeInfoAboutStation();
         break;
     }
     case '6':

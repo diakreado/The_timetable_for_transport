@@ -3,8 +3,8 @@
 CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
-    DataSetOfTheRoute.readingFromFile();
-    DataSetOfTimetable.readingFromFile();
+    DataSetOfInfoRoute.readingFromFile();
+    DataSetOfInfoStation.readingFromFile();
 }
 
 void CoreOfTimetable::issuanceOfRights(const int what_rights)
@@ -31,7 +31,7 @@ vector<string> CoreOfTimetable::getItinerary(int number_of_the_route)
     vector<string> Route;
     try
     {
-        string StringFromFile = DataSetOfTheRoute.getFileData(number_of_the_route);
+        string StringFromFile = DataSetOfInfoRoute.getFileData(number_of_the_route);
         string NameOfTheStation;
         for (char symbol_in_string : StringFromFile)
         {
@@ -59,7 +59,7 @@ string CoreOfTimetable::getInformationAboutStation(const string &name_of_the_sta
 {
     try
     {
-        return DataSetOfTimetable.getFileData(name_of_the_station);
+        return DataSetOfInfoStation.getFileData(name_of_the_station);
     }
     catch(ItemDoesNotExist)
     {
@@ -112,7 +112,7 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
 
     try
     {
-        DataSetOfTheRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+        DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
     catch(ItemDoesNotExist)
     {
@@ -122,9 +122,9 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
 
 unsigned CoreOfTimetable::addRoute()
 {
-    unsigned choice_route = DataSetOfTheRoute.getNumberOfBlocksInTheLine();
+    unsigned choice_route = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
 
-    DataSetOfTheRoute.addNewBlock();
+    DataSetOfInfoRoute.addNewBlock();
 
     choice_route++;
     return choice_route;
@@ -136,7 +136,7 @@ void CoreOfTimetable::deleteRoute(unsigned choice_route)
 
     try
     {
-        DataSetOfTheRoute.deleteBlockFromLine(choice_route);
+        DataSetOfInfoRoute.deleteBlockFromLine(choice_route);
     }
     catch(ItemDoesNotExist)
     {
@@ -186,7 +186,7 @@ void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned
         }
     }
     choice_route--;                                                     /// Потому что отсчёт с нуля
-    DataSetOfTheRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+    DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
 void CoreOfTimetable::addStationInItinerary(unsigned choice_route, string &what_to_add)
@@ -215,29 +215,29 @@ void CoreOfTimetable::addStationInItinerary(unsigned choice_route, string &what_
         }
     }
     choice_route--;                                            /// Потому что отсчёт с нуля
-    DataSetOfTheRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+    DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::addStationInTimetable(string &name_of_the_route, string &route_description)
+void CoreOfTimetable::addInformationAboutStation(string &name_of_the_station, string &station_description)
 {
-    DataSetOfTimetable.addNewBlockOrChangeExisting(name_of_the_route, route_description);
+    DataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
 }
 
-void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
+void CoreOfTimetable::removeInformationAboutStation(const string &what_station_to_remove)
 {
-    string new_what_remove;
-    for(char j : what_remove)
+    string new_what_station_to_remove;
+    for(char j : what_station_to_remove)
     {
         if (j == '~')
         {
             break;
         }
-        new_what_remove += j;
+        new_what_station_to_remove += j;
     }
 
     try
     {
-    DataSetOfTimetable.deleteBlockFromeLine(new_what_remove);
+    DataSetOfInfoStation.deleteBlockFromeLine(new_what_station_to_remove);
     }
     catch(ItemDoesNotExist)
     {
@@ -247,13 +247,13 @@ void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
 
 void CoreOfTimetable::saveChanges()
 {
-    DataSetOfTheRoute.saveChanges();
-    DataSetOfTimetable.saveChanges();
+    DataSetOfInfoRoute.saveChanges();
+    DataSetOfInfoStation.saveChanges();
 }
 
 unsigned CoreOfTimetable::howManyRoutes()
 {
-    unsigned how_many_routes = DataSetOfTheRoute.getNumberOfBlocksInTheLine();
+    unsigned how_many_routes = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
     if (how_many_routes == 0)
     {
         throw ThereAreNoRoutes();
@@ -261,9 +261,9 @@ unsigned CoreOfTimetable::howManyRoutes()
     return how_many_routes;
 }
 
-vector<string> CoreOfTimetable::getAllItemFromTimetable()
+vector<string> CoreOfTimetable::getAllItemWhichHaveDescription()
 {
-    return DataSetOfTimetable.getAllItem();
+    return DataSetOfInfoStation.getAllItem();
 }
 
 

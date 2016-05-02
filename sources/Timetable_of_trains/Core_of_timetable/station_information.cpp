@@ -65,13 +65,13 @@ string FileStationInformation::getFileData(const string &number_of_the_block)
     return Timetable[number_of_the_block];
 }
 
-void FileStationInformation::deleteBlockFromeLine(const string &what_remove)
+void FileStationInformation::deleteBlockFromeLine(const string &by_what_name_to_delete)
 {
-    if(Timetable[what_remove] == "")
+    if(Timetable[by_what_name_to_delete] == "")
     {
         throw ItemDoesNotExist();
     }
-    Timetable.erase(Timetable.find(what_remove));
+    Timetable.erase(Timetable.find(by_what_name_to_delete));
 
     string buffer;
     string name_of_buffer;

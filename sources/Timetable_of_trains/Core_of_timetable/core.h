@@ -28,13 +28,13 @@ public:
 
     void addStationInItinerary(unsigned choice_route, string &what_to_add) override;
 
-    void addStationInTimetable(string &name_of_the_route, string &route_description) override;
+    void addInformationAboutStation(string &name_of_the_station, string &station_description) override;
 
-    void removeStationFromTimetalbe(const string &what_remove) override;
+    void removeInformationAboutStation(const string &what_station_to_remove) override;
 
     string findSuitableRoute(string &departure, string &arrival) override;
 
-    vector<string> getAllItemFromTimetable() override;
+    vector<string> getAllItemWhichHaveDescription() override;
 
     unsigned addRoute() override;
 
@@ -48,9 +48,9 @@ private:
 
     int right;
 
-    FileRouteInformation DataSetOfTheRoute;
+    FileRouteInformation DataSetOfInfoRoute;
 
-    FileStationInformation DataSetOfTimetable;
+    FileStationInformation DataSetOfInfoStation;
 };
 
 
