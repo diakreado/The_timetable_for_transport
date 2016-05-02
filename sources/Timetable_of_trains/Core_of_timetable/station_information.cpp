@@ -10,7 +10,7 @@ void FileStationInformation::readingFromFile()
     string LineFromFile;
     string PartOfTheLine;
     string Pustota;
-    getline(inputFile_for_reading, Pustota);
+    getline(inputFile_for_reading, Pustota);      /// В этой строчке находиться информация о маршрутах, она уже считана
     getline(inputFile_for_reading, LineFromFile);
     for (unsigned i = 0; i < LineFromFile.size(); i++)
     {

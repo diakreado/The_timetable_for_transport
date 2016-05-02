@@ -18,11 +18,11 @@ public:
                                                       ///выходи предупреждениеonly available with -std=c++11 or -std=gnu++11
     bool informationOfTheRights() const override;
 
-    vector<string> getRouteOfTrain(unsigned number_of_the_route) override;
+    vector<string> getRouteOfTrain(int number_of_the_route) override;
 
     string getInformationAboutStation(const string &name_of_the_station) override;
 
-    void changeRouteTable(unsigned choice_route, unsigned choice_station, string &what_to_replace) override;
+    void changeItinerary(unsigned choice_route, unsigned choice_station, string &what_to_replace) override;
 
     void deleteStationFromRouteTable(unsigned choice_route, unsigned choice_station) override;
 
@@ -57,5 +57,7 @@ private:
 class ThereAreNoRoutes : public exception {};
 
 class NotSuitableInquiry : public exception {};
+
+class RouteDoesNotExist : public exception {};
 
 #endif // CORE_OF_TIMETABLE_H

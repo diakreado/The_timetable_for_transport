@@ -161,7 +161,7 @@ void ConsoleForTimetable::changeRouteTable()
     }
     default:
     {
-        cout << " You have entered something unclear" << endl;
+        cout << endl << " You have entered something unclear" << endl;
         break;
     }
     }
@@ -243,7 +243,7 @@ void ConsoleForTimetable::changeRoute()
             string what_to_replace;
             getline(cin,what_to_replace);
             cout << endl << endl;
-            Core.changeRouteTable(choice_route,choice_station,what_to_replace);
+            Core.changeItinerary(choice_route,choice_station,what_to_replace);
             break;
         }
         case 3:

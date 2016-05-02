@@ -7,9 +7,11 @@ void FileRouteInformation::readingFromFile()
     {
         return;                                             /// Если нет файла, то и читать его нет смысла
     }
+
     string LineFromFile;
-    string PartOfTheLine;
     getline(inputFile_for_reading, LineFromFile);           /// Считывание информации из файла(там она длинной строкой)
+
+    string PartOfTheLine;
     for (unsigned  i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
@@ -26,38 +28,52 @@ void FileRouteInformation::readingFromFile()
     inputFile_for_reading.close();
 }
 
-void FileRouteInformation::changeTable(const unsigned number_of_part, string &ToPrintToFile)
+void FileRouteInformation::changePartOfTheLine(const int number_of_part, string &InExchange)
 {
-    if (ToPrintToFile == "" && number_of_part != 0)
+    if (number_of_part < 0 || number_of_part >= FileData.size())
     {
-        FileData.erase(FileData.begin()+number_of_part);
-        return;
+        throw ItemDoesNotExist();
     }
-    if (ToPrintToFile == " ")
+
+    FileData[number_of_part] = InExchange;
+}
+
+void FileRouteInformation::deletePartOfTheLine(const int number_of_part)
+{
+    if (number_of_part < 0 || number_of_part > FileData.size() - 1)
     {
-        ToPrintToFile = "";
+        throw ItemDoesNotExist();
     }
-    if(number_of_part >= FileData.size())
+
+    if (number_of_part != 0)
     {
-        FileData.push_back(ToPrintToFile);          /// Если файл плохо прочитан или номер вводимой станции
-    }                                              /// больше чем размер существующей строчки
+        FileData.erase(FileData.begin() + number_of_part);
+    }
     else
     {
-        FileData[number_of_part] = ToPrintToFile;
+        FileData[number_of_part] = "";
     }
 }
 
-
-string FileRouteInformation::getFileData(int number_of_the_part) const
+void FileRouteInformation::addPartOfTheLine()
 {
-    return FileData[number_of_the_part];
+    FileData.push_back("");
+}
+
+string FileRouteInformation::getFileData(int number_of_part) const
+{
+    if (number_of_part < 0 || number_of_part > FileData.size() - 1)
+    {
+        throw ItemDoesNotExist();
+    }
+    return FileData[number_of_part];
 }
 
 void FileRouteInformation::saveChanges()
 {
     ofstream inputFileForChangeRoute("metro_Saint-Petersburg.txt");
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),
-    for(unsigned i = 1; i < FileData.size(); i++)  ///  а отдельно потому что перед ним не надо ставить '/'
+    for(unsigned i = 1; i < FileData.size(); i++)      ///  а отдельно потому что перед ним не надо ставить '/'
     {
         if (FileData[i] != "")
         {

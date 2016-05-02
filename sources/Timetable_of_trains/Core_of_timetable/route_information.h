@@ -13,11 +13,16 @@ public:
     void readingFromFile() override;
 
     /**
-     * @brief Переписывает часть строчки в файле "Routetable.txt"
-     * @param number_of_part - номер части строки которую надо переписать
-     * @param ToPrintToFile - что нужно написать на месте части строки
+     * @brief Переписать часть строки
+     * @param number_of_part - номер части строки, которую надо перезаписать
+     * @param ToPrintToFile - что нужно написать на этом месте
      */
-    void changeTable(const unsigned number_of_part,  string &ToPrintToFile);
+    void changePartOfTheLine(const int number_of_part,  string &InExchange);
+
+
+    void deletePartOfTheLine(const int number_of_part);
+
+    void addPartOfTheLine();
 
     /**
      * @return Количество частей, на которые разибвается строчка
@@ -30,7 +35,7 @@ public:
      *  @param number_of_the_part - номер запрашиваемой части строки
      *  @return Строчка с необходимыми данными
      */
-    string getFileData(int number_of_the_part) const;
+    string getFileData(int number_of_part) const;
 };
 
 #endif // FILETIMETABLE_H

@@ -2,9 +2,7 @@
 #define CONSOLE_FOR_TIMETABLE_H
 
 #include <core.h>
-#include <string>
-#include <exception>
-#include <vector>
+#include <algorithm>
 
 using namespace std;
 

@@ -36,9 +36,7 @@ protected:
     vector<string> FileData;
 };
 
-/**
- * @brief Исключение "Запрашиваемый маршрут не обнаружен"
- */
-class RouteDoesNotExist : public exception {};
+class ItemDoesNotExist : public exception {};
+
 
 #endif // FILE_H
