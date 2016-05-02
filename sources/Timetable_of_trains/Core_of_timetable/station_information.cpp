@@ -56,20 +56,20 @@ void FileStationInformation::readingFromFile()
     }
 }
 
-string FileStationInformation::getFileData(const string &name_of_station)
+string FileStationInformation::getFileData(const string &number_of_the_block)
 {
-    if(Timetable[name_of_station] == "")
+    if(Timetable[number_of_the_block] == "")
     {
-        throw StationDoesNotExist();
+        throw ItemDoesNotExist();
     }
-    return Timetable[name_of_station];
+    return Timetable[number_of_the_block];
 }
 
-void FileStationInformation::removeLine(const string &what_remove)
+void FileStationInformation::deleteBlockFromeLine(const string &what_remove)
 {
     if(Timetable[what_remove] == "")
     {
-        throw StationDoesNotExist();
+        throw ItemDoesNotExist();
     }
     Timetable.erase(Timetable.find(what_remove));
 
@@ -100,9 +100,9 @@ void FileStationInformation::removeLine(const string &what_remove)
     }
 }
 
-void FileStationInformation::addInformationAboutStation(string &name_of_the_station, string &station_description)
+void FileStationInformation::addNewBlockOrChangeExisting(string &name_of_the_block, string &block_description)
 {
-    Timetable[name_of_the_station] = station_description;
+    Timetable[name_of_the_block] = block_description;
 
     string buffer;
     string name_of_buffer;
@@ -125,18 +125,18 @@ void FileStationInformation::addInformationAboutStation(string &name_of_the_stat
                 name_of_buffer += buffer[j];
             }
         }
-        if (name_of_buffer == name_of_the_station)
+        if (name_of_buffer == name_of_the_block)
         {
             number_of_the_same = i;
         }
     }
     if (number_of_the_same != -1)
     {
-        FileData[number_of_the_same] = name_of_the_station + '~' + station_description;
+        FileData[number_of_the_same] = name_of_the_block + '~' + block_description;
     }
     else
     {
-        FileData.push_back(name_of_the_station + '~' + station_description);
+        FileData.push_back(name_of_the_block + '~' + block_description);
     }
 }
 

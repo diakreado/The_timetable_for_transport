@@ -28,34 +28,34 @@ void FileRouteInformation::readingFromFile()
     inputFile_for_reading.close();
 }
 
-void FileRouteInformation::changePartOfTheLine(const int number_of_part, string &InExchange)
+void FileRouteInformation::changeBlockFromLine(const int number_of_block, string &InExchange)
 {
-    if (number_of_part < 0 || number_of_part >= FileData.size())
+    if (number_of_block < 0 || number_of_block >= FileData.size())
     {
         throw ItemDoesNotExist();
     }
 
-    FileData[number_of_part] = InExchange;
+    FileData[number_of_block] = InExchange;
 }
 
-void FileRouteInformation::deletePartOfTheLine(const int number_of_part)
+void FileRouteInformation::deleteBlockFromLine(const int number_of_block)
 {
-    if (number_of_part < 0 || number_of_part > FileData.size() - 1)
+    if (number_of_block < 0 || number_of_block > FileData.size() - 1)
     {
         throw ItemDoesNotExist();
     }
 
-    if (number_of_part != 0)
+    if (number_of_block != 0)
     {
-        FileData.erase(FileData.begin() + number_of_part);
+        FileData.erase(FileData.begin() + number_of_block);
     }
     else
     {
-        FileData[number_of_part] = "";
+        FileData[number_of_block] = "";
     }
 }
 
-void FileRouteInformation::addPartOfTheLine()
+void FileRouteInformation::addNewBlock()
 {
     FileData.push_back("");
 }

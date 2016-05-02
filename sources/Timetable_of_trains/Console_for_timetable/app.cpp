@@ -33,7 +33,7 @@ void ConsoleForTimetable::routeInformation()
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << endl;
-        vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+        vector<string> output_for_console = Core.getItinerary(choice_of_the_route);
         for(unsigned i = 0; i < output_for_console.size(); i++)
         {
             cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
@@ -71,7 +71,7 @@ void ConsoleForTimetable::informationAboutStation()
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << endl;
-        vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+        vector<string> output_for_console = Core.getItinerary(choice_of_the_route);
         for(unsigned i = 0; i < output_for_console.size(); i++)
         {
             cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
@@ -204,7 +204,7 @@ void ConsoleForTimetable::changeRoute()
     try
     {
         cout << endl;
-        vector<string> output_for_console = Core.getRouteOfTrain(choice_route);
+        vector<string> output_for_console = Core.getItinerary(choice_route);
         for(unsigned i = 0; i < output_for_console.size(); i++)
         {
             cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
@@ -229,7 +229,7 @@ void ConsoleForTimetable::changeRoute()
             string what_to_add;
             getline(cin,what_to_add);
             cout << endl << endl;
-            Core.addStationInRouteTable(choice_route,what_to_add);
+            Core.addStationInItinerary(choice_route,what_to_add);
             break;
         }
         case 2:
@@ -253,7 +253,7 @@ void ConsoleForTimetable::changeRoute()
             cin >> choice_station;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            Core.deleteStationFromRouteTable(choice_route,choice_station);
+            Core.deleteStationFromItinerary(choice_route,choice_station);
             break;
         }
         default:
@@ -269,9 +269,9 @@ void ConsoleForTimetable::changeRoute()
         cout << " The route does not exist" << endl;
         how_successful_changes = 0;
     }
-    catch(NotSuitableInquiry)
+    catch(StationDoesNotExist)
     {
-        cout << endl << " Not the correct use of functions" << endl;
+        cout << endl << " The station does not exist" << endl;
         how_successful_changes = 0;
     }
     if (how_successful_changes == 1)
@@ -308,7 +308,7 @@ void ConsoleForTimetable::changeTimetable()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << endl;
-            vector<string> output_for_console = Core.getRouteOfTrain(choice_of_the_route);
+            vector<string> output_for_console = Core.getItinerary(choice_of_the_route);
             for(unsigned i = 0; i < output_for_console.size(); i++)
             {
                 cout << ' ' << i+1 << '.' << output_for_console[i] << endl;

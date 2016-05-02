@@ -17,17 +17,23 @@ public:
      * @param number_of_part - номер части строки, которую надо перезаписать
      * @param ToPrintToFile - что нужно написать на этом месте
      */
-    void changePartOfTheLine(const int number_of_part,  string &InExchange);
+    void changeBlockFromLine(const int number_of_block,  string &InExchange);
 
+    /**
+     * @brief Удалить определённую часть отделёную знаками '/'
+     * @param number_of_part номер части, которую нужно удалить
+     */
+    void deleteBlockFromLine(const int number_of_block);
 
-    void deletePartOfTheLine(const int number_of_part);
-
-    void addPartOfTheLine();
+    /**
+     * @brief Добавляет блок с информацией в строчку (добавляется в конец)
+     */
+    void addNewBlock();
 
     /**
      * @return Количество частей, на которые разибвается строчка
      */
-    unsigned getNumberOfPartsOfLine() const {return FileData.size();}
+    unsigned getNumberOfBlocksInTheLine() const {return FileData.size();}
 
     void saveChanges() override;
 

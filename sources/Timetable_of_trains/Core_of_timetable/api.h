@@ -26,7 +26,7 @@ public:
      * @param number_of_the_route - номер маршрута
      * @return Маршрут поезда в формате vector<string> (массив названий станций)
      */
-    virtual vector<string> getRouteOfTrain(int number_of_the_route) = 0;
+    virtual vector<string> getItinerary(int number_of_the_route) = 0;
 
     /**
      * @brief Используется для более удобного вывода информации о станции
@@ -48,14 +48,14 @@ public:
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      */
-    virtual void deleteStationFromRouteTable(unsigned choice_route,unsigned choice_station) = 0;
+    virtual void deleteStationFromItinerary(unsigned choice_route,unsigned choice_station) = 0;
 
     /**
      * @brief Добавить станцию маршрут поезда
      * @param choice_route - номер маршрута, который нужно изменить
      * @param what_to_add - что нужно поставить взамен
      */
-    virtual void addStationInRouteTable(unsigned choice_route, string &what_to_add) = 0;
+    virtual void addStationInItinerary(unsigned choice_route, string &what_to_add) = 0;
 
     /**
      * @brief Добавляет информацию о новом маршруте в контейнеры

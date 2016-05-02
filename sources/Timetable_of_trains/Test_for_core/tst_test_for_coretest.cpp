@@ -59,8 +59,8 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
 
     unsigned number_of_the_route = 3;
 
-    QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),OneElement);
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(4),RouteDoesNotExist);
+    QCOMPARE(start_test.getItinerary(number_of_the_route),OneElement);
+    QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(4),RouteDoesNotExist);
 
     unsigned which_route_del = 2;
 
@@ -79,19 +79,19 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
     QCOMPARE(start_test.howManyRoutes(),what_expected);
 
     number_of_the_route = 1;
-    QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),OneElement);
+    QCOMPARE(start_test.getItinerary(number_of_the_route),OneElement);
 
     number_of_the_route = 2;
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(number_of_the_route),RouteDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(number_of_the_route),RouteDoesNotExist);
     number_of_the_route = 10;
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(number_of_the_route),RouteDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(number_of_the_route),RouteDoesNotExist);
 
     int negative_number_of_the_route = -1;
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(negative_number_of_the_route),RouteDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(negative_number_of_the_route),RouteDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.deleteRoute(negative_number_of_the_route),RouteDoesNotExist);
 
     negative_number_of_the_route = -256;
-    QVERIFY_EXCEPTION_THROWN(start_test.getRouteOfTrain(negative_number_of_the_route),RouteDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(negative_number_of_the_route),RouteDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.deleteRoute(negative_number_of_the_route),RouteDoesNotExist);
 }
 
@@ -99,40 +99,40 @@ void Test_for_coreTest::verifyRouteChanges()
 {
     unsigned number_of_the_route = 1;
     string what_to_add = "Prospekt Prosveshenia";
-    start_test.addStationInRouteTable(number_of_the_route, what_to_add);
+    start_test.addStationInItinerary(number_of_the_route, what_to_add);
 
     vector<string> what_to_expected;
     what_to_expected.push_back("");
     what_to_expected.push_back("Prospekt Prosveshenia");
 
-    QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),what_to_expected);
+    QCOMPARE(start_test.getItinerary(number_of_the_route),what_to_expected);
 
     what_to_add = "Ozerki";
 
-    start_test.addStationInRouteTable(number_of_the_route,what_to_add);
+    start_test.addStationInItinerary(number_of_the_route,what_to_add);
 
     what_to_expected.push_back("Ozerki");
 
-    QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),what_to_expected);
+    QCOMPARE(start_test.getItinerary(number_of_the_route),what_to_expected);
 
     int number_of_the_station = 4;
 
     string what_to_replace = "Parnas";
 
     QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
-                             NotSuitableInquiry);
+                             StationDoesNotExist);
 
     number_of_the_station = -1;
     QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
-                             NotSuitableInquiry);
+                             StationDoesNotExist);
 
     number_of_the_station = -256;
     QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
-                             NotSuitableInquiry);
+                             StationDoesNotExist);
 
     number_of_the_station = 256;
     QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
-                             NotSuitableInquiry);
+                             StationDoesNotExist);
 
 
     number_of_the_station = 1;
@@ -140,19 +140,19 @@ void Test_for_coreTest::verifyRouteChanges()
 
     what_to_expected[0] = "Parnas";
 
-    QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),what_to_expected);
+    QCOMPARE(start_test.getItinerary(number_of_the_route),what_to_expected);
 
     number_of_the_station = 4;
 
-    QVERIFY_EXCEPTION_THROWN(start_test.deleteStationFromRouteTable(number_of_the_route,number_of_the_station),
-                             NotSuitableInquiry);
+    QVERIFY_EXCEPTION_THROWN(start_test.deleteStationFromItinerary(number_of_the_route,number_of_the_station),
+                             StationDoesNotExist);
 
     number_of_the_station = 3;
-    start_test.deleteStationFromRouteTable(number_of_the_route,number_of_the_station);
+    start_test.deleteStationFromItinerary(number_of_the_route,number_of_the_station);
 
     what_to_expected.erase(what_to_expected.begin() + 2);
 
-    QCOMPARE(start_test.getRouteOfTrain(number_of_the_route),what_to_expected);
+    QCOMPARE(start_test.getItinerary(number_of_the_route),what_to_expected);
 }
 
 void Test_for_coreTest::verifyTimetableChanges()
@@ -207,43 +207,43 @@ void Test_for_coreTest::checkFileRoute()
     FileRouteInformation start_file_test;
 
     unsigned how_many_parts_of_line = 0;
-    QCOMPARE(start_file_test.getNumberOfPartsOfLine(), how_many_parts_of_line);
+    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    start_file_test.addPartOfTheLine();
+    start_file_test.addNewBlock();
     string input_word = "Avtovo,Grazhdansky Prospekt";
-    start_file_test.changePartOfTheLine(0, input_word);
+    start_file_test.changeBlockFromLine(0, input_word);
 
     QCOMPARE(start_file_test.getFileData(0), input_word);
 
-    start_file_test.addPartOfTheLine();
+    start_file_test.addNewBlock();
     input_word = "Komendantskiy Prospekt,Lesnaya";
-    start_file_test.changePartOfTheLine(1, input_word);
+    start_file_test.changeBlockFromLine(1, input_word);
 
     QCOMPARE(start_file_test.getFileData(1), input_word);
 
-    start_file_test.addPartOfTheLine();
+    start_file_test.addNewBlock();
     input_word = "Politekhnicheskaya,Prospekt Veteranov";
-    start_file_test.changePartOfTheLine(2, input_word);
+    start_file_test.changeBlockFromLine(2, input_word);
 
     QCOMPARE(start_file_test.getFileData(2), input_word);
 
     how_many_parts_of_line = 3;
-    QCOMPARE(start_file_test.getNumberOfPartsOfLine(), how_many_parts_of_line);
+    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    start_file_test.deletePartOfTheLine(1);
+    start_file_test.deleteBlockFromLine(1);
 
     how_many_parts_of_line = 2;
-    QCOMPARE(start_file_test.getNumberOfPartsOfLine(), how_many_parts_of_line);
+    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    start_file_test.deletePartOfTheLine(1);
-
-    how_many_parts_of_line = 1;
-    QCOMPARE(start_file_test.getNumberOfPartsOfLine(), how_many_parts_of_line);
-
-    start_file_test.deletePartOfTheLine(0);
+    start_file_test.deleteBlockFromLine(1);
 
     how_many_parts_of_line = 1;
-    QCOMPARE(start_file_test.getNumberOfPartsOfLine(), how_many_parts_of_line);
+    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
+
+    start_file_test.deleteBlockFromLine(0);
+
+    how_many_parts_of_line = 1;
+    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(3), ItemDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(-1), ItemDoesNotExist);
@@ -258,15 +258,15 @@ void Test_for_coreTest::checkFileTimetable()
 
     string what_add = "Peremenka 2";
     string what_value = "14.00-14.30";
-    start_file_test.addInformationAboutStation(what_add, what_value);
+    start_file_test.addNewBlockOrChangeExisting(what_add, what_value);
 
     what_add = "Peremenka 1";
     what_value = "12.00-12.30";
-    start_file_test.addInformationAboutStation(what_add, what_value);
+    start_file_test.addNewBlockOrChangeExisting(what_add, what_value);
 
     what_add = "Peremenka 3";
     what_value = "15.00-15.30";
-    start_file_test.addInformationAboutStation(what_add, what_value);
+    start_file_test.addNewBlockOrChangeExisting(what_add, what_value);
 
     string input_data = "Peremenka 2";
     string what_expected = "14.00-14.30";
@@ -280,22 +280,22 @@ void Test_for_coreTest::checkFileTimetable()
     what_expected = "15.00-15.30";
     QCOMPARE(start_file_test.getFileData(input_data), what_expected);
 
-    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData("Perepodgotovka"),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData("Perepodgotovka"), ItemDoesNotExist);
 
     input_data = "Peremenka 1";
-    start_file_test.removeLine(input_data);
+    start_file_test.deleteBlockFromeLine(input_data);
 
-    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data), ItemDoesNotExist);
 
     input_data = "Peremenka 2";
-    start_file_test.removeLine(input_data);
+    start_file_test.deleteBlockFromeLine(input_data);
 
-    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data), ItemDoesNotExist);
 
     input_data = "Peremenka 3";
-    start_file_test.removeLine(input_data);
+    start_file_test.deleteBlockFromeLine(input_data);
 
-    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data),StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data), ItemDoesNotExist);
 }
 
 

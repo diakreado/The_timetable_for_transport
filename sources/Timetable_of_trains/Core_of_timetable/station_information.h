@@ -15,19 +15,24 @@ public:
 
     void readingFromFile() override;
 
-    void addInformationAboutStation(string &name_of_the_station, string &station_description);
+    /**
+     * @brief Добавляет блок( отделённый знаками '/') с информацией в общую строчку или изменяет сущесствующий
+     * @param name_of_the_block - название блока, которому принадлежит информация
+     * @param block_description - информация, которую нужна добавить
+     */
+    void addNewBlockOrChangeExisting(string &name_of_the_block, string &block_description);
 
     /**
-     *  @param name_of_station - некоторая часть строчки из файла "Schedule.txt"
+     *  @param number_of_the_block - номер запрашиваемой части строки
      *  @return Строчка с необходимыми данными
      */
-    string getFileData(const string &name_of_station);
+    string getFileData(const string &number_of_the_block);
 
     /**
-     *  @brief Удаляет часть строчку из "Schedule.txt"
-     *  @param what_remove - какую часть строчки удалить
+     *  @brief Удаляет блок с информацией
+     *  @param what_remove - название блока, который ужно удалить
      */
-    void removeLine(const string &what_remove);
+    void deleteBlockFromeLine(const string &what_remove);
 
     /**
      * @return Возвращяет все элементы находящиеся в контейнерах
@@ -43,7 +48,5 @@ private:
      */
     map<string,string> Timetable;
 };
-
-class StationDoesNotExist : public exception {};
 
 #endif // FILESCHEDULE_H

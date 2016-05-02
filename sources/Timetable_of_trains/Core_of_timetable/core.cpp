@@ -24,7 +24,7 @@ bool CoreOfTimetable::informationOfTheRights() const
     return right;
 }
 
-vector<string> CoreOfTimetable::getRouteOfTrain(int number_of_the_route)
+vector<string> CoreOfTimetable::getItinerary(int number_of_the_route)
 {
     number_of_the_route--;      /// Так как отсчёт с нуля, но пользователь не должен этого знать
 
@@ -57,7 +57,14 @@ vector<string> CoreOfTimetable::getRouteOfTrain(int number_of_the_route)
 
 string CoreOfTimetable::getInformationAboutStation(const string &name_of_the_station)
 {
-    return DataSetOfTimetable.getFileData(name_of_the_station);
+    try
+    {
+        return DataSetOfTimetable.getFileData(name_of_the_station);
+    }
+    catch(ItemDoesNotExist)
+    {
+        throw StationDoesNotExist();
+    }
 }
 
 string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
@@ -69,27 +76,30 @@ string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
 
 void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_station, string &what_to_replace)
 {
-    vector<string> Route = getRouteOfTrain(choice_route);
+    vector<string> Route = getItinerary(choice_route);
     choice_station--;
-    if(choice_station >= Route.size())
+    choice_route--;
+
+    if(choice_station >= Route.size() || choice_station < 0)
     {
-        throw NotSuitableInquiry();
+        throw StationDoesNotExist();
     }
     else
     {
         Route[choice_station] = what_to_replace;
     }
+
     string ToPrintToFile;
     for (unsigned i = 0; i < Route.size()-1; i++)
     {
         ToPrintToFile += Route[i] + ',';
     }
     ToPrintToFile += Route[Route.size()-1];   /// Потому что в конце запятая не нужна
+
     bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
     while(correct_beginning_of_the_line == 0)
     {
-        unsigned size_of_string;
-        size_of_string = ToPrintToFile.size()-1;
+        unsigned size_of_string = ToPrintToFile.size()-1;
         if (ToPrintToFile[size_of_string] == ' ')
         {
             ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
@@ -98,12 +108,11 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
         {
             correct_beginning_of_the_line = 1;
         }
-    }
-    choice_route--;                                            /// Потому что отсчёт с нуля
+    }                                            /// Потому что отсчёт с нуля
 
     try
     {
-        DataSetOfTheRoute.changePartOfTheLine(choice_route,ToPrintToFile);
+        DataSetOfTheRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
     catch(ItemDoesNotExist)
     {
@@ -113,9 +122,9 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
 
 unsigned CoreOfTimetable::addRoute()
 {
-    unsigned choice_route = DataSetOfTheRoute.getNumberOfPartsOfLine();
+    unsigned choice_route = DataSetOfTheRoute.getNumberOfBlocksInTheLine();
 
-    DataSetOfTheRoute.addPartOfTheLine();
+    DataSetOfTheRoute.addNewBlock();
 
     choice_route++;
     return choice_route;
@@ -127,7 +136,7 @@ void CoreOfTimetable::deleteRoute(unsigned choice_route)
 
     try
     {
-        DataSetOfTheRoute.deletePartOfTheLine(choice_route);
+        DataSetOfTheRoute.deleteBlockFromLine(choice_route);
     }
     catch(ItemDoesNotExist)
     {
@@ -135,14 +144,16 @@ void CoreOfTimetable::deleteRoute(unsigned choice_route)
     }
 }
 
-void CoreOfTimetable::deleteStationFromRouteTable(unsigned choice_route, unsigned choice_station)
+void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned choice_station)
 {
-    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
+    vector<string> NewVariantOfString = getItinerary(choice_route);
     choice_station--;
-    if(choice_station >= NewVariantOfString.size())
+
+    if(choice_station >= NewVariantOfString.size() || choice_station < 0)
     {
-        throw NotSuitableInquiry();
+        throw StationDoesNotExist();
     }
+
     NewVariantOfString[choice_station] = "";
     string ToPrintToFile;
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
@@ -175,12 +186,12 @@ void CoreOfTimetable::deleteStationFromRouteTable(unsigned choice_route, unsigne
         }
     }
     choice_route--;                                                     /// Потому что отсчёт с нуля
-    DataSetOfTheRoute.changePartOfTheLine(choice_route,ToPrintToFile);
+    DataSetOfTheRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::addStationInRouteTable(unsigned choice_route, string &what_to_add)
+void CoreOfTimetable::addStationInItinerary(unsigned choice_route, string &what_to_add)
 {
-    vector<string> NewVariantOfString = getRouteOfTrain(choice_route);
+    vector<string> NewVariantOfString = getItinerary(choice_route);
     NewVariantOfString.push_back(what_to_add);
     string ToPrintToFile;
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
@@ -204,12 +215,12 @@ void CoreOfTimetable::addStationInRouteTable(unsigned choice_route, string &what
         }
     }
     choice_route--;                                            /// Потому что отсчёт с нуля
-    DataSetOfTheRoute.changePartOfTheLine(choice_route,ToPrintToFile);
+    DataSetOfTheRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
 void CoreOfTimetable::addStationInTimetable(string &name_of_the_route, string &route_description)
 {
-    DataSetOfTimetable.addInformationAboutStation(name_of_the_route, route_description);
+    DataSetOfTimetable.addNewBlockOrChangeExisting(name_of_the_route, route_description);
 }
 
 void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
@@ -224,7 +235,14 @@ void CoreOfTimetable::removeStationFromTimetalbe(const string &what_remove)
         new_what_remove += j;
     }
 
-    DataSetOfTimetable.removeLine(new_what_remove);
+    try
+    {
+    DataSetOfTimetable.deleteBlockFromeLine(new_what_remove);
+    }
+    catch(ItemDoesNotExist)
+    {
+        throw StationDoesNotExist();
+    }
 }
 
 void CoreOfTimetable::saveChanges()
@@ -235,7 +253,7 @@ void CoreOfTimetable::saveChanges()
 
 unsigned CoreOfTimetable::howManyRoutes()
 {
-    unsigned how_many_routes = DataSetOfTheRoute.getNumberOfPartsOfLine();
+    unsigned how_many_routes = DataSetOfTheRoute.getNumberOfBlocksInTheLine();
     if (how_many_routes == 0)
     {
         throw ThereAreNoRoutes();
