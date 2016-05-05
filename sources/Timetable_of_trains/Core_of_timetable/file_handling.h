@@ -7,6 +7,7 @@
 #include <vector>
 #include <exception>
 
+//todo использовать подобную конструкцию для стандартной библиотеке - плохой тон
 using namespace std;
 
 /**
@@ -35,7 +36,8 @@ protected:
      */
     vector<string> FileData;
 };
-
+//todo класс лучше вынести в отдельный header (можно без cpp все inline)
+//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
 class ItemDoesNotExist : public exception {};
 
 
