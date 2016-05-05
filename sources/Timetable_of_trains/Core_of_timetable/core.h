@@ -3,6 +3,8 @@
 
 #include "api.h"
 
+//todo было бы неплохо перименовать enum
+//Вопрос в названии - не очень, лучше просто что-нибудь типа Rights
 enum what_rights{usual_user = 0, administrator = 1};
 
 /**
@@ -14,7 +16,7 @@ class CoreOfTimetable : public API
 public:
     CoreOfTimetable();
 
-    void issuanceOfRights(const int what_rights) override;   /// Я что-то делаю не так и у меня на каждый override
+    void issuanceOfRights(const int what_rights) override;   /// Я что-то делаю не так и у меня на каждый override //todo добавь флаг компилятора -std=c++11
                                                       ///выходи предупреждениеonly available with -std=c++11 or -std=gnu++11
     bool informationOfTheRights() const override;
 
@@ -45,7 +47,8 @@ public:
     unsigned howManyRoutes() override;
 
 private:
-
+//todo enum можно использовать как тип
+// what_rights right;
     int right;
 
     FileRouteInformation DataSetOfInfoRoute;
@@ -53,11 +56,16 @@ private:
     FileStationInformation DataSetOfInfoStation;
 };
 
-
+//todo класс лучше вынести в отдельный header (можно без cpp все inline)
+//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
 class ThereAreNoRoutes : public exception {};
 
+//todo класс лучше вынести в отдельный header (можно без cpp все inline)
+//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
 class StationDoesNotExist : public exception {};
 
+//todo класс лучше вынести в отдельный header (можно без cpp все inline)
+//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
 class RouteDoesNotExist : public exception {};
 
 #endif // CORE_OF_TIMETABLE_H
