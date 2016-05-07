@@ -4,13 +4,16 @@ void FileStationInformation::readingFromFile()
 {
     ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
+    // todo может быть, бросать исключение
     {
         return;
     }
     string LineFromFile;
     string PartOfTheLine;
+    // todo вы уверены, что вам нужна эта строчка? вы ее нигде не используйте
+    // todo в любом, случае переименовать
     string Pustota;
-    getline(inputFile_for_reading, Pustota);      /// В этой строчке находиться информация о маршрутах, она уже считана
+    getline(inputFile_for_reading, Pustota);      /// В этой строчке находится информация о маршрутах, она уже считана
     getline(inputFile_for_reading, LineFromFile);
     for (unsigned i = 0; i < LineFromFile.size(); i++)
     {
@@ -18,6 +21,8 @@ void FileStationInformation::readingFromFile()
         {
             FileData.push_back(PartOfTheLine);      /// Здесь происходят действия аналогичные тем, что происходили
             PartOfTheLine = "";                    ///  в file_route.cpp
+                                                   // todo если это так, то, может быть, вынести отдельный метод
+                                                   // в базовый класс. Файла file_route.cpp нет
         }
         else
         {
@@ -31,6 +36,7 @@ void FileStationInformation::readingFromFile()
     string value_of_buffer;
     for(unsigned i = 0; i < FileData.size(); i++)
     {
+        // todo what_part --> part
         int what_part;
         buffer = FileData[i];
         name_of_buffer = "";
@@ -75,7 +81,7 @@ void FileStationInformation::deleteBlockFromeLine(const string &by_what_name_to_
 
     string buffer;
     string name_of_buffer;
-    for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находиться и удаляется запрашиваемый элемент
+    for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находится и удаляется запрашиваемый элемент
     {
         int what_part;
         buffer = FileData[i];
@@ -113,6 +119,7 @@ void FileStationInformation::addNewBlockOrChangeExisting(string &name_of_the_blo
         buffer = FileData[i];
         name_of_buffer = "";
         what_part = name;
+        // todo этот цикл for встречается в нескольких методах, постараться выделить метод
         for(unsigned j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')

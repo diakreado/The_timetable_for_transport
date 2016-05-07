@@ -1,9 +1,11 @@
 #include "app.h"
 
+// todo когда так много кода, разделяйте его на смысловые блоки пробельными строками
 void ConsoleForTimetable::definitionOfAdministrator()
 {
     char answer_about_rights;
     cout << " Are you the administrator? Y/N" << endl << endl << "-->";
+    // todo во многих местах вы считываете символ. Выделить метод
     cin >> answer_about_rights;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');       /// Мешает считать кучу символов(ведь нам нужен один)
@@ -40,6 +42,7 @@ void ConsoleForTimetable::routeInformation()
         }                                                               ///                    2.Prospekt Prosvescheniya
         cout << endl;
     }
+    // todo ловить исключение по ссылке
     catch(RouteDoesNotExist)
     {
         cout << " The route does not exist" << endl
@@ -85,6 +88,7 @@ void ConsoleForTimetable::informationAboutStation()
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << endl;
         string choice_name_of_the_station;
+        // todo компилятор говорит что тут сравнение разных типов. Исправьте
         if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
         {
             choice_name_of_the_station = output_for_console[choice_number_of_the_station];
@@ -205,6 +209,8 @@ void ConsoleForTimetable::changeRoute()
     {
         cout << endl;
         vector<string> output_for_console = Core.getItinerary(choice_route);
+        // todo даже по комментарию понятно, что это дублирование кода. Выделить метод, выводящий
+        // в консоль станции заданного маршрута
         for(unsigned i = 0; i < output_for_console.size(); i++)
         {
             cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
@@ -280,6 +286,7 @@ void ConsoleForTimetable::changeRoute()
     }
 }
 
+// todo очень длинный метод. Попробуйте разбить
 void ConsoleForTimetable::changeInfoAboutStation()
 {
     if (Core.informationOfTheRights() == usual_user)
@@ -321,6 +328,7 @@ void ConsoleForTimetable::changeInfoAboutStation()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             choice_number_of_the_station--;
+            // todo компилятор говорит что тут сравнение разных типов. Исправьте
             if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
             {
                 name_of_the_route = output_for_console[choice_number_of_the_station];
@@ -350,6 +358,7 @@ void ConsoleForTimetable::changeInfoAboutStation()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             number_of_what_remove--;
+            // todo компилятор говорит что тут сравнение разных типов. Исправьте
             if (number_of_what_remove >= 0 && number_of_what_remove < AllItemFromTimetable.size())
             {
                 what_remove = AllItemFromTimetable[number_of_what_remove];

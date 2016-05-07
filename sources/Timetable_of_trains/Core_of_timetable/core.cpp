@@ -1,5 +1,6 @@
  #include "core.h"
 
+// todo использовать список инициализации
 CoreOfTimetable::CoreOfTimetable()
 {
     right = usual_user;
@@ -7,6 +8,7 @@ CoreOfTimetable::CoreOfTimetable()
     DataSetOfInfoStation.readingFromFile();
 }
 
+// todo what_rights --> rights
 void CoreOfTimetable::issuanceOfRights(const int what_rights)
 {
     if (what_rights == 1)
@@ -47,6 +49,8 @@ vector<string> CoreOfTimetable::getItinerary(int number_of_the_route)
         }
         Route.push_back(NameOfTheStation);
     }
+    // todo мы ловим исключение, чтобы бросить другое? может быть, я не понимаю чего-то
+    // todo в любом случае, ловить исключение по ссылке catch(ItemDoesNotExist &)
     catch(ItemDoesNotExist)
     {
         throw RouteDoesNotExist();
@@ -61,6 +65,7 @@ string CoreOfTimetable::getInformationAboutStation(const string &name_of_the_sta
     {
         return DataSetOfInfoStation.getFileData(name_of_the_station);
     }
+    // todo ловить исключение по ссылке
     catch(ItemDoesNotExist)
     {
         throw StationDoesNotExist();
@@ -74,12 +79,14 @@ string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
     return "Hello";
 }
 
+// todo unigned int? или unsigned double?
 void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_station, string &what_to_replace)
 {
     vector<string> Route = getItinerary(choice_route);
     choice_station--;
     choice_route--;
 
+    // todo здесь сравнение unsigned int с нулем. Всегда дает false
     if(choice_station >= Route.size() || choice_station < 0)
     {
         throw StationDoesNotExist();
@@ -103,7 +110,7 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
         if (ToPrintToFile[size_of_string] == ' ')
         {
             ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
-        }                                               /// не оставалось в начале сторки символы '_' и пробелы
+        }                                               /// не оставалось в начале строки символы '_' и пробелы
         else
         {
             correct_beginning_of_the_line = 1;
@@ -114,6 +121,7 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
     {
         DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
+    // todo ловить исключение по ссылке
     catch(ItemDoesNotExist)
     {
         throw RouteDoesNotExist();
@@ -138,17 +146,20 @@ void CoreOfTimetable::deleteRoute(unsigned choice_route)
     {
         DataSetOfInfoRoute.deleteBlockFromLine(choice_route);
     }
+    // todo ловить исключение по ссылке
     catch(ItemDoesNotExist)
     {
         throw RouteDoesNotExist();
     }
 }
 
+// todo unsigned int? или все-таки unsigned double?
 void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned choice_station)
 {
     vector<string> NewVariantOfString = getItinerary(choice_route);
     choice_station--;
 
+    // todo здесь сравнение unsigned int с нулем. Всегда дает false
     if(choice_station >= NewVariantOfString.size() || choice_station < 0)
     {
         throw StationDoesNotExist();
@@ -189,6 +200,7 @@ void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned
     DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
+// todo unigned int? или unsigned double?
 void CoreOfTimetable::addStationInItinerary(unsigned choice_route, string &what_to_add)
 {
     vector<string> NewVariantOfString = getItinerary(choice_route);
@@ -239,6 +251,7 @@ void CoreOfTimetable::removeInformationAboutStation(const string &what_station_t
     {
     DataSetOfInfoStation.deleteBlockFromeLine(new_what_station_to_remove);
     }
+    // todo ловить исключение по ссылке
     catch(ItemDoesNotExist)
     {
         throw StationDoesNotExist();
@@ -251,6 +264,7 @@ void CoreOfTimetable::saveChanges()
     DataSetOfInfoStation.saveChanges();
 }
 
+// todo какой тип возвращает метод?
 unsigned CoreOfTimetable::howManyRoutes()
 {
     unsigned how_many_routes = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
