@@ -3,7 +3,7 @@
 #include <core.h>
 
 /**
- * @brief Тесты для функциональностей продоставляемых ядром
+ * @brief Тесты для функциональностей предоставляемых ядром
  */
 class Test_for_coreTest : public QObject
 {                                                 /// Слабоватенькие тесты
@@ -22,6 +22,7 @@ private Q_SLOTS:
     void verifyRouteChanges();
     void verifyTimetableChanges();
 
+    // todo можно создать отдельный проект для модульных, а функциональые оставить здесь
     /// Модульные
 
     void checkFileRoute();
@@ -34,16 +35,19 @@ Test_for_coreTest::Test_for_coreTest()
 
 void Test_for_coreTest::theTestForTheGrantOfRights()
 {
-    QCOMPARE(start_test.informationOfTheRights(),0);
+    // todo сравнение bool с int
+    QCOMPARE(start_test.informationOfTheRights(), false);
     start_test.issuanceOfRights(administrator);
-    QCOMPARE(start_test.informationOfTheRights(),1);
+    QCOMPARE(start_test.informationOfTheRights(), true);
 }
 
+// todo очень длинный тест. Может быть, разделить на checkAdd и checkRemove
 void Test_for_coreTest::checkAddAndRemoveRoutes()
 {
     QVERIFY_EXCEPTION_THROWN(start_test.howManyRoutes(),ThereAreNoRoutes);
     start_test.addRoute();
 
+    // todo уточнить тип переменной. Не только здесь
     unsigned what_expected = 1;
 
     QCOMPARE(start_test.howManyRoutes(),what_expected);
@@ -173,6 +177,7 @@ void Test_for_coreTest::verifyTimetableChanges()
     start_test.addInformationAboutStation(name_of_the_station_2,working_hours_of_the_station_2);
     start_test.addInformationAboutStation(name_of_the_station_3,working_hours_of_the_station_3);
 
+    // todo AllItem --> Stations (например). AllItem - сложно прочитать
     vector<string> AllItem;
     AllItem.push_back("Parnas~9.00-20.20");
     AllItem.push_back("Devyatkino~6.35 - 23.34");

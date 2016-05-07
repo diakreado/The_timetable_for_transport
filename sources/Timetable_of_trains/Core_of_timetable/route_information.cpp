@@ -4,6 +4,7 @@ void FileRouteInformation::readingFromFile()
 {
     ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
+    // todo может, в этом случае, бросать исключение?
     {
         return;                                             /// Если нет файла, то и читать его нет смысла
     }
@@ -30,6 +31,9 @@ void FileRouteInformation::readingFromFile()
 
 void FileRouteInformation::changeBlockFromLine(const int number_of_block, string &InExchange)
 {
+    // todo здесь сравнение unsigned int и int, как в других методах
+    // todo дублирование этого ветвления далее.
+    // Может быть, вынести метод, который проверяет number_of_block и бросает исключение
     if (number_of_block < 0 || number_of_block >= FileData.size())
     {
         throw ItemDoesNotExist();

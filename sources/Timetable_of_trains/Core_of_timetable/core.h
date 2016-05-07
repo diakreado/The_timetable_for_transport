@@ -3,13 +3,17 @@
 
 #include "api.h"
 
-//todo было бы неплохо перименовать enum
+//todo было бы неплохо переименовать enum
+//todo использовать enum с областью видимости:
+// enum class Rights...
+//todo может быть, usual_user --> user
 //Вопрос в названии - не очень, лучше просто что-нибудь типа Rights
 enum what_rights{usual_user = 0, administrator = 1};
 
 /**
  * @brief Класс в котором содержится основная бизнес-логика приложения
  */
+// todo дописать noexcept для методов, не бросающих исключения
 class CoreOfTimetable : public API
 {
 

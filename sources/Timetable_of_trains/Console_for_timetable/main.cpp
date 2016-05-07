@@ -1,9 +1,11 @@
 #include <app.h>
 
-using namespace std;
+// todo позвольте, я уберу это
+//using namespace std;
 
 int main()
 {   
+    // todo пусть вся эта конструкция скрыта где-то внутри app
     try
     {
         ConsoleForTimetable start;
@@ -11,14 +13,14 @@ int main()
     }
     catch(exception &Error)
     {
-        cout << " Exception :  " << Error.what() << endl << endl;
+       std::cout << " Exception :  " << Error.what() << std::endl << std::endl;
     }
     catch(...)
     {
-        cout << " Unspecified error" << endl << endl;
+        std::cout << " Unspecified error" << std::endl << std::endl;
     }
 
-    cout << "  Come back soon!" << endl;
+    std::cout << "  Come back soon!" << std::endl;
 
     return 0;
 }
