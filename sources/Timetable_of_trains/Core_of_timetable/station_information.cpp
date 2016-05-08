@@ -1,6 +1,6 @@
 #include "station_information.h"
 
-void FileStationInformation::readingFromFile()  noexcept
+void FileStationInformation::readingFromFile() noexcept
 {
     std::ifstream inputFile_for_reading("metro_Saint-Petersburg_station_info.txt");
 
@@ -83,7 +83,7 @@ void FileStationInformation::deleteBlockFromLine(const std::string &by_what_name
 
     std::string buffer;
     std::string name_of_buffer;
-    for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находится и удаляется запрашиваемый элемент
+    for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находятся и удаляются пустые "" элементы
     {
         buffer = FileData[i];
         name_of_buffer = "";
@@ -121,7 +121,9 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
         part_of_buffer what_part = part_of_buffer::name;
 
         // todo этот цикл for встречается в нескольких методах, постараться выделить метод
-        /// Сделаю
+        /// Там окончание каждый раз разное, например здесь мы смотрим встречался ли элемент раньше и запоминаем
+        /// его номер, а до этого мы удаляли его, а самый первый раз мы записывали его в map, так что если и есть какой-то
+        /// путь я его не вижу
 
         for(unsigned j = 0; j < buffer.size(); j++)
         {

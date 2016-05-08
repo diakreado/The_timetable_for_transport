@@ -43,7 +43,8 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
 }
 
 // todo очень длинный тест. Может быть, разделить на checkAdd и checkRemove
-/// они тестируются вместе, ведь если я ничего не добавил, то как я буду удалять? А что с длинным тестом делать не знаю
+/// Они тестируются вместе, ведь если я ничего не добавил, то как я буду удалять? Я решения не вижу
+
 void Test_for_coreTest::checkAddAndRemoveRoutes()
 {
     QVERIFY_EXCEPTION_THROWN(start_test.howManyRoutes(),ThereAreNoRoutes);

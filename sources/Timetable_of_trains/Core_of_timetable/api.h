@@ -37,6 +37,7 @@ public:
      * @return Информация о станции в формате string
      */
     //todo Здесь навзвание станции строкой, а ниже по номеру. Лучше все привести к одному виду.
+    /// Я подумаю над этим
     virtual std::string getInformationAboutStation(const std::string &name_of_the_station) = 0;
 
     /**
@@ -46,6 +47,7 @@ public:
      * @param what_to_replace - что нужно поставить взамен
      */
     //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
+    /// Я подумаю над этим
     virtual void changeItinerary(int choice_route, int choice_station, std::string &what_to_replace) = 0;
 
     /**
@@ -54,6 +56,7 @@ public:
      * @param choice_station - номер станции
      */
     //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
+    /// Я подумаю над этим
     virtual void deleteStationFromItinerary(int choice_route, int choice_station) = 0;
 
     /**
@@ -69,6 +72,7 @@ public:
      * @param station_description - описание маршрута
      */
     //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
+    /// Я подумаю над этим
     virtual void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept = 0;
 
     /**
@@ -76,6 +80,7 @@ public:
      * @param what_station_to_remove - название станции, которую нужно удалить
      */
     //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
+    /// Я подумаю над этим
     virtual void removeInformationAboutStation(const std::string &what_station_to_remove)= 0;
 
     /**

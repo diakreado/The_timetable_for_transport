@@ -7,7 +7,7 @@
 enum class part_of_buffer{name = 0, value = 1};
 
 /**
- *  @brief Класс,для обработки второй строчки файла, в которой находится информация о станциях
+ *  @brief Класс,для обработки файла содержащего информацию о станциях
  */
 class FileStationInformation : public FileHandling
 {
