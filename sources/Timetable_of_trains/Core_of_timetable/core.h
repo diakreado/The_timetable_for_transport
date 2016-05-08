@@ -24,23 +24,23 @@ public:
                                                       ///выходи предупреждениеonly available with -std=c++11 or -std=gnu++11
     bool informationOfTheRights() const override;
 
-    vector<string> getItinerary(int number_of_the_route) override;
+    std::vector<std::string> getItinerary(int number_of_the_route) override;
 
-    string getInformationAboutStation(const string &name_of_the_station) override;
+    std::string getInformationAboutStation(const std::string &name_of_the_station) override;
 
-    void changeItinerary(unsigned choice_route, unsigned choice_station, string &what_to_replace) override;
+    void changeItinerary(unsigned choice_route, unsigned choice_station, std::string &what_to_replace) override;
 
     void deleteStationFromItinerary(unsigned choice_route, unsigned choice_station) override;
 
-    void addStationInItinerary(unsigned choice_route, string &what_to_add) override;
+    void addStationInItinerary(unsigned choice_route, std::string &what_to_add) override;
 
-    void addInformationAboutStation(string &name_of_the_station, string &station_description) override;
+    void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) override;
 
-    void removeInformationAboutStation(const string &what_station_to_remove) override;
+    void removeInformationAboutStation(const std::string &what_station_to_remove) override;
 
-    string findSuitableRoute(string &departure, string &arrival) override;
+    std::string findSuitableRoute(std::string &departure, std::string &arrival) override;
 
-    vector<string> getAllItemWhichHaveDescription() override;
+    std::vector<std::string> getAllItemWhichHaveDescription() override;
 
     unsigned addRoute() override;
 
@@ -62,14 +62,14 @@ private:
 
 //todo класс лучше вынести в отдельный header (можно без cpp все inline)
 //todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
-class ThereAreNoRoutes : public exception {};
+class ThereAreNoRoutes : public std::exception {};
 
 //todo класс лучше вынести в отдельный header (можно без cpp все inline)
 //todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
-class StationDoesNotExist : public exception {};
+class StationDoesNotExist : public std::exception {};
 
 //todo класс лучше вынести в отдельный header (можно без cpp все inline)
 //todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
-class RouteDoesNotExist : public exception {};
+class RouteDoesNotExist : public std::exception {};
 
 #endif // CORE_OF_TIMETABLE_H

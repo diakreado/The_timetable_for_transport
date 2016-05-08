@@ -23,25 +23,25 @@ public:
      * @param name_of_the_block - название блока, которому принадлежит информация
      * @param block_description - информация, которую нужно добавить
      */
-    void addNewBlockOrChangeExisting(string &name_of_the_block, string &block_description);
+    void addNewBlockOrChangeExisting(std::string &name_of_the_block, std::string &block_description);
 
     /**
      *  @param number_of_the_block - номер запрашиваемой части строки
      *  @return Строчка с необходимыми данными
      */
-    string getFileData(const string &number_of_the_block);
+    std::string getFileData(const std::string &number_of_the_block);
 
     /**
      *  @brief Удаляет блок с информацией
      *  @param by_what_name_to_delete - название блока, который нужно удалить
      */
     // todo возможно, в названии метода лишняя буква ...From"e"Line(...)
-    void deleteBlockFromeLine(const string &by_what_name_to_delete);
+    void deleteBlockFromeLine(const std::string &by_what_name_to_delete);
 
     /**
      * @return Возвращает все элементы находящиеся в контейнерах
      */
-    vector<string> getAllItem();
+    std::vector<std::string> getAllItem();
 
     void saveChanges() override;
 
@@ -51,7 +51,7 @@ private:
      *  @brief Удобный формат хранения извлечённых данных
      */
     //todo в комментарии указать, что конкретно хранится в строках
-    map<string,string> Timetable;
+    std::map<std::string,std::string> Timetable;
 };
 
 #endif // FILESCHEDULE_H

@@ -2,19 +2,19 @@
 
 void FileStationInformation::readingFromFile()
 {
-    ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
+    std::ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
     // todo может быть, бросать исключение
     {
         return;
     }
-    string LineFromFile;
-    string PartOfTheLine;
+    std::string LineFromFile;
+    std::string PartOfTheLine;
     // todo вы уверены, что вам нужна эта строчка? вы ее нигде не используйте
     // todo в любом, случае переименовать
-    string Pustota;
-    getline(inputFile_for_reading, Pustota);      /// В этой строчке находится информация о маршрутах, она уже считана
-    getline(inputFile_for_reading, LineFromFile);
+    std::string Pustota;
+    std::getline(inputFile_for_reading, Pustota);      /// В этой строчке находится информация о маршрутах, она уже считана
+    std::getline(inputFile_for_reading, LineFromFile);
     for (unsigned i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
@@ -31,9 +31,9 @@ void FileStationInformation::readingFromFile()
     }
     FileData.push_back(PartOfTheLine);
     inputFile_for_reading.close();
-    string buffer;
-    string name_of_buffer;
-    string value_of_buffer;
+    std::string buffer;
+    std::string name_of_buffer;
+    std::string value_of_buffer;
     for(unsigned i = 0; i < FileData.size(); i++)
     {
         // todo what_part --> part
@@ -62,7 +62,7 @@ void FileStationInformation::readingFromFile()
     }
 }
 
-string FileStationInformation::getFileData(const string &number_of_the_block)
+std::string FileStationInformation::getFileData(const std::string &number_of_the_block)
 {
     if(Timetable[number_of_the_block] == "")
     {
@@ -71,7 +71,7 @@ string FileStationInformation::getFileData(const string &number_of_the_block)
     return Timetable[number_of_the_block];
 }
 
-void FileStationInformation::deleteBlockFromeLine(const string &by_what_name_to_delete)
+void FileStationInformation::deleteBlockFromeLine(const std::string &by_what_name_to_delete)
 {
     if(Timetable[by_what_name_to_delete] == "")
     {
@@ -79,8 +79,8 @@ void FileStationInformation::deleteBlockFromeLine(const string &by_what_name_to_
     }
     Timetable.erase(Timetable.find(by_what_name_to_delete));
 
-    string buffer;
-    string name_of_buffer;
+    std::string buffer;
+    std::string name_of_buffer;
     for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находится и удаляется запрашиваемый элемент
     {
         int what_part;
@@ -106,12 +106,12 @@ void FileStationInformation::deleteBlockFromeLine(const string &by_what_name_to_
     }
 }
 
-void FileStationInformation::addNewBlockOrChangeExisting(string &name_of_the_block, string &block_description)
+void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_the_block, std::string &block_description)
 {
     Timetable[name_of_the_block] = block_description;
 
-    string buffer;
-    string name_of_buffer;
+    std::string buffer;
+    std::string name_of_buffer;
     int number_of_the_same = -1;
     for(unsigned i = 0; i < FileData.size(); i++)
     {                                                    /// Проверяется содерижтся ли такой элемент в FileData или нет
@@ -149,10 +149,10 @@ void FileStationInformation::addNewBlockOrChangeExisting(string &name_of_the_blo
 
 void FileStationInformation::saveChanges()
 {
-    ofstream inputFileForChangeTimetable;
-    inputFileForChangeTimetable.open(("metro_Saint-Petersburg.txt"),ios::app);
+    std::ofstream inputFileForChangeTimetable;
+    inputFileForChangeTimetable.open(("metro_Saint-Petersburg.txt"),std::ios::app);
 
-    inputFileForChangeTimetable << endl;
+    inputFileForChangeTimetable << std::endl;
 
     for(unsigned i = 0; i < FileData.size(); i++)
     {
@@ -172,7 +172,7 @@ void FileStationInformation::saveChanges()
     inputFileForChangeTimetable.close();
 }
 
-vector<string> FileStationInformation::getAllItem()
+std::vector<std::string> FileStationInformation::getAllItem()
 {
     return FileData;
 }

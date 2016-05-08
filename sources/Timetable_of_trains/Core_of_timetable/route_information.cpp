@@ -2,17 +2,17 @@
 
 void FileRouteInformation::readingFromFile()
 {
-    ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
+    std::ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
     // todo может, в этом случае, бросать исключение?
     {
         return;                                             /// Если нет файла, то и читать его нет смысла
     }
 
-    string LineFromFile;
-    getline(inputFile_for_reading, LineFromFile);           /// Считывание информации из файла(там она длинной строкой)
+    std::string LineFromFile;
+    std::getline(inputFile_for_reading, LineFromFile);           /// Считывание информации из файла(там она длинной строкой)
 
-    string PartOfTheLine;
+    std::string PartOfTheLine;
     for (unsigned  i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
@@ -29,7 +29,7 @@ void FileRouteInformation::readingFromFile()
     inputFile_for_reading.close();
 }
 
-void FileRouteInformation::changeBlockFromLine(const int number_of_block, string &InExchange)
+void FileRouteInformation::changeBlockFromLine(const int number_of_block, std::string &InExchange)
 {
     // todo здесь сравнение unsigned int и int, как в других методах
     // todo дублирование этого ветвления далее.
@@ -64,7 +64,7 @@ void FileRouteInformation::addNewBlock()
     FileData.push_back("");
 }
 
-string FileRouteInformation::getFileData(int number_of_part) const
+std::string FileRouteInformation::getFileData(int number_of_part) const
 {
     if (number_of_part < 0 || number_of_part > FileData.size() - 1)
     {
@@ -75,7 +75,7 @@ string FileRouteInformation::getFileData(int number_of_part) const
 
 void FileRouteInformation::saveChanges()
 {
-    ofstream inputFileForChangeRoute("metro_Saint-Petersburg.txt");
+    std::ofstream inputFileForChangeRoute("metro_Saint-Petersburg.txt");
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),
     for(unsigned i = 1; i < FileData.size(); i++)      ///  а отдельно потому что перед ним не надо ставить '/'
     {

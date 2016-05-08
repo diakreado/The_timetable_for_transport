@@ -4,9 +4,6 @@
 #include <core.h>
 #include <algorithm>
 
-//todo Страутруп писал, что using namespace - плохо. Убрать и писать std::
-using namespace std;
-
 /**
  * @brief Класс служащий для работы с ядром через консоль
  */
@@ -19,6 +16,16 @@ public:
     bool menu();
 
 private:
+
+    /**
+     * @return Символ считаный из консоли
+     */
+    char getCharFromConsole();
+
+    /**
+     * @return Число считаное из консоли
+     */
+    int getIntFromConsole();
 
     /**
      * @brief В зависимости от запрашиваемой станции, печатает информацию о ней
@@ -34,12 +41,6 @@ private:
      * @brief Предоставляет информацию о запрашиваемом маршруте
      */
     void routeInformation();
-
-    /**
-     * @brief Печатает в консоль проложеный маршрут от одной станции до другой
-     */
-    void findTheRoute();
-
 
     /// Методы для администратора(доступны только в режиме администратора):
 

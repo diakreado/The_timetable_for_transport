@@ -58,7 +58,7 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
     what_expected = 3;
     QCOMPARE(start_test.howManyRoutes(),what_expected);
 
-    vector<string> OneElement;
+    std::vector<std::string> OneElement;
     OneElement.push_back("");
 
     unsigned number_of_the_route = 3;
@@ -102,10 +102,10 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
 void Test_for_coreTest::verifyRouteChanges()
 {
     unsigned number_of_the_route = 1;
-    string what_to_add = "Prospekt Prosveshenia";
+    std::string what_to_add = "Prospekt Prosveshenia";
     start_test.addStationInItinerary(number_of_the_route, what_to_add);
 
-    vector<string> what_to_expected;
+    std::vector<std::string> what_to_expected;
     what_to_expected.push_back("");
     what_to_expected.push_back("Prospekt Prosveshenia");
 
@@ -121,7 +121,7 @@ void Test_for_coreTest::verifyRouteChanges()
 
     int number_of_the_station = 4;
 
-    string what_to_replace = "Parnas";
+    std::string what_to_replace = "Parnas";
 
     QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
                              StationDoesNotExist);
@@ -161,14 +161,14 @@ void Test_for_coreTest::verifyRouteChanges()
 
 void Test_for_coreTest::verifyTimetableChanges()
 {
-    string name_of_the_station_1 = "Parnas";
-    string working_hours_of_the_station_1 = "9.00-20.20";
+    std::string name_of_the_station_1 = "Parnas";
+    std::string working_hours_of_the_station_1 = "9.00-20.20";
 
-    string name_of_the_station_2 = "Devyatkino";
-    string working_hours_of_the_station_2 = "6.35 - 23.34";
+    std::string name_of_the_station_2 = "Devyatkino";
+    std::string working_hours_of_the_station_2 = "6.35 - 23.34";
 
-    string name_of_the_station_3 = "Avtovo";
-    string working_hours_of_the_station_3 = "7:55-20:83";
+    std::string name_of_the_station_3 = "Avtovo";
+    std::string working_hours_of_the_station_3 = "7:55-20:83";
 
 
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_1),StationDoesNotExist);
@@ -178,7 +178,7 @@ void Test_for_coreTest::verifyTimetableChanges()
     start_test.addInformationAboutStation(name_of_the_station_3,working_hours_of_the_station_3);
 
     // todo AllItem --> Stations (например). AllItem - сложно прочитать
-    vector<string> AllItem;
+    std::vector<std::string> AllItem;
     AllItem.push_back("Parnas~9.00-20.20");
     AllItem.push_back("Devyatkino~6.35 - 23.34");
     AllItem.push_back("Avtovo~7:55-20:83");
@@ -215,7 +215,7 @@ void Test_for_coreTest::checkFileRoute()
     QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
     start_file_test.addNewBlock();
-    string input_word = "Avtovo,Grazhdansky Prospekt";
+    std::string input_word = "Avtovo,Grazhdansky Prospekt";
     start_file_test.changeBlockFromLine(0, input_word);
 
     QCOMPARE(start_file_test.getFileData(0), input_word);
@@ -258,11 +258,11 @@ void Test_for_coreTest::checkFileTimetable()
 {
     FileStationInformation start_file_test;
 
-    vector<string> Null_vector;
+    std::vector<std::string> Null_vector;
     QCOMPARE(start_file_test.getAllItem(), Null_vector);
 
-    string what_add = "Peremenka 2";
-    string what_value = "14.00-14.30";
+    std::string what_add = "Peremenka 2";
+    std::string what_value = "14.00-14.30";
     start_file_test.addNewBlockOrChangeExisting(what_add, what_value);
 
     what_add = "Peremenka 1";
@@ -273,8 +273,8 @@ void Test_for_coreTest::checkFileTimetable()
     what_value = "15.00-15.30";
     start_file_test.addNewBlockOrChangeExisting(what_add, what_value);
 
-    string input_data = "Peremenka 2";
-    string what_expected = "14.00-14.30";
+    std::string input_data = "Peremenka 2";
+    std::string what_expected = "14.00-14.30";
     QCOMPARE(start_file_test.getFileData(input_data), what_expected);
 
     input_data = "Peremenka 1";

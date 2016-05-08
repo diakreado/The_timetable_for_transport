@@ -11,7 +11,7 @@ int main()
         ConsoleForTimetable start;
         while(start.menu()) {}
     }
-    catch(exception &Error)
+    catch(std::exception &Error)
     {
        std::cout << " Exception :  " << Error.what() << std::endl << std::endl;
     }

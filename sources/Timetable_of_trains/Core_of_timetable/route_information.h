@@ -21,7 +21,7 @@ public:
      * @param number_of_block - номер части строки, которую надо перезаписать
      * @param InExchange - что нужно написать на этом месте
      */
-    void changeBlockFromLine(const int number_of_block,  string &InExchange);
+    void changeBlockFromLine(const int number_of_block, std::string &InExchange);
 
     /**
      * @brief Удалить определённую часть отделёную знаками '/'
@@ -45,7 +45,7 @@ public:
      *  @param number_of_the_part - номер запрашиваемой части строки
      *  @return Строчка с необходимыми данными
      */
-    string getFileData(int number_of_part) const;
+    std::string getFileData(int number_of_part) const;
 };
 
 #endif // FILETIMETABLE_H

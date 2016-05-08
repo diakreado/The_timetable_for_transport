@@ -26,15 +26,15 @@ bool CoreOfTimetable::informationOfTheRights() const
     return right;
 }
 
-vector<string> CoreOfTimetable::getItinerary(int number_of_the_route)
+std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
 {
     number_of_the_route--;      /// Так как отсчёт с нуля, но пользователь не должен этого знать
 
-    vector<string> Route;
+    std::vector<std::string> Route;
     try
     {
-        string StringFromFile = DataSetOfInfoRoute.getFileData(number_of_the_route);
-        string NameOfTheStation;
+        std::string StringFromFile = DataSetOfInfoRoute.getFileData(number_of_the_route);
+        std::string NameOfTheStation;
         for (char symbol_in_string : StringFromFile)
         {
             if (symbol_in_string == ',')
@@ -59,7 +59,7 @@ vector<string> CoreOfTimetable::getItinerary(int number_of_the_route)
     return Route;
 }
 
-string CoreOfTimetable::getInformationAboutStation(const string &name_of_the_station)
+std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_of_the_station)
 {
     try
     {
@@ -72,7 +72,7 @@ string CoreOfTimetable::getInformationAboutStation(const string &name_of_the_sta
     }
 }
 
-string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
+std::string CoreOfTimetable::findSuitableRoute(std::string &departure, std::string &arrival)
 {
     departure = "123";                  /// ToDo  Реализовать
     arrival = "321";
@@ -80,9 +80,9 @@ string CoreOfTimetable::findSuitableRoute(string &departure, string &arrival)
 }
 
 // todo unigned int? или unsigned double?
-void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_station, string &what_to_replace)
+void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_station, std::string &what_to_replace)
 {
-    vector<string> Route = getItinerary(choice_route);
+    std::vector<std::string> Route = getItinerary(choice_route);
     choice_station--;
     choice_route--;
 
@@ -96,7 +96,7 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
         Route[choice_station] = what_to_replace;
     }
 
-    string ToPrintToFile;
+    std::string ToPrintToFile;
     for (unsigned i = 0; i < Route.size()-1; i++)
     {
         ToPrintToFile += Route[i] + ',';
@@ -156,7 +156,7 @@ void CoreOfTimetable::deleteRoute(unsigned choice_route)
 // todo unsigned int? или все-таки unsigned double?
 void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned choice_station)
 {
-    vector<string> NewVariantOfString = getItinerary(choice_route);
+    std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
     choice_station--;
 
     // todo здесь сравнение unsigned int с нулем. Всегда дает false
@@ -166,7 +166,7 @@ void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned
     }
 
     NewVariantOfString[choice_station] = "";
-    string ToPrintToFile;
+    std::string ToPrintToFile;
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
         if (NewVariantOfString[i] != "")
@@ -201,11 +201,11 @@ void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned
 }
 
 // todo unigned int? или unsigned double?
-void CoreOfTimetable::addStationInItinerary(unsigned choice_route, string &what_to_add)
+void CoreOfTimetable::addStationInItinerary(unsigned choice_route, std::string &what_to_add)
 {
-    vector<string> NewVariantOfString = getItinerary(choice_route);
+    std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
     NewVariantOfString.push_back(what_to_add);
-    string ToPrintToFile;
+    std::string ToPrintToFile;
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
         ToPrintToFile += NewVariantOfString[i] + ',';
@@ -230,14 +230,14 @@ void CoreOfTimetable::addStationInItinerary(unsigned choice_route, string &what_
     DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::addInformationAboutStation(string &name_of_the_station, string &station_description)
+void CoreOfTimetable::addInformationAboutStation(std::string &name_of_the_station, std::string &station_description)
 {
     DataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
 }
 
-void CoreOfTimetable::removeInformationAboutStation(const string &what_station_to_remove)
+void CoreOfTimetable::removeInformationAboutStation(const std::string &what_station_to_remove)
 {
-    string new_what_station_to_remove;
+    std::string new_what_station_to_remove;
     for(char j : what_station_to_remove)
     {
         if (j == '~')
@@ -275,7 +275,7 @@ unsigned CoreOfTimetable::howManyRoutes()
     return how_many_routes;
 }
 
-vector<string> CoreOfTimetable::getAllItemWhichHaveDescription()
+std::vector<std::string> CoreOfTimetable::getAllItemWhichHaveDescription()
 {
     return DataSetOfInfoStation.getAllItem();
 }

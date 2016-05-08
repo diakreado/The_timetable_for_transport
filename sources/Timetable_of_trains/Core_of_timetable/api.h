@@ -30,7 +30,7 @@ public:
      * @param number_of_the_route - номер маршрута
      * @return Маршрут поезда в формате vector<string> (массив названий станций)
      */
-    virtual vector<string> getItinerary(int number_of_the_route) = 0;
+    virtual std::vector<std::string> getItinerary(int number_of_the_route) = 0;
 
     /**
      * @brief Используется для более удобного вывода информации о станции
@@ -38,7 +38,7 @@ public:
      * @return Информация о станции в формате string
      */
     //todo Здесь навзвание станции строкой, а ниже по номеру. Лучше все привести к одному виду.
-    virtual string getInformationAboutStation(const string &name_of_the_station) = 0;
+    virtual std::string getInformationAboutStation(const std::string &name_of_the_station) = 0;
 
     /**
      * @brief Изменение маршрута поезда
@@ -48,7 +48,7 @@ public:
      */
     //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
     //todo Обычно просто unsigned не используется.
-    virtual void changeItinerary(unsigned choice_route,unsigned choice_station, string &what_to_replace) = 0;
+    virtual void changeItinerary(unsigned choice_route,unsigned choice_station, std::string &what_to_replace) = 0;
 
     /**
      * @brief Удалить станцию из определённого маршрута
@@ -64,7 +64,7 @@ public:
      * @param choice_route - номер маршрута, который нужно изменить
      * @param what_to_add - что нужно поставить взамен
      */
-    virtual void addStationInItinerary(unsigned choice_route, string &what_to_add) = 0;
+    virtual void addStationInItinerary(unsigned choice_route, std::string &what_to_add) = 0;
 
     /**
      * @brief Добавляет информацию о новом маршруте в контейнеры
@@ -72,14 +72,14 @@ public:
      * @param station_description - описание маршрута
      */
     //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
-    virtual void addInformationAboutStation(string &name_of_the_station, string &station_description) = 0;
+    virtual void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) = 0;
 
     /**
      * @brief Удаление информации о станции из расписания
      * @param what_station_to_remove - название станции, которую нужно удалить
      */
     //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
-    virtual void removeInformationAboutStation(const string &what_station_to_remove)= 0;
+    virtual void removeInformationAboutStation(const std::string &what_station_to_remove)= 0;
 
     /**
      * @param departure - станция отправления
@@ -87,7 +87,7 @@ public:
      * @return Возвращяет подходящий маршрут
      */
     //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
-    virtual string findSuitableRoute(string &departure, string &arrival) = 0;
+    virtual std::string findSuitableRoute(std::string &departure, std::string &arrival) = 0;
 
     /**
      * @brief Добавить новый маршурт в таблицу
@@ -116,7 +116,7 @@ public:
     /**
      * @return Возвращяет все элементы из контейнера, свзяанного с описанием станций
      */
-    virtual vector<string> getAllItemWhichHaveDescription() = 0;
+    virtual std::vector<std::string> getAllItemWhichHaveDescription() = 0;
 
     virtual ~API(){}
 };

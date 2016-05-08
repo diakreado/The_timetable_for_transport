@@ -1,26 +1,46 @@
 #include "app.h"
 
+char ConsoleForTimetable::getCharFromConsole()
+{
+    char symbol;
+
+    std::cin >> symbol;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  /// Мешает считать кучу символов(ведь нам нужен один)
+
+    return symbol;
+}
+
+int ConsoleForTimetable::getIntFromConsole()
+{
+    int number;
+
+    std::cin >> number;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  /// Мешает считать кучу символов(ведь нам нужен один)
+
+    return number;
+}
+
 // todo когда так много кода, разделяйте его на смысловые блоки пробельными строками
 void ConsoleForTimetable::definitionOfAdministrator()
 {
-    char answer_about_rights;
-    cout << " Are you the administrator? Y/N" << endl << endl << "-->";
-    // todo во многих местах вы считываете символ. Выделить метод
-    cin >> answer_about_rights;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');       /// Мешает считать кучу символов(ведь нам нужен один)
+    std::cout << " Are you the administrator? Y/N" << std::endl << std::endl << "-->";
+    char answer_about_rights = getCharFromConsole();
+
     if (answer_about_rights == 'Y' or answer_about_rights == 'y')
     {
         Core.issuanceOfRights(administrator);
-        cout << endl << " You got administrator rights" << endl << endl;
+        std::cout << std::endl << " You got administrator rights" << std::endl << std::endl;
     }
     else
     {
         Core.issuanceOfRights(usual_user);
-        cout << endl << " You got rights as a usual user" << endl << endl;
+        std::cout << std::endl << " You got rights as a usual user" << std::endl << std::endl;
     }
-    cout << endl << " Press Enter..." << endl;
-    cin.get();
+
+    std::cout << std::endl << " Press Enter..." << std::endl;
+    std::cin.get();
 }
 
 void ConsoleForTimetable::routeInformation()
@@ -28,38 +48,33 @@ void ConsoleForTimetable::routeInformation()
     unsigned how_many_routes;
     try
     {
-        unsigned choice_of_the_route;
         how_many_routes = Core.howManyRoutes();
-        cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << endl << endl << "-->";
-        cin >> choice_of_the_route;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << endl;
-        vector<string> output_for_console = Core.getItinerary(choice_of_the_route);
+
+        std::cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << std::endl << std::endl << "-->";
+        int choice_of_the_route =  getIntFromConsole();
+        std::cout << std::endl;
+
+        std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
+
         for(unsigned i = 0; i < output_for_console.size(); i++)
         {
-            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+            std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;  /// Выводится в виде: 1.Parnas
         }                                                               ///                    2.Prospekt Prosvescheniya
-        cout << endl;
+        std::cout << std::endl;
     }
-    // todo ловить исключение по ссылке
-    catch(RouteDoesNotExist)
+    catch(RouteDoesNotExist &)
     {
-        cout << " The route does not exist" << endl
-             << endl << " At the moment there are 1-" << how_many_routes << " routes" << endl
-             << endl << " Enter number of the route, for example: 1" << endl;
+        std::cout << " The route does not exist" << std::endl
+             << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
+             << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
     catch(ThereAreNoRoutes)
     {
-        cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
+        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }
-    cout << endl << " Press Enter..." << endl << endl;
-    cin.get();
-}
 
-void ConsoleForTimetable::findTheRoute()
-{
-    return;
+    std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
+    std::cin.get();
 }
 
 void ConsoleForTimetable::informationAboutStation()
@@ -68,28 +83,27 @@ void ConsoleForTimetable::informationAboutStation()
     try
     {
         how_many_routes = Core.howManyRoutes();
-        cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << endl << endl << "-->";
-        unsigned choice_of_the_route;
-        cin >> choice_of_the_route;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << endl;
-        vector<string> output_for_console = Core.getItinerary(choice_of_the_route);
+
+        std::cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << std::endl << std::endl << "-->";
+        int choice_of_the_route = getIntFromConsole();
+        std::cout << std::endl;
+
+        std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
         for(unsigned i = 0; i < output_for_console.size(); i++)
         {
-            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
-        }                                                               ///                    2.Prospekt Prosvescheniya
-        cout << endl;
-        cout << " What station are you interested in?" << endl << endl << "-->";
-        int choice_number_of_the_station;
-        cin >> choice_number_of_the_station;
+            std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;  /// Выводится в виде: 1.Parnas
+        }                                                                           ///   2.Prospekt Prosvescheniya
+        std::cout << std::endl;
+
+        std::cout << " What station are you interested in?" << std::endl << std::endl << "-->";
+        int choice_number_of_the_station = getIntFromConsole();
+        std::cout << std::endl;
+
         choice_number_of_the_station--;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << endl;
-        string choice_name_of_the_station;
-        // todo компилятор говорит что тут сравнение разных типов. Исправьте
-        if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
+        std::string choice_name_of_the_station;
+        int size_of_vector = output_for_console.size();  /// Сделано, потому что иначе компилятор ругается на приведение типов
+
+        if (choice_number_of_the_station >= 0 && choice_number_of_the_station < size_of_vector)
         {
             choice_name_of_the_station = output_for_console[choice_number_of_the_station];
         }
@@ -99,27 +113,27 @@ void ConsoleForTimetable::informationAboutStation()
         }
         try
         {
-            cout << endl << " Information about the station:" << endl << endl << ' ' << choice_name_of_the_station << " : "
-                 << Core.getInformationAboutStation(choice_name_of_the_station) << endl;
+            std::cout << std::endl << " Information about the station:" << std::endl << std::endl << ' ' << choice_name_of_the_station << " : "
+                 << Core.getInformationAboutStation(choice_name_of_the_station) << std::endl;
         }
         catch(StationDoesNotExist)
         {
-            cout << " The station does not exist";
+            std::cout << " The station does not exist";
         }
 
     }
     catch(RouteDoesNotExist)
     {
-        cout << " The route does not exist" << endl
-             << endl << " At the moment there are 1-" << how_many_routes << " routes" << endl
-             << endl << " Enter number of the route, for example: 1" << endl;
+        std::cout << " The route does not exist" << std::endl
+             << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
+             << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
     catch(ThereAreNoRoutes)
     {
-        cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
+        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }
-    cout << endl << endl << " Press Enter..." << endl;
-    cin.get();
+    std::cout << std::endl << std::endl << " Press Enter..." << std::endl;
+    std::cin.get();
 }
 
 void ConsoleForTimetable::changeItinerarys()
@@ -128,24 +142,24 @@ void ConsoleForTimetable::changeItinerarys()
     {
         return;
     }
-    int choice_action_with_route_table;
-    cout << " What do you want to do with route table? ";
+
+    std::cout << " What do you want to do with route table? ";
     try
     {
         unsigned how_many_routes = 0;
         how_many_routes = Core.howManyRoutes();
-        cout << "(There are routes: 1-" << how_many_routes << ')' << endl;
+        std::cout << "(There are routes: 1-" << how_many_routes << ')' << std::endl;
     }
     catch(ThereAreNoRoutes)
     {
-        cout << "(There are routes: 0)" << endl;
+        std::cout << "(There are routes: 0)" << std::endl;
     }
-    cout << " 1.Add route" << endl
-         << " 2.Change route" << endl
-         << " 3.Delete route" << endl << endl << "-->";
-    cin >> choice_action_with_route_table;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    std::cout << " 1.Add route" << std::endl
+              << " 2.Change route" << std::endl
+              << " 3.Delete route" << std::endl << std::endl << "-->";
+
+    int choice_action_with_route_table = getIntFromConsole();
+
     switch(choice_action_with_route_table)
     {
     case 1:
@@ -165,124 +179,117 @@ void ConsoleForTimetable::changeItinerarys()
     }
     default:
     {
-        cout << endl << " You have entered something unclear" << endl;
+        std::cout << std::endl << " You have entered something unclear" << std::endl;
         break;
     }
     }
-    cout << endl << " Press Enter..." << endl << endl;
-    cin.get();
+    std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
+    std::cin.get();
 }
 
 void ConsoleForTimetable::addRoute()
 {
-    cout << endl << " Was created the route " << Core.addRoute() << endl;
+    std::cout << std::endl << " Was created the route " << Core.addRoute() << std::endl;
 }
 
 void ConsoleForTimetable::deleteRoute()
 {
-    unsigned choice_route;
-    cout << endl << " Which route you want to delete" << endl << endl << "-->";
-    cin >> choice_route;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    std::cout << std::endl << " Which route you want to delete" << std::endl << std::endl << "-->";
+    int choice_route = getIntFromConsole();
+
     try
     {
         Core.deleteRoute(choice_route);
-        cout << endl << " The route " << choice_route << " was successfully deleted" << endl;
+        std::cout << std::endl << " The route " << choice_route << " was successfully deleted" << std::endl;
     }
-    catch(RouteDoesNotExist)
+    catch(RouteDoesNotExist&)
     {
-        cout << endl << " The route does not exist" << endl;
+        std::cout << std::endl << " The route does not exist" << std::endl;
     }
-    cout << endl;
+    std::cout << std::endl;
 }
 
 void ConsoleForTimetable::changeRoute()
 {
     bool how_successful_changes = 1;
-    cout << endl << " Which do route you want to change?" << endl << endl << "-->";
-    unsigned choice_route;
-    cin >> choice_route;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    std::cout << std::endl << " Which do route you want to change?" << std::endl << std::endl << "-->";
+    int choice_route = getIntFromConsole();
+    std::cout << std::endl;
+
     try
     {
-        cout << endl;
-        vector<string> output_for_console = Core.getItinerary(choice_route);
+        std::vector<std::string> output_for_console = Core.getItinerary(choice_route);
         // todo даже по комментарию понятно, что это дублирование кода. Выделить метод, выводящий
         // в консоль станции заданного маршрута
         for(unsigned i = 0; i < output_for_console.size(); i++)
         {
-            cout << ' ' << i+1 << '.' << output_for_console[i] << endl;  /// Выводится в виде: 1.Parnas
+            std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;  /// Выводится в виде: 1.Parnas
         }                                                               ///                    2.Prospekt Prosvescheniya
-        cout << endl;
-        cout << " What do you want?" << endl
-             << " 1.Add station" << endl
-             << " 2.Change station" << endl
-             << " 3.Delete station" << endl
-             << endl << "-->";
-        int choice_action_with_rote;
-        cin >> choice_action_with_rote;
-        cout << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        std::cout << std::endl;
+
+        std::cout << " What do you want?" << std::endl
+             << " 1.Add station" << std::endl
+             << " 2.Change station" << std::endl
+             << " 3.Delete station" << std::endl
+             << std::endl << "-->";
+        int choice_action_with_rote = getIntFromConsole();
+
         switch (choice_action_with_rote)
         {
         case 1:
         {
-            cout << " What station do you want to add?" << endl
-                 << "  (the station will be added to the end of the branch)" <<endl << endl << "-->";
-            string what_to_add;
-            getline(cin,what_to_add);
-            cout << endl << endl;
+            std::cout << " What station do you want to add?" << std::endl
+                 << "  (the station will be added to the end of the branch)" << std::endl << std::endl << "-->";
+
+            std::string what_to_add;
+            std::getline(std::cin,what_to_add);
+            std::cout << std::endl << std::endl;
+
             Core.addStationInItinerary(choice_route,what_to_add);
             break;
         }
         case 2:
         {
-            cout << " What station do you want to change?" << endl << endl << "-->";
-            unsigned choice_station;
-            cin >> choice_station;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << endl << " What do you want to put in replacement?" << endl << endl << "-->";
-            string what_to_replace;
-            getline(cin,what_to_replace);
-            cout << endl << endl;
+            std::cout << " What station do you want to change?" << std::endl << std::endl << "-->";
+            int choice_station = getIntFromConsole();
+
+            std::cout << std::endl << " What do you want to put in replacement?" << std::endl << std::endl << "-->";
+            std::string what_to_replace;
+            std::getline(std::cin,what_to_replace);
+            std::cout << std::endl << std::endl;
+
             Core.changeItinerary(choice_route,choice_station,what_to_replace);
             break;
         }
         case 3:
         {
-            cout << " What station do you want to delete?" << endl << endl << "-->";
-            unsigned choice_station;
-            cin >> choice_station;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::cout << " What station do you want to delete?" << std::endl << std::endl << "-->";
+            int choice_station = getIntFromConsole();
+
             Core.deleteStationFromItinerary(choice_route,choice_station);
             break;
         }
         default:
         {
-            cout << endl << " You have entered something unclear" << endl;
+            std::cout << std::endl << " You have entered something unclear" << std::endl;
             how_successful_changes = 0;
             break;
         }
         }
     }
-    catch(RouteDoesNotExist)
+    catch(RouteDoesNotExist &)
     {
-        cout << " The route does not exist" << endl;
+        std::cout << " The route does not exist" << std::endl;
         how_successful_changes = 0;
     }
-    catch(StationDoesNotExist)
+    catch(StationDoesNotExist &)
     {
-        cout << endl << " The station does not exist" << endl;
+        std::cout << std::endl << " The station does not exist" << std::endl;
         how_successful_changes = 0;
     }
     if (how_successful_changes == 1)
     {
-        cout << endl << " The changes have been well accepted" << endl;
+        std::cout << std::endl << " The changes have been well accepted" << std::endl;
     }
 }
 
@@ -296,40 +303,42 @@ void ConsoleForTimetable::changeInfoAboutStation()
     unsigned how_many_routes = 0;
     try
     {
-        cout << " 1.Add or change information about station" << endl
-             << " 2.Remove information about station" << endl << endl << "-->";
-        int choice_of_action;
-        cin >> choice_of_action;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << endl;
+        std::cout << " 1.Add or change information about station" << std::endl
+             << " 2.Remove information about station" << std::endl << std::endl << "-->";
+
+        int choice_of_action = getIntFromConsole();
+
+        std::cout << std::endl;
+
         switch(choice_of_action)
         {
         case 1:
         {
             how_many_routes = Core.howManyRoutes();
-            cout << " What route are you interested in?  (Enter number: 1-"
-                 << how_many_routes << ')' << endl << endl << "-->";
-            unsigned choice_of_the_route;
-            cin >> choice_of_the_route;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << endl;
-            vector<string> output_for_console = Core.getItinerary(choice_of_the_route);
+            std::cout << " What route are you interested in?  (Enter number: 1-"
+                 << how_many_routes << ')' << std::endl << std::endl << "-->";
+
+            int choice_of_the_route = getIntFromConsole();
+
+            std::cout << std::endl;
+
+            std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
             for(unsigned i = 0; i < output_for_console.size(); i++)
             {
-                cout << ' ' << i+1 << '.' << output_for_console[i] << endl;
+                std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;
             }
-            cout << endl;
-            string name_of_the_route;
-            int choice_number_of_the_station;
-            cout << endl << " Which information about station do you want to change?" << endl << endl << "-->";
-            cin >> choice_number_of_the_station;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::cout << std::endl;
+            std::string name_of_the_route;
+
+            std::cout << std::endl << " Which information about station do you want to change?" << std::endl << std::endl << "-->";
+
+            int choice_number_of_the_station = getIntFromConsole();
+
             choice_number_of_the_station--;
-            // todo компилятор говорит что тут сравнение разных типов. Исправьте
-            if (choice_number_of_the_station >= 0 && choice_number_of_the_station < output_for_console.size())
+
+            int size_of_vector = output_for_console.size();
+
+            if (choice_number_of_the_station >= 0 && choice_number_of_the_station < size_of_vector)
             {
                 name_of_the_route = output_for_console[choice_number_of_the_station];
             }
@@ -337,29 +346,31 @@ void ConsoleForTimetable::changeInfoAboutStation()
             {
                 name_of_the_route = " ";
             }
-            cout << endl << " What is known about the station?" << endl << endl << "-->";
-            string station_description;
-            getline(cin, station_description);
+            std::cout << std::endl << " What is known about the station?" << std::endl << std::endl << "-->";
+            std::string station_description;
+            std::getline(std::cin, station_description);
             Core.addInformationAboutStation(name_of_the_route, station_description);
             break;
 
         }
         case 2:
         {
-            vector<string> AllItemFromTimetable = Core.getAllItemWhichHaveDescription();
+            std::vector<std::string> AllItemFromTimetable = Core.getAllItemWhichHaveDescription();
             for(unsigned i = 0; i < AllItemFromTimetable.size(); i++)
             {
-                cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << endl;
+                std::cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << std::endl;
             }
-            int number_of_what_remove;
-            string what_remove;
-            cout << endl << " What do you want to remove?" << endl << endl << "-->";
-            cin >> number_of_what_remove;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            std::string what_remove;
+            std::cout << std::endl << " What do you want to remove?" << std::endl << std::endl << "-->";
+
+            int number_of_what_remove = getIntFromConsole();
+
             number_of_what_remove--;
-            // todo компилятор говорит что тут сравнение разных типов. Исправьте
-            if (number_of_what_remove >= 0 && number_of_what_remove < AllItemFromTimetable.size())
+
+            int size_of_vector = AllItemFromTimetable.size();
+
+            if (number_of_what_remove >= 0 && number_of_what_remove < size_of_vector)
             {
                 what_remove = AllItemFromTimetable[number_of_what_remove];
             }
@@ -371,32 +382,32 @@ void ConsoleForTimetable::changeInfoAboutStation()
             {
                 Core.removeInformationAboutStation(what_remove);
             }
-            catch(StationDoesNotExist)
+            catch(StationDoesNotExist&)
             {
-                cout << endl << " The station does not exist" << endl;
+                std::cout << std::endl << " The station does not exist" << std::endl;
             }
             break;
         }
         default:
         {
-            cout << " You have entered something unclear" << endl;
+            std::cout << " You have entered something unclear" << std::endl;
             break;
         }
         }
-        cout << endl << " The changes have been well accepted" << endl;
+        std::cout << std::endl << " The changes have been well accepted" << std::endl;
     }
     catch(RouteDoesNotExist)
     {
-        cout << " The route does not exist" << endl
-             << endl << " At the moment there are 1-" << how_many_routes << " routes" << endl
-             << endl << " Enter number of the route, for example: 1" << endl;
+        std::cout << " The route does not exist" << std::endl
+             << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
+             << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
     catch(ThereAreNoRoutes)
     {
-        cout << endl << " At the moment there are no routes, contact the administrator for help" << endl;
+        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }
-    cout << endl << endl << " Press Enter..." << endl << endl;
-    cin.get();
+    std::cout << std::endl << std::endl << " Press Enter..." << std::endl << std::endl;
+    std::cin.get();
 }
 
 void ConsoleForTimetable::saveChanges()
@@ -405,42 +416,40 @@ void ConsoleForTimetable::saveChanges()
     {
         return;
     }
-    cout << endl << " Do you want to save changes? (Y/N)" << endl << endl << "-->";
-    char answer_about_save;
-    cin >> answer_about_save;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    std::cout << std::endl << " Do you want to save changes? (Y/N)" << std::endl << std::endl << "-->";
+
+    char answer_about_save = getCharFromConsole();
+
     if (answer_about_save == 'Y' || answer_about_save == 'y')
     {
         Core.saveChanges();
-        cout << endl << " The information was saved successfully" << endl << endl;
+        std::cout << std::endl << " The information was saved successfully" << std::endl << std::endl;
     }
     else
     {
-         cout << endl << " You refused to save" << endl << endl;
+         std::cout << std::endl << " You refused to save" << std::endl << std::endl;
     }
-    cout << " Press Enter..." << endl;
-    cin.get();
+    std::cout << " Press Enter..." << std::endl;
+    std::cin.get();
 }
 
 bool ConsoleForTimetable::menu()
 {
-    cout << " 1. The route table for trains" << endl
-         << " 2. Information about station" << endl
-         << " 3. Get administrator rights" << endl;
+    std::cout << " 1. The route table for trains" << std::endl
+         << " 2. Information about station" << std::endl
+         << " 3. Get administrator rights" << std::endl;
     if (Core.informationOfTheRights() == administrator)
     {
-        cout << " 4. Change route table for the train" << endl
-             << " 5. Change information about station" << endl
-             << " 6. Save Changes" << endl;
+        std::cout << " 4. Change route table for the train" << std::endl
+             << " 5. Change information about station" << std::endl
+             << " 6. Save Changes" << std::endl;
     }
-    cout << " 0. Exit" << endl << endl;
-    char choice_in_menu;
-    cout << "-->";
-    cin >> choice_in_menu;
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  /// Мешает считать кучу символов(ведь нам нужен один)
-    cout << endl;
+    std::cout << " 0. Exit" << std::endl << std::endl;
+    std::cout << "-->";
+
+    char choice_in_menu = getCharFromConsole();
+
+    std::cout << std::endl;
     switch(choice_in_menu)
     {
     case '1':
