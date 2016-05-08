@@ -1,5 +1,23 @@
 #include "app.h"
 
+ConsoleForTimetable::ConsoleForTimetable()
+{
+    try
+    {
+        while(menu()) {}
+    }
+    catch(std::exception &Error)
+    {
+        std::cout << " Exception :  " << Error.what() << std::endl << std::endl;
+    }
+    catch(...)
+    {
+        std::cout << " Unspecified error" << std::endl << std::endl;
+    }
+
+    std::cout << "  Come back soon!" << std::endl;
+}
+
 char ConsoleForTimetable::getCharFromConsole()
 {
     char symbol;
@@ -22,7 +40,15 @@ int ConsoleForTimetable::getIntFromConsole()
     return number;
 }
 
-// todo когда так много кода, разделяйте его на смысловые блоки пробельными строками
+void ConsoleForTimetable::displayRoute(std::vector<std::string> &output_for_console)
+{
+    for(unsigned i = 0; i < output_for_console.size(); i++)
+    {
+        std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;  /// Выводится в виде: 1.Parnas
+    }                                                               ///                    2.Prospekt Prosvescheniya
+    std::cout << std::endl;
+}
+
 void ConsoleForTimetable::definitionOfAdministrator()
 {
     std::cout << " Are you the administrator? Y/N" << std::endl << std::endl << "-->";
@@ -56,11 +82,7 @@ void ConsoleForTimetable::routeInformation()
 
         std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
 
-        for(unsigned i = 0; i < output_for_console.size(); i++)
-        {
-            std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;  /// Выводится в виде: 1.Parnas
-        }                                                               ///                    2.Prospekt Prosvescheniya
-        std::cout << std::endl;
+        displayRoute(output_for_console);
     }
     catch(RouteDoesNotExist &)
     {
@@ -89,11 +111,8 @@ void ConsoleForTimetable::informationAboutStation()
         std::cout << std::endl;
 
         std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
-        for(unsigned i = 0; i < output_for_console.size(); i++)
-        {
-            std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;  /// Выводится в виде: 1.Parnas
-        }                                                                           ///   2.Prospekt Prosvescheniya
-        std::cout << std::endl;
+
+        displayRoute(output_for_console);
 
         std::cout << " What station are you interested in?" << std::endl << std::endl << "-->";
         int choice_number_of_the_station = getIntFromConsole();
@@ -219,13 +238,8 @@ void ConsoleForTimetable::changeRoute()
     try
     {
         std::vector<std::string> output_for_console = Core.getItinerary(choice_route);
-        // todo даже по комментарию понятно, что это дублирование кода. Выделить метод, выводящий
-        // в консоль станции заданного маршрута
-        for(unsigned i = 0; i < output_for_console.size(); i++)
-        {
-            std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;  /// Выводится в виде: 1.Parnas
-        }                                                               ///                    2.Prospekt Prosvescheniya
-        std::cout << std::endl;
+
+        displayRoute(output_for_console);
 
         std::cout << " What do you want?" << std::endl
              << " 1.Add station" << std::endl
@@ -293,14 +307,12 @@ void ConsoleForTimetable::changeRoute()
     }
 }
 
-// todo очень длинный метод. Попробуйте разбить
 void ConsoleForTimetable::changeInfoAboutStation()
 {
     if (Core.informationOfTheRights() == usual_user)
     {
         return;
     }
-    unsigned how_many_routes = 0;
     try
     {
         std::cout << " 1.Add or change information about station" << std::endl
@@ -314,78 +326,13 @@ void ConsoleForTimetable::changeInfoAboutStation()
         {
         case 1:
         {
-            how_many_routes = Core.howManyRoutes();
-            std::cout << " What route are you interested in?  (Enter number: 1-"
-                 << how_many_routes << ')' << std::endl << std::endl << "-->";
-
-            int choice_of_the_route = getIntFromConsole();
-
-            std::cout << std::endl;
-
-            std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
-            for(unsigned i = 0; i < output_for_console.size(); i++)
-            {
-                std::cout << ' ' << i+1 << '.' << output_for_console[i] << std::endl;
-            }
-            std::cout << std::endl;
-            std::string name_of_the_route;
-
-            std::cout << std::endl << " Which information about station do you want to change?" << std::endl << std::endl << "-->";
-
-            int choice_number_of_the_station = getIntFromConsole();
-
-            choice_number_of_the_station--;
-
-            int size_of_vector = output_for_console.size();
-
-            if (choice_number_of_the_station >= 0 && choice_number_of_the_station < size_of_vector)
-            {
-                name_of_the_route = output_for_console[choice_number_of_the_station];
-            }
-            else
-            {
-                name_of_the_route = " ";
-            }
-            std::cout << std::endl << " What is known about the station?" << std::endl << std::endl << "-->";
-            std::string station_description;
-            std::getline(std::cin, station_description);
-            Core.addInformationAboutStation(name_of_the_route, station_description);
+            addOrChangeInformationAboutStation();
             break;
 
         }
         case 2:
         {
-            std::vector<std::string> AllItemFromTimetable = Core.getAllItemWhichHaveDescription();
-            for(unsigned i = 0; i < AllItemFromTimetable.size(); i++)
-            {
-                std::cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << std::endl;
-            }
-
-            std::string what_remove;
-            std::cout << std::endl << " What do you want to remove?" << std::endl << std::endl << "-->";
-
-            int number_of_what_remove = getIntFromConsole();
-
-            number_of_what_remove--;
-
-            int size_of_vector = AllItemFromTimetable.size();
-
-            if (number_of_what_remove >= 0 && number_of_what_remove < size_of_vector)
-            {
-                what_remove = AllItemFromTimetable[number_of_what_remove];
-            }
-            else
-            {
-                what_remove = " ";
-            }
-            try
-            {
-                Core.removeInformationAboutStation(what_remove);
-            }
-            catch(StationDoesNotExist&)
-            {
-                std::cout << std::endl << " The station does not exist" << std::endl;
-            }
+            removeInformationAboutStation();
             break;
         }
         default:
@@ -399,7 +346,7 @@ void ConsoleForTimetable::changeInfoAboutStation()
     catch(RouteDoesNotExist)
     {
         std::cout << " The route does not exist" << std::endl
-             << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
+             << std::endl << " At the moment there are 1-" << Core.howManyRoutes() << " routes" << std::endl
              << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
     catch(ThereAreNoRoutes)
@@ -408,6 +355,80 @@ void ConsoleForTimetable::changeInfoAboutStation()
     }
     std::cout << std::endl << std::endl << " Press Enter..." << std::endl << std::endl;
     std::cin.get();
+}
+
+void ConsoleForTimetable::addOrChangeInformationAboutStation()
+{
+    std::cout << " What route are you interested in?  (Enter number: 1-"
+         << Core.howManyRoutes() << ')' << std::endl << std::endl << "-->";
+
+    int choice_of_the_route = getIntFromConsole();
+
+    std::cout << std::endl;
+
+    std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
+
+    displayRoute(output_for_console);
+
+    std::string name_of_the_route;
+
+    std::cout << std::endl << " Which information about station do you want to change?" << std::endl << std::endl << "-->";
+
+    int choice_number_of_the_station = getIntFromConsole();
+
+    choice_number_of_the_station--;
+
+    int size_of_vector = output_for_console.size();
+
+    if (choice_number_of_the_station >= 0 && choice_number_of_the_station < size_of_vector)
+    {
+        name_of_the_route = output_for_console[choice_number_of_the_station];
+    }
+    else
+    {
+        name_of_the_route = " ";
+    }
+
+    std::cout << std::endl << " What is known about the station?" << std::endl << std::endl << "-->";
+    std::string station_description;
+    std::getline(std::cin, station_description);
+
+    Core.addInformationAboutStation(name_of_the_route, station_description);
+}
+
+void ConsoleForTimetable::removeInformationAboutStation()
+{
+    std::vector<std::string> AllItemFromTimetable = Core.getAllItemWhichHaveDescription();
+    for(unsigned i = 0; i < AllItemFromTimetable.size(); i++)
+    {
+        std::cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << std::endl;
+    }
+
+    std::string what_remove;
+    std::cout << std::endl << " What do you want to remove?" << std::endl << std::endl << "-->";
+
+    int number_of_what_remove = getIntFromConsole();
+
+    number_of_what_remove--;
+
+    int size_of_vector = AllItemFromTimetable.size();
+
+    if (number_of_what_remove >= 0 && number_of_what_remove < size_of_vector)
+    {
+        what_remove = AllItemFromTimetable[number_of_what_remove];
+    }
+    else
+    {
+        what_remove = " ";
+    }
+    try
+    {
+        Core.removeInformationAboutStation(what_remove);
+    }
+    catch(StationDoesNotExist&)
+    {
+        std::cout << std::endl << " The station does not exist" << std::endl;
+    }
 }
 
 void ConsoleForTimetable::saveChanges()
@@ -438,6 +459,7 @@ bool ConsoleForTimetable::menu()
     std::cout << " 1. The route table for trains" << std::endl
          << " 2. Information about station" << std::endl
          << " 3. Get administrator rights" << std::endl;
+
     if (Core.informationOfTheRights() == administrator)
     {
         std::cout << " 4. Change route table for the train" << std::endl

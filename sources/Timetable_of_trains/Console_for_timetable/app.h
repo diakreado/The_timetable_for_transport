@@ -10,12 +10,16 @@
 class ConsoleForTimetable
 {
 public:
-    /**
-     * @brief Вывод в консоль меню с предоставляемыми возможностями
-     */
-    bool menu();
+
+    ConsoleForTimetable();
 
 private:
+
+    /**
+     * @brief Вывод в консоль меню с предоставляемыми возможностями
+     * @return Возвращяет "fals", когда пользователь хочет выйти из приложения
+     */
+    bool menu();
 
     /**
      * @return Символ считаный из консоли
@@ -26,6 +30,12 @@ private:
      * @return Число считаное из консоли
      */
     int getIntFromConsole();
+
+    /**
+     * @brief Удобный вывод маршрута в консоль
+     * @param Что за маршрут нужно вывести
+     */
+    void displayRoute(std::vector<std::string> &output_for_console);
 
     /**
      * @brief В зависимости от запрашиваемой станции, печатает информацию о ней
@@ -55,6 +65,16 @@ private:
      * Добавить информацию о станции, удалить её
      */
     void changeInfoAboutStation();
+
+    /**
+     * @brief Добавить информацию о станции
+     */
+    void addOrChangeInformationAboutStation();
+
+    /**
+     * @brief Удалить информацию о станции
+     */
+    void removeInformationAboutStation();
 
     /**
      * @brief Предоставляет пользователю возможность изменить конкретный маршрут

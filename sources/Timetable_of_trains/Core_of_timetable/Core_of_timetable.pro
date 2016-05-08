@@ -9,8 +9,7 @@ QT       -= gui
 TARGET = Core_of_timetable
 TEMPLATE = lib
 
-CONFIG += staticlib
-CONFIG += c++11
+CONFIG += staticlib c++11
 QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += \
