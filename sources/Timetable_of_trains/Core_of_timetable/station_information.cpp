@@ -2,27 +2,30 @@
 
 void FileStationInformation::readingFromFile()  noexcept
 {
-    std::ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
-    if (!inputFile_for_reading.is_open())
-    // todo может быть, бросать исключение
+    std::ifstream inputFile_for_reading("metro_Saint-Petersburg_station_info.txt");
+
+    if (!inputFile_for_reading.is_open())        
     {
         return;
     }
+
+    // todo может быть, бросать исключение
+    /// Зачем бросать исключение? Ведь если файла нет, это не плохо. Мы просто считаем, что сохранённой информации нет.
+    /// Раньше я бросал исключение, но в связи с тем, что оно никак не обрабатывалось, я отказался от этого.
+
     std::string LineFromFile;
     std::string PartOfTheLine;
-    // todo вы уверены, что вам нужна эта строчка? вы ее нигде не используйте
-    // todo в любом, случае переименовать
-    std::string Pustota;
-    std::getline(inputFile_for_reading, Pustota);      /// В этой строчке находится информация о маршрутах, она уже считана
+
     std::getline(inputFile_for_reading, LineFromFile);
     for (unsigned i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
         {
             FileData.push_back(PartOfTheLine);      /// Здесь происходят действия аналогичные тем, что происходили
-            PartOfTheLine = "";                    ///  в file_route.cpp
+            PartOfTheLine = "";                    ///  в route_information.cpp
                                                    // todo если это так, то, может быть, вынести отдельный метод
-                                                   // в базовый класс. Файла file_route.cpp нет
+                                                   // в базовый класс.
+                                                 /// Я ещё подумаю об этом
         }
         else
         {
@@ -34,20 +37,21 @@ void FileStationInformation::readingFromFile()  noexcept
     std::string buffer;
     std::string name_of_buffer;
     std::string value_of_buffer;
+
     for(unsigned i = 0; i < FileData.size(); i++)
     {
         buffer = FileData[i];
         name_of_buffer = "";
         value_of_buffer = "";
-        bool what_part = bool (part_of_buffer::name);
+        part_of_buffer what_part = part_of_buffer::name;
         for(unsigned j = 0; j < buffer.size(); j++)            /// Идёт заполение контейнера map
         {
             if (buffer[j] == '~')
             {
-                what_part = bool (part_of_buffer::value);                    ///  отделяются имя и значение
+                what_part = part_of_buffer::value;                    ///  отделяются имя и значение
                 j++;
             }
-            if (what_part == bool (part_of_buffer::name))
+            if (what_part == part_of_buffer::name)
             {
                 name_of_buffer += buffer[j];
             }
@@ -83,15 +87,15 @@ void FileStationInformation::deleteBlockFromLine(const std::string &by_what_name
     {
         buffer = FileData[i];
         name_of_buffer = "";
-        bool what_part = bool (part_of_buffer::name);
+        part_of_buffer what_part = part_of_buffer::name;
         for(unsigned j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
-                what_part = bool (part_of_buffer::value);
+                what_part = part_of_buffer::value;
                 j++;
             }
-            if (what_part == bool (part_of_buffer::name))
+            if (what_part == part_of_buffer::name)
             {
                 name_of_buffer += buffer[j];
             }
@@ -114,16 +118,19 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
     {                                                    /// Проверяется содерижтся ли такой элемент в FileData или нет
         buffer = FileData[i];
         name_of_buffer = "";
-        bool what_part = bool (part_of_buffer::name);
+        part_of_buffer what_part = part_of_buffer::name;
+
         // todo этот цикл for встречается в нескольких методах, постараться выделить метод
+        /// Сделаю
+
         for(unsigned j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
-                what_part = bool (part_of_buffer::value);
+                what_part = part_of_buffer::value;
                 j++;
             }
-            if (what_part == bool (part_of_buffer::name))
+            if (what_part == part_of_buffer::name)
             {
                 name_of_buffer += buffer[j];
             }
@@ -145,27 +152,26 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
 
 void FileStationInformation::saveChanges() noexcept
 {
-    std::ofstream inputFileForChangeTimetable;
-    inputFileForChangeTimetable.open(("metro_Saint-Petersburg.txt"),std::ios::app);
+    std::ofstream rewriteFileWithInformationAboutStation("metro_Saint-Petersburg_station_info.txt");
 
-    inputFileForChangeTimetable << std::endl;
-
-    for(unsigned i = 0; i < FileData.size(); i++)
+    rewriteFileWithInformationAboutStation << FileData[0];        /// В файл печатается первый элемент(он всегда есть),
+                                                                 ///  а отдельно потому что перед ним не надо ставить '/'
+    for(unsigned i = 1; i < FileData.size(); i++)
     {
         if (FileData[i] != "")
         {
-            inputFileForChangeTimetable << '/' << FileData[i];
+            rewriteFileWithInformationAboutStation << '/' << FileData[i];
         }
         else
         {
             if (i == 0)
             {
                 i++;
-                inputFileForChangeTimetable << FileData[i];
+                rewriteFileWithInformationAboutStation << FileData[i];
             }
         }
     }
-    inputFileForChangeTimetable.close();
+    rewriteFileWithInformationAboutStation.close();
 }
 
 std::vector<std::string> FileStationInformation::getAllItem() noexcept

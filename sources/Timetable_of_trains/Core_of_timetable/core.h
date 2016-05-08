@@ -13,7 +13,7 @@ public:
 
     CoreOfTimetable();
 
-    void issuanceOfRights(const rights_of_customers right) noexcept override;
+    void issuanceOfRights(const rights_of_customers rights) noexcept override;
 
     rights_of_customers informationOfTheRights() const noexcept override;
 
@@ -43,26 +43,11 @@ public:
 
 private:
 
-//todo enum можно использовать как тип
-// what_rights right;
-
-    rights_of_customers right;
+    rights_of_customers rights;
 
     FileRouteInformation DataSetOfInfoRoute;
 
     FileStationInformation DataSetOfInfoStation;
 };
-
-//todo класс лучше вынести в отдельный header (можно без cpp все inline)
-//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
-class ThereAreNoRoutes : public std::exception {};
-
-//todo класс лучше вынести в отдельный header (можно без cpp все inline)
-//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
-class StationDoesNotExist : public std::exception {};
-
-//todo класс лучше вынести в отдельный header (можно без cpp все inline)
-//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
-class RouteDoesNotExist : public std::exception {};
 
 #endif // CORE_OF_TIMETABLE_H

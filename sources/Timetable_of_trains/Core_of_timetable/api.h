@@ -3,6 +3,7 @@
 
 #include "route_information.h"
 #include "station_information.h"
+#include "exception_of_core.h"
 
 enum class rights_of_customers{user = 0, administrator = 1};
 
@@ -17,11 +18,10 @@ public:
      * @brief Выдача прав
      * @param what_rights - какие права нужно выдать
      */
-    virtual void issuanceOfRights(const rights_of_customers right) noexcept = 0;
+    virtual void issuanceOfRights(const rights_of_customers rights) noexcept = 0;
 
     /**
      * @return Информация о правах
-     * todo что значит false, а что true? Распишите поподробнее.
      */
     virtual rights_of_customers informationOfTheRights() const noexcept = 0;
 

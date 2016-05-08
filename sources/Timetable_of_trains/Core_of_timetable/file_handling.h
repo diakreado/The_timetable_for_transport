@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <exception>
+#include "exception_of_core.h"
 
 /**
  *  @brief Абстрактный класс объединяющий взаимодействие с файлами
@@ -33,9 +34,5 @@ protected:
      */
     std::vector<std::string> FileData;
 };
-//todo класс лучше вынести в отдельный header (можно без cpp все inline)
-//todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
-class ItemDoesNotExist : public std::exception {};
-
 
 #endif // FILE_H

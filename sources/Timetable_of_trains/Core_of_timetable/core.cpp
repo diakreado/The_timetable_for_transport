@@ -1,29 +1,26 @@
  #include "core.h"
 
-// todo использовать список инициализации
-CoreOfTimetable::CoreOfTimetable()
+CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
 {
-    right = rights_of_customers::user;
     DataSetOfInfoRoute.readingFromFile();
     DataSetOfInfoStation.readingFromFile();
 }
 
-// todo what_rights --> rights
-void CoreOfTimetable::issuanceOfRights(const rights_of_customers right) noexcept
+void CoreOfTimetable::issuanceOfRights(const rights_of_customers rights) noexcept
 {
-    if (right == rights_of_customers::administrator)
+    if (rights == rights_of_customers::administrator)
     {
-        this->right = rights_of_customers::administrator;
+        this->rights = rights_of_customers::administrator;
     }
     else
     {
-        this->right = rights_of_customers::user;
+        this->rights = rights_of_customers::user;
     }
 }
 
 rights_of_customers CoreOfTimetable::informationOfTheRights() const noexcept
 {
-    return right;
+    return rights;
 }
 
 std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
@@ -50,7 +47,10 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
         Route.push_back(NameOfTheStation);
     }
     // todo мы ловим исключение, чтобы бросить другое? может быть, я не понимаю чего-то
-    // todo в любом случае, ловить исключение по ссылке catch(ItemDoesNotExist &)
+    /// Тут непростая ситуация, класс работающий с файлом не должен знать про маршруты, следовательно RouteDoesNotExist
+    /// он бросать не может, а если не перекидывать то, исключение малоинформативно, в ближайшем будущем будет реализован
+    /// метод у RouteDoesNotExist позволяющий получить какую-нибудь информацию об ошибке
+
     catch(ItemDoesNotExist&)
     {
         throw RouteDoesNotExist();

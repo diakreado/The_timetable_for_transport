@@ -23,6 +23,8 @@ private Q_SLOTS:
     void verifyTimetableChanges();
 
     // todo можно создать отдельный проект для модульных, а функциональые оставить здесь
+    /// Сделаю чуть-чуть попозже
+
     /// Модульные
 
     void checkFileRoute();
@@ -41,6 +43,7 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
 }
 
 // todo очень длинный тест. Может быть, разделить на checkAdd и checkRemove
+/// они тестируются вместе, ведь если я ничего не добавил, то как я буду удалять? А что с длинным тестом делать не знаю
 void Test_for_coreTest::checkAddAndRemoveRoutes()
 {
     QVERIFY_EXCEPTION_THROWN(start_test.howManyRoutes(),ThereAreNoRoutes);
@@ -172,13 +175,12 @@ void Test_for_coreTest::verifyTimetableChanges()
     start_test.addInformationAboutStation(name_of_the_station_2,working_hours_of_the_station_2);
     start_test.addInformationAboutStation(name_of_the_station_3,working_hours_of_the_station_3);
 
-    // todo AllItem --> Stations (например). AllItem - сложно прочитать
-    std::vector<std::string> AllItem;
-    AllItem.push_back("Parnas~9.00-20.20");
-    AllItem.push_back("Devyatkino~6.35 - 23.34");
-    AllItem.push_back("Avtovo~7:55-20:83");
+    std::vector<std::string> Stations;
+    Stations.push_back("Parnas~9.00-20.20");
+    Stations.push_back("Devyatkino~6.35 - 23.34");
+    Stations.push_back("Avtovo~7:55-20:83");
 
-    QCOMPARE(start_test.getAllItemWhichHaveDescription(),AllItem);
+    QCOMPARE(start_test.getAllItemWhichHaveDescription(), Stations);
 
     QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_1),working_hours_of_the_station_1);
     QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_2),working_hours_of_the_station_2);
@@ -187,10 +189,10 @@ void Test_for_coreTest::verifyTimetableChanges()
     start_test.removeInformationAboutStation(name_of_the_station_1);
     start_test.removeInformationAboutStation(name_of_the_station_3);
 
-    AllItem.erase(AllItem.begin());
-    AllItem.erase(AllItem.begin()+2);
+    Stations.erase(Stations.begin());
+    Stations.erase(Stations.begin()+2);
 
-    QCOMPARE(start_test.getAllItemWhichHaveDescription(),AllItem);
+    QCOMPARE(start_test.getAllItemWhichHaveDescription(),Stations);
 
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_1),StationDoesNotExist);
     QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_2),working_hours_of_the_station_2);
