@@ -9,15 +9,15 @@ CoreOfTimetable::CoreOfTimetable()
 }
 
 // todo what_rights --> rights
-void CoreOfTimetable::issuanceOfRights(const int what_rights) noexcept
+void CoreOfTimetable::issuanceOfRights(const rights_of_customers right) noexcept
 {
-    if (what_rights == 1)
+    if (right == rights_of_customers::administrator)
     {
-        right = rights_of_customers::administrator;
+        this->right = rights_of_customers::administrator;
     }
     else
     {
-        right = rights_of_customers::user;
+        this->right = rights_of_customers::user;
     }
 }
 

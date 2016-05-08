@@ -56,12 +56,12 @@ void ConsoleForTimetable::definitionOfAdministrator()
 
     if (answer_about_rights == 'Y' or answer_about_rights == 'y')
     {
-        Core.issuanceOfRights(bool(rights_of_customers::administrator));
+        Core.issuanceOfRights(rights_of_customers::administrator);
         std::cout << std::endl << " You got administrator rights" << std::endl << std::endl;
     }
     else
     {
-        Core.issuanceOfRights(bool(rights_of_customers::user));
+        Core.issuanceOfRights(rights_of_customers::user);
         std::cout << std::endl << " You got rights as a usual user" << std::endl << std::endl;
     }
 

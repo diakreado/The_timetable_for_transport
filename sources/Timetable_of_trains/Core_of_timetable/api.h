@@ -17,9 +17,7 @@ public:
      * @brief Выдача прав
      * @param what_rights - какие права нужно выдать
      */
-    //todo enum можно использовать как тип
-    //virtual void issuanceOfRights(const what_rights rights) = 0;
-    virtual void issuanceOfRights(const int what_rights) noexcept = 0;
+    virtual void issuanceOfRights(const rights_of_customers right) noexcept = 0;
 
     /**
      * @return Информация о правах

@@ -13,7 +13,7 @@ public:
 
     CoreOfTimetable();
 
-    void issuanceOfRights(const int rights_of_customers) noexcept override;
+    void issuanceOfRights(const rights_of_customers right) noexcept override;
 
     rights_of_customers informationOfTheRights() const noexcept override;
 

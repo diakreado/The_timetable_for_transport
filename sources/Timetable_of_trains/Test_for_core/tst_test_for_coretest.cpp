@@ -35,9 +35,8 @@ Test_for_coreTest::Test_for_coreTest()
 
 void Test_for_coreTest::theTestForTheGrantOfRights()
 {
-    // todo сравнение bool с int
     QCOMPARE(start_test.informationOfTheRights(), rights_of_customers::user);
-    start_test.issuanceOfRights( bool(rights_of_customers::administrator));
+    start_test.issuanceOfRights(rights_of_customers::administrator);
     QCOMPARE(start_test.informationOfTheRights(), rights_of_customers::administrator);
 }
 
