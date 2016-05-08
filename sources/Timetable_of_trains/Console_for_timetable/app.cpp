@@ -84,13 +84,13 @@ void ConsoleForTimetable::routeInformation()
 
         displayRoute(output_for_console);
     }
-    catch(RouteDoesNotExist &)
+    catch(RouteDoesNotExist&)
     {
         std::cout << " The route does not exist" << std::endl
              << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
              << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
-    catch(ThereAreNoRoutes)
+    catch(ThereAreNoRoutes&)
     {
         std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }
@@ -135,19 +135,19 @@ void ConsoleForTimetable::informationAboutStation()
             std::cout << std::endl << " Information about the station:" << std::endl << std::endl << ' ' << choice_name_of_the_station << " : "
                  << Core.getInformationAboutStation(choice_name_of_the_station) << std::endl;
         }
-        catch(StationDoesNotExist)
+        catch(StationDoesNotExist&)
         {
             std::cout << " The station does not exist";
         }
 
     }
-    catch(RouteDoesNotExist)
+    catch(RouteDoesNotExist&)
     {
         std::cout << " The route does not exist" << std::endl
              << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
              << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
-    catch(ThereAreNoRoutes)
+    catch(ThereAreNoRoutes&)
     {
         std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }
@@ -169,7 +169,7 @@ void ConsoleForTimetable::changeItinerarys()
         how_many_routes = Core.howManyRoutes();
         std::cout << "(There are routes: 1-" << how_many_routes << ')' << std::endl;
     }
-    catch(ThereAreNoRoutes)
+    catch(ThereAreNoRoutes&)
     {
         std::cout << "(There are routes: 0)" << std::endl;
     }
@@ -291,12 +291,12 @@ void ConsoleForTimetable::changeRoute()
         }
         }
     }
-    catch(RouteDoesNotExist &)
+    catch(RouteDoesNotExist&)
     {
         std::cout << " The route does not exist" << std::endl;
         how_successful_changes = 0;
     }
-    catch(StationDoesNotExist &)
+    catch(StationDoesNotExist&)
     {
         std::cout << std::endl << " The station does not exist" << std::endl;
         how_successful_changes = 0;
@@ -343,13 +343,13 @@ void ConsoleForTimetable::changeInfoAboutStation()
         }
         std::cout << std::endl << " The changes have been well accepted" << std::endl;
     }
-    catch(RouteDoesNotExist)
+    catch(RouteDoesNotExist&)
     {
         std::cout << " The route does not exist" << std::endl
              << std::endl << " At the moment there are 1-" << Core.howManyRoutes() << " routes" << std::endl
              << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
-    catch(ThereAreNoRoutes)
+    catch(ThereAreNoRoutes&)
     {
         std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }

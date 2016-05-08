@@ -47,16 +47,13 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
     QVERIFY_EXCEPTION_THROWN(start_test.howManyRoutes(),ThereAreNoRoutes);
     start_test.addRoute();
 
-    // todo уточнить тип переменной. Не только здесь
-    unsigned what_expected = 1;
+    QCOMPARE(start_test.howManyRoutes(), 1);
+    start_test.addRoute();
 
-    QCOMPARE(start_test.howManyRoutes(),what_expected);
+    QCOMPARE(start_test.howManyRoutes(), 2);
     start_test.addRoute();
-    what_expected = 2;
-    QCOMPARE(start_test.howManyRoutes(),what_expected);
-    start_test.addRoute();
-    what_expected = 3;
-    QCOMPARE(start_test.howManyRoutes(),what_expected);
+
+    QCOMPARE(start_test.howManyRoutes(), 3);
 
     std::vector<std::string> OneElement;
     OneElement.push_back("");
@@ -69,18 +66,17 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
     unsigned which_route_del = 2;
 
     start_test.deleteRoute(which_route_del);
-    what_expected = 2;
-    QCOMPARE(start_test.howManyRoutes(),what_expected);
+
+    QCOMPARE(start_test.howManyRoutes(), 2);
     start_test.deleteRoute(which_route_del);
 
     QVERIFY_EXCEPTION_THROWN(start_test.deleteRoute(which_route_del),RouteDoesNotExist);
 
-    what_expected = 1;
     which_route_del = 1;
-    QCOMPARE(start_test.howManyRoutes(),what_expected);
+    QCOMPARE(start_test.howManyRoutes(), 1);
     start_test.deleteRoute(which_route_del);
-    what_expected = 1;
-    QCOMPARE(start_test.howManyRoutes(),what_expected);
+
+    QCOMPARE(start_test.howManyRoutes(), 1);
 
     number_of_the_route = 1;
     QCOMPARE(start_test.getItinerary(number_of_the_route),OneElement);

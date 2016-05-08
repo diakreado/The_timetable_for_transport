@@ -20,35 +20,33 @@ class CoreOfTimetable : public API
 public:
     CoreOfTimetable();
 
-    void issuanceOfRights(const int what_rights) override;   /// Я что-то делаю не так и у меня на каждый override //todo добавь флаг компилятора -std=c++11
+    void issuanceOfRights(const int what_rights) noexcept override;   /// Я что-то делаю не так и у меня на каждый override //todo добавь флаг компилятора -std=c++11
                                                       ///выходи предупреждениеonly available with -std=c++11 or -std=gnu++11
-    bool informationOfTheRights() const override;
+    bool informationOfTheRights() const noexcept override;
 
     std::vector<std::string> getItinerary(int number_of_the_route) override;
 
     std::string getInformationAboutStation(const std::string &name_of_the_station) override;
 
-    void changeItinerary(unsigned choice_route, unsigned choice_station, std::string &what_to_replace) override;
+    void changeItinerary(unsigned choice_route, int choice_station, std::string &what_to_replace) override;
 
-    void deleteStationFromItinerary(unsigned choice_route, unsigned choice_station) override;
+    void deleteStationFromItinerary(unsigned choice_route, int choice_station) override;
 
     void addStationInItinerary(unsigned choice_route, std::string &what_to_add) override;
 
-    void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) override;
+    void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept override;
 
     void removeInformationAboutStation(const std::string &what_station_to_remove) override;
 
-    std::string findSuitableRoute(std::string &departure, std::string &arrival) override;
+    std::vector<std::string> getAllItemWhichHaveDescription() noexcept override;
 
-    std::vector<std::string> getAllItemWhichHaveDescription() override;
-
-    unsigned addRoute() override;
+    unsigned addRoute() noexcept override;
 
     void deleteRoute(unsigned choice_route) override;
 
-    void saveChanges() override;
+    void saveChanges() noexcept override;
 
-    unsigned howManyRoutes() override;
+    int howManyRoutes() override;
 
 private:
 //todo enum можно использовать как тип

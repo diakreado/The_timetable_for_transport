@@ -18,13 +18,13 @@ public:
      */
     //todo enum можно использовать как тип
     //virtual void issuanceOfRights(const what_rights rights) = 0;
-    virtual void issuanceOfRights(const int what_rights) = 0;
+    virtual void issuanceOfRights(const int what_rights) noexcept = 0;
 
     /**
      * @return Информация о правах
      * todo что значит false, а что true? Распишите поподробнее.
      */
-    virtual bool informationOfTheRights() const = 0;
+    virtual bool informationOfTheRights() const noexcept = 0;
 
     /**
      * @param number_of_the_route - номер маршрута
@@ -48,7 +48,7 @@ public:
      */
     //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
     //todo Обычно просто unsigned не используется.
-    virtual void changeItinerary(unsigned choice_route,unsigned choice_station, std::string &what_to_replace) = 0;
+    virtual void changeItinerary(unsigned choice_route, int choice_station, std::string &what_to_replace) = 0;
 
     /**
      * @brief Удалить станцию из определённого маршрута
@@ -57,7 +57,7 @@ public:
      */
     //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
     //todo Обычно просто unsigned не используется.
-    virtual void deleteStationFromItinerary(unsigned choice_route,unsigned choice_station) = 0;
+    virtual void deleteStationFromItinerary(unsigned choice_route, int choice_station) = 0;
 
     /**
      * @brief Добавить станцию маршрут поезда
@@ -72,7 +72,7 @@ public:
      * @param station_description - описание маршрута
      */
     //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
-    virtual void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) = 0;
+    virtual void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept = 0;
 
     /**
      * @brief Удаление информации о станции из расписания
@@ -82,19 +82,11 @@ public:
     virtual void removeInformationAboutStation(const std::string &what_station_to_remove)= 0;
 
     /**
-     * @param departure - станция отправления
-     * @param arrival  - станция назначения
-     * @return Возвращяет подходящий маршрут
-     */
-    //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
-    virtual std::string findSuitableRoute(std::string &departure, std::string &arrival) = 0;
-
-    /**
      * @brief Добавить новый маршурт в таблицу
      * @return Номер добавленного маршрута
      */
     //todo Обычно просто unsigned не используется.
-    virtual unsigned addRoute() = 0;
+    virtual unsigned addRoute() noexcept = 0;
 
     /**
      * @brief Удаление маршрута
@@ -105,18 +97,18 @@ public:
     /**
      * @brief Сохраняет изменения в файле "metro_Saint-Petersburg"
      */
-    virtual void saveChanges() = 0;
+    virtual void saveChanges() noexcept = 0;
 
     /**
      * @return Возвращяет количество существующих маршрутов
      */
     //todo Обычно просто unsigned не используется.
-    virtual unsigned howManyRoutes() = 0;
+    virtual int howManyRoutes() = 0;
 
     /**
      * @return Возвращяет все элементы из контейнера, свзяанного с описанием станций
      */
-    virtual std::vector<std::string> getAllItemWhichHaveDescription() = 0;
+    virtual std::vector<std::string> getAllItemWhichHaveDescription() noexcept = 0;
 
     virtual ~API(){}
 };

@@ -14,7 +14,7 @@ class FileRouteInformation : public FileHandling
 {
 public:
 
-    void readingFromFile() override;
+    void readingFromFile() noexcept override;
 
     /**
      * @brief Переписать часть строки
@@ -25,27 +25,36 @@ public:
 
     /**
      * @brief Удалить определённую часть отделёную знаками '/'
-     * @param number_of_block номер части, которую нужно удалить
+     * @param number_of_block - номер части, которую нужно удалить
      */
     void deleteBlockFromLine(const int number_of_block);
 
     /**
      * @brief Добавляет блок с информацией в строчку (добавляется в конец)
      */
-    void addNewBlock();
+    void addNewBlock() noexcept;
 
     /**
      * @return Количество частей, на которые разбивается строчка
      */
-    unsigned getNumberOfBlocksInTheLine() const {return FileData.size();}
+    unsigned getNumberOfBlocksInTheLine() const noexcept {return FileData.size();}
 
-    void saveChanges() override;
+    void saveChanges() noexcept override;
 
     /**
      *  @param number_of_the_part - номер запрашиваемой части строки
      *  @return Строчка с необходимыми данными
      */
-    std::string getFileData(int number_of_part) const;
+    std::string getFileData(const int number_of_part);
+
+private:
+
+    /**
+     * @brief Если номер принадлежит несуществующему блоку, то кидается исключение ItemDoesNotExist
+     * @param number_of_block - номер блока
+     */
+    void checkForExistenceOfElement(const int number_of_block);
+
 };
 
 #endif // FILETIMETABLE_H

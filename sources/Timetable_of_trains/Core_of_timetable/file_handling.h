@@ -18,12 +18,12 @@ public:
     /**
      * @brief Читает файл и помещает информацию из него в удобный для вывода контейнер
      */
-    virtual void readingFromFile() = 0;
+    virtual void readingFromFile() noexcept = 0;
 
     /**
      * @brief Сохранить изменения в файле
      */
-    virtual void saveChanges() = 0;
+    virtual void saveChanges() noexcept = 0;
 
     virtual ~FileHandling(){}
 

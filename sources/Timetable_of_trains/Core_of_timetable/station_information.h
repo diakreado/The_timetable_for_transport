@@ -16,14 +16,14 @@ class FileStationInformation : public FileHandling
 {
 public:
 
-    void readingFromFile() override;
+    void readingFromFile() noexcept override;
 
     /**
      * @brief Добавляет блок( отделённый знаками '/') с информацией в общую строчку или изменяет существующий
      * @param name_of_the_block - название блока, которому принадлежит информация
      * @param block_description - информация, которую нужно добавить
      */
-    void addNewBlockOrChangeExisting(std::string &name_of_the_block, std::string &block_description);
+    void addNewBlockOrChangeExisting(std::string &name_of_the_block, std::string &block_description) noexcept;
 
     /**
      *  @param number_of_the_block - номер запрашиваемой части строки
@@ -41,9 +41,9 @@ public:
     /**
      * @return Возвращает все элементы находящиеся в контейнерах
      */
-    std::vector<std::string> getAllItem();
+    std::vector<std::string> getAllItem() noexcept;
 
-    void saveChanges() override;
+    void saveChanges() noexcept override;
 
 private:
 

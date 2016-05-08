@@ -1,6 +1,6 @@
 #include "station_information.h"
 
-void FileStationInformation::readingFromFile()
+void FileStationInformation::readingFromFile()  noexcept
 {
     std::ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
@@ -106,7 +106,7 @@ void FileStationInformation::deleteBlockFromeLine(const std::string &by_what_nam
     }
 }
 
-void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_the_block, std::string &block_description)
+void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_the_block, std::string &block_description)  noexcept
 {
     Timetable[name_of_the_block] = block_description;
 
@@ -147,7 +147,7 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
     }
 }
 
-void FileStationInformation::saveChanges()
+void FileStationInformation::saveChanges() noexcept
 {
     std::ofstream inputFileForChangeTimetable;
     inputFileForChangeTimetable.open(("metro_Saint-Petersburg.txt"),std::ios::app);
@@ -172,7 +172,7 @@ void FileStationInformation::saveChanges()
     inputFileForChangeTimetable.close();
 }
 
-std::vector<std::string> FileStationInformation::getAllItem()
+std::vector<std::string> FileStationInformation::getAllItem() noexcept
 {
     return FileData;
 }

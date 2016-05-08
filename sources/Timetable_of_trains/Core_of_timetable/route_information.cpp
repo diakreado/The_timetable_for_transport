@@ -1,6 +1,6 @@
 #include "route_information.h"
 
-void FileRouteInformation::readingFromFile()
+void FileRouteInformation::readingFromFile() noexcept
 {
     std::ifstream inputFile_for_reading("metro_Saint-Petersburg.txt");
     if (!inputFile_for_reading.is_open())
@@ -31,23 +31,23 @@ void FileRouteInformation::readingFromFile()
 
 void FileRouteInformation::changeBlockFromLine(const int number_of_block, std::string &InExchange)
 {
-    // todo здесь сравнение unsigned int и int, как в других методах
-    // todo дублирование этого ветвления далее.
-    // Может быть, вынести метод, который проверяет number_of_block и бросает исключение
-    if (number_of_block < 0 || number_of_block >= FileData.size())
-    {
-        throw ItemDoesNotExist();
-    }
+    checkForExistenceOfElement(number_of_block);
 
     FileData[number_of_block] = InExchange;
 }
 
-void FileRouteInformation::deleteBlockFromLine(const int number_of_block)
+void FileRouteInformation::checkForExistenceOfElement(const int number_of_block)
 {
-    if (number_of_block < 0 || number_of_block > FileData.size() - 1)
+    int size_of_vector = FileData.size();
+    if (number_of_block < 0 || number_of_block >= size_of_vector)
     {
         throw ItemDoesNotExist();
     }
+}
+
+void FileRouteInformation::deleteBlockFromLine(const int number_of_block)
+{
+    checkForExistenceOfElement(number_of_block);
 
     if (number_of_block != 0)
     {
@@ -59,21 +59,19 @@ void FileRouteInformation::deleteBlockFromLine(const int number_of_block)
     }
 }
 
-void FileRouteInformation::addNewBlock()
+void FileRouteInformation::addNewBlock() noexcept
 {
     FileData.push_back("");
 }
 
-std::string FileRouteInformation::getFileData(int number_of_part) const
+std::string FileRouteInformation::getFileData(const int number_of_part)
 {
-    if (number_of_part < 0 || number_of_part > FileData.size() - 1)
-    {
-        throw ItemDoesNotExist();
-    }
+    checkForExistenceOfElement(number_of_part);
+
     return FileData[number_of_part];
 }
 
-void FileRouteInformation::saveChanges()
+void FileRouteInformation::saveChanges() noexcept
 {
     std::ofstream inputFileForChangeRoute("metro_Saint-Petersburg.txt");
     inputFileForChangeRoute << FileData[0];             /// В файл печатается первый элемент(он всегда есть),

@@ -9,7 +9,7 @@ CoreOfTimetable::CoreOfTimetable()
 }
 
 // todo what_rights --> rights
-void CoreOfTimetable::issuanceOfRights(const int what_rights)
+void CoreOfTimetable::issuanceOfRights(const int what_rights) noexcept
 {
     if (what_rights == 1)
     {
@@ -21,7 +21,7 @@ void CoreOfTimetable::issuanceOfRights(const int what_rights)
     }
 }
 
-bool CoreOfTimetable::informationOfTheRights() const
+bool CoreOfTimetable::informationOfTheRights() const noexcept
 {
     return right;
 }
@@ -38,9 +38,9 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
         for (char symbol_in_string : StringFromFile)
         {
             if (symbol_in_string == ',')
-            {
-                Route.push_back(NameOfTheStation);
-                NameOfTheStation = "";
+            {                                           /// Была получена строчка, в которой через запятую находятся
+                Route.push_back(NameOfTheStation);     ///  название станций, а мы её превращяем в vector<string>, где
+                NameOfTheStation = "";                ///   элемент вектора название станции
             }
             else
             {
@@ -51,7 +51,7 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
     }
     // todo мы ловим исключение, чтобы бросить другое? может быть, я не понимаю чего-то
     // todo в любом случае, ловить исключение по ссылке catch(ItemDoesNotExist &)
-    catch(ItemDoesNotExist)
+    catch(ItemDoesNotExist&)
     {
         throw RouteDoesNotExist();
     }
@@ -65,29 +65,22 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
     {
         return DataSetOfInfoStation.getFileData(name_of_the_station);
     }
-    // todo ловить исключение по ссылке
-    catch(ItemDoesNotExist)
+    catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist();
     }
 }
 
-std::string CoreOfTimetable::findSuitableRoute(std::string &departure, std::string &arrival)
-{
-    departure = "123";                  /// ToDo  Реализовать
-    arrival = "321";
-    return "Hello";
-}
-
 // todo unigned int? или unsigned double?
-void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_station, std::string &what_to_replace)
+void CoreOfTimetable::changeItinerary(unsigned choice_route, int choice_station, std::string &what_to_replace)
 {
     std::vector<std::string> Route = getItinerary(choice_route);
     choice_station--;
     choice_route--;
 
-    // todo здесь сравнение unsigned int с нулем. Всегда дает false
-    if(choice_station >= Route.size() || choice_station < 0)
+    int route_size = Route.size();  /// Чтобы не было конфликта типов при сравнение
+
+    if(choice_station >= route_size || choice_station < 0)
     {
         throw StationDoesNotExist();
     }
@@ -121,14 +114,13 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, unsigned choice_sta
     {
         DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
-    // todo ловить исключение по ссылке
-    catch(ItemDoesNotExist)
+    catch(ItemDoesNotExist&)
     {
         throw RouteDoesNotExist();
     }
 }
 
-unsigned CoreOfTimetable::addRoute()
+unsigned CoreOfTimetable::addRoute() noexcept
 {
     unsigned choice_route = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
 
@@ -146,21 +138,20 @@ void CoreOfTimetable::deleteRoute(unsigned choice_route)
     {
         DataSetOfInfoRoute.deleteBlockFromLine(choice_route);
     }
-    // todo ловить исключение по ссылке
-    catch(ItemDoesNotExist)
+    catch(ItemDoesNotExist&)
     {
         throw RouteDoesNotExist();
     }
 }
 
 // todo unsigned int? или все-таки unsigned double?
-void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, unsigned choice_station)
+void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, int choice_station)
 {
     std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
     choice_station--;
 
-    // todo здесь сравнение unsigned int с нулем. Всегда дает false
-    if(choice_station >= NewVariantOfString.size() || choice_station < 0)
+    int size_of_vector = NewVariantOfString.size();
+    if(choice_station >= size_of_vector || choice_station < 0)
     {
         throw StationDoesNotExist();
     }
@@ -230,7 +221,7 @@ void CoreOfTimetable::addStationInItinerary(unsigned choice_route, std::string &
     DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
-void CoreOfTimetable::addInformationAboutStation(std::string &name_of_the_station, std::string &station_description)
+void CoreOfTimetable::addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept
 {
     DataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
 }
@@ -249,25 +240,24 @@ void CoreOfTimetable::removeInformationAboutStation(const std::string &what_stat
 
     try
     {
-    DataSetOfInfoStation.deleteBlockFromeLine(new_what_station_to_remove);
+        DataSetOfInfoStation.deleteBlockFromeLine(new_what_station_to_remove);
     }
-    // todo ловить исключение по ссылке
-    catch(ItemDoesNotExist)
+    catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist();
     }
 }
 
-void CoreOfTimetable::saveChanges()
+void CoreOfTimetable::saveChanges() noexcept
 {
     DataSetOfInfoRoute.saveChanges();
     DataSetOfInfoStation.saveChanges();
 }
 
 // todo какой тип возвращает метод?
-unsigned CoreOfTimetable::howManyRoutes()
+int CoreOfTimetable::howManyRoutes()
 {
-    unsigned how_many_routes = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
+    int how_many_routes = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
     if (how_many_routes == 0)
     {
         throw ThereAreNoRoutes();
@@ -275,7 +265,7 @@ unsigned CoreOfTimetable::howManyRoutes()
     return how_many_routes;
 }
 
-std::vector<std::string> CoreOfTimetable::getAllItemWhichHaveDescription()
+std::vector<std::string> CoreOfTimetable::getAllItemWhichHaveDescription()  noexcept
 {
     return DataSetOfInfoStation.getAllItem();
 }
