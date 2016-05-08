@@ -56,12 +56,12 @@ void ConsoleForTimetable::definitionOfAdministrator()
 
     if (answer_about_rights == 'Y' or answer_about_rights == 'y')
     {
-        Core.issuanceOfRights(administrator);
+        Core.issuanceOfRights(bool(rights_of_customers::administrator));
         std::cout << std::endl << " You got administrator rights" << std::endl << std::endl;
     }
     else
     {
-        Core.issuanceOfRights(usual_user);
+        Core.issuanceOfRights(bool(rights_of_customers::user));
         std::cout << std::endl << " You got rights as a usual user" << std::endl << std::endl;
     }
 
@@ -157,7 +157,7 @@ void ConsoleForTimetable::informationAboutStation()
 
 void ConsoleForTimetable::changeItinerarys()
 {
-    if (Core.informationOfTheRights() == usual_user)  /// Пользователь не сможет вызвать метод, если он не админ
+    if (Core.informationOfTheRights() == bool(rights_of_customers::user))  /// Пользователь не сможет вызвать метод, если он не админ
     {
         return;
     }
@@ -309,7 +309,7 @@ void ConsoleForTimetable::changeRoute()
 
 void ConsoleForTimetable::changeInfoAboutStation()
 {
-    if (Core.informationOfTheRights() == usual_user)
+    if (Core.informationOfTheRights() == bool(rights_of_customers::user))
     {
         return;
     }
@@ -433,7 +433,7 @@ void ConsoleForTimetable::removeInformationAboutStation()
 
 void ConsoleForTimetable::saveChanges()
 {
-    if (Core.informationOfTheRights() == usual_user)
+    if (Core.informationOfTheRights() == bool(rights_of_customers::user))
     {
         return;
     }
@@ -460,7 +460,7 @@ bool ConsoleForTimetable::menu()
          << " 2. Information about station" << std::endl
          << " 3. Get administrator rights" << std::endl;
 
-    if (Core.informationOfTheRights() == administrator)
+    if (Core.informationOfTheRights() == bool(rights_of_customers::administrator))
     {
         std::cout << " 4. Change route table for the train" << std::endl
              << " 5. Change information about station" << std::endl

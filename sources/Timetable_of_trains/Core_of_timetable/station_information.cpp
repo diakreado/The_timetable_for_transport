@@ -36,20 +36,18 @@ void FileStationInformation::readingFromFile()  noexcept
     std::string value_of_buffer;
     for(unsigned i = 0; i < FileData.size(); i++)
     {
-        // todo what_part --> part
-        int what_part;
         buffer = FileData[i];
         name_of_buffer = "";
         value_of_buffer = "";
-        what_part = name;                                   /// Идёт заполение контейнера map
-        for(unsigned j = 0; j < buffer.size(); j++)
+        bool what_part = bool (part_of_buffer::name);
+        for(unsigned j = 0; j < buffer.size(); j++)            /// Идёт заполение контейнера map
         {
             if (buffer[j] == '~')
             {
-                what_part = value;                    ///  отделяются имя и значение
+                what_part = bool (part_of_buffer::value);                    ///  отделяются имя и значение
                 j++;
             }
-            if (what_part == name)
+            if (what_part == bool (part_of_buffer::name))
             {
                 name_of_buffer += buffer[j];
             }
@@ -71,7 +69,7 @@ std::string FileStationInformation::getFileData(const std::string &number_of_the
     return Timetable[number_of_the_block];
 }
 
-void FileStationInformation::deleteBlockFromeLine(const std::string &by_what_name_to_delete)
+void FileStationInformation::deleteBlockFromLine(const std::string &by_what_name_to_delete)
 {
     if(Timetable[by_what_name_to_delete] == "")
     {
@@ -83,18 +81,17 @@ void FileStationInformation::deleteBlockFromeLine(const std::string &by_what_nam
     std::string name_of_buffer;
     for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находится и удаляется запрашиваемый элемент
     {
-        int what_part;
         buffer = FileData[i];
         name_of_buffer = "";
-        what_part = name;
+        bool what_part = bool (part_of_buffer::name);
         for(unsigned j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
-                what_part = value;
+                what_part = bool (part_of_buffer::value);
                 j++;
             }
-            if (what_part == name)
+            if (what_part == bool (part_of_buffer::name))
             {
                 name_of_buffer += buffer[j];
             }
@@ -115,19 +112,18 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
     int number_of_the_same = -1;
     for(unsigned i = 0; i < FileData.size(); i++)
     {                                                    /// Проверяется содерижтся ли такой элемент в FileData или нет
-        int what_part;
         buffer = FileData[i];
         name_of_buffer = "";
-        what_part = name;
+        bool what_part = bool (part_of_buffer::name);
         // todo этот цикл for встречается в нескольких методах, постараться выделить метод
         for(unsigned j = 0; j < buffer.size(); j++)
         {
             if (buffer[j] == '~')
             {
-                what_part = value;
+                what_part = bool (part_of_buffer::value);
                 j++;
             }
-            if (what_part == name)
+            if (what_part == bool (part_of_buffer::name))
             {
                 name_of_buffer += buffer[j];
             }

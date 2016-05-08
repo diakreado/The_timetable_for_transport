@@ -3,7 +3,7 @@
 // todo использовать список инициализации
 CoreOfTimetable::CoreOfTimetable()
 {
-    right = usual_user;
+    right = bool(rights_of_customers::user);
     DataSetOfInfoRoute.readingFromFile();
     DataSetOfInfoStation.readingFromFile();
 }
@@ -13,11 +13,11 @@ void CoreOfTimetable::issuanceOfRights(const int what_rights) noexcept
 {
     if (what_rights == 1)
     {
-        right = administrator;
+        right = bool(rights_of_customers::administrator);
     }
     else
     {
-        right = usual_user;
+        right = bool(rights_of_customers::user);
     }
 }
 
@@ -71,8 +71,7 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
     }
 }
 
-// todo unigned int? или unsigned double?
-void CoreOfTimetable::changeItinerary(unsigned choice_route, int choice_station, std::string &what_to_replace)
+void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std::string &what_to_replace)
 {
     std::vector<std::string> Route = getItinerary(choice_route);
     choice_station--;
@@ -90,7 +89,7 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, int choice_station,
     }
 
     std::string ToPrintToFile;
-    for (unsigned i = 0; i < Route.size()-1; i++)
+    for (unsigned int i = 0; i < Route.size()-1; i++)
     {
         ToPrintToFile += Route[i] + ',';
     }
@@ -99,7 +98,7 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, int choice_station,
     bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
     while(correct_beginning_of_the_line == 0)
     {
-        unsigned size_of_string = ToPrintToFile.size()-1;
+        unsigned int size_of_string = ToPrintToFile.size()-1;
         if (ToPrintToFile[size_of_string] == ' ')
         {
             ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
@@ -120,9 +119,9 @@ void CoreOfTimetable::changeItinerary(unsigned choice_route, int choice_station,
     }
 }
 
-unsigned CoreOfTimetable::addRoute() noexcept
+int CoreOfTimetable::addRoute() noexcept
 {
-    unsigned choice_route = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
+    int choice_route = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
 
     DataSetOfInfoRoute.addNewBlock();
 
@@ -130,7 +129,7 @@ unsigned CoreOfTimetable::addRoute() noexcept
     return choice_route;
 }
 
-void CoreOfTimetable::deleteRoute(unsigned choice_route)
+void CoreOfTimetable::deleteRoute(int choice_route)
 {
     choice_route--;
 
@@ -144,8 +143,7 @@ void CoreOfTimetable::deleteRoute(unsigned choice_route)
     }
 }
 
-// todo unsigned int? или все-таки unsigned double?
-void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, int choice_station)
+void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_station)
 {
     std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
     choice_station--;
@@ -191,8 +189,7 @@ void CoreOfTimetable::deleteStationFromItinerary(unsigned choice_route, int choi
     DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
-// todo unigned int? или unsigned double?
-void CoreOfTimetable::addStationInItinerary(unsigned choice_route, std::string &what_to_add)
+void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_to_add)
 {
     std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
     NewVariantOfString.push_back(what_to_add);
@@ -240,7 +237,7 @@ void CoreOfTimetable::removeInformationAboutStation(const std::string &what_stat
 
     try
     {
-        DataSetOfInfoStation.deleteBlockFromeLine(new_what_station_to_remove);
+        DataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
     }
     catch(ItemDoesNotExist&)
     {
@@ -254,7 +251,6 @@ void CoreOfTimetable::saveChanges() noexcept
     DataSetOfInfoStation.saveChanges();
 }
 
-// todo какой тип возвращает метод?
 int CoreOfTimetable::howManyRoutes()
 {
     int how_many_routes = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();

@@ -7,7 +7,6 @@
 /**
  * @brief Абстрактный класс, которым описывается функциональность предоставляемая ядром приложения
  */
-// todo дописать noexcept для методов, не генерирующих исключения
 class API
 {
 public:
@@ -47,8 +46,7 @@ public:
      * @param what_to_replace - что нужно поставить взамен
      */
     //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
-    //todo Обычно просто unsigned не используется.
-    virtual void changeItinerary(unsigned choice_route, int choice_station, std::string &what_to_replace) = 0;
+    virtual void changeItinerary(int choice_route, int choice_station, std::string &what_to_replace) = 0;
 
     /**
      * @brief Удалить станцию из определённого маршрута
@@ -56,15 +54,14 @@ public:
      * @param choice_station - номер станции
      */
     //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
-    //todo Обычно просто unsigned не используется.
-    virtual void deleteStationFromItinerary(unsigned choice_route, int choice_station) = 0;
+    virtual void deleteStationFromItinerary(int choice_route, int choice_station) = 0;
 
     /**
      * @brief Добавить станцию маршрут поезда
      * @param choice_route - номер маршрута, который нужно изменить
      * @param what_to_add - что нужно поставить взамен
      */
-    virtual void addStationInItinerary(unsigned choice_route, std::string &what_to_add) = 0;
+    virtual void addStationInItinerary(int choice_route, std::string &what_to_add) = 0;
 
     /**
      * @brief Добавляет информацию о новом маршруте в контейнеры
@@ -85,14 +82,13 @@ public:
      * @brief Добавить новый маршурт в таблицу
      * @return Номер добавленного маршрута
      */
-    //todo Обычно просто unsigned не используется.
-    virtual unsigned addRoute() noexcept = 0;
+    virtual int addRoute() noexcept = 0;
 
     /**
      * @brief Удаление маршрута
      * @param choice_route - номер маршрута, который нужно удалить
      */
-    virtual void deleteRoute(unsigned choice_route) = 0;
+    virtual void deleteRoute(int choice_route) = 0;
 
     /**
      * @brief Сохраняет изменения в файле "metro_Saint-Petersburg"
@@ -102,7 +98,6 @@ public:
     /**
      * @return Возвращяет количество существующих маршрутов
      */
-    //todo Обычно просто unsigned не используется.
     virtual int howManyRoutes() = 0;
 
     /**

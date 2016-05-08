@@ -4,14 +4,11 @@
 #include "file_handling.h"
 #include <map>
 
-//todo убрать What из названия
-//todo использовать enum с областью видимости
-enum what_part_of_buffer{name = 0, value = 1};
+enum class part_of_buffer{name = 0, value = 1};
 
 /**
  *  @brief Класс,для обработки второй строчки файла, в которой находится информация о станциях
  */
-// todo дописать noexcept для методов, не генерирующих исключения
 class FileStationInformation : public FileHandling
 {
 public:
@@ -35,8 +32,7 @@ public:
      *  @brief Удаляет блок с информацией
      *  @param by_what_name_to_delete - название блока, который нужно удалить
      */
-    // todo возможно, в названии метода лишняя буква ...From"e"Line(...)
-    void deleteBlockFromeLine(const std::string &by_what_name_to_delete);
+    void deleteBlockFromLine(const std::string &by_what_name_to_delete);
 
     /**
      * @return Возвращает все элементы находящиеся в контейнерах

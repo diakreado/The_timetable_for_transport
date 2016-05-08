@@ -37,7 +37,7 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
 {
     // todo сравнение bool с int
     QCOMPARE(start_test.informationOfTheRights(), false);
-    start_test.issuanceOfRights(administrator);
+    start_test.issuanceOfRights(bool(rights_of_customers::administrator));
     QCOMPARE(start_test.informationOfTheRights(), true);
 }
 
@@ -284,17 +284,17 @@ void Test_for_coreTest::checkFileTimetable()
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData("Perepodgotovka"), ItemDoesNotExist);
 
     input_data = "Peremenka 1";
-    start_file_test.deleteBlockFromeLine(input_data);
+    start_file_test.deleteBlockFromLine(input_data);
 
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data), ItemDoesNotExist);
 
     input_data = "Peremenka 2";
-    start_file_test.deleteBlockFromeLine(input_data);
+    start_file_test.deleteBlockFromLine(input_data);
 
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data), ItemDoesNotExist);
 
     input_data = "Peremenka 3";
-    start_file_test.deleteBlockFromeLine(input_data);
+    start_file_test.deleteBlockFromLine(input_data);
 
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data), ItemDoesNotExist);
 }
