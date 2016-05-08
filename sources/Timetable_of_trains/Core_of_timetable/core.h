@@ -3,8 +3,6 @@
 
 #include "api.h"
 
-enum class rights_of_customers{user = 0, administrator = 1};
-
 /**
  * @brief Класс в котором содержится основная бизнес-логика приложения
  */
@@ -17,7 +15,7 @@ public:
 
     void issuanceOfRights(const int rights_of_customers) noexcept override;
 
-    bool informationOfTheRights() const noexcept override;
+    rights_of_customers informationOfTheRights() const noexcept override;
 
     std::vector<std::string> getItinerary(int number_of_the_route) override;
 
@@ -47,7 +45,8 @@ private:
 
 //todo enum можно использовать как тип
 // what_rights right;
-    bool right;
+
+    rights_of_customers right;
 
     FileRouteInformation DataSetOfInfoRoute;
 

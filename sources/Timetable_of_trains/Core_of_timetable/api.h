@@ -4,6 +4,8 @@
 #include "route_information.h"
 #include "station_information.h"
 
+enum class rights_of_customers{user = 0, administrator = 1};
+
 /**
  * @brief Абстрактный класс, которым описывается функциональность предоставляемая ядром приложения
  */
@@ -23,7 +25,7 @@ public:
      * @return Информация о правах
      * todo что значит false, а что true? Распишите поподробнее.
      */
-    virtual bool informationOfTheRights() const noexcept = 0;
+    virtual rights_of_customers informationOfTheRights() const noexcept = 0;
 
     /**
      * @param number_of_the_route - номер маршрута

@@ -3,7 +3,7 @@
 // todo использовать список инициализации
 CoreOfTimetable::CoreOfTimetable()
 {
-    right = bool(rights_of_customers::user);
+    right = rights_of_customers::user;
     DataSetOfInfoRoute.readingFromFile();
     DataSetOfInfoStation.readingFromFile();
 }
@@ -13,15 +13,15 @@ void CoreOfTimetable::issuanceOfRights(const int what_rights) noexcept
 {
     if (what_rights == 1)
     {
-        right = bool(rights_of_customers::administrator);
+        right = rights_of_customers::administrator;
     }
     else
     {
-        right = bool(rights_of_customers::user);
+        right = rights_of_customers::user;
     }
 }
 
-bool CoreOfTimetable::informationOfTheRights() const noexcept
+rights_of_customers CoreOfTimetable::informationOfTheRights() const noexcept
 {
     return right;
 }
