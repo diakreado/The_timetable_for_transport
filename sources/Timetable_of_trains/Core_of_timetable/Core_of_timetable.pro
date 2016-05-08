@@ -10,6 +10,7 @@ TARGET = Core_of_timetable
 TEMPLATE = lib
 
 CONFIG += staticlib c++11
+QMAKE_CXXFLAGS += -std=c++0x
 QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += \
