@@ -16,7 +16,7 @@ public:
 
     /**
      * @brief Выдача прав
-     * @param what_rights - какие права нужно выдать
+     * @param rights - какие права нужно выдать
      */
     virtual void issuanceOfRights(const rights_of_customers rights) noexcept = 0;
 
