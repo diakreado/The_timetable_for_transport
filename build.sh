@@ -83,8 +83,11 @@ zip_files() {
 		if [ -e "report/latex/refman.pdf" ]; then
 			cp report/latex/refman.pdf $TITLE/Timetable_of_trainsDoxygen${BUILD_NUMBER}.pdf
 		fi
+		if [ -e "report/metro_Saint-Petersburg_route_info.txt" ]; then 
+			cp report/metro_Saint-Petersburg_route_info.txt $TITLE/metro_Saint-Petersburg_route_info.txt
+		fi
 		if [ -e "report/metro_Saint-Petersburg.txt" ]; then 
-			cp report/metro_Saint-Petersburg.txt $TITLE/metro_Saint-Petersburg.txt
+			cp report/metro_Saint-Petersburg_station_info.txt $TITLE/metro_Saint-Petersburg_station_info.txt
 		fi
 		zip --version
 		zip $TITLE.zip $TITLE/*

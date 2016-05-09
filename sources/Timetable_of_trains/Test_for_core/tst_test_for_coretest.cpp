@@ -17,16 +17,47 @@ private Q_SLOTS:
 
     /// Функциональные
 
+    /**
+     * @brief Тест проверят механизм выдачи прав на администратора или обычного пользователя, после него
+     * пользователь остаёться с правами администратора
+     */
     void theTestForTheGrantOfRights();
+
+    /**
+     * @brief Тест проверяет правильность добавления и удаления маршуров
+     */
     void checkAddAndRemoveRoutes();
+
+    /**
+     * @brief Тест проверяет правильность изменения маршрутов
+     */
     void verifyRouteChanges();
+
+    /**
+     * @brief Тест проверяет правильность изменения информации о станциях
+     */
     void verifyTimetableChanges();
 
+    /**
+     * @brief Этот тест проверяет работоспособность альтернативного получения инормации о
+     * станции через инфомрацию о маршрутах и альтернативный путь добавления новой
+     */
+    void testAlternativeGetOrChangeInfoAboutStation();
+
     // todo можно создать отдельный проект для модульных, а функциональые оставить здесь
+    /// Сделаю чуть-чуть попозже
+
     /// Модульные
 
-    void checkFileRoute();
-    void checkFileTimetable();
+    /**
+     * @brief Тест проверяет правильность работы класса FileRouteInformation
+     */
+    void checkFileRouteInfo();
+
+    /**
+     * @brief Тест проверяет правильность работы класса FileStationInformation
+     */
+    void checkFileStationInfo();
 };
 
 Test_for_coreTest::Test_for_coreTest()
@@ -41,8 +72,11 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
 }
 
 // todo очень длинный тест. Может быть, разделить на checkAdd и checkRemove
+/// Они тестируются вместе, ведь если я ничего не добавил, то как я буду удалять? Я решения не вижу
+
 void Test_for_coreTest::checkAddAndRemoveRoutes()
 {
+
     QVERIFY_EXCEPTION_THROWN(start_test.howManyRoutes(),ThereAreNoRoutes);
     start_test.addRoute();
 
@@ -172,13 +206,12 @@ void Test_for_coreTest::verifyTimetableChanges()
     start_test.addInformationAboutStation(name_of_the_station_2,working_hours_of_the_station_2);
     start_test.addInformationAboutStation(name_of_the_station_3,working_hours_of_the_station_3);
 
-    // todo AllItem --> Stations (например). AllItem - сложно прочитать
-    std::vector<std::string> AllItem;
-    AllItem.push_back("Parnas~9.00-20.20");
-    AllItem.push_back("Devyatkino~6.35 - 23.34");
-    AllItem.push_back("Avtovo~7:55-20:83");
+    std::vector<std::string> Stations;
+    Stations.push_back("Parnas~9.00-20.20");
+    Stations.push_back("Devyatkino~6.35 - 23.34");
+    Stations.push_back("Avtovo~7:55-20:83");
 
-    QCOMPARE(start_test.getAllItemWhichHaveDescription(),AllItem);
+    QCOMPARE(start_test.getAllStationsWhichHaveDescription(), Stations);
 
     QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_1),working_hours_of_the_station_1);
     QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_2),working_hours_of_the_station_2);
@@ -187,22 +220,49 @@ void Test_for_coreTest::verifyTimetableChanges()
     start_test.removeInformationAboutStation(name_of_the_station_1);
     start_test.removeInformationAboutStation(name_of_the_station_3);
 
-    AllItem.erase(AllItem.begin());
-    AllItem.erase(AllItem.begin()+2);
+    Stations.erase(Stations.begin());
+    Stations.erase(Stations.begin()+2);
 
-    QCOMPARE(start_test.getAllItemWhichHaveDescription(),AllItem);
+    QCOMPARE(start_test.getAllStationsWhichHaveDescription(),Stations);
 
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_1),StationDoesNotExist);
     QCOMPARE(start_test.getInformationAboutStation(name_of_the_station_2),working_hours_of_the_station_2);
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_3),StationDoesNotExist);
 
+    start_test.removeInformationAboutStation(name_of_the_station_2);
+
+
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation("Balalayka"),StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(start_test.removeInformationAboutStation("Balalayka"),StationDoesNotExist);
 }
 
+void Test_for_coreTest::testAlternativeGetOrChangeInfoAboutStation()
+{
+    ///  Так как до этого мы уже изменяли информацию, то что-то осталось .
+    ///  На данный момент существует 1 маршрут  и 2-е  станции  1 --> "Parnas" , 2 --> "Prospekt Prosveshenia"
+
+    std::string name_of_the_station = "Parnas";
+    std::string working_hours_of_the_station = "9.00-21.20";
+
+    start_test.addInformationAboutStation(1, 1, working_hours_of_the_station);
+
+    std::string output_string = name_of_the_station + " : " + working_hours_of_the_station;
+
+    QCOMPARE(start_test.getInformationAboutStation(1,1), output_string);
+
+    std::vector<std::string> AllStations = start_test.getAllStationsWhichHaveDescription();
+
+    QCOMPARE(AllStations[0], name_of_the_station + "~" + working_hours_of_the_station);
+
+    start_test.removeInformationAboutStation(1);
+
+    QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(1,1),StationDoesNotExist);
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Test_for_coreTest::checkFileRoute()
+void Test_for_coreTest::checkFileRouteInfo()
 {
     FileRouteInformation start_file_test;
 
@@ -249,12 +309,12 @@ void Test_for_coreTest::checkFileRoute()
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(-1), ItemDoesNotExist);
 }
 
-void Test_for_coreTest::checkFileTimetable()
+void Test_for_coreTest::checkFileStationInfo()
 {
     FileStationInformation start_file_test;
 
     std::vector<std::string> Null_vector;
-    QCOMPARE(start_file_test.getAllItem(), Null_vector);
+    QCOMPARE(start_file_test.getAllElement(), Null_vector);
 
     std::string what_add = "Peremenka 2";
     std::string what_value = "14.00-14.30";

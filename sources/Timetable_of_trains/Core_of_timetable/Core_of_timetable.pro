@@ -23,7 +23,8 @@ HEADERS += \
     api.h \
     station_information.h \
     route_information.h \
-    file_handling.h
+    file_handling.h \
+    exception_of_core.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -1,29 +1,26 @@
  #include "core.h"
 
-// todo использовать список инициализации
-CoreOfTimetable::CoreOfTimetable()
+CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
 {
-    right = rights_of_customers::user;
     DataSetOfInfoRoute.readingFromFile();
     DataSetOfInfoStation.readingFromFile();
 }
 
-// todo what_rights --> rights
-void CoreOfTimetable::issuanceOfRights(const rights_of_customers right) noexcept
+void CoreOfTimetable::issuanceOfRights(const rights_of_customers rights) noexcept
 {
-    if (right == rights_of_customers::administrator)
+    if (rights == rights_of_customers::administrator)
     {
-        this->right = rights_of_customers::administrator;
+        this->rights = rights_of_customers::administrator;
     }
     else
     {
-        this->right = rights_of_customers::user;
+        this->rights = rights_of_customers::user;
     }
 }
 
 rights_of_customers CoreOfTimetable::informationOfTheRights() const noexcept
 {
-    return right;
+    return rights;
 }
 
 std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
@@ -50,7 +47,10 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
         Route.push_back(NameOfTheStation);
     }
     // todo мы ловим исключение, чтобы бросить другое? может быть, я не понимаю чего-то
-    // todo в любом случае, ловить исключение по ссылке catch(ItemDoesNotExist &)
+    /// Тут непростая ситуация, класс работающий с файлом не должен знать про маршруты, следовательно RouteDoesNotExist
+    /// он бросать не может, а если не перекидывать то, исключение малоинформативно, в ближайшем будущем будет реализован
+    /// метод у RouteDoesNotExist позволяющий получить какую-нибудь информацию об ошибке
+
     catch(ItemDoesNotExist&)
     {
         throw RouteDoesNotExist();
@@ -69,6 +69,27 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
     {
         throw StationDoesNotExist();
     }
+}
+
+std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int choice_station)
+{
+    std::vector<std::string> Route = getItinerary(choice_route);
+
+    choice_station--;
+    std::string name_of_the_station = Route[choice_station];
+                                                                    /// Добавляется название станции, так как
+    std::string output_string = name_of_the_station + " : ";       ///  пользователь указывает его не явно
+
+    try               /// действия те же, что и выше но только мы название стаанции получаем из информации о маршрутах
+    {
+        output_string += DataSetOfInfoStation.getFileData(name_of_the_station);
+    }
+    catch(ItemDoesNotExist&)
+    {
+        throw StationDoesNotExist();
+    }
+
+    return output_string;
 }
 
 void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std::string &what_to_replace)
@@ -223,8 +244,51 @@ void CoreOfTimetable::addInformationAboutStation(std::string &name_of_the_statio
     DataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
 }
 
+void CoreOfTimetable::addInformationAboutStation(int choice_route, int choice_station, std::string &station_description)
+{
+    std::vector<std::string> Route = getItinerary(choice_route);
+
+    choice_station--;
+    std::string name_of_the_station = Route[choice_station];
+
+    DataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
+}
+
 void CoreOfTimetable::removeInformationAboutStation(const std::string &what_station_to_remove)
 {
+    std::string new_what_station_to_remove;
+    for(char j : what_station_to_remove)
+    {
+        if (j == '~')
+        {
+            break;
+        }
+        new_what_station_to_remove += j;
+    }
+
+    try
+    {
+        DataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
+    }
+    catch(ItemDoesNotExist&)
+    {
+        throw StationDoesNotExist();
+    }
+}
+
+void CoreOfTimetable::removeInformationAboutStation(int choice_station)
+{
+    std::vector<std::string> AllElement = DataSetOfInfoStation.getAllElement();
+
+    int size_of_vector = AllElement.size();
+    if (choice_station < 1 || choice_station > size_of_vector)
+    {
+        throw StationDoesNotExist();
+    }
+
+    choice_station--;
+    const std::string what_station_to_remove = AllElement[choice_station];
+
     std::string new_what_station_to_remove;
     for(char j : what_station_to_remove)
     {
@@ -261,9 +325,9 @@ int CoreOfTimetable::howManyRoutes()
     return how_many_routes;
 }
 
-std::vector<std::string> CoreOfTimetable::getAllItemWhichHaveDescription()  noexcept
+std::vector<std::string> CoreOfTimetable::getAllStationsWhichHaveDescription()  noexcept
 {
-    return DataSetOfInfoStation.getAllItem();
+    return DataSetOfInfoStation.getAllElement();
 }
 
 

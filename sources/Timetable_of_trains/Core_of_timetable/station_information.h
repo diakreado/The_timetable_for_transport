@@ -7,7 +7,7 @@
 enum class part_of_buffer{name = 0, value = 1};
 
 /**
- *  @brief Класс,для обработки второй строчки файла, в которой находится информация о станциях
+ *  @brief Класс,для обработки файла содержащего информацию о станциях
  */
 class FileStationInformation : public FileHandling
 {
@@ -37,7 +37,7 @@ public:
     /**
      * @return Возвращает все элементы находящиеся в контейнерах
      */
-    std::vector<std::string> getAllItem() noexcept;
+    std::vector<std::string> getAllElement() noexcept;
 
     void saveChanges() noexcept override;
 
@@ -45,8 +45,8 @@ private:
 
     /**
      *  @brief Удобный формат хранения извлечённых данных
+     *  в map ключём храниться название станции, а значением информация о ней (например: время её работы)
      */
-    //todo в комментарии указать, что конкретно хранится в строках
     std::map<std::string,std::string> Timetable;
 };
 
