@@ -13,8 +13,16 @@ class StationDoesNotExist : public std::exception
 public:
     StationDoesNotExist() = default;
 
+    /**
+     * @brief Используется при необходимости передать информацию об ошибке, в том случае, если она в название станции
+     * @param requested - название станции, которая не существует, но была запрошена пользователем
+     */
     StationDoesNotExist(const std::string &requested) : requested_by_customer(requested) {}
 
+    /**
+     * @brief Используется при необходимости передать информацию об ошибке, в том случае, если она в номере станции
+     * @param requested - номер станции, которая не существует, но была запрошена пользователем
+     */
     StationDoesNotExist(int requested)
     {
         std::stringstream print_int;

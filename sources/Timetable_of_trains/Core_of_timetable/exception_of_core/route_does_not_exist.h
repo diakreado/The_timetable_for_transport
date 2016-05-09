@@ -11,8 +11,13 @@
 class RouteDoesNotExist : public std::exception
 {
 public:
+
     RouteDoesNotExist() = default;
 
+    /**
+     * @brief Используется, при необходимости передать информацию об ошибке
+     * @param requested - номер маршрута, который не существует, но был запрошен пользователем
+     */
     RouteDoesNotExist(int requested) : requested_by_customer(requested) {}
 
     /**
