@@ -18,7 +18,7 @@ public:
      * @brief Используется, при необходимости передать информацию об ошибке
      * @param requested - номер маршрута, который не существует, но был запрошен пользователем
      */
-    RouteDoesNotExist(int requested) : requested_by_customer(requested) {}
+    explicit RouteDoesNotExist(int requested) : requested_by_customer(requested) {}
 
     /**
      * @return Возвращяем информацию о том, из-за чего было возбужденно исключение

@@ -17,13 +17,15 @@ public:
      * @brief Используется при необходимости передать информацию об ошибке, в том случае, если она в название станции
      * @param requested - название станции, которая не существует, но была запрошена пользователем
      */
-    StationDoesNotExist(const std::string &requested) : requested_by_customer(requested) {}
+    explicit StationDoesNotExist(const std::string &requested) : requested_by_customer(requested) {}
 
     /**
      * @brief Используется при необходимости передать информацию об ошибке, в том случае, если она в номере станции
      * @param requested - номер станции, которая не существует, но была запрошена пользователем
+     *
+     * Cppсheck предлагает использовать список инициализации, но я не понимаю как
      */
-    StationDoesNotExist(int requested)
+    explicit StationDoesNotExist(int requested)
     {
         std::stringstream print_int;
         print_int << requested;
