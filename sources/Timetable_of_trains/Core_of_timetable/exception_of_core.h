@@ -3,6 +3,9 @@
 
 //todo класс лучше вынести в отдельный header (можно без cpp все inline)
 //todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
+/**
+ * @brief Исключение бросается в том случае, если оказывается, что маршрутов не существует
+ */
 class ThereAreNoRoutes : public std::exception {};
 
 //todo класс лучше вынести в отдельный header (можно без cpp все inline)
