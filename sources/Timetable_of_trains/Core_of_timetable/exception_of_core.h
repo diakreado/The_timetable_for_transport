@@ -20,7 +20,7 @@ class RouteDoesNotExist : public std::exception {};
 //todo было бы не плохо переопредлить метод const char* what() const (он опредлен в классе std::exception)
 class ItemDoesNotExist : public std::exception {};
 
-/// Или было прдложено вынести каждый в отдельный ?
+/// Или было предложено вынести каждый в отдельный ?
 
 /// а методы переопределю, у тех, что выходят за пределы ядра
 

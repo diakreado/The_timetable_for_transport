@@ -176,7 +176,7 @@ void FileStationInformation::saveChanges() noexcept
     rewriteFileWithInformationAboutStation.close();
 }
 
-std::vector<std::string> FileStationInformation::getAllItem() noexcept
+std::vector<std::string> FileStationInformation::getAllElement() noexcept
 {
     return FileData;
 }

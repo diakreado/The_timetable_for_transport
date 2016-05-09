@@ -118,26 +118,14 @@ void ConsoleForTimetable::informationAboutStation()
         int choice_number_of_the_station = getIntFromConsole();
         std::cout << std::endl;
 
-        choice_number_of_the_station--;
-        std::string choice_name_of_the_station;
-        int size_of_vector = output_for_console.size();  /// Сделано, потому что иначе компилятор ругается на приведение типов
-
-        if (choice_number_of_the_station >= 0 && choice_number_of_the_station < size_of_vector)
-        {
-            choice_name_of_the_station = output_for_console[choice_number_of_the_station];
-        }
-        else
-        {
-            choice_name_of_the_station = " ";
-        }
         try
         {
-            std::cout << std::endl << " Information about the station:" << std::endl << std::endl << ' ' << choice_name_of_the_station << " : "
-                 << Core.getInformationAboutStation(choice_name_of_the_station) << std::endl;
-        }
-        catch(StationDoesNotExist&)
-        {
-            std::cout << " The station does not exist";
+            std::cout << std::endl << " Information about the station:" << std::endl << std::endl << ' '
+                      << Core.getInformationAboutStation(choice_of_the_route, choice_number_of_the_station) << std::endl;
+             }
+             catch(StationDoesNotExist&)
+             {
+                 std::cout << " The station does not exist";
         }
 
     }
@@ -259,7 +247,7 @@ void ConsoleForTimetable::changeRoute()
             std::getline(std::cin,what_to_add);
             std::cout << std::endl << std::endl;
 
-            Core.addStationInItinerary(choice_route,what_to_add);
+            Core.addStationInItinerary(choice_route, what_to_add);
             break;
         }
         case 2:
@@ -272,7 +260,7 @@ void ConsoleForTimetable::changeRoute()
             std::getline(std::cin,what_to_replace);
             std::cout << std::endl << std::endl;
 
-            Core.changeItinerary(choice_route,choice_station,what_to_replace);
+            Core.changeItinerary(choice_route, choice_station, what_to_replace);
             break;
         }
         case 3:
@@ -280,7 +268,7 @@ void ConsoleForTimetable::changeRoute()
             std::cout << " What station do you want to delete?" << std::endl << std::endl << "-->";
             int choice_station = getIntFromConsole();
 
-            Core.deleteStationFromItinerary(choice_route,choice_station);
+            Core.deleteStationFromItinerary(choice_route, choice_station);
             break;
         }
         default:
@@ -370,60 +358,32 @@ void ConsoleForTimetable::addOrChangeInformationAboutStation()
 
     displayRoute(output_for_console);
 
-    std::string name_of_the_route;
-
     std::cout << std::endl << " Which information about station do you want to change?" << std::endl << std::endl << "-->";
 
     int choice_number_of_the_station = getIntFromConsole();
-
-    choice_number_of_the_station--;
-
-    int size_of_vector = output_for_console.size();
-
-    if (choice_number_of_the_station >= 0 && choice_number_of_the_station < size_of_vector)
-    {
-        name_of_the_route = output_for_console[choice_number_of_the_station];
-    }
-    else
-    {
-        name_of_the_route = " ";
-    }
 
     std::cout << std::endl << " What is known about the station?" << std::endl << std::endl << "-->";
     std::string station_description;
     std::getline(std::cin, station_description);
 
-    Core.addInformationAboutStation(name_of_the_route, station_description);
+    Core.addInformationAboutStation(choice_of_the_route, choice_number_of_the_station, station_description);
 }
 
 void ConsoleForTimetable::removeInformationAboutStation()
 {
-    std::vector<std::string> AllItemFromTimetable = Core.getAllItemWhichHaveDescription();
+    std::vector<std::string> AllItemFromTimetable = Core.getAllStationsWhichHaveDescription();
     for(unsigned i = 0; i < AllItemFromTimetable.size(); i++)
     {
         std::cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << std::endl;
     }
 
-    std::string what_remove;
     std::cout << std::endl << " What do you want to remove?" << std::endl << std::endl << "-->";
 
     int number_of_what_remove = getIntFromConsole();
 
-    number_of_what_remove--;
-
-    int size_of_vector = AllItemFromTimetable.size();
-
-    if (number_of_what_remove >= 0 && number_of_what_remove < size_of_vector)
-    {
-        what_remove = AllItemFromTimetable[number_of_what_remove];
-    }
-    else
-    {
-        what_remove = " ";
-    }
     try
     {
-        Core.removeInformationAboutStation(what_remove);
+        Core.removeInformationAboutStation(number_of_what_remove);
     }
     catch(StationDoesNotExist&)
     {

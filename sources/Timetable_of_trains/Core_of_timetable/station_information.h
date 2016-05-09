@@ -37,7 +37,7 @@ public:
     /**
      * @return Возвращает все элементы находящиеся в контейнерах
      */
-    std::vector<std::string> getAllItem() noexcept;
+    std::vector<std::string> getAllElement() noexcept;
 
     void saveChanges() noexcept override;
 

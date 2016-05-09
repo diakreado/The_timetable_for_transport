@@ -28,41 +28,57 @@ public:
     /**
      * @param number_of_the_route - номер маршрута
      * @return Маршрут поезда в формате vector<string> (массив названий станций)
+     *
+     * Может быть брошено исключение RouteDoesNotExist
      */
     virtual std::vector<std::string> getItinerary(int number_of_the_route) = 0;
 
     /**
      * @brief Используется для более удобного вывода информации о станции
      * @param name_of_the_station - название станции
-     * @return Информация о станции в формате string
+     * @return Информация о станции в формате string, здесь возвращяется только информация о станции,
+     *  так как название станции заранее известно
+     *
+     * Может быть брошено исключение StationDoesNotExist
      */
-    //todo Здесь навзвание станции строкой, а ниже по номеру. Лучше все привести к одному виду.
-    /// Я подумаю над этим
     virtual std::string getInformationAboutStation(const std::string &name_of_the_station) = 0;
+
+    /**
+     * @brief Используется для более удобного вывода информации о станции, аналог предидущего
+     * @param choice_route - номер маршрута, который нужно изменить
+     * @param choice_station - номер станции
+     * @return Информация о станции в формате string, здесь кроме информации о станции возвращяется и название станции,
+     *  т.е. string  в формате "Parnas : Info", сделанно потому что пользователь может не знать о станции
+     *
+     * Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
+     */
+    virtual std::string getInformationAboutStation(int choice_route, int choice_station) = 0;
 
     /**
      * @brief Изменение маршрута поезда
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      * @param what_to_replace - что нужно поставить взамен
+     *
+     * Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
      */
-    //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
-    /// Я подумаю над этим
     virtual void changeItinerary(int choice_route, int choice_station, std::string &what_to_replace) = 0;
 
     /**
      * @brief Удалить станцию из определённого маршрута
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
+     *
+     * Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
      */
-    //todo Здесь станция указывается номером, а выше строкой. Лучше все привести к одному виду.
-    /// Я подумаю над этим
     virtual void deleteStationFromItinerary(int choice_route, int choice_station) = 0;
 
     /**
      * @brief Добавить станцию маршрут поезда
      * @param choice_route - номер маршрута, который нужно изменить
      * @param what_to_add - что нужно поставить взамен
+     *
+     * Может быть брошено исключение RouteDoesNotExist
      */
     virtual void addStationInItinerary(int choice_route, std::string &what_to_add) = 0;
 
@@ -71,17 +87,36 @@ public:
      * @param name_of_the_station - название маршрута
      * @param station_description - описание маршрута
      */
-    //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
-    /// Я подумаю над этим
     virtual void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept = 0;
+
+    /**
+     * @brief Добавляет информацию о новом маршруте в контейнеры, альтернативный путь, в котором название станции получаем
+     * из информации о маршрутах
+     * @param choice_route - номер маршрута, который нужно изменить
+     * @param choice_station - номер станции
+     * @param station_description - описание маршрута
+     *
+     * Может быть брошено исключение RouteDoesNotExist
+     */
+    virtual void addInformationAboutStation(int choice_route, int choice_station, std::string &station_description) = 0;
+
 
     /**
      * @brief Удаление информации о станции из расписания
      * @param what_station_to_remove - название станции, которую нужно удалить
+     *
+     * Может быть брошено исключение StationDoesNotExist
      */
-    //todo Все способы обращения к станции лучше привести к одному. Либо строкой, либо по номеру.
-    /// Я подумаю над этим
     virtual void removeInformationAboutStation(const std::string &what_station_to_remove)= 0;
+
+    /**
+     * @brief Удаление информации о станции из расписания
+     * @param choice_station - номер станции, только в данном случае номер маршрута берётся не из информации о маршрутах,
+     * а из списка станций, о которых существует информация (список можно получить с помощью getAllStations...)
+     *
+     * Может быть брошено исключение StationDoesNotExist
+     */
+    virtual void removeInformationAboutStation(int choice_station)= 0;
 
     /**
      * @brief Добавить новый маршурт в таблицу
@@ -92,6 +127,8 @@ public:
     /**
      * @brief Удаление маршрута
      * @param choice_route - номер маршрута, который нужно удалить
+     *
+     * Может быть брошено исключение RouteDoesNotExist
      */
     virtual void deleteRoute(int choice_route) = 0;
 
@@ -102,13 +139,15 @@ public:
 
     /**
      * @return Возвращяет количество существующих маршрутов
+     *
+     * Может быть брошено исключение ThereAreNoRoutes
      */
     virtual int howManyRoutes() = 0;
 
     /**
      * @return Возвращяет все элементы из контейнера, свзяанного с описанием станций
      */
-    virtual std::vector<std::string> getAllItemWhichHaveDescription() noexcept = 0;
+    virtual std::vector<std::string> getAllStationsWhichHaveDescription() noexcept = 0;
 
     virtual ~API(){}
 };

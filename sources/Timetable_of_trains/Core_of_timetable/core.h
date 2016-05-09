@@ -21,6 +21,8 @@ public:
 
     std::string getInformationAboutStation(const std::string &name_of_the_station) override;
 
+    std::string getInformationAboutStation(int choice_route, int choice_station) override;
+
     void changeItinerary(int choice_route, int choice_station, std::string &what_to_replace) override;
 
     void deleteStationFromItinerary(int choice_route, int choice_station) override;
@@ -29,9 +31,13 @@ public:
 
     void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept override;
 
+    void addInformationAboutStation(int choice_route, int choice_station, std::string &station_description) override;
+
     void removeInformationAboutStation(const std::string &what_station_to_remove) override;
 
-    std::vector<std::string> getAllItemWhichHaveDescription() noexcept override;
+    void removeInformationAboutStation(int choice_station) override;
+
+    std::vector<std::string> getAllStationsWhichHaveDescription() noexcept override;
 
     int addRoute() noexcept override;
 
