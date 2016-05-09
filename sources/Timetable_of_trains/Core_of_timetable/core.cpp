@@ -67,7 +67,7 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
     }
     catch(ItemDoesNotExist&)
     {
-        throw StationDoesNotExist();
+        throw StationDoesNotExist(name_of_the_station);
     }
 }
 
@@ -86,7 +86,7 @@ std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int ch
     }
     catch(ItemDoesNotExist&)
     {
-        throw StationDoesNotExist();
+        throw StationDoesNotExist(name_of_the_station);
     }
 
     return output_string;
@@ -102,7 +102,8 @@ void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std:
 
     if(choice_station >= route_size || choice_station < 0)
     {
-        throw StationDoesNotExist();
+        choice_station++;     /// Потому что пользователь вводил именно такое число
+        throw StationDoesNotExist(choice_station);
     }
     else
     {
@@ -170,13 +171,16 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
     choice_station--;
 
     int size_of_vector = NewVariantOfString.size();
+
     if(choice_station >= size_of_vector || choice_station < 0)
     {
-        throw StationDoesNotExist();
+        choice_station++;
+        throw StationDoesNotExist(choice_station);
     }
 
     NewVariantOfString[choice_station] = "";
     std::string ToPrintToFile;
+
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
         if (NewVariantOfString[i] != "")
@@ -184,6 +188,7 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
             ToPrintToFile += NewVariantOfString[i] + ',';
         }
     }
+
     if (NewVariantOfString[NewVariantOfString.size()-1] != "")
     {
         ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
@@ -192,7 +197,9 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
     {
         ToPrintToFile.erase(ToPrintToFile.size()-1);  /// Убрал запятую
     }
+
     bool correct_beginning_of_the_line = 0;
+
     while(correct_beginning_of_the_line == 0)
     {
         unsigned size_of_string;
@@ -206,6 +213,7 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
             correct_beginning_of_the_line = 1;
         }
     }
+
     choice_route--;                                                     /// Потому что отсчёт с нуля
     DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
@@ -213,8 +221,10 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
 void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_to_add)
 {
     std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
+
     NewVariantOfString.push_back(what_to_add);
     std::string ToPrintToFile;
+
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
         ToPrintToFile += NewVariantOfString[i] + ',';
@@ -226,6 +236,7 @@ void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_
     {
         unsigned size_of_string;
         size_of_string = ToPrintToFile.size()-1;
+
         if (ToPrintToFile[size_of_string] == ' ')
         {
             ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
@@ -235,6 +246,7 @@ void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_
             correct_beginning_of_the_line = 1;
         }
     }
+
     choice_route--;                                            /// Потому что отсчёт с нуля
     DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
@@ -272,7 +284,7 @@ void CoreOfTimetable::removeInformationAboutStation(const std::string &what_stat
     }
     catch(ItemDoesNotExist&)
     {
-        throw StationDoesNotExist();
+        throw StationDoesNotExist(what_station_to_remove);
     }
 }
 
@@ -283,7 +295,8 @@ void CoreOfTimetable::removeInformationAboutStation(int choice_station)
     int size_of_vector = AllElement.size();
     if (choice_station < 1 || choice_station > size_of_vector)
     {
-        throw StationDoesNotExist();
+        choice_station++;
+        throw StationDoesNotExist(choice_station);
     }
 
     choice_station--;
@@ -305,7 +318,7 @@ void CoreOfTimetable::removeInformationAboutStation(int choice_station)
     }
     catch(ItemDoesNotExist&)
     {
-        throw StationDoesNotExist();
+        throw StationDoesNotExist(new_what_station_to_remove);
     }
 }
 

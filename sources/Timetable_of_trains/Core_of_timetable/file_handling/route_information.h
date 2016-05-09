@@ -45,7 +45,7 @@ public:
     void saveChanges() noexcept override;
 
     /**
-     *  @param number_of_the_part - номер запрашиваемой части строки
+     *  @param number_of_part - номер запрашиваемой части строки
      *  @return Строчка с необходимыми данными
      */
     std::string getFileData(const int number_of_part);

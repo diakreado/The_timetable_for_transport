@@ -105,35 +105,34 @@ void ConsoleForTimetable::informationAboutStation()
     try
     {
         how_many_routes = Core.howManyRoutes();
-
+        
         std::cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << std::endl << std::endl << "-->";
         int choice_of_the_route = getIntFromConsole();
         std::cout << std::endl;
-
+        
         std::vector<std::string> output_for_console = Core.getItinerary(choice_of_the_route);
-
+        
         displayRoute(output_for_console);
-
+        
         std::cout << " What station are you interested in?" << std::endl << std::endl << "-->";
         int choice_number_of_the_station = getIntFromConsole();
         std::cout << std::endl;
-
+        
         try
         {
             std::cout << std::endl << " Information about the station:" << std::endl << std::endl << ' '
                       << Core.getInformationAboutStation(choice_of_the_route, choice_number_of_the_station) << std::endl;
-             }
-             catch(StationDoesNotExist&)
-             {
-                 std::cout << " The station does not exist";
         }
-
+        catch(StationDoesNotExist& exception)
+        {
+            std::cout << " The station " << '"' << exception.getWhatRequested() << '"' << " does not exist";
+        }
     }
     catch(RouteDoesNotExist&)
     {
         std::cout << " The route does not exist" << std::endl
-             << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
-             << std::endl << " Enter number of the route, for example: 1" << std::endl;
+                  << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
+                  << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
     catch(ThereAreNoRoutes&)
     {
@@ -284,11 +283,13 @@ void ConsoleForTimetable::changeRoute()
         std::cout << " The route does not exist" << std::endl;
         how_successful_changes = 0;
     }
-    catch(StationDoesNotExist&)
+    catch(StationDoesNotExist& exception)
     {
-        std::cout << std::endl << " The station does not exist" << std::endl;
+        std::cout << std::endl << " The station with number "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl;
         how_successful_changes = 0;
     }
+
     if (how_successful_changes == 1)
     {
         std::cout << std::endl << " The changes have been well accepted" << std::endl;
@@ -316,7 +317,6 @@ void ConsoleForTimetable::changeInfoAboutStation()
         {
             addOrChangeInformationAboutStation();
             break;
-
         }
         case 2:
         {
@@ -331,16 +331,22 @@ void ConsoleForTimetable::changeInfoAboutStation()
         }
         std::cout << std::endl << " The changes have been well accepted" << std::endl;
     }
+    catch(StationDoesNotExist& exception)
+    {
+        std::cout << std::endl << " The station with number "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl;
+    }
     catch(RouteDoesNotExist&)
     {
         std::cout << " The route does not exist" << std::endl
-             << std::endl << " At the moment there are 1-" << Core.howManyRoutes() << " routes" << std::endl
-             << std::endl << " Enter number of the route, for example: 1" << std::endl;
+                  << std::endl << " At the moment there are 1-" << Core.howManyRoutes() << " routes" << std::endl
+                  << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
     catch(ThereAreNoRoutes&)
     {
         std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }
+
     std::cout << std::endl << std::endl << " Press Enter..." << std::endl << std::endl;
     std::cin.get();
 }
@@ -381,14 +387,7 @@ void ConsoleForTimetable::removeInformationAboutStation()
 
     int number_of_what_remove = getIntFromConsole();
 
-    try
-    {
-        Core.removeInformationAboutStation(number_of_what_remove);
-    }
-    catch(StationDoesNotExist&)
-    {
-        std::cout << std::endl << " The station does not exist" << std::endl;
-    }
+    Core.removeInformationAboutStation(number_of_what_remove);
 }
 
 void ConsoleForTimetable::saveChanges()
