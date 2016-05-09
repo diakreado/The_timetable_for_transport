@@ -100,6 +100,14 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
 
     QCOMPARE(start_test.getItinerary(number_of_the_route),OneElement);
     QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(4),RouteDoesNotExist);
+    try
+    {
+        start_test.getItinerary(4);
+    }
+    catch(RouteDoesNotExist& exception)
+    {
+        QCOMPARE(exception.getWhatRequested(), 4);
+    }
 
     unsigned which_route_del = 2;
 
@@ -109,6 +117,14 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
     start_test.deleteRoute(which_route_del);
 
     QVERIFY_EXCEPTION_THROWN(start_test.deleteRoute(which_route_del),RouteDoesNotExist);
+    try
+    {
+        start_test.deleteRoute(which_route_del);
+    }
+    catch(RouteDoesNotExist& exception)
+    {
+        QCOMPARE(exception.getWhatRequested(), 2);
+    }
 
     which_route_del = 1;
     QCOMPARE(start_test.howManyRoutes(), 1);

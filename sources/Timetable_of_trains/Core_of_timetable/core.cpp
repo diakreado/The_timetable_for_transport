@@ -53,7 +53,8 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
 
     catch(ItemDoesNotExist&)
     {
-        throw RouteDoesNotExist();
+        number_of_the_route++;  /// Так как пользователь вводил именно это число
+        throw RouteDoesNotExist(number_of_the_route);
     }
 
     return Route;
@@ -137,7 +138,8 @@ void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std:
     }
     catch(ItemDoesNotExist&)
     {
-        throw RouteDoesNotExist();
+        choice_route++;
+        throw RouteDoesNotExist(choice_route);
     }
 }
 
@@ -161,7 +163,8 @@ void CoreOfTimetable::deleteRoute(int choice_route)
     }
     catch(ItemDoesNotExist&)
     {
-        throw RouteDoesNotExist();
+        choice_route++;
+        throw RouteDoesNotExist(choice_route);
     }
 }
 

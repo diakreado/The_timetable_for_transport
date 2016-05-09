@@ -13,26 +13,19 @@ class RouteDoesNotExist : public std::exception
 public:
     RouteDoesNotExist() = default;
 
-    RouteDoesNotExist(const std::string &requested) : requested_by_customer(requested) {}
-
-    RouteDoesNotExist(int requested)
-    {
-        std::stringstream print_int;
-        print_int << requested;
-        requested_by_customer = print_int.str();
-    }
+    RouteDoesNotExist(int requested) : requested_by_customer(requested) {}
 
     /**
      * @return Возвращяем информацию о том, из-за чего было возбужденно исключение
      */
-    std::string getWhatRequested() noexcept {return requested_by_customer;}
+    int getWhatRequested() noexcept {return requested_by_customer;}
 
 private:
 
     /**
      * @brief Здесь храниться информация о том, из-за чего было возбужденно исключение
      */
-    std::string requested_by_customer;
+    int requested_by_customer;
 };
 
 #endif // ROUTE_DOES_NOT_EXIST_H

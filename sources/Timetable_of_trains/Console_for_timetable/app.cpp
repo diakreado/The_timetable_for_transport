@@ -84,9 +84,10 @@ void ConsoleForTimetable::routeInformation()
 
         displayRoute(output_for_console);
     }
-    catch(RouteDoesNotExist&)
+    catch(RouteDoesNotExist& exception)
     {
-        std::cout << " The route does not exist" << std::endl
+        std::cout << " The route "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl
              << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
              << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
@@ -128,9 +129,10 @@ void ConsoleForTimetable::informationAboutStation()
             std::cout << " The station " << '"' << exception.getWhatRequested() << '"' << " does not exist";
         }
     }
-    catch(RouteDoesNotExist&)
+    catch(RouteDoesNotExist& exception)
     {
-        std::cout << " The route does not exist" << std::endl
+        std::cout << " The route "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl
                   << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
                   << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
@@ -208,9 +210,10 @@ void ConsoleForTimetable::deleteRoute()
         Core.deleteRoute(choice_route);
         std::cout << std::endl << " The route " << choice_route << " was successfully deleted" << std::endl;
     }
-    catch(RouteDoesNotExist&)
+    catch(RouteDoesNotExist& exception)
     {
-        std::cout << std::endl << " The route does not exist" << std::endl;
+        std::cout << std::endl << " The route "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl;
     }
     std::cout << std::endl;
 }
@@ -278,9 +281,10 @@ void ConsoleForTimetable::changeRoute()
         }
         }
     }
-    catch(RouteDoesNotExist&)
+    catch(RouteDoesNotExist& exception)
     {
-        std::cout << " The route does not exist" << std::endl;
+        std::cout << " The route "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl;
         how_successful_changes = 0;
     }
     catch(StationDoesNotExist& exception)
@@ -336,9 +340,10 @@ void ConsoleForTimetable::changeInfoAboutStation()
         std::cout << std::endl << " The station with number "
                   << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl;
     }
-    catch(RouteDoesNotExist&)
+    catch(RouteDoesNotExist& exception)
     {
-        std::cout << " The route does not exist" << std::endl
+        std::cout << " The route "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl
                   << std::endl << " At the moment there are 1-" << Core.howManyRoutes() << " routes" << std::endl
                   << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
