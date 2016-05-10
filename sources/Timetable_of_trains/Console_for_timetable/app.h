@@ -1,13 +1,12 @@
 #ifndef CONSOLE_FOR_TIMETABLE_H
 #define CONSOLE_FOR_TIMETABLE_H
 
-#include <core.h>
-#include <algorithm>
+#include "workwithinfo/workwithroutes.h"
+#include "workwithinfo/workwithstations.h"
 
 /**
  * @brief Класс служащий для работы с ядром через консоль
  */
-//todo: слишком много всего в одном классе, надо рассмотреть возможность разделить на несколько классов по зонам ответственности
 class ConsoleForTimetable
 {
 public:
@@ -23,82 +22,28 @@ private:
     bool menu();
 
     /**
-     * @return Символ считаный из консоли
-     */
-    char getCharFromConsole();
-
-    /**
-     * @return Число считаное из консоли
-     */
-    int getIntFromConsole();
-
-    /**
-     * @brief Удобный вывод маршрута в консоль
-     * @param Что за маршрут нужно вывести
-     */
-    void displayRoute(std::vector<std::string> &output_for_console);
-
-    /**
-     * @brief В зависимости от запрашиваемой станции, печатает информацию о ней
-     */
-    void informationAboutStation();
-
-    /**
      * @brief Выдача прав администратора или обычного пользователя
      */
     void definitionOfAdministrator();
 
     /**
-     * @brief Предоставляет информацию о запрашиваемом маршруте
+     * @return Символ считаный из консоли
      */
-    void routeInformation();
+    char getCharFromConsole();
 
-    /// Методы для администратора(доступны только в режиме администратора):
 
-    /**
-     * @brief Предоставляет пользователю возможность изменения маршрутов
-     * Изменить маршрут, удалить маршрут, добавить маршрут
-     */
-    void changeItinerarys();
-
-    /**
-     * @brief Предоставляет пользователю возможность изменения информации о станции
-     * Добавить информацию о станции, удалить её
-     */
-    void changeInfoAboutStation();
-
-    /**
-     * @brief Добавить информацию о станции
-     */
-    void addOrChangeInformationAboutStation();
-
-    /**
-     * @brief Удалить информацию о станции
-     */
-    void removeInformationAboutStation();
-
-    /**
-     * @brief Предоставляет пользователю возможность изменить конкретный маршрут
-     * Добавить, удалить и переименовать станцию
-     */
-    void changeRoute();
-
-    /**
-     * @brief Добавляет новый маршрут(пустой) с номером, на один больше чем последний существующий
-     */
-    void addRoute();
-
-    /**
-     * @brief Удаляет маршрут с указаным номером, причём маршруты чей номер больше указаного сдвигаются вниз
-     */
-    void deleteRoute();
+/// Методы для администратора(доступны только в режиме администратора):
 
     /**
      * @brief Все изменения совершенные пользователем записываются в файл
      */
     void saveChanges();
 
-    CoreOfTimetable Core;
+    CoreOfTimetable core;
+
+    WorkWithRoutes route_info;
+
+    WorkWithStations stations_info;
 };
 
 #endif // CONSOLE_FOR_TIMETABLE_H

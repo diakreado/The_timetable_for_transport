@@ -8,8 +8,8 @@ CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
     //сделать отдельный метод и передавать в него объект, реализиющий получение данных
     //из внешнего источника
 
-    DataSetOfInfoRoute.readingFromFile();
-    DataSetOfInfoStation.readingFromFile();
+    dataSetOfInfoRoute.readingFromFile();
+    dataSetOfInfoStation.readingFromFile();
 }
 
 void CoreOfTimetable::issuanceOfRights(const rights_of_customers rights) noexcept
@@ -36,7 +36,7 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
     std::vector<std::string> Route;
     try
     {
-        std::string StringFromFile = DataSetOfInfoRoute.getFileData(number_of_the_route);
+        std::string StringFromFile = dataSetOfInfoRoute.getFileData(number_of_the_route);
         std::string NameOfTheStation;
         //todo: это бред...
         for (char symbol_in_string : StringFromFile)
@@ -71,7 +71,7 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
 {
     try
     {
-        return DataSetOfInfoStation.getFileData(name_of_the_station);
+        return dataSetOfInfoStation.getFileData(name_of_the_station);
     }
     //TODO: проблема в дизайне, если приходится так перекидывать исключения
     catch(ItemDoesNotExist&)
@@ -84,14 +84,22 @@ std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int ch
 {
     std::vector<std::string> Route = getItinerary(choice_route);
 
+    int size_of_route = Route.size();
+
+    if (choice_station < 1 || choice_station > size_of_route)
+    {
+        throw StationDoesNotExist(choice_station);
+    }
+
     choice_station--;
+
     std::string name_of_the_station = Route[choice_station];
                                                                     /// Добавляется название станции, так как
     std::string output_string = name_of_the_station + " : ";       ///  пользователь указывает его не явно
 
     try               /// действия те же, что и выше но только мы название стаанции получаем из информации о маршрутах
     {
-        output_string += DataSetOfInfoStation.getFileData(name_of_the_station);
+        output_string += dataSetOfInfoStation.getFileData(name_of_the_station);
     }
     //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
@@ -144,7 +152,7 @@ void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_stat
 
     try
     {
-        DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+        dataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
     //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
@@ -156,9 +164,9 @@ void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_stat
 
 int CoreOfTimetable::addRoute() noexcept
 {
-    int choice_route = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
+    int choice_route = dataSetOfInfoRoute.getNumberOfBlocksInTheLine();
 
-    DataSetOfInfoRoute.addNewBlock();
+    dataSetOfInfoRoute.addNewBlock();
 
     choice_route++;
     return choice_route;
@@ -170,7 +178,7 @@ void CoreOfTimetable::deleteRoute(int choice_route)
 
     try
     {
-        DataSetOfInfoRoute.deleteBlockFromLine(choice_route);
+        dataSetOfInfoRoute.deleteBlockFromLine(choice_route);
     }
     //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
@@ -230,7 +238,7 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
     }
 
     choice_route--;                                                     /// Потому что отсчёт с нуля
-    DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+    dataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
 void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_to_add)
@@ -263,12 +271,12 @@ void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_
     }
 
     choice_route--;                                            /// Потому что отсчёт с нуля
-    DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+    dataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
 }
 
 void CoreOfTimetable::addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept
 {
-    DataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
+    dataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
 }
 
 void CoreOfTimetable::addInformationAboutStation(int choice_route, int choice_station, std::string &station_description)
@@ -278,7 +286,7 @@ void CoreOfTimetable::addInformationAboutStation(int choice_route, int choice_st
     choice_station--;
     std::string name_of_the_station = Route[choice_station];
 
-    DataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
+    dataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
 }
 
 void CoreOfTimetable::removeInformationAboutStation(const std::string &what_station_to_remove)
@@ -295,7 +303,7 @@ void CoreOfTimetable::removeInformationAboutStation(const std::string &what_stat
 
     try
     {
-        DataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
+        dataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
     }
     catch(ItemDoesNotExist&)
     {
@@ -307,7 +315,7 @@ void CoreOfTimetable::removeInformationAboutStation(const std::string &what_stat
 void CoreOfTimetable::removeInformationAboutStation(int choice_station)
 {
     //
-    std::vector<std::string> AllElement = DataSetOfInfoStation.getAllElement();
+    std::vector<std::string> AllElement = dataSetOfInfoStation.getAllElement();
 
     int size_of_vector = AllElement.size();
     if (choice_station < 1 || choice_station > size_of_vector)
@@ -332,7 +340,7 @@ void CoreOfTimetable::removeInformationAboutStation(int choice_station)
 
     try
     {
-        DataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
+        dataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
     }
     catch(ItemDoesNotExist&)
     {
@@ -342,13 +350,13 @@ void CoreOfTimetable::removeInformationAboutStation(int choice_station)
 
 void CoreOfTimetable::saveChanges() noexcept
 {
-    DataSetOfInfoRoute.saveChanges();
-    DataSetOfInfoStation.saveChanges();
+    dataSetOfInfoRoute.saveChanges();
+    dataSetOfInfoStation.saveChanges();
 }
 
 int CoreOfTimetable::howManyRoutes()
 {
-    int how_many_routes = DataSetOfInfoRoute.getNumberOfBlocksInTheLine();
+    int how_many_routes = dataSetOfInfoRoute.getNumberOfBlocksInTheLine();
     if (how_many_routes == 0)
     {
         throw ThereAreNoRoutes();
@@ -358,7 +366,7 @@ int CoreOfTimetable::howManyRoutes()
 
 std::vector<std::string> CoreOfTimetable::getAllStationsWhichHaveDescription()  noexcept
 {
-    return DataSetOfInfoStation.getAllElement();
+    return dataSetOfInfoStation.getAllElement();
 }
 
 std::vector<std::string> CoreOfTimetable::findTrack(int num_route_from,int num_station_from,int num_route_to,int num_station_to)
