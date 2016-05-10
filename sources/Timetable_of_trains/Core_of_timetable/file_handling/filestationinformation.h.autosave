@@ -1,7 +1,7 @@
 #ifndef FILESCHEDULE_H
 #define FILESCHEDULE_H
 
-#include "file_handling.h"
+#include "filehandling.h"
 #include <map>
 
 enum class part_of_buffer{name = 0, value = 1};
@@ -10,7 +10,6 @@ enum class part_of_buffer{name = 0, value = 1};
  *  @brief Класс,для обработки файла содержащего информацию о станциях
  */
 
-//TODO: название файла не соответствует названию класса
 //TODO: добавить override
 class FileStationInformation : public FileHandling
 {

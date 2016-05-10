@@ -1,17 +1,15 @@
 #ifndef API_H
 #define API_H
 
-#include "file_handling/route_information.h"
-#include "file_handling/station_information.h"
+#include "file_handling/file_route_information.h"
+#include "file_handling/file_station_information.h"
 #include "exception_of_core/exception_of_core.h"
 
-//todo если вы считаете нужным указывать какие исключения могут быть выброшены,
-//то лучше указать это в сигнатуре, используя спецификатор
-
 //todo используйте спецификатор const для параметров метода, где это возможно
+/// Я использую, просто часто часто параметры изменяются, например когда передётся номер станции, то нужно из него вычесть
+/// еденицу, так как польззователь не должен знать про то, что отсчёт с 0 или это делать в консоли?
 
-//todo Названия типов лучше писать с большой буквы
-enum class rights_of_customers{user = 0, administrator = 1};
+enum class Rights_of_customers{user = 0, administrator = 1};
 
 /**
  * @brief Абстрактный класс, которым описывается функциональность предоставляемая ядром приложения
@@ -24,21 +22,17 @@ public:
      * @brief Выдача прав
      * @param rights - какие права нужно выдать
      */
-    //todo переименовать метод, для названий методов лучше использовать глаголы.
-    virtual void issuanceOfRights(const rights_of_customers rights) noexcept = 0;
+    virtual void putOfRights(const Rights_of_customers rights) noexcept = 0;
 
     /**
      * @return Информация о правах
      */
-    //todo переименовать метод, для названий методов лучше использовать глаголы.
-    //типа getRights
-    virtual rights_of_customers informationOfTheRights() const noexcept = 0;
+    virtual Rights_of_customers getInformationOfTheRights() const noexcept = 0;
 
     /**
      * @param number_of_the_route - номер маршрута
      * @return Маршрут поезда в формате vector<string> (массив названий станций)
-     *
-     * Может быть брошено исключение RouteDoesNotExist
+     * @throws Может быть брошено исключение RouteDoesNotExist
      */
     virtual std::vector<std::string> getItinerary(int number_of_the_route) = 0;
 
@@ -47,8 +41,7 @@ public:
      * @param name_of_the_station - название станции
      * @return Информация о станции в формате string, здесь возвращяется только информация о станции,
      *  так как название станции заранее известно
-     *
-     * Может быть брошено исключение StationDoesNotExist
+     * @throws Может быть брошено исключение StationDoesNotExist
      */
     virtual std::string getInformationAboutStation(const std::string &name_of_the_station) = 0;
 
@@ -58,8 +51,7 @@ public:
      * @param choice_station - номер станции
      * @return Информация о станции в формате string, здесь кроме информации о станции возвращяется и название станции,
      *  т.е. string  в формате "Parnas : Info", сделанно потому что пользователь может не знать о станции
-     *
-     * Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
+     * @throws Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
      */
     virtual std::string getInformationAboutStation(int choice_route, int choice_station) = 0;
 
@@ -68,8 +60,7 @@ public:
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      * @param what_to_replace - что нужно поставить взамен
-     *
-     * Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
+     * @throws Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
      */
     virtual void changeStationInItinerary(int choice_route, int choice_station, std::string &what_to_replace) = 0;
 
@@ -77,8 +68,7 @@ public:
      * @brief Удалить станцию из определённого маршрута
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
-     *
-     * Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
+     * @throws Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
      */
     virtual void deleteStationFromItinerary(int choice_route, int choice_station) = 0;
 
@@ -86,8 +76,7 @@ public:
      * @brief Добавить станцию маршрут поезда
      * @param choice_route - номер маршрута, который нужно изменить
      * @param what_to_add - что нужно добавить
-     *
-     * Может быть брошено исключение RouteDoesNotExist
+     * @throws Может быть брошено исключение RouteDoesNotExist
      */
     virtual void addStationInItinerary(int choice_route, std::string &what_to_add) = 0;
 
@@ -104,8 +93,7 @@ public:
      * @param choice_route - номер маршрута, который нужно изменить
      * @param choice_station - номер станции
      * @param station_description - описание маршрута
-     *
-     * Может быть брошено исключение RouteDoesNotExist
+     * @throws Может быть брошено исключение RouteDoesNotExist
      */
     virtual void addInformationAboutStation(int choice_route, int choice_station, std::string &station_description) = 0;
 
@@ -113,8 +101,7 @@ public:
     /**
      * @brief Удаление информации о станции из расписания
      * @param what_station_to_remove - название станции, которую нужно удалить
-     *
-     * Может быть брошено исключение StationDoesNotExist
+     * @throws Может быть брошено исключение StationDoesNotExist
      */
     virtual void removeInformationAboutStation(const std::string &what_station_to_remove)= 0;
 
@@ -122,8 +109,7 @@ public:
      * @brief Удаление информации о станции из расписания
      * @param choice_station - номер станции, только в данном случае номер маршрута берётся не из информации о маршрутах,
      * а из списка станций, о которых существует информация (список можно получить с помощью getAllStations...)
-     *
-     * Может быть брошено исключение StationDoesNotExist
+     * @throws Может быть брошено исключение StationDoesNotExist
      */
     virtual void removeInformationAboutStation(int choice_station)= 0;
 
@@ -136,8 +122,7 @@ public:
     /**
      * @brief Удаление маршрута
      * @param choice_route - номер маршрута, который нужно удалить
-     *
-     * Может быть брошено исключение RouteDoesNotExist
+     * @throws Может быть брошено исключение RouteDoesNotExist
      */
     virtual void deleteRoute(int choice_route) = 0;
 
@@ -148,16 +133,17 @@ public:
 
     /**
      * @return Возвращает количество существующих маршрутов
-     *
-     * Может быть брошено исключение ThereAreNoRoutes
+     * @throws Может быть брошено исключение ThereAreNoRoutes
      */
     virtual int howManyRoutes() = 0;
 
     /**
+     * @brief Используется для того, чтобы просмотреть существующие станции перед их удалением
      * @return Возвращает все элементы из контейнера, связанного с описанием станций
      */
-    //todo как получить станции, у которых нет описания
     virtual std::vector<std::string> getAllStationsWhichHaveDescription() noexcept = 0;
+    //todo как получить станции, у которых нет описания
+    /// getItinerary возвраящет станции маршрута, там могут быть станции без описания
 
     virtual ~API(){}
 };

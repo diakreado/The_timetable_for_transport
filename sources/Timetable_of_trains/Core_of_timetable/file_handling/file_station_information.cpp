@@ -1,4 +1,4 @@
-#include "station_information.h"
+#include "file_station_information.h"
 
 //TODO: большое дублирование кода с классом FileRouteInformation, видимо, неудачное наследование
 void FileStationInformation::readingFromFile() noexcept
@@ -23,7 +23,7 @@ void FileStationInformation::readingFromFile() noexcept
     {
         if (LineFromFile[i] == '/')
         {
-            FileData.push_back(PartOfTheLine);      /// Здесь происходят действия аналогичные тем, что происходили
+            fileData.push_back(PartOfTheLine);      /// Здесь происходят действия аналогичные тем, что происходили
             PartOfTheLine = "";                    ///  в route_information.cpp
                                                    // todo если это так, то, может быть, вынести отдельный метод
                                                    // в базовый класс.
@@ -34,15 +34,15 @@ void FileStationInformation::readingFromFile() noexcept
             PartOfTheLine += LineFromFile[i];
         }
     }
-    FileData.push_back(PartOfTheLine);
+    fileData.push_back(PartOfTheLine);
     inputFile_for_reading.close();
     std::string buffer;
     std::string name_of_buffer;
     std::string value_of_buffer;
 
-    for(unsigned i = 0; i < FileData.size(); i++)
+    for(unsigned i = 0; i < fileData.size(); i++)
     {
-        buffer = FileData[i];
+        buffer = fileData[i];
         name_of_buffer = "";
         value_of_buffer = "";
         part_of_buffer what_part = part_of_buffer::name;
@@ -85,9 +85,9 @@ void FileStationInformation::deleteBlockFromLine(const std::string &by_what_name
 
     std::string buffer;
     std::string name_of_buffer;
-    for(unsigned i = 0; i < FileData.size(); i++)       /// В FileData находятся и удаляются пустые "" элементы
+    for(unsigned i = 0; i < fileData.size(); i++)       /// В FileData находятся и удаляются пустые "" элементы
     {
-        buffer = FileData[i];
+        buffer = fileData[i];
         name_of_buffer = "";
         part_of_buffer what_part = part_of_buffer::name;
         for(unsigned j = 0; j < buffer.size(); j++)
@@ -104,7 +104,7 @@ void FileStationInformation::deleteBlockFromLine(const std::string &by_what_name
         }
         if (Timetable[name_of_buffer] == "" )
         {
-            FileData.erase(FileData.begin() + i);
+            fileData.erase(fileData.begin() + i);
         }
     }
 }
@@ -116,9 +116,9 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
     std::string buffer;
     std::string name_of_buffer;
     int number_of_the_same = -1;
-    for(unsigned i = 0; i < FileData.size(); i++)
+    for(unsigned i = 0; i < fileData.size(); i++)
     {                                                    /// Проверяется содерижтся ли такой элемент в FileData или нет
-        buffer = FileData[i];
+        buffer = fileData[i];
         name_of_buffer = "";
         part_of_buffer what_part = part_of_buffer::name;
 
@@ -146,11 +146,11 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
     }
     if (number_of_the_same != -1)
     {
-        FileData[number_of_the_same] = name_of_the_block + '~' + block_description;
+        fileData[number_of_the_same] = name_of_the_block + '~' + block_description;
     }
     else
     {
-        FileData.push_back(name_of_the_block + '~' + block_description);
+        fileData.push_back(name_of_the_block + '~' + block_description);
     }
 }
 
@@ -160,20 +160,20 @@ void FileStationInformation::saveChanges() noexcept
         //todo не хардкодить названия файлов, лучше вынести их в отдельную константу.
     std::ofstream rewriteFileWithInformationAboutStation("metro_Saint-Petersburg_station_info.txt");
 
-    rewriteFileWithInformationAboutStation << FileData[0];        /// В файл печатается первый элемент(он всегда есть),
+    rewriteFileWithInformationAboutStation << fileData[0];        /// В файл печатается первый элемент(он всегда есть),
                                                                  ///  а отдельно потому что перед ним не надо ставить '/'
-    for(unsigned i = 1; i < FileData.size(); i++)
+    for(unsigned i = 1; i < fileData.size(); i++)
     {
-        if (FileData[i] != "")
+        if (fileData[i] != "")
         {
-            rewriteFileWithInformationAboutStation << '/' << FileData[i];
+            rewriteFileWithInformationAboutStation << '/' << fileData[i];
         }
         else
         {
             if (i == 0)
             {
                 i++;
-                rewriteFileWithInformationAboutStation << FileData[i];
+                rewriteFileWithInformationAboutStation << fileData[i];
             }
         }
     }
@@ -182,6 +182,6 @@ void FileStationInformation::saveChanges() noexcept
 
 std::vector<std::string> FileStationInformation::getAllElement() noexcept
 {
-    return FileData;
+    return fileData;
 }
 

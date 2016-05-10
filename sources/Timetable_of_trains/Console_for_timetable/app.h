@@ -1,8 +1,8 @@
 #ifndef CONSOLE_FOR_TIMETABLE_H
 #define CONSOLE_FOR_TIMETABLE_H
 
-#include "workwithinfo/workwithroutes.h"
-#include "workwithinfo/workwithstations.h"
+#include "workwithinfo/work_with_routes.h"
+#include "workwithinfo/work_with_stations.h"
 
 /**
  * @brief Класс служащий для работы с ядром через консоль

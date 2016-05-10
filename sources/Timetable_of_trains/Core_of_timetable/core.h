@@ -22,9 +22,9 @@ public:
     ///
     /// Я не объявлял деструктор, следовательно, мне и конструкторы можно не трогать, разве не так???
 
-    void issuanceOfRights(const rights_of_customers rights) noexcept override;
+    void putOfRights(const Rights_of_customers rights) noexcept override;
 
-    rights_of_customers informationOfTheRights() const noexcept override;
+    Rights_of_customers getInformationOfTheRights() const noexcept override;
 
     std::vector<std::string> getItinerary(int number_of_the_route) override;
 
@@ -60,7 +60,7 @@ public:
 
 private:
 
-    rights_of_customers rights;
+    Rights_of_customers rights;
 
     //TODO: УЖАСНО ДИКО ПУТАЕТ НАЗВАНИЕ С ЗАГЛАВНОЙ БУКВЫ
     //TODO: не надо делать такую жесткую привязку вашего ядра к файлам,

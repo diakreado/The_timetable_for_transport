@@ -36,12 +36,12 @@ void ConsoleForTimetable::definitionOfAdministrator()
 
     if (answer_about_rights == 'Y' or answer_about_rights == 'y')
     {
-        core.issuanceOfRights(rights_of_customers::administrator);
+        core.putOfRights(Rights_of_customers::administrator);
         std::cout << std::endl << " You got administrator rights" << std::endl << std::endl;
     }
     else
     {
-        core.issuanceOfRights(rights_of_customers::user);
+        core.putOfRights(Rights_of_customers::user);
         std::cout << std::endl << " You got rights as a usual user" << std::endl << std::endl;
     }
 
@@ -51,7 +51,7 @@ void ConsoleForTimetable::definitionOfAdministrator()
 
 void ConsoleForTimetable::saveChanges()
 {
-    if (core.informationOfTheRights() == rights_of_customers::user)
+    if (core.getInformationOfTheRights() == Rights_of_customers::user)
     {
         return;
     }
@@ -78,7 +78,7 @@ bool ConsoleForTimetable::menu()
          << " 2. Information about station" << std::endl
          << " 3. Get administrator rights" << std::endl;
 
-    if (core.informationOfTheRights() == rights_of_customers::administrator)
+    if (core.getInformationOfTheRights() == Rights_of_customers::administrator)
     {
         std::cout << " 4. Change route table for the train" << std::endl
              << " 5. Change information about station" << std::endl

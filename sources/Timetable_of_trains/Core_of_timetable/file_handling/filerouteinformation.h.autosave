@@ -1,7 +1,7 @@
 #ifndef FILETIMETABLE_H
 #define FILETIMETABLE_H
 
-#include "file_handling.h"
+#include "filehandling.h"
 
 
 // todo текстовый файл со станциями и маршрутами - какая-то боль. Почему нельзя хранить
@@ -14,11 +14,11 @@
 /**
  *  @brief Класс, для обработки файла отвечающего за информацию о маршрутах
  */
-//TODO: название файла не соответствует названию класса
 class FileRouteInformation : public FileHandling
 {
 public:
     //todo как чтение из файла может быть noexcept? А вдруг файла нет или диск отвалился?
+    /// Штатная ситуация
     void readingFromFile() noexcept override;
 
     /**
@@ -43,7 +43,7 @@ public:
     /**
      * @return Количество частей, на которые разбивается строчка
      */
-    unsigned getNumberOfBlocksInTheLine() const noexcept {return FileData.size();}
+    unsigned getNumberOfBlocksInTheLine() const noexcept {return fileData.size();}
 
     void saveChanges() noexcept override;
 

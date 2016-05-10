@@ -31,8 +31,7 @@ protected:
     /**
      *  @brief Сюда записываются данные извлечённые из файла
      */
-        //TODO: УЖАСНО ДИКО ПУТАЕТ НАЗВАНИЕ С ЗАГЛАВНОЙ БУКВЫ
-    std::vector<std::string> FileData;
+    std::vector<std::string> fileData;
 };
 
 #endif // FILE_H

@@ -1,7 +1,7 @@
 #include "core.h"
 
 //TODO: это бред, что у вас парсинг файлов размазан по всему приложению
-CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
+CoreOfTimetable::CoreOfTimetable() : rights(Rights_of_customers::user)
 {
     //todo поскольку наличие файла не является необходимым для создания объекто, то
     //лучше не заниматься чтением файла в конструкторе (велик риск отсутствия файла)
@@ -12,19 +12,19 @@ CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
     dataSetOfInfoStation.readingFromFile();
 }
 
-void CoreOfTimetable::issuanceOfRights(const rights_of_customers rights) noexcept
+void CoreOfTimetable::putOfRights(const Rights_of_customers rights) noexcept
 {
-    if (rights == rights_of_customers::administrator)
+    if (rights == Rights_of_customers::administrator)
     {
-        this->rights = rights_of_customers::administrator;
+        this->rights = Rights_of_customers::administrator;
     }
     else
     {
-        this->rights = rights_of_customers::user;
+        this->rights = Rights_of_customers::user;
     }
 }
 
-rights_of_customers CoreOfTimetable::informationOfTheRights() const noexcept
+Rights_of_customers CoreOfTimetable::getInformationOfTheRights() const noexcept
 {
     return rights;
 }

@@ -5,9 +5,9 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     app.cpp \
-    workwithinfo/workwithinfo.cpp \
-    workwithinfo/workwithroutes.cpp \
-    workwithinfo/workwithstations.cpp
+    workwithinfo/work_with_info.cpp \
+    workwithinfo/work_with_routes.cpp \
+    workwithinfo/work_with_stations.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/release/ -lCore_of_timetable
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/debug/ -lCore_of_timetable
@@ -24,6 +24,6 @@ else:unix: PRE_TARGETDEPS += $$OUT_PWD/../Core_of_timetable/libCore_of_timetable
 
 HEADERS += \
     app.h \
-    workwithinfo/workwithinfo.h \
-    workwithinfo/workwithroutes.h \
-    workwithinfo/workwithstations.h
+    workwithinfo/work_with_info.h \
+    workwithinfo/work_with_routes.h \
+    workwithinfo/work_with_stations.h

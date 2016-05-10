@@ -1,7 +1,7 @@
 #ifndef WORKWITHSTATIONS_H
 #define WORKWITHSTATIONS_H
 
-#include "workwithinfo.h"
+#include "work_with_info.h"
 
 /**
  * @brief Класс, отвечающий за обработку запросов связаных со станциями, с помощью консоли

@@ -1,4 +1,4 @@
-#include "workwithroutes.h"
+#include "work_with_routes.h"
 
 void WorkWithRoutes::routeInformation(CoreOfTimetable &core)
 {
@@ -33,7 +33,7 @@ void WorkWithRoutes::routeInformation(CoreOfTimetable &core)
 
 void WorkWithRoutes::changeItinerarys(CoreOfTimetable &core)
 {
-    if (core.informationOfTheRights() == rights_of_customers::user)  /// Пользователь не сможет вызвать метод, если он не админ
+    if (core.getInformationOfTheRights() == Rights_of_customers::user)  /// Пользователь не сможет вызвать метод, если он не админ
     {
         return;
     }

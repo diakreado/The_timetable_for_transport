@@ -1,4 +1,4 @@
-#include "workwithstations.h"
+#include "work_with_stations.h"
 
 void WorkWithStations::informationAboutStation(CoreOfTimetable &core)
 {
@@ -46,7 +46,7 @@ void WorkWithStations::informationAboutStation(CoreOfTimetable &core)
 
 void WorkWithStations::changeInfoAboutStation(CoreOfTimetable &core)
 {
-    if (core.informationOfTheRights() == rights_of_customers::user)
+    if (core.getInformationOfTheRights() == Rights_of_customers::user)
     {
         return;
     }

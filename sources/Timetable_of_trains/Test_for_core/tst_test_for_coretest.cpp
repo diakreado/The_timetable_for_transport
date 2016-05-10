@@ -81,9 +81,9 @@ Test_for_coreTest::Test_for_coreTest()
 
 void Test_for_coreTest::theTestForTheGrantOfRights()
 {
-    QCOMPARE(start_test.informationOfTheRights(), rights_of_customers::user);
-    start_test.issuanceOfRights(rights_of_customers::administrator);
-    QCOMPARE(start_test.informationOfTheRights(), rights_of_customers::administrator);
+    QCOMPARE(start_test.getInformationOfTheRights(), Rights_of_customers::user);
+    start_test.putOfRights(Rights_of_customers::administrator);
+    QCOMPARE(start_test.getInformationOfTheRights(), Rights_of_customers::administrator);
 }
 
 // todo очень длинный тест. Может быть, разделить на checkAdd и checkRemove

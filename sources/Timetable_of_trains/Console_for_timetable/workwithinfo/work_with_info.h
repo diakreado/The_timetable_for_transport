@@ -19,7 +19,7 @@ public:
 
     /**
      * @brief Удобный вывод маршрута в консоль
-     * @param Что за маршрут нужно вывести
+     * @param output_for_console - что за маршрут нужно вывести
      */
     void displayRoute(std::vector<std::string> &output_for_console);
 
@@ -29,7 +29,9 @@ public:
     virtual ~WorkWithInfo(){}
 
     /// Они мне не нужны, но по правилу: переопределил деструктор, переопределяй и эти конструкторы
+    /// Конструктор копирования
     WorkWithInfo(const WorkWithInfo&) = default;
+    /// Копирующее присваивание
     WorkWithInfo& operator= (const WorkWithInfo&) = default;
 };
 

@@ -1,4 +1,4 @@
-#include "route_information.h"
+#include "filerouteinformation.h"
 
 void FileRouteInformation::readingFromFile() noexcept
 {
@@ -20,14 +20,13 @@ void FileRouteInformation::readingFromFile() noexcept
 
     std::string PartOfTheLine;
     //todo использовать итератор для строк
-    //todo unsigned INT
     //todo рассмотреть возможность использования методов класса string для парсинга строк
     //или регулярных выражений
-    for (unsigned  i = 0; i < LineFromFile.size(); i++)
+    for (unsigned int  i = 0; i < LineFromFile.size(); i++)
     {
         if (LineFromFile[i] == '/')
         {
-            FileData.push_back(PartOfTheLine);       /// Если встречаем символ '/', то следовательно это новый элемент
+            fileData.push_back(PartOfTheLine);       /// Если встречаем символ '/', то следовательно это новый элемент
             PartOfTheLine = "";
         }
         else
@@ -35,7 +34,7 @@ void FileRouteInformation::readingFromFile() noexcept
             PartOfTheLine += LineFromFile[i];
         }
     }
-    FileData.push_back(PartOfTheLine);
+    fileData.push_back(PartOfTheLine);
     inputFile_for_reading.close();
 }
 
@@ -44,13 +43,13 @@ void FileRouteInformation::changeBlockFromLine(const int number_of_block, std::s
 {
     checkForExistenceOfElement(number_of_block);
 
-    FileData[number_of_block] = InExchange;
+    fileData[number_of_block] = InExchange;
 }
 
 //todo: рассмотреть возможность возвращения boolean значения, если проверка не прошла
 void FileRouteInformation::checkForExistenceOfElement(const int number_of_block)
 {
-    int size_of_vector = FileData.size();
+    int size_of_vector = fileData.size();
     if (number_of_block < 0 || number_of_block >= size_of_vector)
     {
         throw ItemDoesNotExist();                    /// проверяется, чтобы избежать обращения к несуществующим ячейкам
@@ -61,27 +60,19 @@ void FileRouteInformation::deleteBlockFromLine(const int number_of_block)
 {
     checkForExistenceOfElement(number_of_block);
 
-    if (number_of_block != 0 || FileData.size() > 1)
-    {
-        FileData.erase(FileData.begin() + number_of_block);    /// Если элемент не нулевой или элементов больше 1,
-    }                                                         ///   то удаляем его, а если первый,
-    else                                                     ///    то заменяем пустой строчкой.
-    {
-        //TODO: выглядит подозрительно, зачем понадобился этот хак
-        FileData[number_of_block] = "";
-    }
+    fileData.erase(fileData.begin() + number_of_block);
 }
 
 void FileRouteInformation::addNewBlock() noexcept
 {
-    FileData.push_back("");
+    fileData.push_back("");
 }
 
 std::string FileRouteInformation::getFileData(const int number_of_part)
 {
     checkForExistenceOfElement(number_of_part);
 
-    return FileData[number_of_part];
+    return fileData[number_of_part];
 }
 
 void FileRouteInformation::saveChanges() noexcept
@@ -89,14 +80,13 @@ void FileRouteInformation::saveChanges() noexcept
         //todo не хардкодить названия файлов, лучше вынести их в отдельную константу.
     std::ofstream inputFileForChangeRoute("metro_Saint-Petersburg_route_info.txt");
 
-    inputFileForChangeRoute << FileData[0];        /// В файл печатается первый элемент(он всегда есть),
+    inputFileForChangeRoute << fileData[0];        /// В файл печатается первый элемент(он всегда есть),
                                                   ///  а отдельно потому что перед ним не надо ставить '/'
-    //TODO unsigned INT
-    for(unsigned i = 1; i < FileData.size(); i++)
+    for(unsigned int i = 1; i < fileData.size(); i++)
     {
-        if (FileData[i] != "")
+        if (fileData[i] != "")
         {
-            inputFileForChangeRoute << '/' << FileData[i] ;
+            inputFileForChangeRoute << '/' << fileData[i] ;
         }
     }
     inputFileForChangeRoute.close();

@@ -1,4 +1,4 @@
-#include "workwithinfo.h"
+#include "work_with_info.h"
 
 int WorkWithInfo::getIntFromConsole()
 {
