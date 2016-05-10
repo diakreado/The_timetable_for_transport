@@ -44,6 +44,16 @@ private Q_SLOTS:
      */
     void testAlternativeGetOrChangeInfoAboutStation();
 
+    /**
+     * @brief Тестируется правильность работы функциональности "Проложить маршрут", в пределах одной ветки
+     */
+    void testFindTrackInOneRoute();
+
+    /**
+     * @brief Тестируется правильность работы функциональности "Проложить маршрут", в пределах двух веток
+     */
+    void testFindTrackInOtherRoute();
+
     // todo можно создать отдельный проект для модульных, а функциональые оставить здесь
     /// Сделаю чуть-чуть попозже
 
@@ -173,11 +183,11 @@ void Test_for_coreTest::verifyRouteChanges()
 
     std::string what_to_replace = "Parnas";
 
-    QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
+    QVERIFY_EXCEPTION_THROWN(start_test.changeStationInItinerary(number_of_the_route,number_of_the_station,what_to_replace),
                              StationDoesNotExist);
     try
     {
-        start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace);
+        start_test.changeStationInItinerary(number_of_the_route,number_of_the_station,what_to_replace);
     }
     catch(StationDoesNotExist& exception)
     {
@@ -187,20 +197,20 @@ void Test_for_coreTest::verifyRouteChanges()
 
 
     number_of_the_station = -1;
-    QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
+    QVERIFY_EXCEPTION_THROWN(start_test.changeStationInItinerary(number_of_the_route,number_of_the_station,what_to_replace),
                              StationDoesNotExist);
 
     number_of_the_station = -256;
-    QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
+    QVERIFY_EXCEPTION_THROWN(start_test.changeStationInItinerary(number_of_the_route,number_of_the_station,what_to_replace),
                              StationDoesNotExist);
 
     number_of_the_station = 256;
-    QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
+    QVERIFY_EXCEPTION_THROWN(start_test.changeStationInItinerary(number_of_the_route,number_of_the_station,what_to_replace),
                              StationDoesNotExist);
 
 
     number_of_the_station = 1;
-    start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace);
+    start_test.changeStationInItinerary(number_of_the_route,number_of_the_station,what_to_replace);
 
     what_to_expected[0] = "Parnas";
 
@@ -326,6 +336,97 @@ void Test_for_coreTest::testAlternativeGetOrChangeInfoAboutStation()
     }
 }
 
+void Test_for_coreTest::testFindTrackInOneRoute()
+{
+    /// На данный момент в памяти храниться две станции, принадлежащие первому маршруту:
+    /// первая "Parnas", вторая "Prospekt Prosveshenia"
+
+    std::string what_add = "Ozerki";
+    start_test.addStationInItinerary(1,what_add);
+
+    /// Сейчас добавили третью станцию
+
+    std::vector<std::string> Track1;
+    Track1.push_back("Parnas");
+    Track1.push_back("Prospekt Prosveshenia");
+    Track1.push_back("Ozerki");
+
+    int num_route_from = 1;
+    int num_station_from = 1;
+    int num_route_to = 1;
+    int num_station_to = 3;
+
+    QCOMPARE(start_test.findTrack(num_route_from,num_station_from,num_route_to,num_station_to), Track1);
+
+    std::vector<std::string> Track2;
+    Track2.push_back("Ozerki");
+    Track2.push_back("Prospekt Prosveshenia");
+    Track2.push_back("Parnas");
+
+    num_route_from = 1;
+    num_station_from = 3;
+    num_route_to = 1;
+    num_station_to = 1;
+
+    QCOMPARE(start_test.findTrack(num_route_from,num_station_from,num_route_to,num_station_to), Track2);
+
+    std::vector<std::string> Track3;
+    Track3.push_back("Ozerki");
+    Track3.push_back("Prospekt Prosveshenia");
+
+    num_route_from = 1;
+    num_station_from = 3;
+    num_route_to = 1;
+    num_station_to = 2;
+
+    QCOMPARE(start_test.findTrack(num_route_from,num_station_from,num_route_to,num_station_to), Track3);
+
+    std::vector<std::string> Track4;
+    Track4.push_back("Parnas");
+    Track4.push_back("Prospekt Prosveshenia");
+
+    num_route_from = 1;
+    num_station_from = 1;
+    num_route_to = 1;
+    num_station_to = 2;
+
+    QCOMPARE(start_test.findTrack(num_route_from,num_station_from,num_route_to,num_station_to), Track4);
+}
+
+void Test_for_coreTest::testFindTrackInOtherRoute()
+{
+    /// На данный момент в памяти храниться две станции, принадлежащие первому маршруту:
+    /// первая "Parnas", вторая "Prospekt Prosveshenia", третья "Ozerki"
+
+    start_test.addRoute();   /// Добавили 2-ой маршрут
+
+    std::string what_to_add = "Devyatkino";
+    start_test.changeStationInItinerary(2, 1, what_to_add);  /// Тут мы заменяем, пустую строчку
+
+    what_to_add = "Grazhdansky Prospek";
+    start_test.addStationInItinerary(2, what_to_add);
+
+    what_to_add = "Ozerki";
+    start_test.addStationInItinerary(2, what_to_add);
+
+    /// Теперь маршрутов 2 и по три станции в каждом
+
+    std::vector<std::string> Track;
+    Track.push_back("Parnas");
+    Track.push_back("Prospekt Prosveshenia");
+    Track.push_back("Ozerki");
+    Track.push_back("Ozerki");
+    Track.push_back("Grazhdansky Prospek");
+    Track.push_back("Devyatkino");
+
+    int num_route_from = 1;
+    int num_station_from = 1;
+    int num_route_to = 2;
+    int num_station_to = 1;
+
+    QCOMPARE(start_test.findTrack(num_route_from, num_station_from, num_route_to, num_station_to), Track);
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Test_for_coreTest::checkFileRouteInfo()
@@ -436,8 +537,6 @@ void Test_for_coreTest::checkException()
     StationDoesNotExist test2(what_requested_customer2);
     std::string what_i_expected2 = "Chelovek";
     QCOMPARE(test2.getWhatRequested(), what_i_expected2);
-
-
 
 }
 

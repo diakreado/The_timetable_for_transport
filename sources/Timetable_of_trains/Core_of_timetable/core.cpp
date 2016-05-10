@@ -1,7 +1,13 @@
- #include "core.h"
+#include "core.h"
 
+//TODO: это бред, что у вас парсинг файлов размазан по всему приложению
 CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
 {
+    //todo поскольку наличие файла не является необходимым для создания объекто, то
+    //лучше не заниматься чтением файла в конструкторе (велик риск отсутствия файла)
+    //сделать отдельный метод и передавать в него объект, реализиющий получение данных
+    //из внешнего источника
+
     DataSetOfInfoRoute.readingFromFile();
     DataSetOfInfoStation.readingFromFile();
 }
@@ -32,6 +38,7 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
     {
         std::string StringFromFile = DataSetOfInfoRoute.getFileData(number_of_the_route);
         std::string NameOfTheStation;
+        //todo: это бред...
         for (char symbol_in_string : StringFromFile)
         {
             if (symbol_in_string == ',')
@@ -66,6 +73,7 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
     {
         return DataSetOfInfoStation.getFileData(name_of_the_station);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения
     catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist(name_of_the_station);
@@ -85,6 +93,7 @@ std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int ch
     {
         output_string += DataSetOfInfoStation.getFileData(name_of_the_station);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist(name_of_the_station);
@@ -93,7 +102,7 @@ std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int ch
     return output_string;
 }
 
-void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std::string &what_to_replace)
+void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_station, std::string &what_to_replace)
 {
     std::vector<std::string> Route = getItinerary(choice_route);
     choice_station--;
@@ -112,6 +121,7 @@ void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std:
     }
 
     std::string ToPrintToFile;
+    //todo: это бред2...
     for (unsigned int i = 0; i < Route.size()-1; i++)
     {
         ToPrintToFile += Route[i] + ',';
@@ -136,6 +146,7 @@ void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std:
     {
         DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
     {
         choice_route++;
@@ -161,6 +172,7 @@ void CoreOfTimetable::deleteRoute(int choice_route)
     {
         DataSetOfInfoRoute.deleteBlockFromLine(choice_route);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
     {
         choice_route++;
@@ -183,7 +195,7 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
 
     NewVariantOfString[choice_station] = "";
     std::string ToPrintToFile;
-
+    //todo: это бред3...
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
         if (NewVariantOfString[i] != "")
@@ -239,7 +251,7 @@ void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_
     {
         unsigned size_of_string;
         size_of_string = ToPrintToFile.size()-1;
-
+//TODO: это бред4...
         if (ToPrintToFile[size_of_string] == ' ')
         {
             ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
@@ -291,8 +303,10 @@ void CoreOfTimetable::removeInformationAboutStation(const std::string &what_stat
     }
 }
 
+//TODO: слишком длинным метод
 void CoreOfTimetable::removeInformationAboutStation(int choice_station)
 {
+    //
     std::vector<std::string> AllElement = DataSetOfInfoStation.getAllElement();
 
     int size_of_vector = AllElement.size();
@@ -308,6 +322,7 @@ void CoreOfTimetable::removeInformationAboutStation(int choice_station)
     std::string new_what_station_to_remove;
     for(char j : what_station_to_remove)
     {
+        //TODO: уже видели такое
         if (j == '~')
         {
             break;
@@ -345,5 +360,89 @@ std::vector<std::string> CoreOfTimetable::getAllStationsWhichHaveDescription()  
 {
     return DataSetOfInfoStation.getAllElement();
 }
+
+std::vector<std::string> CoreOfTimetable::findTrack(int num_route_from,int num_station_from,int num_route_to,int num_station_to)
+{
+    num_station_from--;
+    num_station_to--;
+
+    std::vector<std::string> Track;
+
+    if (num_route_from == num_route_to)                  /// Если нужно проложить маршрут в пределах одной ветки
+    {
+        findTrackInOneRoute(num_route_from, num_station_from, num_station_to, Track);
+
+        return Track;
+    }
+
+    /// В паре номера станций из двух маршрутов, с одинаковыми названиями. Первое из маршрута "откуда", второе из "куда"
+    std::pair<int,int> From_To = findStationWithTheSameName(num_route_from, num_route_to);
+
+    findTrackInOneRoute(num_route_from, num_station_from, From_To.first, Track); /// Путь по первому маршруту
+
+
+    findTrackInOneRoute(num_route_to, From_To.second, num_station_to, Track); /// Путь по второму маршруту
+
+    return Track;
+}
+
+void CoreOfTimetable::findTrackInOneRoute(int num_route, int num_station_from,
+                                                              int num_station_to,std::vector<std::string> &Track)
+{
+    std::vector<std::string> Route = getItinerary(num_route);
+
+    if (num_station_from < num_station_to)          /// Если мы собираемся двигаться по ветке вниз
+    {
+        for(int i = num_station_from; i <= num_station_to; i++)
+        {
+            Track.push_back(Route[i]);
+        }
+    }
+    else                                            /// Если мы собираемся двигаться по ветке вверх
+    {
+        for(int i = num_station_from; i >= num_station_to; i--)
+        {
+            Track.push_back(Route[i]);
+        }
+    }
+}
+
+std::pair<int,int> CoreOfTimetable::findStationWithTheSameName(int num_route_one, int num_route_two)
+{
+    std::vector<std::string> RouteOne = getItinerary(num_route_one);
+    std::vector<std::string> RouteTwo = getItinerary(num_route_two);
+
+    /// Не знаю, как иначе
+
+    int size_one = RouteOne.size();
+    int size_two = RouteTwo.size();
+
+    for(int i = 0; i < size_one; i++)
+    {
+        for(int j = 0; j < size_two; j++)
+        {
+            if (RouteOne[i] == RouteTwo[j])
+            {
+                std::pair<int,int> answer;
+
+                answer.first = i;
+                answer.second = j;
+
+                return answer;
+            }
+        }
+    }
+
+    /// ToDo Ну здесь исключение надо бросить
+
+    std::pair<int,int> answer;
+
+    answer.first = -1;
+    answer.second = -1;
+
+    return answer;
+}
+
+
 
 

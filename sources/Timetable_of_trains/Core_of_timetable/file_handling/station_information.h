@@ -9,6 +9,9 @@ enum class part_of_buffer{name = 0, value = 1};
 /**
  *  @brief Класс,для обработки файла содержащего информацию о станциях
  */
+
+//TODO: название файла не соответствует названию класса
+//TODO: добавить override
 class FileStationInformation : public FileHandling
 {
 public:
