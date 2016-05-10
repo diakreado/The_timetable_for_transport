@@ -1,9 +1,10 @@
 #ifndef API_H
 #define API_H
 
-#include "route_information.h"
-#include "station_information.h"
-#include "exception_of_core.h"
+#include "file_handling/route_information.h"
+#include "file_handling/station_information.h"
+#include "exception_of_core/exception_of_core.h"
+
 
 enum class rights_of_customers{user = 0, administrator = 1};
 

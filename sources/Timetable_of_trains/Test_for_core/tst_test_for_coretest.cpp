@@ -58,6 +58,11 @@ private Q_SLOTS:
      * @brief Тест проверяет правильность работы класса FileStationInformation
      */
     void checkFileStationInfo();
+
+    /**
+     * @brief Проверка правильности работы исключений
+     */
+    void checkException();
 };
 
 Test_for_coreTest::Test_for_coreTest()
@@ -95,6 +100,14 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
 
     QCOMPARE(start_test.getItinerary(number_of_the_route),OneElement);
     QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(4),RouteDoesNotExist);
+    try
+    {
+        start_test.getItinerary(4);
+    }
+    catch(RouteDoesNotExist& exception)
+    {
+        QCOMPARE(exception.getWhatRequested(), 4);
+    }
 
     unsigned which_route_del = 2;
 
@@ -104,6 +117,14 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
     start_test.deleteRoute(which_route_del);
 
     QVERIFY_EXCEPTION_THROWN(start_test.deleteRoute(which_route_del),RouteDoesNotExist);
+    try
+    {
+        start_test.deleteRoute(which_route_del);
+    }
+    catch(RouteDoesNotExist& exception)
+    {
+        QCOMPARE(exception.getWhatRequested(), 2);
+    }
 
     which_route_del = 1;
     QCOMPARE(start_test.howManyRoutes(), 1);
@@ -154,6 +175,16 @@ void Test_for_coreTest::verifyRouteChanges()
 
     QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
                              StationDoesNotExist);
+    try
+    {
+        start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace);
+    }
+    catch(StationDoesNotExist& exception)
+    {
+        std::string what_i_expected_of_exception = "4";
+        QCOMPARE(exception.getWhatRequested(),what_i_expected_of_exception);
+    }
+
 
     number_of_the_station = -1;
     QVERIFY_EXCEPTION_THROWN(start_test.changeItinerary(number_of_the_route,number_of_the_station,what_to_replace),
@@ -201,6 +232,14 @@ void Test_for_coreTest::verifyTimetableChanges()
 
 
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(name_of_the_station_1),StationDoesNotExist);
+    try
+    {
+        start_test.getInformationAboutStation(name_of_the_station_1);
+    }
+    catch(StationDoesNotExist& exception)
+    {
+        QCOMPARE(exception.getWhatRequested(), name_of_the_station_1);
+    }
 
     start_test.addInformationAboutStation(name_of_the_station_1,working_hours_of_the_station_1);
     start_test.addInformationAboutStation(name_of_the_station_2,working_hours_of_the_station_2);
@@ -233,7 +272,26 @@ void Test_for_coreTest::verifyTimetableChanges()
 
 
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation("Balalayka"),StationDoesNotExist);
+    try
+    {
+        start_test.getInformationAboutStation("Balalayka");
+    }
+    catch(StationDoesNotExist& exception)
+    {
+        std::string what_i_expected_of_exception = "Balalayka";
+        QCOMPARE(exception.getWhatRequested(), what_i_expected_of_exception);
+    }
+
     QVERIFY_EXCEPTION_THROWN(start_test.removeInformationAboutStation("Balalayka"),StationDoesNotExist);
+    try
+    {
+        start_test.removeInformationAboutStation("Balalayka");
+    }
+    catch(StationDoesNotExist& exception)
+    {
+        std::string what_i_expected_of_exception = "Balalayka";
+        QCOMPARE(exception.getWhatRequested(), what_i_expected_of_exception);
+    }
 }
 
 void Test_for_coreTest::testAlternativeGetOrChangeInfoAboutStation()
@@ -258,6 +316,14 @@ void Test_for_coreTest::testAlternativeGetOrChangeInfoAboutStation()
 
     QVERIFY_EXCEPTION_THROWN(start_test.getInformationAboutStation(1,1),StationDoesNotExist);
 
+    try
+    {
+        start_test.getInformationAboutStation(1,1);
+    }
+    catch(StationDoesNotExist& exception)
+    {
+        QCOMPARE(exception.getWhatRequested(), name_of_the_station);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,6 +424,22 @@ void Test_for_coreTest::checkFileStationInfo()
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(input_data), ItemDoesNotExist);
 }
 
+void Test_for_coreTest::checkException()
+{
+    int what_requested_customer1 = 5;
+    StationDoesNotExist test1(what_requested_customer1);
+    std::string what_i_expected1 = "5";
+    QCOMPARE(test1.getWhatRequested(), what_i_expected1);
+
+
+    std::string what_requested_customer2 = "Chelovek";
+    StationDoesNotExist test2(what_requested_customer2);
+    std::string what_i_expected2 = "Chelovek";
+    QCOMPARE(test2.getWhatRequested(), what_i_expected2);
+
+
+
+}
 
 QTEST_APPLESS_MAIN(Test_for_coreTest)
 

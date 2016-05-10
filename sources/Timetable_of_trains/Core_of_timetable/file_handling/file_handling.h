@@ -5,8 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <exception>
-#include "exception_of_core.h"
+#include "exception_of_core/exception_of_core.h"
 
 /**
  *  @brief Абстрактный класс объединяющий взаимодействие с файлами
