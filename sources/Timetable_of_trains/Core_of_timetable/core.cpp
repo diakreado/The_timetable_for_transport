@@ -7,6 +7,8 @@ CoreOfTimetable::CoreOfTimetable() : rights(Rights_of_customers::user)
     //лучше не заниматься чтением файла в конструкторе (велик риск отсутствия файла)
     //сделать отдельный метод и передавать в него объект, реализиющий получение данных
     //из внешнего источника
+    /// Скоро планируется реализовать механизм, позволяющий читать информацию из разных файлов, в том смысле, что
+    /// будет несколько вариантов метро и пользователь сможет создать сколько угодно файлов
 
     dataSetOfInfoRoute.readingFromFile();
     dataSetOfInfoStation.readingFromFile();
@@ -39,6 +41,7 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
         std::string StringFromFile = dataSetOfInfoRoute.getFileData(number_of_the_route);
         std::string NameOfTheStation;
         //todo: это бред...
+        /// Уберу
         for (char symbol_in_string : StringFromFile)
         {
             if (symbol_in_string == ',')
@@ -74,6 +77,7 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
         return dataSetOfInfoStation.getFileData(name_of_the_station);
     }
     //TODO: проблема в дизайне, если приходится так перекидывать исключения
+    /// Если никому кроме меня не нравиться я поменяю
     catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist(name_of_the_station);
@@ -102,6 +106,7 @@ std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int ch
         output_string += dataSetOfInfoStation.getFileData(name_of_the_station);
     }
     //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
+    /// Если никому кроме меня не нравиться я поменяю
     catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist(name_of_the_station);
@@ -155,6 +160,7 @@ void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_stat
         dataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
     //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
+    /// Если никому кроме меня не нравиться я поменяю
     catch(ItemDoesNotExist&)
     {
         choice_route++;

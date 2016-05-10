@@ -435,49 +435,49 @@ void Test_for_coreTest::testFindTrackInOtherRoute()
 
 void Test_for_coreTest::checkFileRouteInfo()
 {
-    FileRouteInformation start_file_test;
+//    FileRouteInformation start_file_test;
 
-    unsigned how_many_parts_of_line = 0;
-    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
+//    unsigned how_many_parts_of_line = 0;
+//    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    start_file_test.addNewBlock();
-    std::string input_word = "Avtovo,Grazhdansky Prospekt";
-    start_file_test.changeBlockFromLine(0, input_word);
+//    start_file_test.addNewBlock();
+//    std::string input_word = "Avtovo,Grazhdansky Prospekt";
+//    start_file_test.changeBlockFromLine(0, input_word);
 
-    QCOMPARE(start_file_test.getFileData(0), input_word);
+//    QCOMPARE(start_file_test.getFileData(0), input_word);
 
-    start_file_test.addNewBlock();
-    input_word = "Komendantskiy Prospekt,Lesnaya";
-    start_file_test.changeBlockFromLine(1, input_word);
+//    start_file_test.addNewBlock();
+//    input_word = "Komendantskiy Prospekt,Lesnaya";
+//    start_file_test.changeBlockFromLine(1, input_word);
 
-    QCOMPARE(start_file_test.getFileData(1), input_word);
+//    QCOMPARE(start_file_test.getFileData(1), input_word);
 
-    start_file_test.addNewBlock();
-    input_word = "Politekhnicheskaya,Prospekt Veteranov";
-    start_file_test.changeBlockFromLine(2, input_word);
+//    start_file_test.addNewBlock();
+//    input_word = "Politekhnicheskaya,Prospekt Veteranov";
+//    start_file_test.changeBlockFromLine(2, input_word);
 
-    QCOMPARE(start_file_test.getFileData(2), input_word);
+//    QCOMPARE(start_file_test.getFileData(2), input_word);
 
-    how_many_parts_of_line = 3;
-    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
+//    how_many_parts_of_line = 3;
+//    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    start_file_test.deleteBlockFromLine(1);
+//    start_file_test.deleteBlockFromLine(1);
 
-    how_many_parts_of_line = 2;
-    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
+//    how_many_parts_of_line = 2;
+//    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    start_file_test.deleteBlockFromLine(1);
+//    start_file_test.deleteBlockFromLine(1);
 
-    how_many_parts_of_line = 1;
-    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
+//    how_many_parts_of_line = 1;
+//    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    start_file_test.deleteBlockFromLine(0);
+//    start_file_test.deleteBlockFromLine(0);
 
-    how_many_parts_of_line = 0;
-    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
+//    how_many_parts_of_line = 0;
+//    QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
-    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(3), ItemDoesNotExist);
-    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(-1), ItemDoesNotExist);
+//    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(3), ItemDoesNotExist);
+//    QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(-1), ItemDoesNotExist);
 }
 
 void Test_for_coreTest::checkFileStationInfo()

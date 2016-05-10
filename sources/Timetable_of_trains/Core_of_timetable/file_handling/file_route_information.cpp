@@ -3,10 +3,12 @@
 void FileRouteInformation::readingFromFile() noexcept
 {
     //todo не хардкодить названия файлов, лучше вынести их в отдельную константу.
+    /// Учту
     std::ifstream inputFile_for_reading("metro_Saint-Petersburg_route_info.txt");
     if (!inputFile_for_reading.is_open())
     {
         //todo нужно сообщать об этой ситуации
+        /// Зачем? Эта ситуация всё равно обыгрывается
         return;                                             /// Если нет файла, то и читать его нет смысла
     }
 
@@ -14,27 +16,26 @@ void FileRouteInformation::readingFromFile() noexcept
     /// Зачем бросать исключение? Ведь если файла нет, это не плохо. Мы просто считаем, что сохранённой информации нет.
     /// Раньше я бросал исключение, но в связи с тем, что оно никак не обрабатывалось, я отказался от этого.
 
-    //todo лучше везде объекты называть одинаково с маленьких или больших букв
-    std::string LineFromFile;
-    std::getline(inputFile_for_reading, LineFromFile);           /// Считывание информации из файла(там она длинной строкой)
+    std::string lineFromFile;
+    std::getline(inputFile_for_reading, lineFromFile);           /// Считывание информации из файла(там она длинной строкой)
 
-    std::string PartOfTheLine;
+    std::string partOfTheLine;
     //todo использовать итератор для строк
     //todo рассмотреть возможность использования методов класса string для парсинга строк
     //или регулярных выражений
-    for (unsigned int  i = 0; i < LineFromFile.size(); i++)
+    for (unsigned int  i = 0; i < lineFromFile.size(); i++)
     {
-        if (LineFromFile[i] == '/')
+        if (lineFromFile[i] == '/')
         {
-            fileData.push_back(PartOfTheLine);       /// Если встречаем символ '/', то следовательно это новый элемент
-            PartOfTheLine = "";
+            fileData.push_back(partOfTheLine);       /// Если встречаем символ '/', то следовательно это новый элемент
+            partOfTheLine = "";
         }
         else
         {
-            PartOfTheLine += LineFromFile[i];
+            partOfTheLine += lineFromFile[i];
         }
     }
-    fileData.push_back(PartOfTheLine);
+    fileData.push_back(partOfTheLine);
     inputFile_for_reading.close();
 }
 
