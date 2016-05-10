@@ -5,7 +5,12 @@
 #include "file_handling/station_information.h"
 #include "exception_of_core/exception_of_core.h"
 
+//todo если вы считаете нужным указывать какие исключения могут быть выброшены,
+//то лучше указать это в сигнатуре, используя спецификатор
 
+//todo используйте спецификатор const для параметров метода, где это возможно
+
+//todo Названия типов лучше писать с большой буквы
 enum class rights_of_customers{user = 0, administrator = 1};
 
 /**
@@ -19,11 +24,14 @@ public:
      * @brief Выдача прав
      * @param rights - какие права нужно выдать
      */
+    //todo переименовать метод, для названий методов лучше использовать глаголы.
     virtual void issuanceOfRights(const rights_of_customers rights) noexcept = 0;
 
     /**
      * @return Информация о правах
      */
+    //todo переименовать метод, для названий методов лучше использовать глаголы.
+    //типа getRights
     virtual rights_of_customers informationOfTheRights() const noexcept = 0;
 
     /**
@@ -139,15 +147,16 @@ public:
     virtual void saveChanges() noexcept = 0;
 
     /**
-     * @return Возвращяет количество существующих маршрутов
+     * @return Возвращает количество существующих маршрутов
      *
      * Может быть брошено исключение ThereAreNoRoutes
      */
     virtual int howManyRoutes() = 0;
 
     /**
-     * @return Возвращяет все элементы из контейнера, свзяанного с описанием станций
+     * @return Возвращает все элементы из контейнера, связанного с описанием станций
      */
+    //todo как получить станции, у которых нет описания
     virtual std::vector<std::string> getAllStationsWhichHaveDescription() noexcept = 0;
 
     virtual ~API(){}

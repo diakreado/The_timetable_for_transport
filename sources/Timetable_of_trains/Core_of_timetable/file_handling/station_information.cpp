@@ -1,7 +1,9 @@
 #include "station_information.h"
 
+//TODO: большое дублирование кода с классом FileRouteInformation, видимо, неудачное наследование
 void FileStationInformation::readingFromFile() noexcept
 {
+        //todo не хардкодить названия файлов, лучше вынести их в отдельную константу.
     std::ifstream inputFile_for_reading("metro_Saint-Petersburg_station_info.txt");
 
     if (!inputFile_for_reading.is_open())        
@@ -154,6 +156,8 @@ void FileStationInformation::addNewBlockOrChangeExisting(std::string &name_of_th
 
 void FileStationInformation::saveChanges() noexcept
 {
+
+        //todo не хардкодить названия файлов, лучше вынести их в отдельную константу.
     std::ofstream rewriteFileWithInformationAboutStation("metro_Saint-Petersburg_station_info.txt");
 
     rewriteFileWithInformationAboutStation << FileData[0];        /// В файл печатается первый элемент(он всегда есть),

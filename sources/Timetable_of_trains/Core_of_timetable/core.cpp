@@ -1,7 +1,13 @@
 #include "core.h"
 
+//TODO: это бред, что у вас парсинг файлов размазан по всему приложению
 CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
 {
+    //todo поскольку наличие файла не является необходимым для создания объекто, то
+    //лучше не заниматься чтением файла в конструкторе (велик риск отсутствия файла)
+    //сделать отдельный метод и передавать в него объект, реализиющий получение данных
+    //из внешнего источника
+
     DataSetOfInfoRoute.readingFromFile();
     DataSetOfInfoStation.readingFromFile();
 }
@@ -32,6 +38,7 @@ std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
     {
         std::string StringFromFile = DataSetOfInfoRoute.getFileData(number_of_the_route);
         std::string NameOfTheStation;
+        //todo: это бред...
         for (char symbol_in_string : StringFromFile)
         {
             if (symbol_in_string == ',')
@@ -66,6 +73,7 @@ std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_
     {
         return DataSetOfInfoStation.getFileData(name_of_the_station);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения
     catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist(name_of_the_station);
@@ -85,6 +93,7 @@ std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int ch
     {
         output_string += DataSetOfInfoStation.getFileData(name_of_the_station);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
     {
         throw StationDoesNotExist(name_of_the_station);
@@ -112,6 +121,7 @@ void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_stat
     }
 
     std::string ToPrintToFile;
+    //todo: это бред2...
     for (unsigned int i = 0; i < Route.size()-1; i++)
     {
         ToPrintToFile += Route[i] + ',';
@@ -136,6 +146,7 @@ void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_stat
     {
         DataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
     {
         choice_route++;
@@ -161,6 +172,7 @@ void CoreOfTimetable::deleteRoute(int choice_route)
     {
         DataSetOfInfoRoute.deleteBlockFromLine(choice_route);
     }
+    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
     {
         choice_route++;
@@ -183,7 +195,7 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
 
     NewVariantOfString[choice_station] = "";
     std::string ToPrintToFile;
-
+    //todo: это бред3...
     for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
     {
         if (NewVariantOfString[i] != "")
@@ -239,7 +251,7 @@ void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_
     {
         unsigned size_of_string;
         size_of_string = ToPrintToFile.size()-1;
-
+//TODO: это бред4...
         if (ToPrintToFile[size_of_string] == ' ')
         {
             ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
@@ -291,8 +303,10 @@ void CoreOfTimetable::removeInformationAboutStation(const std::string &what_stat
     }
 }
 
+//TODO: слишком длинным метод
 void CoreOfTimetable::removeInformationAboutStation(int choice_station)
 {
+    //
     std::vector<std::string> AllElement = DataSetOfInfoStation.getAllElement();
 
     int size_of_vector = AllElement.size();
@@ -308,6 +322,7 @@ void CoreOfTimetable::removeInformationAboutStation(int choice_station)
     std::string new_what_station_to_remove;
     for(char j : what_station_to_remove)
     {
+        //TODO: уже видели такое
         if (j == '~')
         {
             break;
