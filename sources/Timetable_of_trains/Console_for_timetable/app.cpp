@@ -262,7 +262,7 @@ void ConsoleForTimetable::changeRoute()
             std::getline(std::cin,what_to_replace);
             std::cout << std::endl << std::endl;
 
-            Core.changeItinerary(choice_route, choice_station, what_to_replace);
+            Core.changeStationInItinerary(choice_route, choice_station, what_to_replace);
             break;
         }
         case 3:

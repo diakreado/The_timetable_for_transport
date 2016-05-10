@@ -23,7 +23,7 @@ public:
 
     std::string getInformationAboutStation(int choice_route, int choice_station) override;
 
-    void changeItinerary(int choice_route, int choice_station, std::string &what_to_replace) override;
+    void changeStationInItinerary(int choice_route, int choice_station, std::string &what_to_replace) override;
 
     void deleteStationFromItinerary(int choice_route, int choice_station) override;
 
@@ -47,7 +47,7 @@ public:
 
     int howManyRoutes() override;
 
-    std::vector<std::string> findRoute(int num_route_from, int num_station_from, int num_route_to, int num_station_to);
+    std::vector<std::string> findTrack(int num_route_from, int num_station_from, int num_route_to, int num_station_to);
 
 private:
 
@@ -56,6 +56,11 @@ private:
     FileRouteInformation DataSetOfInfoRoute;
 
     FileStationInformation DataSetOfInfoStation;
+
+    void findTrackInOneRoute(int num_route, int num_station_from,
+                                                 int num_station_to, std::vector<std::string> &Track);
+
+    std::pair<int,int> findStationWithTheSameName(int num_route_one, int num_route_two);
 };
 
 #endif // CORE_OF_TIMETABLE_H

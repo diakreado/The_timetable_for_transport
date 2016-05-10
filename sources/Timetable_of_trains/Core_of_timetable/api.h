@@ -63,7 +63,7 @@ public:
      *
      * Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
      */
-    virtual void changeItinerary(int choice_route, int choice_station, std::string &what_to_replace) = 0;
+    virtual void changeStationInItinerary(int choice_route, int choice_station, std::string &what_to_replace) = 0;
 
     /**
      * @brief Удалить станцию из определённого маршрута
@@ -77,7 +77,7 @@ public:
     /**
      * @brief Добавить станцию маршрут поезда
      * @param choice_route - номер маршрута, который нужно изменить
-     * @param what_to_add - что нужно поставить взамен
+     * @param what_to_add - что нужно добавить
      *
      * Может быть брошено исключение RouteDoesNotExist
      */

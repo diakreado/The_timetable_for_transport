@@ -1,4 +1,4 @@
- #include "core.h"
+#include "core.h"
 
 CoreOfTimetable::CoreOfTimetable() : rights(rights_of_customers::user)
 {
@@ -93,7 +93,7 @@ std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int ch
     return output_string;
 }
 
-void CoreOfTimetable::changeItinerary(int choice_route, int choice_station, std::string &what_to_replace)
+void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_station, std::string &what_to_replace)
 {
     std::vector<std::string> Route = getItinerary(choice_route);
     choice_station--;
@@ -346,35 +346,87 @@ std::vector<std::string> CoreOfTimetable::getAllStationsWhichHaveDescription()  
     return DataSetOfInfoStation.getAllElement();
 }
 
-std::vector<std::string>  CoreOfTimetable::findRoute(int num_route_from, int num_station_from, int num_route_to, int num_station_to)
+std::vector<std::string> CoreOfTimetable::findTrack(int num_route_from,int num_station_from,int num_route_to,int num_station_to)
 {
     num_station_from--;
     num_station_to--;
 
-    if (num_route_from == num_route_to)
-    {
-        std::vector<std::string> Route = getItinerary(num_route_from);
-        std::vector<std::string> Track;
+    std::vector<std::string> Track;
 
+    if (num_route_from == num_route_to)                  /// Если нужно проложить маршрут в пределах одной ветки
+    {
+        findTrackInOneRoute(num_route_from, num_station_from, num_station_to, Track);
+
+        return Track;
+    }
+
+    /// В паре номера станций из двух маршрутов, с одинаковыми названиями. Первое из маршрута "откуда", второе из "куда"
+    std::pair<int,int> From_To = findStationWithTheSameName(num_route_from, num_route_to);
+
+    findTrackInOneRoute(num_route_from, num_station_from, From_To.first, Track); /// Путь по первому маршруту
+
+
+    findTrackInOneRoute(num_route_to, From_To.second, num_station_to, Track); /// Путь по второму маршруту
+
+    return Track;
+}
+
+void CoreOfTimetable::findTrackInOneRoute(int num_route, int num_station_from,
+                                                              int num_station_to,std::vector<std::string> &Track)
+{
+    std::vector<std::string> Route = getItinerary(num_route);
+
+    if (num_station_from < num_station_to)          /// Если мы собираемся двигаться по ветке вниз
+    {
         for(int i = num_station_from; i <= num_station_to; i++)
         {
             Track.push_back(Route[i]);
         }
-
-        return Track;
     }
-    else
+    else                                            /// Если мы собираемся двигаться по ветке вверх
     {
-        std::vector<std::string> Null;
-        return Null;
+        for(int i = num_station_from; i >= num_station_to; i--)
+        {
+            Track.push_back(Route[i]);
+        }
     }
 }
 
+std::pair<int,int> CoreOfTimetable::findStationWithTheSameName(int num_route_one, int num_route_two)
+{
+    std::vector<std::string> RouteOne = getItinerary(num_route_one);
+    std::vector<std::string> RouteTwo = getItinerary(num_route_two);
 
+    /// Не знаю, как иначе
 
+    int size_one = RouteOne.size();
+    int size_two = RouteTwo.size();
 
+    for(int i = 0; i < size_one; i++)
+    {
+        for(int j = 0; j < size_two; j++)
+        {
+            if (RouteOne[i] == RouteTwo[j])
+            {
+                std::pair<int,int> answer;
 
+                answer.first = i;
+                answer.second = j;
 
+                return answer;
+            }
+        }
+    }
+
+    /// ToDo Ну здесь исключение надо бросить
+
+    std::pair<int,int> answer;
+
+    answer.first = -1;
+    answer.second = -1;
+
+    return answer;
+}
 
 
 
