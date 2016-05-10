@@ -44,6 +44,8 @@ private Q_SLOTS:
      */
     void testAlternativeGetOrChangeInfoAboutStation();
 
+    void testFindRoute();
+
     // todo можно создать отдельный проект для модульных, а функциональые оставить здесь
     /// Сделаю чуть-чуть попозже
 
@@ -326,6 +328,18 @@ void Test_for_coreTest::testAlternativeGetOrChangeInfoAboutStation()
     }
 }
 
+void Test_for_coreTest::testFindRoute()
+{
+    /// На данный момент в памяти храниться две станции, принадлежащие первому маршруту:
+    /// первая "Parnas", вторая "Prospekt Prosveshenia"
+
+    std::vector<std::string> Track;
+    Track.push_back("Parnas");
+    Track.push_back("Prospekt Prosveshenia");
+
+    QCOMPARE(start_test.findRoute(1,1,1,2), Track);
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Test_for_coreTest::checkFileRouteInfo()
@@ -436,8 +450,6 @@ void Test_for_coreTest::checkException()
     StationDoesNotExist test2(what_requested_customer2);
     std::string what_i_expected2 = "Chelovek";
     QCOMPARE(test2.getWhatRequested(), what_i_expected2);
-
-
 
 }
 

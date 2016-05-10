@@ -47,6 +47,8 @@ public:
 
     int howManyRoutes() override;
 
+    std::vector<std::string> findRoute(int num_route_from, int num_station_from, int num_route_to, int num_station_to);
+
 private:
 
     rights_of_customers rights;

@@ -346,4 +346,36 @@ std::vector<std::string> CoreOfTimetable::getAllStationsWhichHaveDescription()  
     return DataSetOfInfoStation.getAllElement();
 }
 
+std::vector<std::string>  CoreOfTimetable::findRoute(int num_route_from, int num_station_from, int num_route_to, int num_station_to)
+{
+    num_station_from--;
+    num_station_to--;
+
+    if (num_route_from == num_route_to)
+    {
+        std::vector<std::string> Route = getItinerary(num_route_from);
+        std::vector<std::string> Track;
+
+        for(int i = num_station_from; i <= num_station_to; i++)
+        {
+            Track.push_back(Route[i]);
+        }
+
+        return Track;
+    }
+    else
+    {
+        std::vector<std::string> Null;
+        return Null;
+    }
+}
+
+
+
+
+
+
+
+
+
 
