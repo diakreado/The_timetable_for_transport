@@ -91,7 +91,6 @@ void Test_for_coreTest::theTestForTheGrantOfRights()
 
 void Test_for_coreTest::checkAddAndRemoveRoutes()
 {
-
     QVERIFY_EXCEPTION_THROWN(start_test.howManyRoutes(),ThereAreNoRoutes);
     start_test.addRoute();
 
@@ -138,11 +137,16 @@ void Test_for_coreTest::checkAddAndRemoveRoutes()
 
     which_route_del = 1;
     QCOMPARE(start_test.howManyRoutes(), 1);
-    start_test.deleteRoute(which_route_del);
 
-    QCOMPARE(start_test.howManyRoutes(), 1);
+    start_test.deleteRoute(1);
+
+    QVERIFY_EXCEPTION_THROWN(start_test.howManyRoutes(),ThereAreNoRoutes);
+
 
     number_of_the_route = 1;
+    QVERIFY_EXCEPTION_THROWN(start_test.getItinerary(number_of_the_route),RouteDoesNotExist);
+
+    start_test.addRoute();
     QCOMPARE(start_test.getItinerary(number_of_the_route),OneElement);
 
     number_of_the_route = 2;
@@ -469,7 +473,7 @@ void Test_for_coreTest::checkFileRouteInfo()
 
     start_file_test.deleteBlockFromLine(0);
 
-    how_many_parts_of_line = 1;
+    how_many_parts_of_line = 0;
     QCOMPARE(start_file_test.getNumberOfBlocksInTheLine(), how_many_parts_of_line);
 
     QVERIFY_EXCEPTION_THROWN(start_file_test.getFileData(3), ItemDoesNotExist);

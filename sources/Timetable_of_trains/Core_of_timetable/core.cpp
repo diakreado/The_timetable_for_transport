@@ -180,7 +180,6 @@ void CoreOfTimetable::deleteRoute(int choice_route)
     {
         dataSetOfInfoRoute.deleteBlockFromLine(choice_route);
     }
-    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
     catch(ItemDoesNotExist&)
     {
         choice_route++;
@@ -198,6 +197,7 @@ void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_st
     if(choice_station >= size_of_vector || choice_station < 0)
     {
         choice_station++;
+
         throw StationDoesNotExist(choice_station);
     }
 
@@ -320,7 +320,6 @@ void CoreOfTimetable::removeInformationAboutStation(int choice_station)
     int size_of_vector = AllElement.size();
     if (choice_station < 1 || choice_station > size_of_vector)
     {
-        choice_station++;
         throw StationDoesNotExist(choice_station);
     }
 
