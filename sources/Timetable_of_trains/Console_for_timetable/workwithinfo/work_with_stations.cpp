@@ -155,5 +155,13 @@ void WorkWithStations::removeInformationAboutStation(CoreOfInfoAboutMetro &core)
 
     int number_of_what_remove = getIntFromConsole();
 
-    core.removeInfoAboutStation(number_of_what_remove);
+    try
+    {
+        core.removeInfoAboutStation(number_of_what_remove);
+    }
+    catch(StationDoesNotExist& exception)
+    {
+        std::cout << std::endl << " The station with number "
+                  << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl;
+    }
 }

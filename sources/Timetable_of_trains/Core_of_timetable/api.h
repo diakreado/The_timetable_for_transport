@@ -155,6 +155,13 @@ public:
      * вторая информация о ней
      */
     virtual std::vector<std::pair<std::string, std::string>> getAllStationsWhichHaveDescription() noexcept = 0;
+
+    /**
+     * @brief Сохранить информацию
+     * @param name_of_the_file_with_route - название файла, для хранения информации о маршрутах
+     * @param name_of_the_file_with_station - название файла, для хранения информации о станциях
+     */
+    virtual void saveChanges(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station) noexcept = 0;
 };
 
 #endif // API_H

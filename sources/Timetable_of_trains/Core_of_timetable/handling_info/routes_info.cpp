@@ -5,7 +5,7 @@ std::vector<std::string> RoutesInfo::getRoute(const int number_of_the_route) noe
     return many_routes[number_of_the_route];
 }
 
-int RoutesInfo::getHowManyRoute() const noexcept
+int RoutesInfo::getHowManyRoutes() const noexcept
 {
     return many_routes.size();
 }

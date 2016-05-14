@@ -40,6 +40,15 @@ public:
      */
     void loadFromFile(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station, RoutesInfo &routeInfo, StationsInfo &stationInfo);
 
+    /**
+     * @brief Сохраняет изменения
+     * @param name_of_the_file_with_route - название файла, содержащего информацию о маршрутах
+     * @param name_of_the_file_with_station - название файла, содержащего информацию о станциях
+     * @param routeInfo - то, с чем работают заполнители
+     * @param stationInfo - то, с чем работают заполнители
+     */
+    void saveChanges(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station, RoutesInfo &routeInfo, StationsInfo &stationInfo);
+
 private:
 
     /**

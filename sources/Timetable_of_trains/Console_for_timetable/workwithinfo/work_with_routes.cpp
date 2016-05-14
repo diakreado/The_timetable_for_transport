@@ -48,13 +48,12 @@ void WorkWithRoutes::changeItinerarys(CoreOfInfoAboutMetro &core)
 
     if(how_many_routes == 0)
     {
-        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
-        std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
-        std::cin.get();
-        return;
+        std::cout << std::endl << " At the moment there are no routes" << std::endl << std::endl;
     }
-
-    std::cout << "(There are routes: 1-" << how_many_routes << ')' << std::endl;
+    else
+    {
+        std::cout << "(There are routes: 1-" << how_many_routes << ')' << std::endl;
+    }
 
     std::cout << " 1.Add route" << std::endl
               << " 2.Change route" << std::endl
@@ -144,7 +143,7 @@ void WorkWithRoutes::changeRoute(CoreOfInfoAboutMetro &core)
             std::getline(std::cin,what_to_add);
             std::cout << std::endl << std::endl;
 
-//            core.addStationInItinerary(choice_route, what_to_add);
+            core.addStationInRoute(choice_route, what_to_add);
             break;
         }
         case 2:

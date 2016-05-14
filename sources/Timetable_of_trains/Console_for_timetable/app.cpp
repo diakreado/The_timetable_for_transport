@@ -4,6 +4,8 @@ ConsoleForTimetable::ConsoleForTimetable()
 {
     try
     {
+        loadFromFile();
+
         while(menu()) {}
     }
     catch(std::exception &Error)
@@ -51,22 +53,17 @@ void ConsoleForTimetable::definitionOfAdministrator()
 
 void ConsoleForTimetable::loadFromFile()
 {
-    if (core.getInformationOfTheRights() == Rights_of_customers::user)
-    {
-        return;
-    }
     try
     {
         core.loadInfoFromFile("metro_Saint-Petersburg_route_info.txt", "metro_Saint-Petersburg_station_info.txt");
-        std::cout << std::endl << "File was read" << std::endl << std::endl;
     }
     catch(MissingFile&)
     {
         std::cout << std::endl << "File does not exis" << std::endl << std::endl;
-    }
 
-    std::cout << std::endl << " Press Enter..." << std::endl;
-    std::cin.get();
+        std::cout << std::endl << " Press Enter..." << std::endl;
+        std::cin.get();
+    }
 }
 
 void ConsoleForTimetable::saveChanges()
@@ -81,7 +78,7 @@ void ConsoleForTimetable::saveChanges()
 
     if (answer_about_save == 'Y' || answer_about_save == 'y')
     {
-//        core.saveChanges();
+        core.saveChanges("metro_Saint-Petersburg_route_info.txt", "metro_Saint-Petersburg_station_info.txt");
         std::cout << std::endl << " The information was saved successfully" << std::endl << std::endl;
     }
     else
@@ -102,8 +99,7 @@ bool ConsoleForTimetable::menu()
     {
         std::cout << " 4. Change route table for the train" << std::endl
              << " 5. Change information about station" << std::endl
-             << " 6. Load from file" << std::endl
-             << " 7. Save Changes" << std::endl;
+             << " 6. Save Changes" << std::endl;
     }
     std::cout << " 0. Exit" << std::endl << std::endl;
     std::cout << "-->";
@@ -139,11 +135,6 @@ bool ConsoleForTimetable::menu()
         break;
     }
     case '6':
-    {
-        loadFromFile();
-        break;
-    }
-    case '7':
     {
         saveChanges();
         break;

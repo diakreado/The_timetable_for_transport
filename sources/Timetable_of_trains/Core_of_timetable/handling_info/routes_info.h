@@ -21,7 +21,7 @@ public:
     /**
      * @return Возвращяет информацию, о том что сколько маршрутов существует на данный момент
      */
-    int getHowManyRoute() const noexcept;
+    int getHowManyRoutes() const noexcept;
 
     /**
      * @brief Изменяет название станции в маршруте

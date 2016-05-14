@@ -31,12 +31,12 @@ void CoreOfInfoAboutMetro::loadInfoFromFile(const std::string &name_of_the_file_
 
 int CoreOfInfoAboutMetro::howManyRoutes() const noexcept
 {
-    return routeInfo.getHowManyRoute();
+    return routeInfo.getHowManyRoutes();
 }
 
 std::vector<std::string> CoreOfInfoAboutMetro::getRoute(const int number_of_the_route)
 {
-    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    if(number_of_the_route > routeInfo.getHowManyRoutes() || number_of_the_route < 1)
     {
         throw RouteDoesNotExist(number_of_the_route);
     }
@@ -61,7 +61,7 @@ std::string CoreOfInfoAboutMetro::getInfoAboutStation(const std::string &name_of
 
 std::string CoreOfInfoAboutMetro::getInfoAboutStation(const int number_of_the_route, const int number_of_the_station)
 {
-    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    if(number_of_the_route > routeInfo.getHowManyRoutes() || number_of_the_route < 1)
     {
         throw RouteDoesNotExist(number_of_the_route);
     }
@@ -91,7 +91,7 @@ std::string CoreOfInfoAboutMetro::getInfoAboutStation(const int number_of_the_ro
 
 void CoreOfInfoAboutMetro::changeStationInRoute(const int number_of_the_route, const int number_of_the_station, const std::string &new_marking)
 {
-    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    if(number_of_the_route > routeInfo.getHowManyRoutes() || number_of_the_route < 1)
     {
         throw RouteDoesNotExist(number_of_the_route);
     }
@@ -111,7 +111,7 @@ void CoreOfInfoAboutMetro::changeStationInRoute(const int number_of_the_route, c
 
 void CoreOfInfoAboutMetro::addStationInRoute(const int number_of_the_route, const std::string &what_to_add)
 {
-    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    if(number_of_the_route > routeInfo.getHowManyRoutes() || number_of_the_route < 1)
     {
         throw RouteDoesNotExist(number_of_the_route);
     }
@@ -125,12 +125,12 @@ int CoreOfInfoAboutMetro::addRoute() noexcept
 {
     routeInfo.addRoute();
 
-    return routeInfo.getHowManyRoute();
+    return routeInfo.getHowManyRoutes();
 }
 
 void CoreOfInfoAboutMetro::deleteStationFromRoute(const int number_of_the_route, const int number_of_the_station)
 {
-    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    if(number_of_the_route > routeInfo.getHowManyRoutes() || number_of_the_route < 1)
     {
         throw RouteDoesNotExist(number_of_the_route);
     }
@@ -150,7 +150,7 @@ void CoreOfInfoAboutMetro::deleteStationFromRoute(const int number_of_the_route,
 
 void CoreOfInfoAboutMetro::deleteRoute(const int number_of_the_route)
 {
-    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    if(number_of_the_route > routeInfo.getHowManyRoutes() || number_of_the_route < 1)
     {
         throw RouteDoesNotExist(number_of_the_route);
     }
@@ -167,7 +167,7 @@ void CoreOfInfoAboutMetro::addInfoAboutStation(const std::string &name_of_the_st
 
 void CoreOfInfoAboutMetro::addInfoAboutStation(const int number_of_the_route, const int number_of_the_station, const std::string &station_description)
 {
-    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    if(number_of_the_route > routeInfo.getHowManyRoutes() || number_of_the_route < 1)
     {
         throw RouteDoesNotExist(number_of_the_route);
     }
@@ -202,7 +202,8 @@ void CoreOfInfoAboutMetro::removeInfoAboutStation(const int number_of_the_statio
     const int number_of_the_station_in_the_vector = number_of_the_station - 1;
 
     int size_of_vector = (stationInfo.getAllStations()).size();
-    if (size_of_vector > number_of_the_station || number_of_the_station < 1)
+
+    if (size_of_vector > number_of_the_station || number_of_the_station < 1 || size_of_vector == 0)
     {
         throw StationDoesNotExist(number_of_the_station);
     }
@@ -227,7 +228,10 @@ std::vector<std::pair<std::string, std::string>> CoreOfInfoAboutMetro::getAllSta
     return all_station;
 }
 
-
+void CoreOfInfoAboutMetro::saveChanges(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station) noexcept
+{
+    parsingInformation.saveChanges(name_of_the_file_with_route, name_of_the_file_with_station, routeInfo, stationInfo);
+}
 
 
 

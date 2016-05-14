@@ -128,12 +128,62 @@ void ParsingInfo::loadFromFile(const std::string &name_of_the_file_with_route, c
     reading_file_with_stations.close();
 }
 
+void ParsingInfo::saveChanges(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station, RoutesInfo &routeInfo, StationsInfo &stationInfo)
+{
+    std::ofstream rewriting_file_with_routes(name_of_the_file_with_route);
+
+    std::vector<std::string> route;
+
+    if (routeInfo.getHowManyRoutes() != 0)
+    {
+        route = routeInfo.getRoute(0);
+
+        rewriting_file_with_routes << route[0];
+
+
+        for(auto it = route.begin() + 1; it != route.end(); ++it)
+        {
+            rewriting_file_with_routes << ',' << *it;
+        }
+
+        for(int i = 1; i < routeInfo.getHowManyRoutes(); i++)
+        {
+            route = routeInfo.getRoute(i);
+
+            rewriting_file_with_routes << '/';
+
+            rewriting_file_with_routes << route[0];
+
+            for(auto it = route.begin() + 1; it != route.end(); ++it)
+            {
+                rewriting_file_with_routes << ',' << *it;
+            }
+        }
+    }
+
+    rewriting_file_with_routes.close();
 
 
 
 
+    std::ofstream rewriting_file_with_stations(name_of_the_file_with_station);
+
+    auto all_station = stationInfo.getAllStations();
+
+    if (all_station.size() != 0)
+    {
+        rewriting_file_with_stations << (all_station[0]).first << '~' << (all_station[0]).second;
 
 
+        for(auto it = all_station.begin() + 1; it != all_station.end(); ++it)
+        {
+            rewriting_file_with_stations << '/' << (*it).first << '~' << (*it).second;
+        }
+    }
+
+    rewriting_file_with_stations.close();
+
+}
 
 
 

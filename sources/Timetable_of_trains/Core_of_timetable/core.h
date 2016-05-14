@@ -49,6 +49,8 @@ public:
 
     std::vector<std::pair<std::string, std::string>> getAllStationsWhichHaveDescription() noexcept override;
 
+    void saveChanges(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station) noexcept override;
+
 private:
 
     Rights_of_customers rights;
