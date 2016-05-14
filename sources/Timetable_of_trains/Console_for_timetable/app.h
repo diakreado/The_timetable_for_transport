@@ -39,7 +39,9 @@ private:
      */
     void saveChanges();
 
-    CoreOfTimetable core;
+    void loadFromFile();
+
+    CoreOfInfoAboutMetro core;
 
     WorkWithRoutes route_info;
 

@@ -1,17 +1,26 @@
 #include "work_with_stations.h"
 
-void WorkWithStations::informationAboutStation(CoreOfTimetable &core)
+void WorkWithStations::informationAboutStation(CoreOfInfoAboutMetro &core)
 {
     unsigned how_many_routes = 0;
     try
     {
         how_many_routes = core.howManyRoutes();
 
+        if(how_many_routes == 0)
+        {
+            std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
+            std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
+            std::cin.get();
+            return;
+        }
+
+
         std::cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << std::endl << std::endl << "-->";
         int choice_of_the_route = getIntFromConsole();
         std::cout << std::endl;
 
-        std::vector<std::string> output_for_console = core.getItinerary(choice_of_the_route);
+        std::vector<std::string> output_for_console = core.getRoute(choice_of_the_route);
 
         displayRoute(output_for_console);
 
@@ -22,7 +31,7 @@ void WorkWithStations::informationAboutStation(CoreOfTimetable &core)
         try
         {
             std::cout << std::endl << " Information about the station:" << std::endl << std::endl << ' '
-                      << core.getInformationAboutStation(choice_of_the_route, choice_number_of_the_station) << std::endl;
+                      << core.getInfoAboutStation(choice_of_the_route, choice_number_of_the_station) << std::endl;
         }
         catch(StationDoesNotExist& exception)
         {
@@ -36,15 +45,11 @@ void WorkWithStations::informationAboutStation(CoreOfTimetable &core)
                   << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
                   << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
-    catch(ThereAreNoRoutes&)
-    {
-        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
-    }
     std::cout << std::endl << std::endl << " Press Enter..." << std::endl;
     std::cin.get();
 }
 
-void WorkWithStations::changeInfoAboutStation(CoreOfTimetable &core)
+void WorkWithStations::changeInfoAboutStation(CoreOfInfoAboutMetro &core)
 {
     if (core.getInformationOfTheRights() == Rights_of_customers::user)
     {
@@ -86,22 +91,35 @@ void WorkWithStations::changeInfoAboutStation(CoreOfTimetable &core)
     }
     catch(RouteDoesNotExist& exception)
     {
+        if(core.howManyRoutes() == 0)
+        {
+            std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
+            std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
+            std::cin.get();
+            return;
+        }
+
         std::cout << " The route "
                   << '"' << exception.getWhatRequested() << '"' << " does not exist" << std::endl
                   << std::endl << " At the moment there are 1-" << core.howManyRoutes() << " routes" << std::endl
                   << std::endl << " Enter number of the route, for example: 1" << std::endl;
-    }
-    catch(ThereAreNoRoutes&)
-    {
-        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
     }
 
     std::cout << std::endl << std::endl << " Press Enter..." << std::endl << std::endl;
     std::cin.get();
 }
 
-void WorkWithStations::addOrChangeInformationAboutStation(CoreOfTimetable &core)
+void WorkWithStations::addOrChangeInformationAboutStation(CoreOfInfoAboutMetro &core)
 {
+    if(core.howManyRoutes() == 0)
+    {
+        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
+        std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
+        std::cin.get();
+        return;
+    }
+
+
     std::cout << " What route are you interested in?  (Enter number: 1-"
          << core.howManyRoutes() << ')' << std::endl << std::endl << "-->";
 
@@ -109,7 +127,7 @@ void WorkWithStations::addOrChangeInformationAboutStation(CoreOfTimetable &core)
 
     std::cout << std::endl;
 
-    std::vector<std::string> output_for_console = core.getItinerary(choice_of_the_route);
+    std::vector<std::string> output_for_console = core.getRoute(choice_of_the_route);
 
     displayRoute(output_for_console);
 
@@ -121,20 +139,21 @@ void WorkWithStations::addOrChangeInformationAboutStation(CoreOfTimetable &core)
     std::string station_description;
     std::getline(std::cin, station_description);
 
-    core.addInformationAboutStation(choice_of_the_route, choice_number_of_the_station, station_description);
+    core.addInfoAboutStation(choice_of_the_route, choice_number_of_the_station, station_description);
 }
 
-void WorkWithStations::removeInformationAboutStation(CoreOfTimetable &core)
+void WorkWithStations::removeInformationAboutStation(CoreOfInfoAboutMetro &core)
 {
-    std::vector<std::string> AllItemFromTimetable = core.getAllStationsWhichHaveDescription();
+    auto AllItemFromTimetable = core.getAllStationsWhichHaveDescription();
     for(unsigned i = 0; i < AllItemFromTimetable.size(); i++)
     {
-        std::cout << ' ' << i+1 << '.' << AllItemFromTimetable[i] << std::endl;
+        std::cout << ' ' << i+1 << '.' << (AllItemFromTimetable[i]).first << " : " <<
+                     (AllItemFromTimetable[i]).second << std::endl;
     }
 
     std::cout << std::endl << " What do you want to remove?" << std::endl << std::endl << "-->";
 
     int number_of_what_remove = getIntFromConsole();
 
-    core.removeInformationAboutStation(number_of_what_remove);
+    core.removeInfoAboutStation(number_of_what_remove);
 }

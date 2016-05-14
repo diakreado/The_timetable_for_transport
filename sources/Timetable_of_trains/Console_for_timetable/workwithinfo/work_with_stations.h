@@ -13,7 +13,7 @@ public:
     /**
      * @brief В зависимости от запрашиваемой станции, печатает информацию о ней
      */
-    void informationAboutStation(CoreOfTimetable &core);
+    void informationAboutStation(CoreOfInfoAboutMetro &core);
 
 /// Методы для администратора(доступны только в режиме администратора):
 
@@ -21,17 +21,17 @@ public:
      * @brief Предоставляет пользователю возможность изменения информации о станции
      * Добавить информацию о станции, удалить её
      */
-    void changeInfoAboutStation(CoreOfTimetable &core);
+    void changeInfoAboutStation(CoreOfInfoAboutMetro &core);
 
     /**
      * @brief Добавить информацию о станции
      */
-    void addOrChangeInformationAboutStation(CoreOfTimetable &core);
+    void addOrChangeInformationAboutStation(CoreOfInfoAboutMetro &core);
 
     /**
      * @brief Удалить информацию о станции
      */
-    void removeInformationAboutStation(CoreOfTimetable &core);
+    void removeInformationAboutStation(CoreOfInfoAboutMetro &core);
 };
 
 #endif // WORKWITHSTATIONS_H

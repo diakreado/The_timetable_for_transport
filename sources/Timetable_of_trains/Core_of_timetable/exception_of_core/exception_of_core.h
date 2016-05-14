@@ -3,7 +3,6 @@
 
 #include "route_does_not_exist.h"
 #include "station_does_not_exist.h"
-#include "there_are_no_routes.h"
-#include "item_does_not_exist.h"
+#include "missing_file.h"
 
 #endif // EXCEPTION_OF_CORE_H

@@ -1,20 +1,6 @@
 #include "core.h"
 
-//TODO: это бред, что у вас парсинг файлов размазан по всему приложению
-CoreOfTimetable::CoreOfTimetable() : rights(Rights_of_customers::user)
-{
-    //todo поскольку наличие файла не является необходимым для создания объекто, то
-    //лучше не заниматься чтением файла в конструкторе (велик риск отсутствия файла)
-    //сделать отдельный метод и передавать в него объект, реализиющий получение данных
-    //из внешнего источника
-    /// Скоро планируется реализовать механизм, позволяющий читать информацию из разных файлов, в том смысле, что
-    /// будет несколько вариантов метро и пользователь сможет создать сколько угодно файлов
-
-    dataSetOfInfoRoute.readingFromFile();
-    dataSetOfInfoStation.readingFromFile();
-}
-
-void CoreOfTimetable::putOfRights(const Rights_of_customers rights) noexcept
+void CoreOfInfoAboutMetro::putOfRights(const Rights_of_customers rights) noexcept
 {
     if (rights == Rights_of_customers::administrator)
     {
@@ -26,435 +12,227 @@ void CoreOfTimetable::putOfRights(const Rights_of_customers rights) noexcept
     }
 }
 
-Rights_of_customers CoreOfTimetable::getInformationOfTheRights() const noexcept
+Rights_of_customers CoreOfInfoAboutMetro::getInformationOfTheRights() const noexcept
 {
     return rights;
 }
 
-std::vector<std::string> CoreOfTimetable::getItinerary(int number_of_the_route)
+void CoreOfInfoAboutMetro::putInfoAboutMetro(const std::string &infoAboutRoutes, const std::string &infoAboutStations) noexcept
 {
-    number_of_the_route--;      /// Так как отсчёт с нуля, но пользователь не должен этого знать
+    parsingInformation.putInfoAboutRoutes(infoAboutRoutes, routeInfo);
 
-    std::vector<std::string> Route;
-    try
-    {
-        std::string StringFromFile = dataSetOfInfoRoute.getFileData(number_of_the_route);
-        std::string NameOfTheStation;
-        //todo: это бред...
-        /// Уберу
-        for (char symbol_in_string : StringFromFile)
-        {
-            if (symbol_in_string == ',')
-            {                                           /// Была получена строчка, в которой через запятую находятся
-                Route.push_back(NameOfTheStation);     ///  название станций, а мы её превращяем в vector<string>, где
-                NameOfTheStation = "";                ///   элемент вектора название станции
-            }
-            else
-            {
-                NameOfTheStation += symbol_in_string;
-            }
-        }
-        Route.push_back(NameOfTheStation);
-    }
-    // todo мы ловим исключение, чтобы бросить другое? может быть, я не понимаю чего-то
-    /// Тут непростая ситуация, класс работающий с файлом не должен знать про маршруты, следовательно RouteDoesNotExist
-    /// он бросать не может, а если не перекидывать то, исключение малоинформативно, в ближайшем будущем будет реализован
-    /// метод у RouteDoesNotExist позволяющий получить какую-нибудь информацию об ошибке
+    parsingInformation.putInfoAboutStations(infoAboutStations, stationInfo);
+}
 
-    catch(ItemDoesNotExist&)
+void CoreOfInfoAboutMetro::loadInfoFromFile(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station)
+{
+    parsingInformation.loadFromFile(name_of_the_file_with_route, name_of_the_file_with_station, routeInfo, stationInfo);
+}
+
+int CoreOfInfoAboutMetro::howManyRoutes() const noexcept
+{
+    return routeInfo.getHowManyRoute();
+}
+
+std::vector<std::string> CoreOfInfoAboutMetro::getRoute(const int number_of_the_route)
+{
+    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
     {
-        number_of_the_route++;  /// Так как пользователь вводил именно это число
         throw RouteDoesNotExist(number_of_the_route);
     }
 
-    return Route;
+    const int number_of_the_route_in_the_vector = number_of_the_route - 1;
+
+    return routeInfo.getRoute(number_of_the_route_in_the_vector);;
 }
 
-std::string CoreOfTimetable::getInformationAboutStation(const std::string &name_of_the_station)
+std::string CoreOfInfoAboutMetro::getInfoAboutStation(const std::string &name_of_the_station)
 {
-    try
-    {
-        return dataSetOfInfoStation.getFileData(name_of_the_station);
-    }
-    //TODO: проблема в дизайне, если приходится так перекидывать исключения
-    /// Если никому кроме меня не нравиться я поменяю
-    catch(ItemDoesNotExist&)
-    {
-        throw StationDoesNotExist(name_of_the_station);
-    }
-}
+    std::string info_about_station =  stationInfo.getInfoAboutStation(name_of_the_station);
+    std::string void_string;
 
-std::string CoreOfTimetable::getInformationAboutStation(int choice_route, int choice_station)
-{
-    std::vector<std::string> Route = getItinerary(choice_route);
-
-    int size_of_route = Route.size();
-
-    if (choice_station < 1 || choice_station > size_of_route)
-    {
-        throw StationDoesNotExist(choice_station);
-    }
-
-    choice_station--;
-
-    std::string name_of_the_station = Route[choice_station];
-                                                                    /// Добавляется название станции, так как
-    std::string output_string = name_of_the_station + " : ";       ///  пользователь указывает его не явно
-
-    try               /// действия те же, что и выше но только мы название стаанции получаем из информации о маршрутах
-    {
-        output_string += dataSetOfInfoStation.getFileData(name_of_the_station);
-    }
-    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
-    /// Если никому кроме меня не нравиться я поменяю
-    catch(ItemDoesNotExist&)
+    if(info_about_station == void_string)
     {
         throw StationDoesNotExist(name_of_the_station);
     }
 
-    return output_string;
+    return info_about_station;
 }
 
-void CoreOfTimetable::changeStationInItinerary(int choice_route, int choice_station, std::string &what_to_replace)
+std::string CoreOfInfoAboutMetro::getInfoAboutStation(const int number_of_the_route, const int number_of_the_station)
 {
-    std::vector<std::string> Route = getItinerary(choice_route);
-    choice_station--;
-    choice_route--;
-
-    int route_size = Route.size();  /// Чтобы не было конфликта типов при сравнение
-
-    if(choice_station >= route_size || choice_station < 0)
+    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
     {
-        choice_station++;     /// Потому что пользователь вводил именно такое число
-        throw StationDoesNotExist(choice_station);
-    }
-    else
-    {
-        Route[choice_station] = what_to_replace;
+        throw RouteDoesNotExist(number_of_the_route);
     }
 
-    std::string ToPrintToFile;
-    //todo: это бред2...
-    for (unsigned int i = 0; i < Route.size()-1; i++)
-    {
-        ToPrintToFile += Route[i] + ',';
-    }
-    ToPrintToFile += Route[Route.size()-1];   /// Потому что в конце запятая не нужна
+    const int number_of_the_route_in_the_vector = number_of_the_route - 1;
+    const int number_of_the_station_in_the_vector = number_of_the_station - 1;
 
-    bool correct_beginning_of_the_line = 0;          /// Правильное ли начало строки
-    while(correct_beginning_of_the_line == 0)
-    {
-        unsigned int size_of_string = ToPrintToFile.size()-1;
-        if (ToPrintToFile[size_of_string] == ' ')
-        {
-            ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
-        }                                               /// не оставалось в начале строки символы '_' и пробелы
-        else
-        {
-            correct_beginning_of_the_line = 1;
-        }
-    }                                            /// Потому что отсчёт с нуля
+    std::vector<std::string> route = routeInfo.getRoute(number_of_the_route_in_the_vector);
 
-    try
+    int size_of_vector = route.size();
+    if(number_of_the_station > size_of_vector || number_of_the_station < 1)
     {
-        dataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+        throw StationDoesNotExist(number_of_the_station);
     }
-    //TODO: проблема в дизайне, если приходится так перекидывать исключения когда у вас полтора класса в программе
-    /// Если никому кроме меня не нравиться я поменяю
-    catch(ItemDoesNotExist&)
+
+
+    std::string info_about_station =  stationInfo.getInfoAboutStation(route[number_of_the_station_in_the_vector]);
+    std::string void_string;
+
+    if(info_about_station == void_string)
     {
-        choice_route++;
-        throw RouteDoesNotExist(choice_route);
+        throw StationDoesNotExist(route[number_of_the_station_in_the_vector]);
     }
+
+    return info_about_station;
 }
 
-int CoreOfTimetable::addRoute() noexcept
+void CoreOfInfoAboutMetro::changeStationInRoute(const int number_of_the_route, const int number_of_the_station, const std::string &new_marking)
 {
-    int choice_route = dataSetOfInfoRoute.getNumberOfBlocksInTheLine();
+    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    {
+        throw RouteDoesNotExist(number_of_the_route);
+    }
 
-    dataSetOfInfoRoute.addNewBlock();
+    const int number_of_the_route_in_the_vector = number_of_the_route - 1;
+    const int number_of_the_station_in_the_vector = number_of_the_station - 1;
 
-    choice_route++;
-    return choice_route;
+    int size_of_vector = (routeInfo.getRoute(number_of_the_route_in_the_vector)).size();
+
+    if(number_of_the_station < 1 || number_of_the_station > size_of_vector)
+    {
+        throw StationDoesNotExist(number_of_the_station);
+    }
+
+    routeInfo.changeStationInRoute(number_of_the_route_in_the_vector, number_of_the_station_in_the_vector, new_marking);
 }
 
-void CoreOfTimetable::deleteRoute(int choice_route)
+void CoreOfInfoAboutMetro::addStationInRoute(const int number_of_the_route, const std::string &what_to_add)
 {
-    choice_route--;
+    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
+    {
+        throw RouteDoesNotExist(number_of_the_route);
+    }
 
-    try
-    {
-        dataSetOfInfoRoute.deleteBlockFromLine(choice_route);
-    }
-    catch(ItemDoesNotExist&)
-    {
-        choice_route++;
-        throw RouteDoesNotExist(choice_route);
-    }
+    const int number_of_the_route_in_the_vector = number_of_the_route - 1;
+
+    routeInfo.addStationInRoute(number_of_the_route_in_the_vector, what_to_add);
 }
 
-void CoreOfTimetable::deleteStationFromItinerary(int choice_route, int choice_station)
+int CoreOfInfoAboutMetro::addRoute() noexcept
 {
-    std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
-    choice_station--;
+    routeInfo.addRoute();
 
-    int size_of_vector = NewVariantOfString.size();
-
-    if(choice_station >= size_of_vector || choice_station < 0)
-    {
-        choice_station++;
-
-        throw StationDoesNotExist(choice_station);
-    }
-
-    NewVariantOfString[choice_station] = "";
-    std::string ToPrintToFile;
-    //todo: это бред3...
-    for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
-    {
-        if (NewVariantOfString[i] != "")
-        {
-            ToPrintToFile += NewVariantOfString[i] + ',';
-        }
-    }
-
-    if (NewVariantOfString[NewVariantOfString.size()-1] != "")
-    {
-        ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
-    }
-    else
-    {
-        ToPrintToFile.erase(ToPrintToFile.size()-1);  /// Убрал запятую
-    }
-
-    bool correct_beginning_of_the_line = 0;
-
-    while(correct_beginning_of_the_line == 0)
-    {
-        unsigned size_of_string;
-        size_of_string = ToPrintToFile.size()-1;
-        if (ToPrintToFile[size_of_string] == ' ')
-        {
-            ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
-        }                                               /// не оставалось в начале сторки символы '_' и пробелы
-        else
-        {
-            correct_beginning_of_the_line = 1;
-        }
-    }
-
-    choice_route--;                                                     /// Потому что отсчёт с нуля
-    dataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+    return routeInfo.getHowManyRoute();
 }
 
-void CoreOfTimetable::addStationInItinerary(int choice_route, std::string &what_to_add)
+void CoreOfInfoAboutMetro::deleteStationFromRoute(const int number_of_the_route, const int number_of_the_station)
 {
-    std::vector<std::string> NewVariantOfString = getItinerary(choice_route);
-
-    NewVariantOfString.push_back(what_to_add);
-    std::string ToPrintToFile;
-
-    for (unsigned i = 0; i < NewVariantOfString.size()-1; i++)
+    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
     {
-        ToPrintToFile += NewVariantOfString[i] + ',';
-    }
-    ToPrintToFile += NewVariantOfString[NewVariantOfString.size()-1];   /// Потому что в конце запятая не нужна
-
-    bool correct_beginning_of_the_line = 0;
-    while(correct_beginning_of_the_line == 0)
-    {
-        unsigned size_of_string;
-        size_of_string = ToPrintToFile.size()-1;
-//TODO: это бред4...
-        if (ToPrintToFile[size_of_string] == ' ')
-        {
-            ToPrintToFile.erase(ToPrintToFile.end()-1);  /// Сделано для того, чтобы если удалялся какой-либо элемент
-        }                                               /// не оставалось в начале сторки символы '_' и пробелы
-        else
-        {
-            correct_beginning_of_the_line = 1;
-        }
+        throw RouteDoesNotExist(number_of_the_route);
     }
 
-    choice_route--;                                            /// Потому что отсчёт с нуля
-    dataSetOfInfoRoute.changeBlockFromLine(choice_route,ToPrintToFile);
+    const int number_of_the_route_in_the_vector = number_of_the_route - 1;
+    const int number_of_the_station_in_the_vector = number_of_the_station - 1;
+
+    int size_of_vector = (routeInfo.getRoute(number_of_the_route_in_the_vector)).size();
+
+    if(number_of_the_station < 1 || number_of_the_station > size_of_vector)
+    {
+        throw StationDoesNotExist(number_of_the_station);
+    }
+
+    routeInfo.deleteStationFromRoute(number_of_the_route_in_the_vector, number_of_the_station_in_the_vector);
 }
 
-void CoreOfTimetable::addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept
+void CoreOfInfoAboutMetro::deleteRoute(const int number_of_the_route)
 {
-    dataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
-}
-
-void CoreOfTimetable::addInformationAboutStation(int choice_route, int choice_station, std::string &station_description)
-{
-    std::vector<std::string> Route = getItinerary(choice_route);
-
-    choice_station--;
-    std::string name_of_the_station = Route[choice_station];
-
-    dataSetOfInfoStation.addNewBlockOrChangeExisting(name_of_the_station, station_description);
-}
-
-void CoreOfTimetable::removeInformationAboutStation(const std::string &what_station_to_remove)
-{
-    std::string new_what_station_to_remove;
-    for(char j : what_station_to_remove)
+    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
     {
-        if (j == '~')
-        {
-            break;
-        }
-        new_what_station_to_remove += j;
+        throw RouteDoesNotExist(number_of_the_route);
     }
 
-    try
+    const int number_of_the_route_in_the_vector = number_of_the_route - 1;
+
+    routeInfo.deleteRoute(number_of_the_route_in_the_vector);
+}
+
+void CoreOfInfoAboutMetro::addInfoAboutStation(const std::string &name_of_the_station, const std::string &station_description) noexcept
+{
+    stationInfo.addInfoAboutStation(name_of_the_station, station_description);
+}
+
+void CoreOfInfoAboutMetro::addInfoAboutStation(const int number_of_the_route, const int number_of_the_station, const std::string &station_description)
+{
+    if(number_of_the_route > routeInfo.getHowManyRoute() || number_of_the_route < 1)
     {
-        dataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
+        throw RouteDoesNotExist(number_of_the_route);
     }
-    catch(ItemDoesNotExist&)
+
+    const int number_of_the_route_in_the_vector = number_of_the_route - 1;
+    const int number_of_the_station_in_the_vector = number_of_the_station - 1;
+
+    std::vector<std::string> route = routeInfo.getRoute(number_of_the_route_in_the_vector);
+
+    int size_of_vector = route.size();
+
+    if(number_of_the_station < 1 || number_of_the_station > size_of_vector)
+    {
+        throw StationDoesNotExist(number_of_the_station);
+    }
+
+    stationInfo.addInfoAboutStation(route[number_of_the_station_in_the_vector], station_description);
+}
+
+void CoreOfInfoAboutMetro::removeInfoAboutStation(const std::string &what_station_to_remove)
+{
+    if (stationInfo.getInfoAboutStation(what_station_to_remove) == "")
     {
         throw StationDoesNotExist(what_station_to_remove);
     }
+
+    stationInfo.removeInfoAboutStation(what_station_to_remove);
 }
 
-//TODO: слишком длинным метод
-void CoreOfTimetable::removeInformationAboutStation(int choice_station)
+void CoreOfInfoAboutMetro::removeInfoAboutStation(const int number_of_the_station)
 {
-    //
-    std::vector<std::string> AllElement = dataSetOfInfoStation.getAllElement();
+    const int number_of_the_station_in_the_vector = number_of_the_station - 1;
 
-    int size_of_vector = AllElement.size();
-    if (choice_station < 1 || choice_station > size_of_vector)
+    int size_of_vector = (stationInfo.getAllStations()).size();
+    if (size_of_vector > number_of_the_station || number_of_the_station < 1)
     {
-        throw StationDoesNotExist(choice_station);
+        throw StationDoesNotExist(number_of_the_station);
     }
 
-    choice_station--;
-    const std::string what_station_to_remove = AllElement[choice_station];
+    auto info_about_station = (stationInfo.getAllStations())[number_of_the_station_in_the_vector];
 
-    std::string new_what_station_to_remove;
-    for(char j : what_station_to_remove)
+    stationInfo.removeInfoAboutStation(info_about_station.first);
+}
+
+std::vector<std::pair<std::string, std::string>> CoreOfInfoAboutMetro::getAllStationsWhichHaveDescription() noexcept
+{
+    auto all_station = stationInfo.getAllStations();
+
+    for(unsigned int i = 0; i < all_station.size(); i++)
     {
-        //TODO: уже видели такое
-        if (j == '~')
+        if ((all_station[i]).second == "")
         {
-            break;
-        }
-        new_what_station_to_remove += j;
-    }
-
-    try
-    {
-        dataSetOfInfoStation.deleteBlockFromLine(new_what_station_to_remove);
-    }
-    catch(ItemDoesNotExist&)
-    {
-        throw StationDoesNotExist(new_what_station_to_remove);
-    }
-}
-
-void CoreOfTimetable::saveChanges() noexcept
-{
-    dataSetOfInfoRoute.saveChanges();
-    dataSetOfInfoStation.saveChanges();
-}
-
-int CoreOfTimetable::howManyRoutes()
-{
-    int how_many_routes = dataSetOfInfoRoute.getNumberOfBlocksInTheLine();
-    if (how_many_routes == 0)
-    {
-        throw ThereAreNoRoutes();
-    }
-    return how_many_routes;
-}
-
-std::vector<std::string> CoreOfTimetable::getAllStationsWhichHaveDescription()  noexcept
-{
-    return dataSetOfInfoStation.getAllElement();
-}
-
-std::vector<std::string> CoreOfTimetable::findTrack(int num_route_from,int num_station_from,int num_route_to,int num_station_to)
-{
-    num_station_from--;
-    num_station_to--;
-
-    std::vector<std::string> Track;
-
-    if (num_route_from == num_route_to)                  /// Если нужно проложить маршрут в пределах одной ветки
-    {
-        findTrackInOneRoute(num_route_from, num_station_from, num_station_to, Track);
-
-        return Track;
-    }
-
-    /// В паре номера станций из двух маршрутов, с одинаковыми названиями. Первое из маршрута "откуда", второе из "куда"
-    std::pair<int,int> From_To = findStationWithTheSameName(num_route_from, num_route_to);
-
-    findTrackInOneRoute(num_route_from, num_station_from, From_To.first, Track); /// Путь по первому маршруту
-
-
-    findTrackInOneRoute(num_route_to, From_To.second, num_station_to, Track); /// Путь по второму маршруту
-
-    return Track;
-}
-
-void CoreOfTimetable::findTrackInOneRoute(int num_route, int num_station_from,
-                                                              int num_station_to,std::vector<std::string> &Track)
-{
-    std::vector<std::string> Route = getItinerary(num_route);
-
-    if (num_station_from < num_station_to)          /// Если мы собираемся двигаться по ветке вниз
-    {
-        for(int i = num_station_from; i <= num_station_to; i++)
-        {
-            Track.push_back(Route[i]);
-        }
-    }
-    else                                            /// Если мы собираемся двигаться по ветке вверх
-    {
-        for(int i = num_station_from; i >= num_station_to; i--)
-        {
-            Track.push_back(Route[i]);
-        }
-    }
-}
-
-std::pair<int,int> CoreOfTimetable::findStationWithTheSameName(int num_route_one, int num_route_two)
-{
-    std::vector<std::string> RouteOne = getItinerary(num_route_one);
-    std::vector<std::string> RouteTwo = getItinerary(num_route_two);
-
-    /// Не знаю, как иначе
-
-    int size_one = RouteOne.size();
-    int size_two = RouteTwo.size();
-
-    for(int i = 0; i < size_one; i++)
-    {
-        for(int j = 0; j < size_two; j++)
-        {
-            if (RouteOne[i] == RouteTwo[j])
-            {
-                std::pair<int,int> answer;
-
-                answer.first = i;
-                answer.second = j;
-
-                return answer;
-            }
+            all_station.erase(all_station.begin() + i);
         }
     }
 
-    /// ToDo Ну здесь исключение надо бросить
-
-    std::pair<int,int> answer;
-
-    answer.first = -1;
-    answer.second = -1;
-
-    return answer;
+    return all_station;
 }
+
+
+
+
+
+
+
 
 
 

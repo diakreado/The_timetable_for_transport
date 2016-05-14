@@ -1,17 +1,25 @@
 #include "work_with_routes.h"
 
-void WorkWithRoutes::routeInformation(CoreOfTimetable &core)
+void WorkWithRoutes::routeInformation(CoreOfInfoAboutMetro &core)
 {
     unsigned how_many_routes;
     try
     {
         how_many_routes = core.howManyRoutes();
 
+        if(how_many_routes == 0)
+        {
+            std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
+            std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
+            std::cin.get();
+            return;
+        }
+
         std::cout << " What route are you interested in?  (Enter number: 1-" << how_many_routes << ')' << std::endl << std::endl << "-->";
         int choice_of_the_route =  getIntFromConsole();
         std::cout << std::endl;
 
-        std::vector<std::string> output_for_console = core.getItinerary(choice_of_the_route);
+        std::vector<std::string> output_for_console = core.getRoute(choice_of_the_route);
 
         displayRoute(output_for_console);
     }
@@ -22,16 +30,11 @@ void WorkWithRoutes::routeInformation(CoreOfTimetable &core)
              << std::endl << " At the moment there are 1-" << how_many_routes << " routes" << std::endl
              << std::endl << " Enter number of the route, for example: 1" << std::endl;
     }
-    catch(ThereAreNoRoutes&)
-    {
-        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
-    }
-
     std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
     std::cin.get();
 }
 
-void WorkWithRoutes::changeItinerarys(CoreOfTimetable &core)
+void WorkWithRoutes::changeItinerarys(CoreOfInfoAboutMetro &core)
 {
     if (core.getInformationOfTheRights() == Rights_of_customers::user)  /// Пользователь не сможет вызвать метод, если он не админ
     {
@@ -39,16 +42,20 @@ void WorkWithRoutes::changeItinerarys(CoreOfTimetable &core)
     }
 
     std::cout << " What do you want to do with route table? ";
-    try
+
+    unsigned how_many_routes = 0;
+    how_many_routes = core.howManyRoutes();
+
+    if(how_many_routes == 0)
     {
-        unsigned how_many_routes = 0;
-        how_many_routes = core.howManyRoutes();
-        std::cout << "(There are routes: 1-" << how_many_routes << ')' << std::endl;
+        std::cout << std::endl << " At the moment there are no routes, contact the administrator for help" << std::endl;
+        std::cout << std::endl << " Press Enter..." << std::endl << std::endl;
+        std::cin.get();
+        return;
     }
-    catch(ThereAreNoRoutes&)
-    {
-        std::cout << "(There are routes: 0)" << std::endl;
-    }
+
+    std::cout << "(There are routes: 1-" << how_many_routes << ')' << std::endl;
+
     std::cout << " 1.Add route" << std::endl
               << " 2.Change route" << std::endl
               << " 3.Delete route" << std::endl << std::endl << "-->";
@@ -83,12 +90,12 @@ void WorkWithRoutes::changeItinerarys(CoreOfTimetable &core)
 }
 
 
-void WorkWithRoutes::addRoute(CoreOfTimetable &core)
+void WorkWithRoutes::addRoute(CoreOfInfoAboutMetro &core)
 {
     std::cout << std::endl << " Was created the route " << core.addRoute() << std::endl;
 }
 
-void WorkWithRoutes::deleteRoute(CoreOfTimetable &core)
+void WorkWithRoutes::deleteRoute(CoreOfInfoAboutMetro &core)
 {
     std::cout << std::endl << " Which route you want to delete" << std::endl << std::endl << "-->";
     int choice_route = getIntFromConsole();
@@ -106,7 +113,7 @@ void WorkWithRoutes::deleteRoute(CoreOfTimetable &core)
     std::cout << std::endl;
 }
 
-void WorkWithRoutes::changeRoute(CoreOfTimetable &core)
+void WorkWithRoutes::changeRoute(CoreOfInfoAboutMetro &core)
 {
     bool how_successful_changes = 1;
     std::cout << std::endl << " Which do route you want to change?" << std::endl << std::endl << "-->";
@@ -115,7 +122,7 @@ void WorkWithRoutes::changeRoute(CoreOfTimetable &core)
 
     try
     {
-        std::vector<std::string> output_for_console = core.getItinerary(choice_route);
+        std::vector<std::string> output_for_console = core.getRoute(choice_route);
 
         displayRoute(output_for_console);
 
@@ -137,7 +144,7 @@ void WorkWithRoutes::changeRoute(CoreOfTimetable &core)
             std::getline(std::cin,what_to_add);
             std::cout << std::endl << std::endl;
 
-            core.addStationInItinerary(choice_route, what_to_add);
+//            core.addStationInItinerary(choice_route, what_to_add);
             break;
         }
         case 2:
@@ -150,7 +157,7 @@ void WorkWithRoutes::changeRoute(CoreOfTimetable &core)
             std::getline(std::cin,what_to_replace);
             std::cout << std::endl << std::endl;
 
-            core.changeStationInItinerary(choice_route, choice_station, what_to_replace);
+            core.changeStationInRoute(choice_route, choice_station, what_to_replace);
             break;
         }
         case 3:
@@ -158,7 +165,7 @@ void WorkWithRoutes::changeRoute(CoreOfTimetable &core)
             std::cout << " What station do you want to delete?" << std::endl << std::endl << "-->";
             int choice_station = getIntFromConsole();
 
-            core.deleteStationFromItinerary(choice_route, choice_station);
+            core.deleteStationFromRoute(choice_route, choice_station);
             break;
         }
         default:

@@ -12,6 +12,7 @@ class_*
 *.bat
 *.idx
 *.out
+*.autosave
 latex
 html
 Makefile

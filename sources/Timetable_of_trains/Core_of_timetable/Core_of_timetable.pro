@@ -13,8 +13,9 @@ CONFIG += staticlib c++11
 
 SOURCES += \
     core.cpp \
-    file_handling/file_route_information.cpp \
-    file_handling/file_station_information.cpp
+    handling_info/routes_info.cpp \
+    handling_info/stations_info.cpp \
+    handling_info/parsing_info.cpp
 
 HEADERS += \
     core.h \
@@ -22,11 +23,10 @@ HEADERS += \
     exception_of_core/exception_of_core.h \
     exception_of_core/station_does_not_exist.h \
     exception_of_core/route_does_not_exist.h \
-    exception_of_core/there_are_no_routes.h \
-    exception_of_core/item_does_not_exist.h \
-    file_handling/file_handling.h \
-    file_handling/file_route_information.h \
-    file_handling/file_station_information.h
+    handling_info/routes_info.h \
+    handling_info/stations_info.h \
+    handling_info/parsing_info.h \
+    exception_of_core/missing_file.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -1,13 +1,10 @@
 #ifndef API_H
 #define API_H
 
-#include "file_handling/file_route_information.h"
-#include "file_handling/file_station_information.h"
+#include "handling_info/routes_info.h"
+#include "handling_info/stations_info.h"
+#include "handling_info/parsing_info.h"
 #include "exception_of_core/exception_of_core.h"
-
-//todo используйте спецификатор const для параметров метода, где это возможно
-/// Я использую, просто часто параметры изменяются, например когда передётся номер станции, то нужно из него вычесть
-/// еденицу, так как польззователь не должен знать про то, что отсчёт с 0 или это делать в консоли?
 
 enum class Rights_of_customers{user = 0, administrator = 1};
 
@@ -17,6 +14,13 @@ enum class Rights_of_customers{user = 0, administrator = 1};
 class API
 {
 public:
+
+    API() = default;
+
+    API(const API&) = delete;
+    API& operator= (const API&) = delete;
+
+    virtual ~API(){}
 
     /**
      * @brief Выдача прав
@@ -30,122 +34,127 @@ public:
     virtual Rights_of_customers getInformationOfTheRights() const noexcept = 0;
 
     /**
+     * @brief Один из способ передать входные данные
+     * @param infoAboutRoutes - информация о маршрутах в формате: Devyatkino,Grazhdansky Prospekt/Parnas,Prospekt Prosvescheniya
+     * где через запятую указываются называние станций, а слеш отедляет маршруты
+     * @param infoAboutStations - информация о станциях в формате: Parnas~5.47-0.00/Prospekt Prosvescheniya~5.37-0.40
+     * где слеш отедляет станции, а тильда отедляет название станции от информации связаной с ней
+     */
+    virtual void putInfoAboutMetro(const std::string &infoAboutRoutes, const std::string &infoAboutStations) noexcept = 0;
+
+    /**
+     * @brief Загрузить входные данные из файла
+     * @param name_of_the_file_with_route - название файла, для хранения информации о маршрутах
+     * @param name_of_the_file_with_station - название файла, для хранения информации о станциях
+     * Информация должна находиться в таком же формате, как и в putInfoAboutMetro
+     * @exception При неудачном открытие файла бросается MissingFile, от объекта которого можно
+     * получить информацию о неверно имени файла
+     */
+    virtual void loadInfoFromFile(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station) = 0;
+
+    /**
+     * @return Сколько маршрутов существует на данный момент
+     */
+    virtual int howManyRoutes() const noexcept = 0;
+
+    /**
+     * @param number_of_the_route - номер запрашиваемого маршрута
+     * @return Запрашиваемый маршрут в формате vector<string> , где string - это название станций
+     * @exception При запросе несуществующего маршрута бросается RouteDoesNotExist, от объекта
+     * которого можно получить информацию, какой маршрут запрашивали
+     */
+    virtual std::vector<std::string> getRoute(const int number_of_the_route) = 0;
+
+    /**
+     * @param name_of_the_station - название станции, о которой нужно получить информацию
+     * @return информация о запрашиваемой станции
+     * @exception При запросе несуществующеё станции бросается StationDoesNotExist
+     */
+    virtual std::string getInfoAboutStation(const std::string &name_of_the_station) = 0;
+
+    /**
+     * @brief Способ альтернативный предидущему
+     * @param number_of_the_route - номер маршрута, содержащего станцию
+     * @param number_of_the_station - номер станции в маршруте
+     * @return информация о запрашиваемой станции
+     * @exception При запросе несуществующеё станции бросается StationDoesNotExist, а RouteDoesNotExist, если маршрута не ссуществует
+     */
+    virtual std::string getInfoAboutStation(const int number_of_the_route, const int number_of_the_station) = 0;
+
+    /**
+     * @brief Изменение станции в маршруте
      * @param number_of_the_route - номер маршрута
-     * @return Маршрут поезда в формате vector<string> (массив названий станций)
-     * @throws Может быть брошено исключение RouteDoesNotExist
+     * @param number_of_the_station - номер станции
+     * @param new_marking - то, что нужно поставить в замен
+     * @exception При неверном запросе бросаются StationDoesNotExist и RouteDoesNotExist
      */
-    virtual std::vector<std::string> getItinerary(int number_of_the_route) = 0;
+    virtual void changeStationInRoute(const int number_of_the_route, const int number_of_the_station, const std::string &new_marking) = 0;
 
     /**
-     * @brief Используется для более удобного вывода информации о станции
-     * @param name_of_the_station - название станции
-     * @return Информация о станции в формате string, здесь возвращяется только информация о станции,
-     *  так как название станции заранее известно
-     * @throws Может быть брошено исключение StationDoesNotExist
+     * @brief Добавляет станцию в маршрут
+     * @param number_of_the_route - номер маршрута, в который нужно добавить станцию
+     * @param what_to_add - название станции, которую нужно добавить
+     * @exception При неверном запросе бросается RouteDoesNotExist
      */
-    virtual std::string getInformationAboutStation(const std::string &name_of_the_station) = 0;
+    virtual void addStationInRoute(const int number_of_the_route, const std::string &what_to_add) = 0;
 
     /**
-     * @brief Используется для более удобного вывода информации о станции, аналог предидущего
-     * @param choice_route - номер маршрута, который нужно изменить
-     * @param choice_station - номер станции
-     * @return Информация о станции в формате string, здесь кроме информации о станции возвращяется и название станции,
-     *  т.е. string  в формате "Parnas : Info", сделанно потому что пользователь может не знать о станции
-     * @throws Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
-     */
-    virtual std::string getInformationAboutStation(int choice_route, int choice_station) = 0;
-
-    /**
-     * @brief Изменение маршрута поезда
-     * @param choice_route - номер маршрута, который нужно изменить
-     * @param choice_station - номер станции
-     * @param what_to_replace - что нужно поставить взамен
-     * @throws Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
-     */
-    virtual void changeStationInItinerary(int choice_route, int choice_station, std::string &what_to_replace) = 0;
-
-    /**
-     * @brief Удалить станцию из определённого маршрута
-     * @param choice_route - номер маршрута, который нужно изменить
-     * @param choice_station - номер станции
-     * @throws Могут быть брошены исключения RouteDoesNotExist и StationDoesNotExist
-     */
-    virtual void deleteStationFromItinerary(int choice_route, int choice_station) = 0;
-
-    /**
-     * @brief Добавить станцию маршрут поезда
-     * @param choice_route - номер маршрута, который нужно изменить
-     * @param what_to_add - что нужно добавить
-     * @throws Может быть брошено исключение RouteDoesNotExist
-     */
-    virtual void addStationInItinerary(int choice_route, std::string &what_to_add) = 0;
-
-    /**
-     * @brief Добавляет информацию о новом маршруте в контейнеры
-     * @param name_of_the_station - название маршрута
-     * @param station_description - описание маршрута
-     */
-    virtual void addInformationAboutStation(std::string &name_of_the_station, std::string &station_description) noexcept = 0;
-
-    /**
-     * @brief Добавляет информацию о новом маршруте в контейнеры, альтернативный путь, в котором название станции получаем
-     * из информации о маршрутах
-     * @param choice_route - номер маршрута, который нужно изменить
-     * @param choice_station - номер станции
-     * @param station_description - описание маршрута
-     * @throws Может быть брошено исключение RouteDoesNotExist
-     */
-    virtual void addInformationAboutStation(int choice_route, int choice_station, std::string &station_description) = 0;
-
-
-    /**
-     * @brief Удаление информации о станции из расписания
-     * @param what_station_to_remove - название станции, которую нужно удалить
-     * @throws Может быть брошено исключение StationDoesNotExist
-     */
-    virtual void removeInformationAboutStation(const std::string &what_station_to_remove)= 0;
-
-    /**
-     * @brief Удаление информации о станции из расписания
-     * @param choice_station - номер станции, только в данном случае номер маршрута берётся не из информации о маршрутах,
-     * а из списка станций, о которых существует информация (список можно получить с помощью getAllStations...)
-     * @throws Может быть брошено исключение StationDoesNotExist
-     */
-    virtual void removeInformationAboutStation(int choice_station)= 0;
-
-    /**
-     * @brief Добавить новый маршурт в таблицу
+     * @brief Добавляет новый (пустой) маршрут
      * @return Номер добавленного маршрута
      */
     virtual int addRoute() noexcept = 0;
 
     /**
-     * @brief Удаление маршрута
-     * @param choice_route - номер маршрута, который нужно удалить
-     * @throws Может быть брошено исключение RouteDoesNotExist
+     * @brief Удаляет станцию из маршрута
+     * @param number_of_the_route - номер маршрута, из которого нужно удалить станцию
+     * @param number_of_the_station - номер станции, которую нужно удалить
+     * @exception При неверном запросе бросаются StationDoesNotExist и RouteDoesNotExist
      */
-    virtual void deleteRoute(int choice_route) = 0;
+    virtual void deleteStationFromRoute(const int number_of_the_route, const int number_of_the_station) = 0;
 
     /**
-     * @brief Сохраняет изменения в файле "metro_Saint-Petersburg"
+     * @brief Удаляет маршрут
+     * @param number_of_the_route - номер маршрута, который нужно удалить
+     * @exception При неверном запросе бросается RouteDoesNotExist
      */
-    virtual void saveChanges() noexcept = 0;
+    virtual void deleteRoute(const int number_of_the_route) = 0;
 
     /**
-     * @return Возвращает количество существующих маршрутов
-     * @throws Может быть брошено исключение ThereAreNoRoutes
+     * @brief Добавляет информацию о станции
+     * @param name_of_the_station - номер станции, о которой информация
+     * @param station_description - информация о станции
      */
-    virtual int howManyRoutes() = 0;
+    virtual void addInfoAboutStation(const std::string &name_of_the_station, const std::string &station_description) noexcept = 0;
 
     /**
-     * @brief Используется для того, чтобы просмотреть существующие станции перед их удалением
-     * @return Возвращает все элементы из контейнера, связанного с описанием станций
+     * @brief Альтернативный путь добавления информации о станции
+     * @param number_of_the_route - номер маршрута, в котором содерижтся станция, про которую информация
+     * @param number_of_the_station - номер станции, про которую информация
+     * @param station_description - информация о станции
+     * @exception При неверном запросе бросаются StationDoesNotExist и RouteDoesNotExist
      */
-    virtual std::vector<std::string> getAllStationsWhichHaveDescription() noexcept = 0;
-    //todo как получить станции, у которых нет описания
-    /// getItinerary возвраящет станции маршрута, там могут быть станции без описания
+    virtual void addInfoAboutStation(const int number_of_the_route, const int number_of_the_station, const std::string &station_description) = 0;
 
-    virtual ~API(){}
+    /**
+     * @brief Удаляет информацию о станции
+     * @param what_station_to_remove - название станции, которую нужно удалить
+     * @exception При неверном запросе бросается StationDoesNotExist
+     */
+    virtual void removeInfoAboutStation(const std::string &what_station_to_remove) = 0;
+
+    /**
+     * @brief Альтернативный путь удаления информации о станции, в месте с ним используется метод
+     * getAllStationsWhichHaveDescription(), именно из него берётся номер станции
+     * @param number_of_the_station - номер станции из getAllStationsWh..
+     * @exception При неверном запросе бросается StationDoesNotExist
+     */
+    virtual void removeInfoAboutStation(const int number_of_the_station) = 0;
+
+    /**
+     * @return Всё станции, про котороые содержится информация, первая часть пары название станции,
+     * вторая информация о ней
+     */
+    virtual std::vector<std::pair<std::string, std::string>> getAllStationsWhichHaveDescription() noexcept = 0;
 };
 
 #endif // API_H
