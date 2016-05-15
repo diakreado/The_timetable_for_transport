@@ -7,19 +7,19 @@ MainWindow::MainWindow(QWidget *parent, CoreOfInfoAboutMetro* core)
     this->core = core;
 
 
-//    core->addRoute();
-//    core->addStationInRoute(1, "Parnas");
-//    core->addStationInRoute(1, "Prosveshenia prospekt");
+    core->addRoute();
+    core->addStationInRoute(1, "Parnas");
+    core->addStationInRoute(1, "Prosveshenia prospekt");
 
 
-//    core->addRoute();
-//    core->addStationInRoute(2, "Devayatkino");
-//    core->addStationInRoute(2, "Polka Pripolka");
-//    core->addStationInRoute(2, "Vsyo schastlivo");
+    core->addRoute();
+    core->addStationInRoute(2, "Devayatkino");
+    core->addStationInRoute(2, "Polka Pripolka");
+    core->addStationInRoute(2, "Vsyo schastlivo");
 
-//    core->addRoute();
-//    core->addStationInRoute(3, "1234567");
-//    core->addStationInRoute(3, "90jnrf ");
+    core->addRoute();
+    core->addStationInRoute(3, "1234567");
+    core->addStationInRoute(3, "90jnrf ");
 
 
 
