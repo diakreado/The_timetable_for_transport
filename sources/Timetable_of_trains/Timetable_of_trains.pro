@@ -8,4 +8,5 @@ Test_for_core.depends = Core_of_timetable
 SUBDIRS += \
     Console_for_timetable \
     Core_of_timetable \
-    Test_for_core
+    Test_for_core \
+    GUI_for_timetalbe
