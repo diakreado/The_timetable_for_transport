@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = GUI_for_timetalbe
 TEMPLATE = app
-
+QMAKE_CXXFLAGS += -std=c++11
 
 
 SOURCES += main.cpp \
