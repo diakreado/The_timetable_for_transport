@@ -11,7 +11,10 @@ MainWindow::MainWindow(QWidget *parent, CoreOfInfoAboutMetro* core)
 
     label = new QLabel("");
 
+
     layout->addWidget(label);
+
+    layout->setContentsMargins(400,400,200,150);
 
     this->setLayout(layout);
 
@@ -100,8 +103,9 @@ void MainWindow::showInfoAboutStation()
     std::string name_of_the_station = ssss.toStdString();
 
 
-    std::string lolka = core->getInfoAboutStation(name_of_the_station);
+    std::string lolka =  "<h3>";
 
+    lolka += core->getInfoAboutStation(name_of_the_station);
 
     QString polka = lolka.c_str();
 
