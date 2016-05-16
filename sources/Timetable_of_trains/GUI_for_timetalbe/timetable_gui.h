@@ -5,22 +5,22 @@
 #include "main_window.h"
 #include <QApplication>
 
-//class TimetableGUI
-//{
-//public:
+class TimetableGUI
+{
+public:
 
-//    TimetableGUI(int argc, char *argv[]);
+    TimetableGUI(int argc, char *argv[]);
 
-//    int startGUI();
+    int startGUI();
 
-//    ~TimetableGUI();
+    ~TimetableGUI();
 
-//private:
+private:
 
-//    CoreOfInfoAboutMetro *core;
+    CoreOfInfoAboutMetro *core;
 
-//    int argc;
-//    char **argv;
-//};
+    int argc;
+    char **argv;
+};
 
 #endif // TIMETABLEGUI_H
