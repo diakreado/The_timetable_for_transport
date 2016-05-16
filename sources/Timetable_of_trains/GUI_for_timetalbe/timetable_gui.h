@@ -17,7 +17,7 @@ public:
 
 private:
 
-    CoreOfInfoAboutMetro *core;
+//    CoreOfInfoAboutMetro *core;
 
     int argc;
     char **argv;
