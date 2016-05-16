@@ -7,7 +7,9 @@
 #include <core.h>
 #include <QObject>
 #include <QtCore/QVariant>
-
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QScrollBar>
 
 class MainWindow : public QWidget
 {
@@ -18,7 +20,9 @@ class MainWindow : public QWidget
 
     CoreOfInfoAboutMetro* core;
 
-     QVector<QVector<QPushButton*>> stations_buttons_vector;
+    QVector<QVector<QPushButton*>> stations_buttons_vector;
+
+    QLabel* label;
 
 public:
 
@@ -27,6 +31,8 @@ public:
 private slots:
 
     void showStations();
+
+    void showInfoAboutStation();
 };
 
 #endif // MAINWINDOW_H

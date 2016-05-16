@@ -7,20 +7,13 @@ MainWindow::MainWindow(QWidget *parent, CoreOfInfoAboutMetro* core)
     this->core = core;
 
 
-    core->addRoute();
-    core->addStationInRoute(1, "Parnas");
-    core->addStationInRoute(1, "Prosveshenia prospekt");
+    QVBoxLayout* layout = new QVBoxLayout;
 
+    label = new QLabel("");
 
-    core->addRoute();
-    core->addStationInRoute(2, "Devayatkino");
-    core->addStationInRoute(2, "Polka Pripolka");
-    core->addStationInRoute(2, "Vsyo schastlivo");
+    layout->addWidget(label);
 
-    core->addRoute();
-    core->addStationInRoute(3, "1234567");
-    core->addStationInRoute(3, "90jnrf ");
-
+    this->setLayout(layout);
 
 
     QVector<QPushButton*> routes_buttons;
@@ -53,13 +46,17 @@ MainWindow::MainWindow(QWidget *parent, CoreOfInfoAboutMetro* core)
             QPushButton* station_button = new QPushButton((route[j]).c_str(), this);
 
 
-            (stations_buttons).push_back(station_button);
+            stations_buttons.push_back(station_button);
 
-            (stations_buttons[j])->resize(BUTTON_SIZE);
-            (stations_buttons[j])->move(WINDOW_SIZE.width() - 950 + j * 200,
+            stations_buttons[j]->resize(BUTTON_SIZE);
+            stations_buttons[j]->move(WINDOW_SIZE.width() - 950 + j * 200,
                                          WINDOW_SIZE.height() - 350);
 
-            (stations_buttons[j])->hide();
+            stations_buttons[j]->hide();
+
+            stations_buttons[j]->setProperty("index",(route[j]).c_str());
+
+            connect(stations_buttons[j], SIGNAL(clicked()), this, SLOT(showInfoAboutStation()));
         }
 
         stations_buttons_vector.push_back(stations_buttons);
@@ -92,3 +89,27 @@ void MainWindow::showStations()
         (stations_buttons_vector[number_of_the_route - 1][j])->show();
     }
 }
+
+void MainWindow::showInfoAboutStation()
+{
+
+    QPushButton *button = qobject_cast<QPushButton*>(sender());
+    QVariant index = button->property("index");
+
+    QString ssss = index.toString();
+    std::string name_of_the_station = ssss.toStdString();
+
+
+    std::string lolka = core->getInfoAboutStation(name_of_the_station);
+
+
+    QString polka = lolka.c_str();
+
+
+    label->setText(polka);
+}
+
+
+
+
+
