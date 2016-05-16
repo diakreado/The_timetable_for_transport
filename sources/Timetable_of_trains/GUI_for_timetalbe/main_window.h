@@ -11,28 +11,28 @@
 #include <QLabel>
 #include <QScrollBar>
 
-class MainWindow : public QWidget
-{
-    Q_OBJECT
+//class MainWindow : public QWidget
+//{
+//    Q_OBJECT
 
-    const QSize WINDOW_SIZE {1000, 600};
-    const QSize BUTTON_SIZE { 180, 30 };
+//    const QSize WINDOW_SIZE {1000, 600};
+//    const QSize BUTTON_SIZE { 180, 30 };
 
-    CoreOfInfoAboutMetro* core;
+//    CoreOfInfoAboutMetro* core;
 
-    QVector<QVector<QPushButton*>> stations_buttons_vector;
+//    QVector<QVector<QPushButton*>> stations_buttons_vector;
 
-    QLabel* label;
+//    QLabel* label;
 
-public:
+//public:
 
-    MainWindow(QWidget *parent, CoreOfInfoAboutMetro* core);
+//    MainWindow(QWidget *parent, CoreOfInfoAboutMetro* core);
 
-private slots:
+//private slots:
 
-    void showStations();
+//    void showStations();
 
-    void showInfoAboutStation();
-};
+//    void showInfoAboutStation();
+//};
 
 #endif // MAINWINDOW_H

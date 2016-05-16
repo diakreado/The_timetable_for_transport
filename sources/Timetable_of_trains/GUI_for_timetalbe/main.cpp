@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    TimetableGUI timetableGUI(argc, argv);
+//    TimetableGUI timetableGUI(argc, argv);
 
-    return  timetableGUI.startGUI();
+//    return  timetableGUI.startGUI();
 }
