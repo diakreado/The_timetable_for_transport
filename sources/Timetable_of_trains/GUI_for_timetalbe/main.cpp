@@ -1,4 +1,4 @@
-#include "timetable_gui.h"
+#include "timetablegui.h"
 
 int main(int argc, char *argv[])
 {

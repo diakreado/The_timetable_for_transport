@@ -2,8 +2,9 @@
 #define TIMETABLEGUI_H
 
 #include <core.h>
-#include "main_window.h"
+#include "mainwindow.h"
 #include <QApplication>
+
 
 class TimetableGUI
 {
@@ -14,6 +15,7 @@ public:
     int startGUI();
 
     ~TimetableGUI();
+
 
 private:
 
