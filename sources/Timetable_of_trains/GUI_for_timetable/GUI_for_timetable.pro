@@ -16,12 +16,14 @@ QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp \
     routeswindow.cpp \
     mainwindow.cpp \
-    timetablegui.cpp
+    timetablegui.cpp \
+    choicetown.cpp
 
 HEADERS  += \
     routeswindow.h \
     mainwindow.h \
-    timetablegui.h
+    timetablegui.h \
+    choicetown.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/release/ -lCore_of_timetable
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/debug/ -lCore_of_timetable
