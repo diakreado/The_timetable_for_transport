@@ -9,4 +9,4 @@ SUBDIRS += \
     Console_for_timetable \
     Core_of_timetable \
     Test_for_core \
-    GUI_for_timetalbe
+    GUI_for_timetable

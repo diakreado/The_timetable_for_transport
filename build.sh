@@ -80,8 +80,8 @@ zip_files() {
 			if [ -e "report/Timetable_of_trains.pdf" ]; then
 				cp report/Timetable_of_trains.pdf $TITLE/Timetable_of_trains${BUILD_NUMBER}.pdf
 			fi
-		if [ -e "sources/Timetable_of_trains/GUI_for_timetalbe/GUI_for_timetalbe" ]; then
-			cp sources/Timetable_of_trains/GUI_for_timetalbe/GUI_for_timetalbe $TITLE/InfoAboutMetroGUI${BUILD_NUMBER}
+		if [ -e "sources/Timetable_of_trains/GUI_for_timetable/GUI_for_timetable" ]; then
+			cp sources/Timetable_of_trains/GUI_for_timetable/GUI_for_timetable $TITLE/InfoAboutMetroGUI${BUILD_NUMBER}
 		fi
 		if [ -e "report/latex/refman.pdf" ]; then
 			cp report/latex/refman.pdf $TITLE/Timetable_of_trainsDoxygen${BUILD_NUMBER}.pdf
