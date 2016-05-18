@@ -89,6 +89,9 @@ zip_files() {
 		if [ -e "report/metro_Saint-Petersburg.txt" ]; then 
 			cp report/metro_Saint-Petersburg_station_info.txt $TITLE/metro_Saint-Petersburg_station_info.txt
 		fi
+		if [ -e "sources/Timetable_of_trains/GUI_for_timetalbe/GUI_for_timetalbe" ]; then
+			cp sources/Timetable_of_trains/GUI_for_timetalbe/GUI_for_timetalbe $TITLE/InfoAboutMetroGUI${BUILD_NUMBER}
+		fi
 		zip --version
 		zip $TITLE.zip $TITLE/*
 	else
