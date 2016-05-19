@@ -3,7 +3,7 @@
 export PATH=$PATH:/opt/Qt5.5.0/5.5/gcc_64/bin/
 
 build_release_version() {
-	cd sources/Timetable_of_trains
+	cd sources/Information_about_metro
 	qmake --version
 	qmake
 	if [ -e "Makefile" ]; then
@@ -18,7 +18,7 @@ build_release_version() {
 }
 
 build_debug_version() {
-	cd sources/Timetable_of_trains
+	cd sources/Information_about_metro
 	cloc --version
 	cloc --by-file --xml --out=./cloc_result *
 	qmake --version
@@ -26,12 +26,12 @@ build_debug_version() {
 	if [ -e "Makefile" ]; then
 		make --version
 		make
-		Test_for_core/tst_test_for_coretest -xml -o test_results || true
+		Tests/tst_test_for_coretest -xml -o test_results || true
 		cppcheck --version
 		cppcheck --enable=all -v  --xml  * 2> cppcheck_result
 		
 		valgrind --version
-		valgrind --leak-check=full --xml=yes --xml-file=/opt/tomcat/.jenkins/jobs/Timetable_for_train/workspace/tst_test_for_coretest.%p.result /opt/tomcat/.jenkins/jobs/Timetable_for_train/workspace/sources/Timetable_of_trains/Test_for_core/tst_test_for_coretest || true
+		valgrind --leak-check=full --xml=yes --xml-file=/opt/tomcat/.jenkins/jobs/Information_about_metro/workspace/tst_test_for_coretest.%p.result /opt/tomcat/.jenkins/jobs/Information_about_metro/workspace/sources/Information_about_metro/Tests/tst_test_for_coretest || true
 		
 		gcovr --version
 		gcovr -r . --xml --exclude='tst*' -o gcovr_result
@@ -75,13 +75,13 @@ zip_files() {
 	TITLE="${JOB_NAME}${BUILD_NUMBER}"
 	mkdir "$TITLE"
 
-	if [ -e "sources/Timetable_of_trains/Console_for_timetable/Console_for_timetable" ]; then
-		cp sources/Timetable_of_trains/Console_for_timetable/Console_for_timetable $TITLE/The_timetable_for_transport${BUILD_NUMBER}
-			if [ -e "report/Timetable_of_trains.pdf" ]; then
-				cp report/Timetable_of_trains.pdf $TITLE/Timetable_of_trains${BUILD_NUMBER}.pdf
+	if [ -e "sources/Information_about_metro/Console/Console" ]; then
+		cp sources/Information_about_metro/Console/Console $TITLE/The_timetable_for_transport${BUILD_NUMBER}
+			if [ -e "report/Information_about_metro.pdf" ]; then
+				cp report/Information_about_metro.pdf $TITLE/Information_about_metro${BUILD_NUMBER}.pdf
 			fi
 		if [ -e "report/latex/refman.pdf" ]; then
-			cp report/latex/refman.pdf $TITLE/Timetable_of_trainsDoxygen${BUILD_NUMBER}.pdf
+			cp report/latex/refman.pdf $TITLE/Information_about_metroDoxygen${BUILD_NUMBER}.pdf
 		fi
 		if [ -e "report/metro_Saint-Petersburg_route_info.txt" ]; then 
 			cp report/metro_Saint-Petersburg_route_info.txt $TITLE/metro_Saint-Petersburg_route_info.txt
@@ -94,8 +94,8 @@ zip_files() {
 		echo "Zip failure!"
 		return 1
 	fi
-	if [ -e "sources/Timetable_of_trains/GUI_for_timetable/GUI_for_timetable" ]; then
-		cp sources/Timetable_of_trains/GUI_for_timetable/GUI_for_timetable $TITLE/InfoAboutMetroGUI${BUILD_NUMBER}
+	if [ -e "sources/Information_about_metro/GUI/GUI" ]; then
+		cp sources/Information_about_metro/GUI/GUI $TITLE/InfoAboutMetroGUI${BUILD_NUMBER}
 	else
 		echo "GUIApp does not exist"
 		echo "Zip failure!"
