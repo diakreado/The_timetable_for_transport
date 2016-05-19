@@ -17,13 +17,13 @@ SOURCES += main.cpp \
     routeswindow.cpp \
     mainwindow.cpp \
     timetablegui.cpp \
-    choicetown.cpp
+    info_about_metro.cpp
 
 HEADERS  += \
     routeswindow.h \
     mainwindow.h \
     timetablegui.h \
-    choicetown.h
+    info_about_metro.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/release/ -lCore_of_timetable
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Core_of_timetable/debug/ -lCore_of_timetable

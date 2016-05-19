@@ -1,22 +1,42 @@
-#include "routeswindow.h"
+#include "info_about_metro.h"
 
-RoutesWindow::RoutesWindow(CoreOfInfoAboutMetro* core) : core(core)
+InfoAboutMetro::InfoAboutMetro(CoreOfInfoAboutMetro* core) : core(core)
 {
     this->setWindowTitle("Информация о маршрутах и станциях");
     this->setMinimumSize(800,500);
 
+//    try
+//    {
+//        core->loadInfoFromFile("metro_Saint-Petersburg_route_info.txt", "metro_Saint-Petersburg_station_info.txt");
+//    }
+//    catch(MissingFile&)
+//    {
+//        QMessageBox* messsge_about_error = new QMessageBox;
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    QHBoxLayout *routesLayout = new QHBoxLayout;
-    QGridLayout *grid = new QGridLayout;
+//        messsge_about_error->setWindowTitle("Отсутствуют Файлы");
+
+//        messsge_about_error->setText("Не обнаруженны файлы с информацией, ожидались \n"
+//                       "metro_Saint-Petersburg_route_info.txt и metro_Saint-Petersburg_station_info.txt");
+
+//        messsge_about_error->show();
+//    }
 
 
-    QHBoxLayout* labelLayout = new QHBoxLayout;
+    QMenu* changes = menuBar()->addMenu("Изменить");
 
-    label = new QLabel("");
+    QAction* addRoute = new QAction("Новый маршрут", this);
+    changes->addAction(addRoute);
+    connect(addRoute,SIGNAL(triggered(bool)),this,SLOT(addInfoAboutRoute()));
+
+
+    QHBoxLayout* mainLayout = new QHBoxLayout;
+    QVBoxLayout* routesLayout = new QVBoxLayout;
+    QVBoxLayout* stationsLayout = new QVBoxLayout;
+    QVBoxLayout* labelLayout = new QVBoxLayout;
+
+    info_about_station = new QLabel("");
     labelLayout->addSpacing(300);
-    labelLayout->addWidget(label);
-
+    labelLayout->addWidget(info_about_station);
 
     QVector<QPushButton*> routes_buttons;
 
@@ -53,10 +73,11 @@ RoutesWindow::RoutesWindow(CoreOfInfoAboutMetro* core) : core(core)
 
             stations_buttons.push_back(station_button);
 
-
             stations_buttons[j]->hide();
 
-            grid->addWidget(stations_buttons[j],j/4,j%4,1,1);
+            stationsLayout->addWidget(stations_buttons[j]);
+
+            stationsLayout->setSpacing(10);
 
             stations_buttons[j]->setFixedSize(175,25);
 
@@ -67,15 +88,24 @@ RoutesWindow::RoutesWindow(CoreOfInfoAboutMetro* core) : core(core)
 
         stations_buttons_vector.push_back(stations_buttons);
     }
+
+    QScrollBar* scrollbar = new QScrollBar;
+
     mainLayout->addSpacing(30);
     mainLayout->addLayout(routesLayout);
     mainLayout->addSpacing(150);
-    mainLayout->addLayout(grid);
+    mainLayout->addLayout(stationsLayout);
+    mainLayout->addSpacing(30);
     mainLayout->addLayout(labelLayout);
-    this->setLayout(mainLayout);
+    mainLayout->addWidget(scrollbar);
+
+    QWidget* centeral_widget = new QWidget;
+    centeral_widget->setLayout(mainLayout);
+
+    this->setCentralWidget(centeral_widget);
 }
 
-void RoutesWindow::showStations()
+void InfoAboutMetro::showStations()
 {
     for(int i = 0; i < core->howManyRoutes(); i++)
     {
@@ -102,7 +132,7 @@ void RoutesWindow::showStations()
     }
 }
 
-void RoutesWindow::showInfoAboutStation()
+void InfoAboutMetro::showInfoAboutStation()
 {
 
     QPushButton *button = qobject_cast<QPushButton*>(sender());
@@ -123,15 +153,26 @@ void RoutesWindow::showInfoAboutStation()
     }
     catch(StationDoesNotExist&)
     {
-        polka = "<h4> Station does no exist";
+        polka = "Station does no exist";
     }
 
-
-    label->setStyleSheet("font-size: 21px;");
-    label->setText(polka);
+    info_about_station->setStyleSheet("font-size: 16px;");
+    info_about_station->setText(polka);
 }
 
 
+void InfoAboutMetro::addInfoAboutRoute()
+{
+    bool addRoute = QMessageBox::information(0,
+                                             "Предупреждение",
+                                             "Вы уверенны, что хотите добавить новый маршрут?",
+                                             "Да",
+                                             "Нет",
+                                             QString(),
+                                             0,
+                                             1);
+
+    if(addRoute) {core->addRoute();}
 
 
-
+}

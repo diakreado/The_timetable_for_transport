@@ -5,8 +5,8 @@ MainWindow::MainWindow(CoreOfInfoAboutMetro* core) : core(core)
     routes_window = new RoutesWindow(core);
     routes_window->hide();
 
-    choice_town_window = new ChoiceTown();
-    choice_town_window->hide();
+    info_about_metro = new InfoAboutMetro(core);
+    info_about_metro->hide();
 
     QPixmap background(":/img/img/img1.jpg");
     QPalette qPalette;
@@ -27,14 +27,14 @@ MainWindow::MainWindow(CoreOfInfoAboutMetro* core) : core(core)
 
 
 
-    QPushButton* button_choice_town = new QPushButton(this);
+    QPushButton* info_about_metro = new QPushButton(this);
 
-    button_choice_town->setStyleSheet(ButtonStyle);
-    button_choice_town->setText("Выбрать город");
-    button_choice_town->resize(180,50);
-    button_choice_town->move(500,337);
+    info_about_metro->setStyleSheet(ButtonStyle);
+    info_about_metro->setText("Альтернативный вариант");
+    info_about_metro->resize(180,50);
+    info_about_metro->move(500,337);
 
-    connect(button_choice_town,SIGNAL(clicked()),SLOT(openChoiceTown()));
+    connect(info_about_metro,SIGNAL(clicked()),SLOT(openNewVariant()));
 
 
 
@@ -54,9 +54,9 @@ void MainWindow::openRouteInfo()
     routes_window->show();
 }
 
-void MainWindow::openChoiceTown()
+void MainWindow::openNewVariant()
 {
-    choice_town_window->show();
+    info_about_metro->show();
 }
 
 void MainWindow::exit()

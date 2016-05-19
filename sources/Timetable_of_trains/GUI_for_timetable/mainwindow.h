@@ -6,6 +6,7 @@
 #include "routeswindow.h"
 #include <core.h>
 #include "choicetown.h"
+#include "info_about_metro.h"
 
 class MainWindow : public QWidget
 {
@@ -15,7 +16,7 @@ class MainWindow : public QWidget
 
     RoutesWindow* routes_window;
 
-    ChoiceTown* choice_town_window;
+    InfoAboutMetro* info_about_metro;
 
     QString ButtonStyle =  "QPushButton"
                            "{"
@@ -52,7 +53,7 @@ private slots:
 
     void openRouteInfo();
 
-    void openChoiceTown();
+    void openNewVariant();
 
     void exit();
 };
