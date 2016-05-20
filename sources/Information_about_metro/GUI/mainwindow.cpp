@@ -11,7 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setMinimumSize(800,400);
 
-    ui->scrollArea->setFixedWidth(250);
+    ui->scrollAreaForStations->setFixedWidth(250);
+
+    ui->scrollAreaForRoutes->setFixedWidth(200);
 
     try
     {
@@ -30,21 +32,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-    core.addRoute();
-    core.addStationInRoute(1,"Парнас 228");
-    core.addStationInRoute(1,"Вовсе не Парнас");
-    core.addStationInRoute(1,"Супер Парнас");
-    core.addInfoAboutStation("Супер Парнас","Это самый лучший Парнас в мире");
-    core.addRoute();
-    core.addStationInRoute(2,"Парнас 228");
-    core.addStationInRoute(2,"Вовсе не Парнас");
-    core.addStationInRoute(2,"Супер Парнас");
-    core.addInfoAboutStation("Супер Парнас","Это самый лучший Парнас в мире");
+//    core.addRoute();
+//    core.addStationInRoute(1,"Парнас 228");
+//    core.addStationInRoute(1,"Вовсе не Парнас");
+//    core.addStationInRoute(1,"Супер Парнас");
+//    core.addInfoAboutStation("Супер Парнас","Это самый лучший Парнас в мире");
+//    core.addRoute();
+//    core.addStationInRoute(2,"Парнас 228");
+//    core.addStationInRoute(2,"Вовсе не Парнас");
+//    core.addStationInRoute(2,"Супер Парнас");
+//    core.addInfoAboutStation("Супер Парнас","Это самый лучший Парнас в мире");
 
-    QVBoxLayout* stations_layout = new QVBoxLayout;
+
+
+    stations_layout = new QVBoxLayout;
     QWidget* stations = new QWidget;
 
-    QVector<QPushButton*> routes_buttons;
+    routes_layout = new QVBoxLayout;
+    QWidget* routes = new QWidget;
 
         for(int i = 0; i < core.howManyRoutes(); i++)
         {
@@ -59,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
             routes_buttons[i]->setFixedSize(150,30);
 
-            ui->routesLayout->addWidget(routes_buttons[i]);
+            routes_layout->addWidget(routes_buttons[i]);
 
             routes_buttons[i]->show();
 
@@ -85,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
                 stations_buttons[j]->setFixedSize(175,25);
 
-                stations_buttons[j]->setProperty("index",(route[j]).c_str());
+                stations_buttons[j]->setProperty("name",(route[j]).c_str());
 
                 connect(stations_buttons[j], SIGNAL(clicked()), this, SLOT(showInfoAboutStation()));
             }
@@ -94,7 +99,11 @@ MainWindow::MainWindow(QWidget *parent) :
         }
 
         stations->setLayout(stations_layout);
-        ui->scrollArea->setWidget(stations);
+        ui->scrollAreaForStations->setWidget(stations);
+
+        routes->setLayout(routes_layout);
+        ui->scrollAreaForRoutes->setWidget(routes);
+
 }
 
 void MainWindow::showStations()
@@ -112,9 +121,7 @@ void MainWindow::showStations()
     QPushButton *button = qobject_cast<QPushButton*>(sender());
     QVariant index = button->property("index");
 
-
     int number_of_the_route = index.toInt() + 1;
-
 
     std::vector<std::string> route = core.getRoute(number_of_the_route);
 
@@ -128,7 +135,7 @@ void MainWindow::showInfoAboutStation()
 {
 
     QPushButton *button = qobject_cast<QPushButton*>(sender());
-    QVariant index = button->property("index");
+    QVariant index = button->property("name");
 
     QString number_of_the_route = index.toString();
     std::string name_of_the_station = number_of_the_route.toStdString();
@@ -157,4 +164,53 @@ void MainWindow::showInfoAboutStation()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_action_2_triggered()
+{
+    core.addRoute();
+    int i = core.howManyRoutes() - 1;
+
+    std::stringstream print_int;
+    print_int << i + 1;
+    std::string name_of_the_route = "Маршрут №" + print_int.str();
+    QPushButton* route_button = new QPushButton(name_of_the_route.c_str(), this);
+    route_button->setFixedSize(150,30);
+    routes_buttons.push_back(route_button);
+    routes_layout->addWidget(route_button);
+    route_button->show();
+    route_button->setProperty("index", i);
+    connect(route_button, SIGNAL(clicked()), this, SLOT(showStations()));
+
+    std::string new_name = "Добавлен:   ";
+    new_name += name_of_the_route;
+    statusBar()->showMessage(new_name.c_str());
+}
+
+void MainWindow::on_action_4_triggered()
+{
+    Dialog* diallog_about_delete_route = new Dialog(&core,&index,this);
+    diallog_about_delete_route->show();
+}
+
+void MainWindow::deleteRouteSlot()
+{
+   delete(routes_buttons[core.howManyRoutes()-1]);
+   routes_buttons.erase(routes_buttons.end()-1);
+
+    for(int i = 0; i < core.howManyRoutes()-1; i++)
+    {
+        std::stringstream print_int;
+        print_int << i + 1;
+        std::string name_of_the_route = "Маршрут №" + print_int.str();
+        routes_buttons[i]->setText(name_of_the_route.c_str());
+        routes_buttons[i]->setProperty("index", i);
+    }
+
+    if (stations_buttons_vector.size() > index)
+    {
+        stations_buttons_vector.remove(index);
+    }
+
+    core.deleteRoute(index + 1);
 }

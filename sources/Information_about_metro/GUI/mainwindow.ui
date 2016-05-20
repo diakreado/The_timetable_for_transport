@@ -40,10 +40,24 @@
      <number>20</number>
     </property>
     <item>
-     <layout class="QVBoxLayout" name="routesLayout"/>
+     <widget class="QScrollArea" name="scrollAreaForRoutes">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>79</width>
+         <height>232</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
     </item>
     <item>
-     <widget class="QScrollArea" name="scrollArea">
+     <widget class="QScrollArea" name="scrollAreaForStations">
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAsNeeded</enum>
       </property>
@@ -61,7 +75,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>119</width>
+         <width>80</width>
          <height>232</height>
         </rect>
        </property>
