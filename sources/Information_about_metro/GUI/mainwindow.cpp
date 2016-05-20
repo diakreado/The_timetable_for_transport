@@ -7,13 +7,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Информация о маршрутах и станциях");
-    ui->label->setText("");
-
+    ui->textBrowser->setText("");
+    ui->textBrowser->setStyleSheet("font-size: 16px;");
     this->setMinimumSize(800,400);
 
     ui->scrollAreaForStations->setFixedWidth(250);
-
     ui->scrollAreaForRoutes->setFixedWidth(200);
+
 
     try
     {
@@ -27,23 +27,23 @@ MainWindow::MainWindow(QWidget *parent) :
                                      "metro_Saint-Petersburg_route_info.txt и metro_Saint-Petersburg_station_info.txt");
         file_does_not_exist->show();
 
+        core.addRoute();
+        core.addStationInRoute(1,"Парнас");
+        core.addStationInRoute(1,"Вовсе не Парнас");
+        core.addStationInRoute(1,"Супер Парнас");
+        core.addInfoAboutStation("Супер Парнас","Это самый лучший Парнас в мире");
+        core.addInfoAboutStation("Вовсе не Парнас","Это совсем не Парнас");
+        core.addRoute();
+        core.addStationInRoute(2,"Дыбенко");
+        core.addStationInRoute(2,"Дыбенко");
+        core.addStationInRoute(2,"Пацаны с Дыбенко");
+        core.addInfoAboutStation("Пацаны с Дыбенко","ДЫБЕНКООООО");
+        core.addInfoAboutStation("Дыбенко","Дыбена - это самый благоустроенный район города Санкт-Петербугр,"
+                                           " в котором живёт элита общества");
+
+
         statusBar()->showMessage("Файлы не найдены");
     }
-
-
-
-//    core.addRoute();
-//    core.addStationInRoute(1,"Парнас 228");
-//    core.addStationInRoute(1,"Вовсе не Парнас");
-//    core.addStationInRoute(1,"Супер Парнас");
-//    core.addInfoAboutStation("Супер Парнас","Это самый лучший Парнас в мире");
-//    core.addRoute();
-//    core.addStationInRoute(2,"Парнас 228");
-//    core.addStationInRoute(2,"Вовсе не Парнас");
-//    core.addStationInRoute(2,"Супер Парнас");
-//    core.addInfoAboutStation("Супер Парнас","Это самый лучший Парнас в мире");
-
-
 
     stations_layout = new QVBoxLayout;
     QWidget* stations = new QWidget;
@@ -155,10 +155,7 @@ void MainWindow::showInfoAboutStation()
         name_of_the_label_qt = "Станция не найдена";
     }
 
-
-
-    ui->label->setStyleSheet("font-size: 16px;");
-    ui->label->setText(name_of_the_label_qt);
+    ui->textBrowser->setText(name_of_the_label_qt);
 }
 
 MainWindow::~MainWindow()
@@ -213,4 +210,9 @@ void MainWindow::deleteRouteSlot()
     }
 
     core.deleteRoute(index + 1);
+
+    std::stringstream print_int;
+    print_int << index + 1;
+    std::string new_name = "Удалён:   Маршрут №" + print_int.str();;
+    statusBar()->showMessage(new_name.c_str());
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>481</width>
-    <height>315</height>
+    <width>474</width>
+    <height>329</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -49,8 +49,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>79</width>
-         <height>232</height>
+         <width>69</width>
+         <height>246</height>
         </rect>
        </property>
       </widget>
@@ -75,15 +75,15 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>80</width>
-         <height>232</height>
+         <width>69</width>
+         <height>246</height>
         </rect>
        </property>
       </widget>
      </widget>
     </item>
     <item>
-     <spacer name="horizontalSpacer_2">
+     <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -96,9 +96,9 @@
      </spacer>
     </item>
     <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>TextLabel</string>
+     <widget class="QTextBrowser" name="textBrowser">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -109,7 +109,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>481</width>
+     <width>474</width>
      <height>21</height>
     </rect>
    </property>
