@@ -129,20 +129,24 @@ void MainWindow::showStations()
     {
         (stations_buttons_vector[number_of_the_route - 1][j])->show();
     }
+
+    std::stringstream print_int;
+    print_int << number_of_the_route;
+    std::string new_name = "Маршрут №" + print_int.str();;
+    statusBar()->showMessage(new_name.c_str());
 }
 
 void MainWindow::showInfoAboutStation()
 {
 
     QPushButton *button = qobject_cast<QPushButton*>(sender());
-    QVariant index = button->property("name");
+    QVariant name = button->property("name");
 
-    QString number_of_the_route = index.toString();
-    std::string name_of_the_station = number_of_the_route.toStdString();
+    QString qt_name_of_the_stations = name.toString();
+    std::string name_of_the_station = qt_name_of_the_stations.toStdString();
 
 
     std::string name_of_the_label_std =  "";
-
     QString name_of_the_label_qt;
 
     try
@@ -156,6 +160,10 @@ void MainWindow::showInfoAboutStation()
     }
 
     ui->textBrowser->setText(name_of_the_label_qt);
+
+    QString toStatusBar = "Станция:  " + qt_name_of_the_stations;
+
+    statusBar()->showMessage(toStatusBar);
 }
 
 MainWindow::~MainWindow()
@@ -216,3 +224,40 @@ void MainWindow::deleteRouteSlot()
     std::string new_name = "Удалён:   Маршрут №" + print_int.str();;
     statusBar()->showMessage(new_name.c_str());
 }
+
+void MainWindow::on_action_6_triggered()
+{
+    DialogAboutAddingStationInRoute* dialog_about_adding_station_in_route =
+            new DialogAboutAddingStationInRoute(&core,&number_of_the_route_for_changes,
+                                                &number_of_the_station_for_changes,&new_name_for_changes,this);
+    dialog_about_adding_station_in_route->show();
+
+
+}
+
+void MainWindow::changeNameOfStation()
+{
+    core.changeStationInRoute(number_of_the_route_for_changes + 1, number_of_the_station_for_changes + 1,
+                              new_name_for_changes.toStdString());
+    QString old_name = (stations_buttons_vector[number_of_the_route_for_changes][number_of_the_station_for_changes])->text();
+
+    (stations_buttons_vector[number_of_the_route_for_changes][number_of_the_station_for_changes])->setText(new_name_for_changes);
+    stations_buttons_vector[number_of_the_route_for_changes][number_of_the_station_for_changes]->
+            setProperty("name",new_name_for_changes);
+
+    QString new_name = "Станция: " + old_name + " переименована в " + new_name_for_changes;
+    statusBar()->showMessage(new_name);
+}
+
+void MainWindow::on_action_9_triggered()
+{
+
+}
+
+
+void MainWindow::on_action_5_triggered()
+{
+
+}
+
+

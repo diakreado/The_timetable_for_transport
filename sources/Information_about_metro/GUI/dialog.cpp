@@ -36,9 +36,6 @@ void Dialog::on_comboBox_activated(int index)
 void Dialog::on_pushButton_clicked()
 {
     *index_out_of = index;
-
-
-            emit deleteRouteSignal();
-
+    emit deleteRouteSignal();
     this->hide();
 }
