@@ -236,48 +236,48 @@ void MainWindow::on_action_6_triggered()
 {
     DialogAboutChangingNameOfTheStations* dialog_about_changing_name_of_stations =
             new DialogAboutChangingNameOfTheStations(&core,&number_of_the_route,
-                                                &number_of_the_station,&new_name_for_changes,this);
+                                                &number_of_the_station,&string_with_info,this);
     dialog_about_changing_name_of_stations->show();
 }
 
 void MainWindow::changeNameOfStation()
 {
     core.changeStationInRoute(number_of_the_route + 1, number_of_the_station + 1,
-                              new_name_for_changes.toStdString());
+                              string_with_info.toStdString());
     QString old_name = (stations_buttons_vector[number_of_the_route][number_of_the_station])->text();
 
-    (stations_buttons_vector[number_of_the_route][number_of_the_station])->setText(new_name_for_changes);
+    (stations_buttons_vector[number_of_the_route][number_of_the_station])->setText(string_with_info);
     stations_buttons_vector[number_of_the_route][number_of_the_station]->
-            setProperty("name",new_name_for_changes);
+            setProperty("name",string_with_info);
 
-    QString new_name = "Станция: " + old_name + " переименована в " + new_name_for_changes;
+    QString new_name = "Станция: " + old_name + " переименована в " + string_with_info;
     statusBar()->showMessage(new_name);
 }
 
 void MainWindow::on_action_5_triggered()
 {
      DialogAboutAddingStationInRoute* dialog_about_adding_station_in_route = new
-             DialogAboutAddingStationInRoute(&core,&index,&name_of_adding_station,this);
+             DialogAboutAddingStationInRoute(&core,&index,&string_with_info,this);
      dialog_about_adding_station_in_route->show();
 }
 
 void MainWindow::addStation()
 {
-    core.addStationInRoute(index+1,name_of_adding_station.toStdString());
+    core.addStationInRoute(index+1,string_with_info.toStdString());
 
-    QPushButton* station_button = new QPushButton(name_of_adding_station, this);
+    QPushButton* station_button = new QPushButton(string_with_info, this);
 
     stations_buttons_vector[index].push_back(station_button);
     station_button->hide();
     station_button->setFixedSize(175,25);
-    station_button->setProperty("name",(name_of_adding_station));
+    station_button->setProperty("name",(string_with_info));
     stations_layout->addWidget(station_button);
 
     connect(station_button, SIGNAL(clicked()), this, SLOT(showInfoAboutStation()));
 
 
     QString new_name = "Добавлена станция:  ";
-    new_name = new_name + name_of_adding_station;
+    new_name = new_name + string_with_info;
     statusBar()->showMessage(new_name);
 }
 
@@ -306,13 +306,13 @@ void MainWindow::on_action_9_triggered()
 {
     DialogAboutAddingInfoAboutStation* dialog_about_adding_info_about_station =
             new DialogAboutAddingInfoAboutStation(&core,&number_of_the_route,
-                                                &number_of_the_station,&info_about_station,this);
+                                                &number_of_the_station,&string_with_info,this);
     dialog_about_adding_info_about_station->show();
 }
 
 void MainWindow::addInformationAboutStation()
 {
-    core.addInfoAboutStation(number_of_the_route+1,number_of_the_station+1,info_about_station.toStdString());
+    core.addInfoAboutStation(number_of_the_route+1,number_of_the_station+1,string_with_info.toStdString());
 
     QString name_of_the_station = (stations_buttons_vector[number_of_the_route][number_of_the_station])->text();
 
@@ -321,9 +321,23 @@ void MainWindow::addInformationAboutStation()
     statusBar()->showMessage(information_about_adding);
 }
 
+void MainWindow::on_action_10_triggered()
+{
+    DialogAboutDeletingInfoAboutStation* dialog_about_deleting_info_about_station =
+            new DialogAboutDeletingInfoAboutStation(&core,&number_of_the_station,this);
+    dialog_about_deleting_info_about_station->show();
+}
 
+void MainWindow::deleteInfoAboutStation()
+{
+    std::vector<std::pair<std::string,std::string>> AllStaions = core.getAllStationsWhichHaveDescription();
 
+    core.removeInfoAboutStation(number_of_the_station+1);
 
+    QString information_about_deleting = "Добавленна информация о станции:  ";
+    information_about_deleting = information_about_deleting + ((AllStaions[number_of_the_station]).first).c_str();
+    statusBar()->showMessage(information_about_deleting);
+}
 
 
 

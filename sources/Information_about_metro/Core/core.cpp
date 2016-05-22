@@ -203,7 +203,7 @@ void CoreOfInfoAboutMetro::removeInfoAboutStation(const int number_of_the_statio
 
     int size_of_vector = (stationInfo.getAllStations()).size();
 
-    if (size_of_vector > number_of_the_station || number_of_the_station < 1 || size_of_vector == 0)
+    if (size_of_vector < number_of_the_station || number_of_the_station < 1 || size_of_vector == 0)
     {
         throw StationDoesNotExist(number_of_the_station);
     }
