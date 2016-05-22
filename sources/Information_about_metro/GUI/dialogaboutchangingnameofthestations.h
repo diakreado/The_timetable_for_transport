@@ -31,11 +31,8 @@ signals:
 
 private slots:
     void on_comboBox_activated(int index);
-
     void on_comboBox_2_activated(int index);
-
     void on_pushButton_clicked();
-
     void on_textEdit_textChanged();
 
 private:

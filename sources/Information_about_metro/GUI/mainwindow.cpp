@@ -304,10 +304,22 @@ void MainWindow::deletingStation()
 
 void MainWindow::on_action_9_triggered()
 {
-
+    DialogAboutAddingInfoAboutStation* dialog_about_adding_info_about_station =
+            new DialogAboutAddingInfoAboutStation(&core,&number_of_the_route,
+                                                &number_of_the_station,&info_about_station,this);
+    dialog_about_adding_info_about_station->show();
 }
 
+void MainWindow::addInformationAboutStation()
+{
+    core.addInfoAboutStation(number_of_the_route+1,number_of_the_station+1,info_about_station.toStdString());
 
+    QString name_of_the_station = (stations_buttons_vector[number_of_the_route][number_of_the_station])->text();
+
+    QString information_about_adding = "Добавленна информация о станции:  ";
+    information_about_adding = information_about_adding + name_of_the_station;
+    statusBar()->showMessage(information_about_adding);
+}
 
 
 

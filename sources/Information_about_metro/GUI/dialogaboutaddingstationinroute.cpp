@@ -11,7 +11,7 @@ DialogAboutAddingStationInRoute::DialogAboutAddingStationInRoute(CoreOfInfoAbout
     ui->setupUi(this);
 
     this->setFixedSize(300,200);
-    this->setWindowTitle("Удаление маршрута");
+    this->setWindowTitle("Добавление станции в маршрут");
 
     for(int i = 0; i < core->howManyRoutes(); i++)
     {

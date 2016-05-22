@@ -11,7 +11,7 @@ DialogAboutChangingNameOfTheStations::DialogAboutChangingNameOfTheStations(CoreO
 {
     ui->setupUi(this);
 
-    this->setWindowTitle("Изменение маршрута");
+    this->setWindowTitle("Изменение названия станции");
 
     for(int i = 0; i < core->howManyRoutes(); i++)
     {
