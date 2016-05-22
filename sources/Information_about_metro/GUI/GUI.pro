@@ -17,17 +17,20 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dialogaboutaddingstationinroute.cpp \
     dialogaboutdeletingroute.cpp \
-    dialogaboutchangingnameofthestations.cpp
+    dialogaboutchangingnameofthestations.cpp \
+    dialogaboutdeletingstation.cpp
 
 HEADERS  += mainwindow.h \
     dialogaboutaddingstationinroute.h \
     dialogaboutdeletingroute.h \
-    dialogaboutchangingnameofthestations.h
+    dialogaboutchangingnameofthestations.h \
+    dialogaboutdeletingstation.h
 
 FORMS    += mainwindow.ui \
     dialogaboutaddingstationinroute.ui \
     dialogaboutdeletingroute.ui \
-    dialogaboutchangingnameofthestations.ui
+    dialogaboutchangingnameofthestations.ui \
+    dialogaboutdeletingstation.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Core/release/ -lCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Core/debug/ -lCore

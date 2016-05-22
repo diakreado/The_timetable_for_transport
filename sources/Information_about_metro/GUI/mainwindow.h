@@ -12,6 +12,7 @@
 #include "dialogaboutaddingstationinroute.h"
 #include "dialogaboutdeletingroute.h"
 #include "dialogaboutchangingnameofthestations.h"
+#include "dialogaboutdeletingstation.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,8 +32,8 @@ class MainWindow : public QMainWindow
 
     int index;
 
-    int number_of_the_route_for_changes;
-    int number_of_the_station_for_changes;
+    int number_of_the_route;
+    int number_of_the_station;
     QString new_name_for_changes;
 
     QString name_of_adding_station;
@@ -51,12 +52,14 @@ private slots:
     void deleteRouteSlot();
     void changeNameOfStation();
     void addStation();
+    void deletingStation();
 
     void on_action_2_triggered();
     void on_action_4_triggered();
     void on_action_9_triggered();
     void on_action_5_triggered();
     void on_action_6_triggered();
+    void on_action_7_triggered();
 };
 
 #endif // MAINWINDOW_H

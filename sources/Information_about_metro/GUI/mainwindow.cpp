@@ -200,8 +200,15 @@ void MainWindow::on_action_4_triggered()
 
 void MainWindow::deleteRouteSlot()
 {
-   delete(routes_buttons[core.howManyRoutes()-1]);
-   routes_buttons.erase(routes_buttons.end()-1);
+    std::vector<std::string> route = core.getRoute(index+1);
+    for(unsigned int j = 0; j < route.size(); j++)
+    {
+        delete(stations_buttons_vector[index][j]);
+        //stations_buttons_vector[index].erase(routes_buttons.end()-1-j);
+    }
+
+    delete(routes_buttons[core.howManyRoutes()-1]);
+    //routes_buttons.erase(routes_buttons.end()-1);
 
     for(int i = 0; i < core.howManyRoutes()-1; i++)
     {
@@ -217,7 +224,7 @@ void MainWindow::deleteRouteSlot()
         stations_buttons_vector.remove(index);
     }
 
-    core.deleteRoute(index + 1);
+    core.deleteRoute(index+1);
 
     std::stringstream print_int;
     print_int << index + 1;
@@ -228,19 +235,19 @@ void MainWindow::deleteRouteSlot()
 void MainWindow::on_action_6_triggered()
 {
     DialogAboutChangingNameOfTheStations* dialog_about_changing_name_of_stations =
-            new DialogAboutChangingNameOfTheStations(&core,&number_of_the_route_for_changes,
-                                                &number_of_the_station_for_changes,&new_name_for_changes,this);
+            new DialogAboutChangingNameOfTheStations(&core,&number_of_the_route,
+                                                &number_of_the_station,&new_name_for_changes,this);
     dialog_about_changing_name_of_stations->show();
 }
 
 void MainWindow::changeNameOfStation()
 {
-    core.changeStationInRoute(number_of_the_route_for_changes + 1, number_of_the_station_for_changes + 1,
+    core.changeStationInRoute(number_of_the_route + 1, number_of_the_station + 1,
                               new_name_for_changes.toStdString());
-    QString old_name = (stations_buttons_vector[number_of_the_route_for_changes][number_of_the_station_for_changes])->text();
+    QString old_name = (stations_buttons_vector[number_of_the_route][number_of_the_station])->text();
 
-    (stations_buttons_vector[number_of_the_route_for_changes][number_of_the_station_for_changes])->setText(new_name_for_changes);
-    stations_buttons_vector[number_of_the_route_for_changes][number_of_the_station_for_changes]->
+    (stations_buttons_vector[number_of_the_route][number_of_the_station])->setText(new_name_for_changes);
+    stations_buttons_vector[number_of_the_route][number_of_the_station]->
             setProperty("name",new_name_for_changes);
 
     QString new_name = "Станция: " + old_name + " переименована в " + new_name_for_changes;
@@ -269,15 +276,45 @@ void MainWindow::addStation()
     connect(station_button, SIGNAL(clicked()), this, SLOT(showInfoAboutStation()));
 
 
-    QString new_name = "Добавлена станция:   ";
+    QString new_name = "Добавлена станция:  ";
     new_name = new_name + name_of_adding_station;
     statusBar()->showMessage(new_name);
+}
+
+void MainWindow::on_action_7_triggered()
+{
+    DialogAboutDeletingStation* dialog_about_deleting_station =
+            new DialogAboutDeletingStation(&core,&number_of_the_route,
+                                                &number_of_the_station,this);
+    dialog_about_deleting_station->show();
+}
+
+void MainWindow::deletingStation()
+{
+    QString old_name = (stations_buttons_vector[number_of_the_route][number_of_the_station])->text();
+
+    core.deleteStationFromRoute(number_of_the_route+1,number_of_the_station+1);
+
+    delete(stations_buttons_vector[number_of_the_route][number_of_the_station]);
+
+    QString information_about_deleting = "Удалена станция:  ";
+    information_about_deleting = information_about_deleting + old_name;
+    statusBar()->showMessage(information_about_deleting);
 }
 
 void MainWindow::on_action_9_triggered()
 {
 
 }
+
+
+
+
+
+
+
+
+
 
 
 
