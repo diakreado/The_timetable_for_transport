@@ -204,11 +204,9 @@ void MainWindow::deleteRouteSlot()
     for(unsigned int j = 0; j < route.size(); j++)
     {
         delete(stations_buttons_vector[index][j]);
-        //stations_buttons_vector[index].erase(routes_buttons.end()-1-j);
     }
 
     delete(routes_buttons[core.howManyRoutes()-1]);
-    //routes_buttons.erase(routes_buttons.end()-1);
 
     for(int i = 0; i < core.howManyRoutes()-1; i++)
     {
@@ -295,7 +293,15 @@ void MainWindow::deletingStation()
 
     core.deleteStationFromRoute(number_of_the_route+1,number_of_the_station+1);
 
-    delete(stations_buttons_vector[number_of_the_route][number_of_the_station]);
+    delete(stations_buttons_vector[number_of_the_route][stations_buttons_vector[number_of_the_route].size()-1]);
+
+    std::vector<std::string> route = core.getRoute(number_of_the_route+1);
+    QString name_of_station;
+    for(unsigned int j = 0; j < route.size(); j++)
+    {
+        name_of_station = (route[j]).c_str();
+        stations_buttons_vector[number_of_the_route][j]->setText(name_of_station);
+    }
 
     QString information_about_deleting = "Удалена станция:  ";
     information_about_deleting = information_about_deleting + old_name;
