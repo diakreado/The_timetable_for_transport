@@ -15,23 +15,20 @@ class DialogAboutAddingStationInRoute : public QDialog
 
     CoreOfInfoAboutMetro* core;
 
-    int *number_of_the_route;
-    int *number_of_the_station;
-    QString* new_name;
+    int* index_out_of;
+    QString* name_of_adding_station;
 
 public:
-    explicit DialogAboutAddingStationInRoute(CoreOfInfoAboutMetro* core, int *number_of_the_route,
-                                             int *number_of_the_station, QString *new_name, QMainWindow* m_window,
-                                             QWidget *parent = 0);
+    explicit DialogAboutAddingStationInRoute(CoreOfInfoAboutMetro* core,int* index_out_of,
+                                             QString* name_of_adding_station,QMainWindow* m_window, QWidget *parent = 0);
     ~DialogAboutAddingStationInRoute();
 
 signals:
-    void changeNameOfStation();
+    void addStationSignal();
 
 private slots:
-    void on_comboBox_activated(int index);
 
-    void on_comboBox_2_activated(int index);
+    void on_comboBox_activated(int index);
 
     void on_pushButton_clicked();
 

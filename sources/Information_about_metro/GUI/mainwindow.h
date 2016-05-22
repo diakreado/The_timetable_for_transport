@@ -9,8 +9,9 @@
 #include <QVBoxLayout>
 #include <QDialog>
 #include <core.h>
-#include "dialog.h"
 #include "dialogaboutaddingstationinroute.h"
+#include "dialogaboutdeletingroute.h"
+#include "dialogaboutchangingnameofthestations.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,6 +35,8 @@ class MainWindow : public QMainWindow
     int number_of_the_station_for_changes;
     QString new_name_for_changes;
 
+    QString name_of_adding_station;
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -47,6 +50,7 @@ private slots:
     void showInfoAboutStation();
     void deleteRouteSlot();
     void changeNameOfStation();
+    void addStation();
 
     void on_action_2_triggered();
     void on_action_4_triggered();

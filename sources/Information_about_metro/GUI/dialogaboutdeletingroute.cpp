@@ -1,11 +1,11 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "dialogaboutdeletingroute.h"
+#include "ui_dialogaboutdeletingroute.h"
 
-Dialog::Dialog(CoreOfInfoAboutMetro* core, int* index_out_of, QMainWindow* m_window, QWidget *parent) :
+DialogAboutDeletingRoute::DialogAboutDeletingRoute(CoreOfInfoAboutMetro *core, int *index_out_of, QMainWindow *m_window, QWidget *parent) :
     core(core),
     index_out_of(index_out_of),
     QDialog(parent),
-    ui(new Ui::Dialog)
+    ui(new Ui::DialogAboutDeletingRoute)
 {
     ui->setupUi(this);
 
@@ -22,20 +22,19 @@ Dialog::Dialog(CoreOfInfoAboutMetro* core, int* index_out_of, QMainWindow* m_win
     connect(this,SIGNAL(deleteRouteSignal()),m_window,SLOT(deleteRouteSlot()));
 }
 
-Dialog::~Dialog()
+DialogAboutDeletingRoute::~DialogAboutDeletingRoute()
 {
     delete ui;
 }
 
-void Dialog::on_comboBox_activated(int index)
+void DialogAboutDeletingRoute::on_comboBox_activated(int index)
 {
-    this->index = index;
+    *index_out_of = index;
     ui->pushButton->setEnabled(true);
 }
 
-void Dialog::on_pushButton_clicked()
+void DialogAboutDeletingRoute::on_pushButton_clicked()
 {
-    *index_out_of = index;
     emit deleteRouteSignal();
-    this->hide();
+    close();
 }

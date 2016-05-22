@@ -1,19 +1,17 @@
 #include "dialogaboutaddingstationinroute.h"
 #include "ui_dialogaboutaddingstationinroute.h"
 
-DialogAboutAddingStationInRoute::DialogAboutAddingStationInRoute(CoreOfInfoAboutMetro *core, int* number_of_the_route,
-                                                                 int* number_of_the_station, QString* new_name,
-                                                                 QMainWindow *m_window, QWidget *parent) :
+DialogAboutAddingStationInRoute::DialogAboutAddingStationInRoute(CoreOfInfoAboutMetro *core,int *index_out_of,QString* name_of_adding_station,QMainWindow *m_window, QWidget *parent) :
     core(core),
-    number_of_the_route(number_of_the_route),
-    number_of_the_station(number_of_the_station),
-    new_name(new_name),
+    index_out_of(index_out_of),
+    name_of_adding_station(name_of_adding_station),
     QDialog(parent),
     ui(new Ui::DialogAboutAddingStationInRoute)
 {
     ui->setupUi(this);
 
-    this->setWindowTitle("Изменение маршрута");
+    this->setFixedSize(300,200);
+    this->setWindowTitle("Удаление маршрута");
 
     for(int i = 0; i < core->howManyRoutes(); i++)
     {
@@ -22,7 +20,7 @@ DialogAboutAddingStationInRoute::DialogAboutAddingStationInRoute(CoreOfInfoAbout
         ui->comboBox->addItem((print_int.str()).c_str());
     }
 
-    connect(this,SIGNAL(changeNameOfStation()),m_window,SLOT(changeNameOfStation()));
+    connect(this,SIGNAL(addStationSignal()),m_window,SLOT(addStation()));
 }
 
 DialogAboutAddingStationInRoute::~DialogAboutAddingStationInRoute()
@@ -32,29 +30,15 @@ DialogAboutAddingStationInRoute::~DialogAboutAddingStationInRoute()
 
 void DialogAboutAddingStationInRoute::on_comboBox_activated(int index)
 {
-    *number_of_the_route = index;
-
-    ui->comboBox_2->clear();
-    ui->comboBox_2->setEnabled(true);
-    std::vector<std::string> route = core->getRoute(index + 1);
-    for(unsigned int i = 0; i < route.size(); i++)
-    {
-        ui->comboBox_2->addItem(route[i].c_str());
-    }
-}
-
-void DialogAboutAddingStationInRoute::on_comboBox_2_activated(int index)
-{
-    *number_of_the_station = index;
-
+    *index_out_of = index;
     ui->textEdit->setEnabled(true);
 }
 
 void DialogAboutAddingStationInRoute::on_pushButton_clicked()
 {
-    *new_name = ui->textEdit->toPlainText();
+    *name_of_adding_station = ui->textEdit->toPlainText();
 
-    emit changeNameOfStation();
+    emit addStationSignal();
     close();
 }
 

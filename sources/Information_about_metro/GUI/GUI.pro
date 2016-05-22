@@ -15,16 +15,19 @@ QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dialog.cpp \
-    dialogaboutaddingstationinroute.cpp
+    dialogaboutaddingstationinroute.cpp \
+    dialogaboutdeletingroute.cpp \
+    dialogaboutchangingnameofthestations.cpp
 
 HEADERS  += mainwindow.h \
-    dialog.h \
-    dialogaboutaddingstationinroute.h
+    dialogaboutaddingstationinroute.h \
+    dialogaboutdeletingroute.h \
+    dialogaboutchangingnameofthestations.h
 
 FORMS    += mainwindow.ui \
-    dialog.ui \
-    dialogaboutaddingstationinroute.ui
+    dialogaboutaddingstationinroute.ui \
+    dialogaboutdeletingroute.ui \
+    dialogaboutchangingnameofthestations.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Core/release/ -lCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Core/debug/ -lCore

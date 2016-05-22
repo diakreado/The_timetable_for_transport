@@ -81,16 +81,12 @@ MainWindow::MainWindow(QWidget *parent) :
             {
                 QPushButton* station_button = new QPushButton((route[j]).c_str(), this);
 
-
                 stations_buttons.push_back(station_button);
-
                 stations_buttons[j]->hide();
+                stations_buttons[j]->setFixedSize(175,25);
+                stations_buttons[j]->setProperty("name",(route[j]).c_str());
 
                 stations_layout->addWidget(stations_buttons[j]);
-
-                stations_buttons[j]->setFixedSize(175,25);
-
-                stations_buttons[j]->setProperty("name",(route[j]).c_str());
 
                 connect(stations_buttons[j], SIGNAL(clicked()), this, SLOT(showInfoAboutStation()));
             }
@@ -117,6 +113,7 @@ void MainWindow::showStations()
             (stations_buttons_vector[i][j])->hide();
         }
     }
+
 
     QPushButton *button = qobject_cast<QPushButton*>(sender());
     QVariant index = button->property("index");
@@ -187,6 +184,9 @@ void MainWindow::on_action_2_triggered()
     route_button->setProperty("index", i);
     connect(route_button, SIGNAL(clicked()), this, SLOT(showStations()));
 
+    QVector<QPushButton*> stations_buttons;
+    stations_buttons_vector.push_back(stations_buttons);
+
     std::string new_name = "Добавлен:   ";
     new_name += name_of_the_route;
     statusBar()->showMessage(new_name.c_str());
@@ -194,7 +194,7 @@ void MainWindow::on_action_2_triggered()
 
 void MainWindow::on_action_4_triggered()
 {
-    Dialog* diallog_about_delete_route = new Dialog(&core,&index,this);
+    DialogAboutDeletingRoute* diallog_about_delete_route = new DialogAboutDeletingRoute(&core,&index,this);
     diallog_about_delete_route->show();
 }
 
@@ -227,12 +227,10 @@ void MainWindow::deleteRouteSlot()
 
 void MainWindow::on_action_6_triggered()
 {
-    DialogAboutAddingStationInRoute* dialog_about_adding_station_in_route =
-            new DialogAboutAddingStationInRoute(&core,&number_of_the_route_for_changes,
+    DialogAboutChangingNameOfTheStations* dialog_about_changing_name_of_stations =
+            new DialogAboutChangingNameOfTheStations(&core,&number_of_the_route_for_changes,
                                                 &number_of_the_station_for_changes,&new_name_for_changes,this);
-    dialog_about_adding_station_in_route->show();
-
-
+    dialog_about_changing_name_of_stations->show();
 }
 
 void MainWindow::changeNameOfStation()
@@ -249,15 +247,41 @@ void MainWindow::changeNameOfStation()
     statusBar()->showMessage(new_name);
 }
 
+void MainWindow::on_action_5_triggered()
+{
+     DialogAboutAddingStationInRoute* dialog_about_adding_station_in_route = new
+             DialogAboutAddingStationInRoute(&core,&index,&name_of_adding_station,this);
+     dialog_about_adding_station_in_route->show();
+}
+
+void MainWindow::addStation()
+{
+    core.addStationInRoute(index+1,name_of_adding_station.toStdString());
+
+    QPushButton* station_button = new QPushButton(name_of_adding_station, this);
+
+    stations_buttons_vector[index].push_back(station_button);
+    station_button->hide();
+    station_button->setFixedSize(175,25);
+    station_button->setProperty("name",(name_of_adding_station));
+    stations_layout->addWidget(station_button);
+
+    connect(station_button, SIGNAL(clicked()), this, SLOT(showInfoAboutStation()));
+
+
+    QString new_name = "Добавлена станция:   ";
+    new_name = new_name + name_of_adding_station;
+    statusBar()->showMessage(new_name);
+}
+
 void MainWindow::on_action_9_triggered()
 {
 
 }
 
 
-void MainWindow::on_action_5_triggered()
-{
 
-}
+
+
 
 
