@@ -79,9 +79,8 @@ std::string CoreOfInfoAboutMetro::getInfoAboutStation(const int number_of_the_ro
 
 
     std::string info_about_station =  stationInfo.getInfoAboutStation(route[number_of_the_station_in_the_vector]);
-    std::string void_string;
 
-    if(info_about_station == void_string)
+    if(info_about_station.empty())
     {
         throw StationDoesNotExist(route[number_of_the_station_in_the_vector]);
     }

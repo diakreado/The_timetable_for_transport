@@ -49,6 +49,20 @@ public:
      */
     void saveChanges(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station, RoutesInfo &routeInfo, StationsInfo &stationInfo);
 
+    /**
+     * @brief Сохраняет изменения проведённые со станциями
+     * @param name_of_the_file_with_route - название файла, содержащего информацию о станциях
+     * @param routeInfo - то, с чем работают заполнители
+     */
+    void saveChangesForRoute(const std::string &name_of_the_file_with_route,RoutesInfo &routeInfo);
+
+    /**
+     * @brief Сохраняет изменения проведённые с маршрутами
+     * @param name_of_the_file_with_station - название файла, содержащего информацию о маршрутах
+     * @param stationInfo - то, с чем работают заполнители
+     */
+    void saveChangesForStation(const std::string &name_of_the_file_with_station,StationsInfo &stationInfo);
+
 private:
 
     /**

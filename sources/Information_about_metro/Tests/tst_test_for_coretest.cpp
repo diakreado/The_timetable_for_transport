@@ -191,6 +191,7 @@ void Test_for_coreTest::testingException()
     QVERIFY_EXCEPTION_THROWN(startTest.getRoute(0), RouteDoesNotExist);
 
     QVERIFY_EXCEPTION_THROWN(startTest.getInfoAboutStation("Pargolovo"), StationDoesNotExist);
+    QVERIFY_EXCEPTION_THROWN(startTest.getInfoAboutStation(""), StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(startTest.getInfoAboutStation(1, 124), StationDoesNotExist);
     QVERIFY_EXCEPTION_THROWN(startTest.getInfoAboutStation(3564, 124), RouteDoesNotExist);
 

@@ -130,6 +130,13 @@ void ParsingInfo::loadFromFile(const std::string &name_of_the_file_with_route, c
 
 void ParsingInfo::saveChanges(const std::string &name_of_the_file_with_route, const std::string &name_of_the_file_with_station, RoutesInfo &routeInfo, StationsInfo &stationInfo)
 {
+    saveChangesForRoute(name_of_the_file_with_route,routeInfo);
+
+    saveChangesForStation(name_of_the_file_with_station,stationInfo);
+}
+
+void ParsingInfo::saveChangesForRoute(const std::string &name_of_the_file_with_route,RoutesInfo &routeInfo)
+{
     std::ofstream rewriting_file_with_routes(name_of_the_file_with_route);
 
     std::vector<std::string> route;
@@ -162,10 +169,10 @@ void ParsingInfo::saveChanges(const std::string &name_of_the_file_with_route, co
     }
 
     rewriting_file_with_routes.close();
+}
 
-
-
-
+void ParsingInfo::saveChangesForStation(const std::string &name_of_the_file_with_station,StationsInfo &stationInfo)
+{
     std::ofstream rewriting_file_with_stations(name_of_the_file_with_station);
 
     auto all_station = stationInfo.getAllStations();
@@ -182,8 +189,12 @@ void ParsingInfo::saveChanges(const std::string &name_of_the_file_with_route, co
     }
 
     rewriting_file_with_stations.close();
-
 }
+
+
+
+
+
 
 
 
