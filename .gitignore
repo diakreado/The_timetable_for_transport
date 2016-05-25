@@ -13,6 +13,8 @@ class_*
 *.idx
 *.out
 *.autosave
+*_o.c
+*.db
 latex
 html
 Makefile
