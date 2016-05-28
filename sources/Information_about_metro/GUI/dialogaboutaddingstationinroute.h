@@ -2,6 +2,7 @@
 #define DIALOGABOUTADDINGSTATIONINROUTE_H
 
 #include <QDialog>
+#include <QString>
 #include <core.h>
 #include "mainwindow.h"
 

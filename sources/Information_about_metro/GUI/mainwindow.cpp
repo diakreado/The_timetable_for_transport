@@ -11,9 +11,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->textBrowser->setStyleSheet("font-size: 16px;");
     this->setMinimumSize(800,400);
 
+    QPalette pal_for_main_window;
+    pal_for_main_window.setBrush(this->backgroundRole(), Qt::white);
+    this->setPalette(pal_for_main_window);
+
+    ui->statusBar->setStyleSheet("background: #f2d525; ");
+    ui->menu->setStyleSheet("background: #f2d525; ");
+    ui->menuBar->setStyleSheet("QMenuBar {"
+                               "background: #f2d525; "
+                               "font-size: 14px;"
+                               "}"
+                               "QMenuBar::item {"
+                               "background: transparent;"
+                               "}"
+                               "QMenuBar::item:selected {"
+                               "color: #ffffff"
+                               "}"
+                               "QMenuBar::item:pressed {"
+                               "color: #ffffff"
+                               "}");
+
     ui->scrollAreaForStations->setFixedWidth(250);
     ui->scrollAreaForRoutes->setFixedWidth(200);
-
 
     try
     {
@@ -22,10 +41,11 @@ MainWindow::MainWindow(QWidget *parent) :
     catch(MissingFile&)
     {
         QMessageBox* file_does_not_exist = new QMessageBox;
+
         file_does_not_exist->setWindowTitle("Отсутствуют Файлы");
         file_does_not_exist->setText("Не обнаруженны файлы с информацией, ожидались\n"
                                      "metro_Saint-Petersburg_route_info.txt и metro_Saint-Petersburg_station_info.txt");
-        file_does_not_exist->show();
+        QTimer::singleShot(2000,file_does_not_exist,SLOT(show()));
 
         core.addRoute();
         core.addStationInRoute(1,"Парнас");
@@ -41,7 +61,6 @@ MainWindow::MainWindow(QWidget *parent) :
         core.addInfoAboutStation("Дыбенко","Дыбена - это самый благоустроенный район города Санкт-Петербугр,"
                                            " в котором живёт элита общества");
 
-
         statusBar()->showMessage("Файлы не найдены");
     }
 
@@ -51,25 +70,33 @@ MainWindow::MainWindow(QWidget *parent) :
     routes_layout = new QVBoxLayout;
     QWidget* routes = new QWidget;
 
+
         for(int i = 0; i < core.howManyRoutes(); i++)
         {
-            std::stringstream print_int;
-            print_int << i + 1;
+            std::stringstream print_int_for_number_of_the_route;
+            print_int_for_number_of_the_route << i + 1;
 
-            std::string name_of_the_route = "Маршрут №" + print_int.str();
+            std::string name_of_the_route = "Маршрут №" + print_int_for_number_of_the_route.str();
 
-            QPushButton* route_button = new QPushButton(name_of_the_route.c_str(), this);
+            QPushButton* route_button = new QPushButton(name_of_the_route.c_str());
+
+
+            QString name_of_file = ":/img/img/button_for_routes";
+            std::stringstream print_int_for_number_of_the_img;
+            print_int_for_number_of_the_img << (i % 9) + 1;
+            name_of_file = name_of_file + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
+
+            QPixmap* pix = new QPixmap(name_of_file);
+
+            route_button->setIcon(*pix);
+            route_button->setIconSize(pix->size());
+            route_button->setStyleSheet(button_style);
 
             routes_buttons.push_back(route_button);
-
             routes_buttons[i]->setFixedSize(150,30);
-
             routes_layout->addWidget(routes_buttons[i]);
-
             routes_buttons[i]->show();
-
             routes_buttons[i]->setProperty("index", i);
-
             connect(routes_buttons[i], SIGNAL(clicked()), this, SLOT(showStations()));
 
 
@@ -81,9 +108,11 @@ MainWindow::MainWindow(QWidget *parent) :
             {
                 QPushButton* station_button = new QPushButton((route[j]).c_str(), this);
 
+                station_button->setStyleSheet(button_style);
+
                 stations_buttons.push_back(station_button);
                 stations_buttons[j]->hide();
-                stations_buttons[j]->setFixedSize(175,25);
+                stations_buttons[j]->setFixedHeight(25);
                 stations_buttons[j]->setProperty("name",(route[j]).c_str());
 
                 stations_layout->addWidget(stations_buttons[j]);
@@ -99,6 +128,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         routes->setLayout(routes_layout);
         ui->scrollAreaForRoutes->setWidget(routes);
+
+        QPainter *p = new QPainter(this);
+        p->drawLine(1,1,100,100);
 
 }
 
@@ -182,6 +214,18 @@ void MainWindow::on_action_2_triggered()
     routes_layout->addWidget(route_button);
     route_button->show();
     route_button->setProperty("index", i);
+
+    QString name_of_file = ":/img/img/button_for_routes";
+    std::stringstream print_int_for_number_of_the_img;
+    print_int_for_number_of_the_img << (i % 9) + 1;
+    name_of_file = name_of_file + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
+
+    QPixmap* pix = new QPixmap(name_of_file);
+
+    route_button->setIcon(*pix);
+    route_button->setIconSize(pix->size());
+    route_button->setStyleSheet(button_style);
+
     connect(route_button, SIGNAL(clicked()), this, SLOT(showStations()));
 
     QVector<QPushButton*> stations_buttons;
@@ -264,6 +308,7 @@ void MainWindow::addStation()
     core.addStationInRoute(index+1,string_with_info.toStdString());
 
     QPushButton* station_button = new QPushButton(string_with_info, this);
+    station_button->setStyleSheet(button_style);
 
     stations_buttons_vector[index].push_back(station_button);
     station_button->hide();

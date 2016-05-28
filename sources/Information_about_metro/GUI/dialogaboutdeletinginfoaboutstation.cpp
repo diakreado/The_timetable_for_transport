@@ -10,7 +10,39 @@ DialogAboutDeletingInfoAboutStation::DialogAboutDeletingInfoAboutStation(CoreOfI
 {
     ui->setupUi(this);
 
+    ui->pushButton->setStyleSheet("QPushButton "
+                                  "{"
+                                  "background: #fde910;"
+                                  "border: 1px solid 000000;"
+                                  "border-radius: 9px;"
+                                  "}"
+                                  "QPushButton:hover "
+                                  "{"
+                                  "background: #ffd919;"
+                                  "}"
+                                  "QPushButton:pressed "
+                                  "{"
+                                  "background: #e6bf00;"
+                                  "}");
+    ui->comboBox_2->setStyleSheet("QComboBox "
+                                "{"
+                                "background: #fced3f;"
+                                "border-radius: 1px;"
+                                "}"
+                                "QComboBox:editable"
+                                "{"
+                                "background: white;"
+                                "}"
+                                "QComboBox QAbstractItemView {"
+                                "background: #fcf172;"
+                                "selection-color: black;"
+                                "selection-background-color: #fced3f;"
+                                "}");
+
     this->setWindowTitle("Удаление информации о станции");
+    QPalette pal;
+    pal.setBrush(this->backgroundRole(), Qt::white);
+    this->setPalette(pal);
 
     QString name_of_station;
     std::vector<std::pair<std::string,std::string>> AllStaions = core->getAllStationsWhichHaveDescription();
@@ -20,6 +52,8 @@ DialogAboutDeletingInfoAboutStation::DialogAboutDeletingInfoAboutStation(CoreOfI
         name_of_station = ((AllStaions[i]).first).c_str();
         ui->comboBox_2->addItem(name_of_station);
     }
+
+    ui->textBrowser->setStyleSheet("font-size: 16px;");
 
     connect(this,SIGNAL(deleteInfoAboutStation()),m_window,SLOT(deleteInfoAboutStation()));
 }

@@ -11,7 +11,53 @@ DialogAboutAddingInfoAboutStation::DialogAboutAddingInfoAboutStation(CoreOfInfoA
 {
     ui->setupUi(this);
 
+    ui->pushButton->setStyleSheet("QPushButton "
+                                  "{"
+                                  "background: #fde910;"
+                                  "border: 1px solid 000000;"
+                                  "border-radius: 9px;"
+                                  "}"
+                                  "QPushButton:hover "
+                                  "{"
+                                  "background: #ffd919;"
+                                  "}"
+                                  "QPushButton:pressed "
+                                  "{"
+                                  "background: #e6bf00;"
+                                  "}");
+    ui->comboBox->setStyleSheet("QComboBox "
+                                "{"
+                                "background: #fced3f;"
+                                "border-radius: 1px;"
+                                "}"
+                                "QComboBox:editable"
+                                "{"
+                                "background: white;"
+                                "}"
+                                "QComboBox QAbstractItemView {"
+                                "background: #fcf172;"
+                                "selection-color: black;"
+                                "selection-background-color: #fced3f;"
+                                "}");
+    ui->comboBox_2->setStyleSheet("QComboBox "
+                                  "{"
+                                  "background: #fced3f;"
+                                  "border-radius: 1px;"
+                                  "}"
+                                  "QComboBox:editable"
+                                  "{"
+                                  "background: white;"
+                                  "}"
+                                  "QComboBox QAbstractItemView {"
+                                  "background: #fcf172;"
+                                  "selection-color: black;"
+                                  "selection-background-color: #fced3f;"
+                                  "}");
+
     this->setWindowTitle("Добавление информации о станции");
+    QPalette pal;
+    pal.setBrush(this->backgroundRole(), Qt::white);
+    this->setPalette(pal);
 
     for(int i = 0; i < core->howManyRoutes(); i++)
     {
