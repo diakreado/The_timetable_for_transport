@@ -81,16 +81,16 @@ MainWindow::MainWindow(QWidget *parent) :
             QPushButton* route_button = new QPushButton(name_of_the_route.c_str());
 
 
-            QString name_of_file = ":/img/img/button_for_routes";
+            QString name_of_file_for_route = ":/img/img/button_for_routes";
             std::stringstream print_int_for_number_of_the_img;
             print_int_for_number_of_the_img << (i % 9) + 1;
-            name_of_file = name_of_file + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
+            name_of_file_for_route = name_of_file_for_route + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
 
-            QPixmap* pix = new QPixmap(name_of_file);
+            QPixmap* pix_for_route = new QPixmap(name_of_file_for_route);
+            route_button->setIcon(*pix_for_route);
+            route_button->setIconSize(pix_for_route->size());
 
-            route_button->setIcon(*pix);
-            route_button->setIconSize(pix->size());
-            route_button->setStyleSheet(button_style);
+            route_button->setStyleSheet(button_style_for_route);
 
             routes_buttons.push_back(route_button);
             routes_buttons[i]->setFixedSize(150,30);
@@ -108,7 +108,13 @@ MainWindow::MainWindow(QWidget *parent) :
             {
                 QPushButton* station_button = new QPushButton((route[j]).c_str(), this);
 
-                station_button->setStyleSheet(button_style);
+                QString name_of_file_for_station = ":/img/img/button_for_stations";
+                name_of_file_for_station = name_of_file_for_station + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
+                QPixmap* pix_for_stations = new QPixmap(name_of_file_for_station);
+                station_button->setIcon(*pix_for_stations);
+                station_button->setIconSize(pix_for_stations->size());
+                station_button->setStyleSheet(button_style_for_station);
+
 
                 stations_buttons.push_back(station_button);
                 stations_buttons[j]->hide();
@@ -224,7 +230,7 @@ void MainWindow::on_action_2_triggered()
 
     route_button->setIcon(*pix);
     route_button->setIconSize(pix->size());
-    route_button->setStyleSheet(button_style);
+    route_button->setStyleSheet(button_style_for_route);
 
     connect(route_button, SIGNAL(clicked()), this, SLOT(showStations()));
 
@@ -308,13 +314,24 @@ void MainWindow::addStation()
     core.addStationInRoute(index+1,string_with_info.toStdString());
 
     QPushButton* station_button = new QPushButton(string_with_info, this);
-    station_button->setStyleSheet(button_style);
+
+
 
     stations_buttons_vector[index].push_back(station_button);
     station_button->hide();
-    station_button->setFixedSize(175,25);
+    station_button->setFixedHeight(25);
     station_button->setProperty("name",(string_with_info));
     stations_layout->addWidget(station_button);
+
+    QString name_of_file_for_station = ":/img/img/button_for_stations";
+    std::stringstream print_int_for_number_of_the_img;
+    print_int_for_number_of_the_img << (index % 9) + 1;
+    name_of_file_for_station = name_of_file_for_station + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
+    QPixmap* pix_for_stations = new QPixmap(name_of_file_for_station);
+    station_button->setIcon(*pix_for_stations);
+    station_button->setIconSize(pix_for_stations->size());
+    station_button->setStyleSheet(button_style_for_station);
+
 
     connect(station_button, SIGNAL(clicked()), this, SLOT(showInfoAboutStation()));
 

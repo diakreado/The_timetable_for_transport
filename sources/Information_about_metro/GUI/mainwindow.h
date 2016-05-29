@@ -15,6 +15,7 @@
 #include <QRect>
 #include <QTimer>
 #include <QPainter>
+#include <QRect>
 #include <QPointF>
 #include <QRadialGradient>
 #include <QPen>
@@ -49,20 +50,37 @@ class MainWindow : public QMainWindow
     int number_of_the_station;
     QString string_with_info;
 
-    QString button_style = "QPushButton "
-                           "{"
-                           "border: 0px ;"
-                           "border-radius: 9px;"
-                           "background: #FFFFFF; "
-                           "}"
-                           "QPushButton:hover "
-                           "{"
-                               "border: 1px solid #bbbbbb;"
-                           "}"
-                           "QPushButton:pressed "
-                           "{"
-                               "border: 2px solid #4d4d4d;"
-                           "}";
+    QString button_style_for_route = "QPushButton "
+                                     "{"
+                                     "border: 0px ;"
+                                     "border-radius: 9px;"
+                                     "background: #FFFFFF; "
+                                     "}"
+                                     "QPushButton:hover "
+                                     "{"
+                                     "border: 1px solid #bbbbbb;"
+                                     "}"
+                                     "QPushButton:pressed "
+                                     "{"
+                                     "border: 2px solid #4d4d4d;"
+                                     "}";
+
+    QString button_style_for_station = "QPushButton "
+                                       "{"
+                                       "padding: 6px;"
+                                       "text-align: left;"
+                                       "border: 0px ;"
+                                       "border-radius: 9px;"
+                                       "background: #FFFFFF; "
+                                       "}"
+                                       "QPushButton:hover "
+                                       "{"
+                                       "border: 1px solid #bbbbbb;"
+                                       "}"
+                                       "QPushButton:pressed "
+                                       "{"
+                                       "border: 2px solid #4d4d4d;"
+                                       "}";
 
 public:
     explicit MainWindow(QWidget *parent = 0);
