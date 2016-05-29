@@ -83,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
             QString name_of_file_for_route = ":/img/img/button_for_routes";
             std::stringstream print_int_for_number_of_the_img;
-            print_int_for_number_of_the_img << (i % 9) + 1;
+            print_int_for_number_of_the_img << (i % 14) + 1;
             name_of_file_for_route = name_of_file_for_route + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
 
             QPixmap* pix_for_route = new QPixmap(name_of_file_for_route);
@@ -223,7 +223,7 @@ void MainWindow::on_action_2_triggered()
 
     QString name_of_file = ":/img/img/button_for_routes";
     std::stringstream print_int_for_number_of_the_img;
-    print_int_for_number_of_the_img << (i % 9) + 1;
+    print_int_for_number_of_the_img << (i % 14) + 1;
     name_of_file = name_of_file + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
 
     QPixmap* pix = new QPixmap(name_of_file);
@@ -325,7 +325,7 @@ void MainWindow::addStation()
 
     QString name_of_file_for_station = ":/img/img/button_for_stations";
     std::stringstream print_int_for_number_of_the_img;
-    print_int_for_number_of_the_img << (index % 9) + 1;
+    print_int_for_number_of_the_img << (index % 14) + 1;
     name_of_file_for_station = name_of_file_for_station + (print_int_for_number_of_the_img.str()).c_str() + ".jpg";
     QPixmap* pix_for_stations = new QPixmap(name_of_file_for_station);
     station_button->setIcon(*pix_for_stations);
